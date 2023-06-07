@@ -9,3 +9,5 @@ Tested on:
 size: 300x58
 
 Preview:
+
+https://github.com/cyperdark/osu-counters/.github/video/basic-unstable-rate.mp4
