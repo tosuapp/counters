@@ -28,13 +28,6 @@ Then you need a little bit knowledge about css, html, javascript (or you can jus
 # How to submit pp counter
 
 1. [Fork](https://github.com/cyperdark/osu-counters/fork) repository
-<!-- 2. Switch to pre-release branch
-
-    1. In console
-        ```js
-        git checkout pre-release
-        ```
-    2. in VS Code: [link](https://www.youtube.com/watch?v=H5BLEPhqxe8) -->
 2. Add your counter folder to `counters` folder
     1. Your counter name should be: {author}-{name of the counter}
 3. Push to your forked repository
