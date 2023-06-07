@@ -2,15 +2,15 @@
 
 # How to create pp counter
 
-To start creating pp counters you need to download `VS Code` (or other IDE), [tosu](KotRikD/tosu/releases) or [gosu](l3lackShark/gosumemory/releases) and `quickstart example`.
+To start creating pp counters you need to download `VS Code` (or other IDE), [tosu](https://github.com/KotRikD/tosu/releases) or [gosu](https://github.com/l3lackShark/gosumemory/releases) and `quickstart example`.
 
 Then you need a little bit knowledge about css, html, javascript (or you can just google or ChatGPT most of stuff).
 
 1. Download required tools:
     1. Download [VS Code](https://code.visualstudio.com/download) or any other `IDE`
         1. [How to install VS Code](https://www.youtube.com/watch?v=JPZsB_6yHVo)
-    2. Download latest [quickstart example](/releases)
-    3. Download [tosu](KotRikD/tosu/releases) or [gosu](l3lackShark/gosumemory/releases)
+    2. Download latest [quickstart example](https://github.com/cyperdark/osu-counters/releases)
+    3. Download [tosu](https://github.com/KotRikD/tosu/releases) or [gosu](https://github.com/l3lackShark/gosumemory/releases)
 2. Create `new folder` anywhere
     1. Create `counter` folder in `new folder`
     2. Unzip `quickstart example` to `counter` folder
@@ -27,7 +27,7 @@ Then you need a little bit knowledge about css, html, javascript (or you can jus
 
 # How to submit pp counter
 
-1. [Fork](/fork) repository
+1. [Fork](https://github.com/cyperdark/osu-counters/fork) repository
 <!-- 2. Switch to pre-release branch
 
     1. In console
@@ -37,7 +37,8 @@ Then you need a little bit knowledge about css, html, javascript (or you can jus
     2. in VS Code: [link](https://www.youtube.com/watch?v=H5BLEPhqxe8) -->
 2. Add your counter folder to `counters` folder
     1. Your counter name should be: {author}-{name of the counter}
-3. Open new pull request: [link](/pulls)
+3. Push to your forked repository
+3. Open new pull request: [link](https://github.com/cyperdark/osu-counters/pulls)
     1. Title: new: {ppCounterName}
     2. Attach screenshots or video of pp counter
     3. in addition you can specify with which tool (gosu, tosu, streamcompanion) your counter compatible
