@@ -6,13 +6,6 @@ Tested on:
 
 ## basic-unstable-rate
 
-size: 300x58
-
-Preview:
-
-<video>
- <source src=".github/video/basic-unstable-rate.mp4">
-</video>
-
+size: 300x58 &nbsp;&nbsp; | &nbsp;&nbsp; Preview:
 
 https://github.com/cyperdark/osu-counters/assets/21735205/97d91c29-7e56-418a-8367-6adddb0b6811
