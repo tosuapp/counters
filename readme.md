@@ -9,11 +9,11 @@ Then you need a little bit knowledge about css, html, javascript (or you can jus
 1. Download required tools:
     1. Download [VS Code](https://code.visualstudio.com/download) or any other `IDE`
         1. [How to install VS Code](https://www.youtube.com/watch?v=JPZsB_6yHVo)
-    2. Download latest [quickstart example](https://github.com/cyperdark/osu-counters/releases)
+    2. Download latest [quickstart example](https://github.com/cyperdark/osu-counters/releases/tag/1.0.0)
     3. Download [tosu](https://github.com/KotRikD/tosu/releases) or [gosu](https://github.com/l3lackShark/gosumemory/releases)
 2. Create `new folder` anywhere
     1. Create `counter` folder in `new folder`
-    2. Unzip `quickstart example` to `counter` folder
+    2. Unzip quickstart.zip files to `counter` folder
     2. Unzip `tosu` to `new folder`
 3. Run `tosu.exe`
 4. Run osu! (not lazer)
