@@ -1,4 +1,6 @@
-<h1 style="text-align: center;">Welcome 👋</h1>
+<p align="center">
+    <h1>Welcome 👋</h1>
+</p>
 
 # How to create pp counter
 
