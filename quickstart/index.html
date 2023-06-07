@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>pp counter name</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--        YOUR STYLES HERE        -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/odometr.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="test-style">
+        <span id="h100"></span>
+        <span>x100</span>
+      </div>
+      <div class="test-style">
+        <span id="h50"></span>
+        <span>x50</span>
+      </div>
+      <div class="test-style">
+        <span id="h0"></span>
+        <span>xMiss</span>
+      </div>
+      <div class="test-style">
+        <span id="pp" class="odometer"></span>
+        <span>pp</span>
+      </div>
+      <div class="test-style">
+        <span id="accuracy"></span>
+        <span>%</span>
+      </div>
+    </div>
+
+
+    <!--        DO NOT REMOVE THOSE        -->
+    <script src="js/reconnecting-websocket.min.js"></script>
+    <script type="module" src="types.js"></script>
+
+
+    <!--        OTHER SCRIPTS        -->
+    <script src="js/countUp.js"></script>
+    <script src="js/odometr.js"></script>
+
+
+
+    <!--        YOUR COUNTER LOGIC FILES        -->
+    <script src="index.js"></script>
+  </body>
+</html>
