@@ -1,232 +1,242 @@
 /**
+ * @typedef {Object} Folders
+ * @property {string} game - path to game folder
+ * @property {string} skin - skin folder name
+ * @property {string} songs - path to songs folder
+ */
+
+/**
  * @typedef {Object} Settings
- * @property {boolean} showInterface - Indicates whether to show the interface.
- * @property {Object.<string, string>} folders - The folders configuration.
+ * @property {boolean} showInterface - Indicates if interface is shown
+ * @property {Folders} folders - folders configuration
  */
 
 /**
  * @typedef {Object} MainMenu
- * @property {number} bassDensity - The bass density.
+ * @property {number} bassDensity - bass density
  */
 
 /**
  * @typedef {Object} Time
- * @property {number} firstObj - The first object time.
- * @property {number} current - The current time.
- * @property {number} full - The full time.
- * @property {number} mp3 - The mp3 time.
+ * @property {number} firstObj - first object time
+ * @property {number} current - current time
+ * @property {number} full - full time
+ * @property {number} mp3 - mp3 time
  */
 
 /**
  * @typedef {Object} Metadata
- * @property {string} artist - The artist name.
- * @property {string} artistOriginal - The original artist name.
- * @property {string} title - The song title.
- * @property {string} titleOriginal - The original song title.
- * @property {string} mapper - The mapper name.
- * @property {string} difficulty - The difficulty level.
+ * @property {string} artist - artist name
+ * @property {string} artistOriginal - original artist name
+ * @property {string} title - song title
+ * @property {string} titleOriginal - original song title
+ * @property {string} mapper - mapper name
+ * @property {string} difficulty - difficulty level
  */
 
 /**
  * @typedef {Object} BPM
- * @property {number} min - The minimum BPM.
- * @property {number} max - The maximum BPM.
+ * @property {number} min - minimum BPM
+ * @property {number} max - maximum BPM
  */
 
 /**
  * @typedef {Object} Stats
- * @property {number} AR - The approach rate.
- * @property {number} CS - The circle size.
- * @property {number} OD - The overall difficulty.
- * @property {number} HP - The health points.
- * @property {number} SR - The star rating.
- * @property {BPM} BPM - The BPM information.
- * @property {number} maxCombo - The maximum combo.
- * @property {number} fullSR - The full star rating.
- * @property {number} memoryAR - The memory AR.
- * @property {number} memoryCS - The memory CS.
- * @property {number} memoryOD - The memory OD.
- * @property {number} memoryHP - The memory HP.
+ * @property {number} AR - approach rate
+ * @property {number} CS - circle size
+ * @property {number} OD - overall difficulty
+ * @property {number} HP - health points
+ * @property {number} SR - star rating
+ * @property {BPM} BPM - BPM information
+ * @property {number} maxCombo - maximum combo
+ * @property {number} fullSR - full star rating
+ * @property {number} memoryAR - memory AR
+ * @property {number} memoryCS - memory CS
+ * @property {number} memoryOD - memory OD
+ * @property {number} memoryHP - memory HP
  */
 
 /**
  * @typedef {Object} Path
- * @property {string} full - The full path.
- * @property {string} folder - The folder path.
- * @property {string} file - The file path.
- * @property {string} bg - The background path.
- * @property {string} audio - The audio path.
+ * @property {string} full - full path
+ * @property {string} folder - folder path
+ * @property {string} file - file path
+ * @property {string} bg - background path
+ * @property {string} audio - audio path
  */
 
 /**
  * @typedef {Object} BM
- * @property {Time} time - The time information.
- * @property {number} id - The BM ID.
- * @property {number} set - The set number.
- * @property {string} md5 - The MD5 hash.
- * @property {number} rankedStatus - The ranked status.
- * @property {Metadata} metadata - The metadata.
- * @property {Stats} stats - The stats.
- * @property {Path} path - The file paths.
+ * @property {Time} time - time information
+ * @property {number} id - beatmap id
+ * @property {number} set - set number
+ * @property {string} md5 - MD5 hash
+ * @property {number} rankedStatus - ranked status
+ * @property {Metadata} metadata - metadata
+ * @property {Stats} stats - stats
+ * @property {Path} path - file paths
  */
 
 /**
  * @typedef {Object} Mods
- * @property {number} num - The number of mods.
- * @property {string} str - The mods string.
+ * @property {number} num - mods id
+ * @property {string} str - mods string
  */
 
 /**
  * @typedef {Object} Strains
- * @property {string} name - The strain name.
- * @property {number[]} data - The strain data.
+ * @property {string} name - strain name
+ * @property {number[]} data - strain data
  */
 
 /**
  * @typedef {Object} StrainsAll
- * @property {Strains[]} series - The strain series.
- * @property {number[]} xaxis - The x-axis data.
+ * @property {Strains[]} series - strain series
+ * @property {number[]} xaxis - x-axis data
  */
 
 /**
  * @typedef {Object} PP
- * @property {number} 95 - The 95% PP.
- * @property {number} 96 - The 96% PP.
- * @property {number} 97 - The 97% PP.
- * @property {number} 98 - The 98% PP.
- * @property {number} 99 - The 99% PP.
- * @property {number} 100 - The 100% PP.
- * @property {number[]} strains - The strains.
- * @property {StrainsAll} strainsAll - The strains all.
+ * @property {number} 95 - 95% PP
+ * @property {number} 96 - 96% PP
+ * @property {number} 97 - 97% PP
+ * @property {number} 98 - 98% PP
+ * @property {number} 99 - 99% PP
+ * @property {number} 100 - 100% PP
+ * @property {number[]} strains - strains
+ * @property {StrainsAll} strainsAll - strains all
  */
 
 /**
  * @typedef {Object} Menu
- * @property {MainMenu} mainMenu - The main menu configuration.
- * @property {number} state - The state.
- * @property {number} gameMode - The game mode.
- * @property {number} isChatEnabled - Indicates whether chat is enabled.
- * @property {BM} bm - The BM configuration.
- * @property {Mods} mods - The mods configuration.
- * @property {PP} pp - The PP configuration.
+ * @property {MainMenu} mainMenu - main menu configuration
+ * @property {number} state - osu state
+ * @property {number} gameMode - selected game mode
+ * @property {number} isChatEnabled - Indicates whether chat is shown
+ * @property {BM} bm - beatmap metadata
+ * @property {Mods} mods - mods information
+ * @property {PP} pp - performance points data
  */
 
 /**
  * @typedef {Object} Combo
- * @property {number} current - The current combo.
- * @property {number} max - The maximum combo.
+ * @property {number} current - current combo
+ * @property {number} max - maximum combo
  */
 
 /**
  * @typedef {Object} HP
- * @property {number} normal - The normal HP.
- * @property {number} smooth - The smooth HP.
+ * @property {number} normal - normal HP
+ * @property {number} smooth - smooth HP
  */
 
 /**
  * @typedef {Object} Grade
- * @property {string} current - The current grade.
- * @property {string} maxThisPlay - The maximum grade achieved in the current play.
+ * @property {string} current - current grade
+ * @property {string} maxThisPlay - maximum grade achieved in the current play
  */
 
 /**
  * @typedef {Object} HitError
- * @property {number} 0 - The 0 hit error.
- * @property {number} 50 - The 50 hit error.
- * @property {number} 100 - The 100 hit error.
- * @property {number} 300 - The 300 hit error.
- * @property {number} geki - The geki hit error.
- * @property {number} katu - The katu hit error.
- * @property {number} sliderBreaks - The slider breaks.
- * @property {Grade} grade - The grade information.
- * @property {number} unstableRate - The unstable rate.
- * @property {number[]} hitErrorArray - The hit error array.
+ * @property {number} 0 - amount of misses
+ * @property {number} 50 - amount of 50's
+ * @property {number} 100 - amount of 100's
+ * @property {number} 300 - amount of 300's
+ * @property {number} geki - amount of geki's
+ * @property {number} katu - amount of katu's
+ * @property {number} sliderBreaks - amount of slider breaks
+ * @property {Grade} grade - grade information
+ * @property {number} unstableRate - unstable rate
+ * @property {number[]} hitErrorArray - hit error array
  */
 
 /**
  * @typedef {Object} KeyOverlay
- * @property {Object} k1 - The k1 key overlay.
- * @property {boolean} k1.isPressed - Indicates whether the k1 key is pressed.
- * @property {number} k1.count - The count of k1 key presses.
- * @property {Object} k2 - The k2 key overlay.
- * @property {boolean} k2.isPressed - Indicates whether the k2 key is pressed.
- * @property {number} k2.count - The count of k2 key presses.
- * @property {Object} m1 - The m1 key overlay.
- * @property {boolean} m1.isPressed - Indicates whether the m1 key is pressed.
- * @property {number} m1.count - The count of m1 key presses.
- * @property {Object} m2 - The m2 key overlay.
- * @property {boolean} m2.isPressed - Indicates whether the m2 key is pressed.
- * @property {number} m2.count - The count of m2 key presses.
+ * @property {Object} k1 - k1 key overlay
+ * @property {boolean} k1.isPressed - Indicates whether k1 key is pressed
+ * @property {number} k1.count - count of k1 key presses
+ * @property {Object} k2 - k2 key overlay
+ * @property {boolean} k2.isPressed - Indicates whether k2 key is pressed
+ * @property {number} k2.count - count of k2 key presses
+ * @property {Object} m1 - m1 key overlay
+ * @property {boolean} m1.isPressed - Indicates whether m1 key is pressed
+ * @property {number} m1.count - count of m1 key presses
+ * @property {Object} m2 - m2 key overlay
+ * @property {boolean} m2.isPressed - Indicates whether m2 key is pressed
+ * @property {number} m2.count - count of m2 key presses
  */
 
 /**
  * @typedef {Object} Slot
- * @property {string} name - The player name.
- * @property {number} score - The score.
- * @property {number} combo - The combo.
- * @property {number} maxCombo - The maximum combo.
- * @property {string} mods - The mods.
- * @property {number} h300 - The 300 hit count.
- * @property {number} h100 - The 100 hit count.
- * @property {number} h50 - The 50 hit count.
- * @property {number} h0 - The 0 hit count.
- * @property {number} team - The team number.
- * @property {number} position - The position.
- * @property {number} isPassing - Indicates whether the player is passing.
+ * @property {string} name - player name
+ * @property {number} score - score
+ * @property {number} combo - combo
+ * @property {number} maxCombo - maximum combo
+ * @property {string} mods - mods
+ * @property {number} h300 - amount of 300
+ * @property {number} h100 - amount of 100
+ * @property {number} h50 - amount of 50
+ * @property {number} h0 - amount of misses
+ * @property {number} team - team number
+ * @property {number} position - position
+ * @property {number} isPassing - Indicates whether player is passing
  */
 
 /**
  * @typedef {Object} Leaderboard
- * @property {boolean} hasLeaderboard - Indicates whether the leaderboard is available.
- * @property {boolean} isVisible - Indicates whether the leaderboard is visible.
- * @property {Object} ourplayer - The information of our player.
- * @property {string} ourplayer.name - The player name.
- * @property {number} ourplayer.score - The score.
- * @property {number} ourplayer.combo - The combo.
- * @property {number} ourplayer.maxCombo - The maximum combo.
- * @property {string} ourplayer.mods - The mods.
- * @property {number} ourplayer.h300 - The 300 hit count.
- * @property {number} ourplayer.h100 - The 100 hit count.
- * @property {number} ourplayer.h50 - The 50 hit count.
- * @property {number} ourplayer.h0 - The 0 hit count.
- * @property {number} ourplayer.team - The team number.
- * @property {number} ourplayer.position - The position.
- * @property {number} ourplayer.isPassing - Indicates whether the player is passing.
- * @property {Slot[]} slots - The leaderboard slots.
+ * @property {boolean} hasLeaderboard - Indicates whether leaderboard is available
+ * @property {boolean} isVisible - Indicates whether leaderboard is visible
+ * @property {Object} ourplayer - information of our player
+ * @property {string} ourplayer.name - player name
+ * @property {number} ourplayer.score - score
+ * @property {number} ourplayer.combo - combo
+ * @property {number} ourplayer.maxCombo - maximum combo
+ * @property {string} ourplayer.mods - mods
+ * @property {number} ourplayer.h300 - amount of 300
+ * @property {number} ourplayer.h100 - amount of 100
+ * @property {number} ourplayer.h50 - amount of 50
+ * @property {number} ourplayer.h0 - amount of misses
+ * @property {number} ourplayer.team - team number
+ * @property {number} ourplayer.position - position
+ * @property {number} ourplayer.isPassing - Indicates whether player is passing
+ * @property {Slot[]} slots - leaderboard slots
  */
 
 /**
  * @typedef {Object} Gameplay
- * @property {number} gameMode - The game mode.
- * @property {string} name - The game name.
- * @property {number} score - The score.
- * @property {number} accuracy - The accuracy.
- * @property {Combo} combo - The combo information.
- * @property {HP} hp - The HP information.
- * @property {HitError} hits - The hit error information.
- * @property {PP} pp - The PP information.
- * @property {KeyOverlay} keyOverlay - The key overlay configuration.
- * @property {Leaderboard} leaderboard - The leaderboard information.
+ * @property {number} gameMode - game mode
+ * @property {string} name - game name
+ * @property {number} score - score
+ * @property {number} accuracy - accuracy
+ * @property {Combo} combo - combo information
+ * @property {HP} hp - HP information
+ * @property {HitError} hits - hit error information
+ * @property {PP} pp - PP information
+ * @property {string} pp.current - current amount of pp
+ * @property {number} pp.fc - pp if fc
+ * @property {number} pp.maxThisPlay - peak pp
+ * @property {KeyOverlay} keyOverlay - key overlay configuration
+ * @property {Leaderboard} leaderboard - leaderboard information
  */
 
 /**
  * @typedef {Object} ResultsScreen
- * @property {number} 0 - The 0 hit count.
- * @property {number} 50 - The 50 hit count.
- * @property {number} 100 - The 100 hit count.
- * @property {number} 300 - The 300 hit count.
- * @property {string} name - The player name.
- * @property {number} score - The score.
- * @property {number} maxCombo - The maximum combo.
- * @property {Mods} mods - The mods configuration.
- * @property {number} geki - The geki hit count.
- * @property {number} katu - The katu hit count.
+ * @property {number} 0 - amount of misses
+ * @property {number} 50 - amount of 50
+ * @property {number} 100 - amount of 100
+ * @property {number} 300 - amount of 300
+ * @property {string} name - player name
+ * @property {number} score - score
+ * @property {number} maxCombo - maximum combo
+ * @property {Mods} mods - mods configuration
+ * @property {number} geki - geki hit count
+ * @property {number} katu - katu hit count
  */
 
 /**
  * @typedef {Object} MyObject
- * @property {Settings} settings - The settings.
- * @property {Menu} menu - The menu configuration.
- * @property {Gameplay} gameplay - The gameplay information.
- * @property {ResultsScreen} resultsScreen - The results screen information.
+ * @property {Settings} settings - settings
+ * @property {Menu} menu - menu data
+ * @property {Gameplay} gameplay - gameplay information
+ * @property {ResultsScreen} resultsScreen - results screen information
  */
