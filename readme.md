@@ -1,1 +1,44 @@
-welcome
+<h1 style="text-align: center;">Welcome 👋</h1>
+
+# How to create pp counter
+
+To start creating pp counters you need to download `VS Code` (or other IDE), [tosu](KotRikD/tosu/releases) or [gosu](l3lackShark/gosumemory/releases) and `quickstart example`.
+
+Then you need a little bit knowledge about css, html, javascript (or you can just google or ChatGPT most of stuff).
+
+1. Download required tools:
+    1. Download [VS Code](https://code.visualstudio.com/download) or any other `IDE`
+        1. [How to install VS Code](https://www.youtube.com/watch?v=JPZsB_6yHVo)
+    2. Download latest [quickstart example](/releases)
+    3. Download [tosu](KotRikD/tosu/releases) or [gosu](l3lackShark/gosumemory/releases)
+2. Create `new folder` anywhere
+    1. Create `counter` folder in `new folder`
+    2. Unzip `quickstart example` to `counter` folder
+    2. Unzip `tosu` to `new folder`
+3. Run `tosu.exe`
+4. Run osu! (not lazer)
+5. Open your folder in your `IDE` (VS Code or other) and start coding
+6. have fun! (im lazy to describe other steps)
+
+
+<br />
+<br />
+
+
+# How to submit pp counter
+
+1. [Fork](/fork) repository
+2. Switch to pre-release branch
+
+    1. In console
+        ```js
+        git checkout pre-release
+        ```
+    2. in VS Code: [link](https://www.youtube.com/watch?v=H5BLEPhqxe8)
+3. Add your counter folder to `mycounter`
+4. Open new pull request: [link](/pulls)
+    1. Title: new: {ppCounterName}
+    2. Attach screenshots or video of pp counter
+    3. in addition you can specify with which tool (gosu, tosu, streamcompanion) your counter compatible
+
+*p.s. if you didn't get any responses with-in 5 days, ping me in discord https://discord.gg/rYHNggbhyY*
