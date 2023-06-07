@@ -28,15 +28,16 @@ Then you need a little bit knowledge about css, html, javascript (or you can jus
 # How to submit pp counter
 
 1. [Fork](/fork) repository
-2. Switch to pre-release branch
+<!-- 2. Switch to pre-release branch
 
     1. In console
         ```js
         git checkout pre-release
         ```
-    2. in VS Code: [link](https://www.youtube.com/watch?v=H5BLEPhqxe8)
-3. Add your counter folder to `mycounter`
-4. Open new pull request: [link](/pulls)
+    2. in VS Code: [link](https://www.youtube.com/watch?v=H5BLEPhqxe8) -->
+2. Add your counter folder to `counters` folder
+    1. Your counter name should be: {author}-{name of the counter}
+3. Open new pull request: [link](/pulls)
     1. Title: new: {ppCounterName}
     2. Attach screenshots or video of pp counter
     3. in addition you can specify with which tool (gosu, tosu, streamcompanion) your counter compatible
