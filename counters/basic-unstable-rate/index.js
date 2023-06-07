@@ -35,7 +35,7 @@ socket.onmessage = event => {
 
         if (cache.state !== data.menu.state) {
             cache.state = data.menu.state;
-            document.getElementById('ur').style.opacity = tempState == 2 ? 1 : 0
+            document.getElementById('ur').style.opacity = cache.state == 2 ? 1 : 0
         };
 
 
