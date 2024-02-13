@@ -1,11 +1,11 @@
-Tested on:
-- skin: [Bacon boi (CK) v1.0](https://osuck.link/s-1648?v=0)
-- beatmap: [ito by Lasse](https://osu.ppy.sh/beatmapsets/1077982#osu/2255709)
-- obs: [link](https://obsproject.com)
-
-
 ## basic-unstable-rate
 
-size: 300x58 &nbsp;&nbsp; | &nbsp;&nbsp; Preview:
+
+|||
+| ------------- | ------------- |
+| Author | <a href="https://github.com/cyperdark" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a> <a href="https://twitter.com/cpol_owo" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/733/733579.png" /></a> <a href="" target="_blank"><img width=30 src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" /></a> |
+| Size  | 300x50  |
+| Compatible with  | gosu, tosu, StreamCompanion  |
+
 
 https://github.com/cyperdark/osu-counters/assets/21735205/97d91c29-7e56-418a-8367-6adddb0b6811
