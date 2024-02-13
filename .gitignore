@@ -5,3 +5,5 @@
 *.zip
 *.exe
 *.env
+
+/script
