@@ -1,0 +1,26 @@
+{
+  "name": "quickstart-example",
+  "resolution": [
+    300,
+    50
+  ],
+  "authorName": "cyperdark",
+  "authorLinks": [
+    {
+      "name": "github",
+      "url": "https://github.com/cyperdark"
+    },
+    {
+      "name": "twitter",
+      "url": "https://twitter.com/cpol_owo"
+    },
+    {
+      "name": "discord",
+      "url": "https://discord.gg/rYHNggbhyY"
+    }
+  ],
+  "compatibleWith": [
+    "gosu",
+    "tosu"
+  ]
+}
