@@ -8,7 +8,4 @@
 | Size | 300x300 |
 
 
-<video width="320" height="240" controls>
-  <source src="assets/videos/basic-unstable-rate.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/cyperdark/osu-counters/assets/21735205/97d91c29-7e56-418a-8367-6adddb0b6811
