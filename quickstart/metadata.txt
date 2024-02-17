@@ -1,0 +1,5 @@
+Name:  // pp counter name
+Author:  // Author name
+CompatibleWith:  // Specify via comma: gosu / tosu / streamCompanion
+Resolution:  // Width x Height
+authorLinks:  // Specify via comma
