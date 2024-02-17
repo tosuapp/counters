@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: Simplistic
+Author: jassper0
+CompatibleWith: gosu, tosu
+Resolution: 750x250
+authorLinks: https://github.com/jassper0
