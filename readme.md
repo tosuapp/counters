@@ -29,7 +29,7 @@ Then you need a little bit knowledge about css, html, javascript (or you can jus
 
 1. [Fork](https://github.com/cyperdark/osu-counters/fork) repository
 2. Add your counter folder to `counters` folder
-    1. Your counter name should be: {name of the counter}
+    1. Your counter name should be: {name of the counter} by {author name}
 3. Download [metadata.json](https://github.com/cyperdark/osu-counters/blob/master/quickstart/metadata.json), if you don't have it already, and replace it with your metadata
 3. Push to your forked repository
 3. Open new pull request: [link](https://github.com/cyperdark/osu-counters/pulls)
