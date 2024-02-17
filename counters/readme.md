@@ -9,7 +9,7 @@
 | Size |  300x 300 |
 
 
-<img src="/assets/images/basic-unstable-rate.gif" />
+<img src="/.github/images/basic-unstable-rate by cyperdark.jpg" /> <img src="/.github/gifs/basic-unstable-rate by cyperdark.gif" /> 
 
 
 ## classic by Dartandr
@@ -21,6 +21,6 @@
 | Size |  540x 540 |
 
 
-<img src="/assets/images/classic.gif" />
+<img src="/.github/images/classic by dartandr.jpg" /> <img src="/.github/gifs/classic by dartandr.gif" /> 
 
 

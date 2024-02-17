@@ -7,4 +7,4 @@
 | Size |  540x 540 |
 
 
-<img src="/assets/images/classic.gif" />
+<img src="/.github/images/classic by dartandr.jpg" /> <img src="/.github/gifs/classic by dartandr.gif" /> 
