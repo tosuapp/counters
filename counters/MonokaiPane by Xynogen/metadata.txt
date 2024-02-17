@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: MonokaiPane
+Author: Xynogen
+CompatibleWith: gosu, tosu
+Resolution: 512x150
+authorLinks: https://github.com/Xyn0gen
