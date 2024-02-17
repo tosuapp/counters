@@ -2,7 +2,7 @@
 
 
 
-<h1 align="center"><a href="https://github.com/cyperdark/osu-counters/">Check out pp counters</a></h1>
+<h1 align="center"><a href="https://github.com/cyperdark/osu-counters/tree/master/counters">Check out pp counters</a></h1>
 
 # How to create pp counter
 
