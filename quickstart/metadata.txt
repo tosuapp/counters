@@ -4,3 +4,4 @@ Author:  ## Author name
 CompatibleWith:  ## Specify via comma: gosu / tosu / streamCompanion
 Resolution:  ## Width x Height
 authorLinks:  ## Specify links via comma
+Notes: ## some markdown text
