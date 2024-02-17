@@ -1,6 +1,6 @@
 ## basic-unstable-rate by cyperdark
 
-<a href="https://github.com/cyperdark" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/733/733579.png" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/maximallime.by.cyperdark.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="200" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="200" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -14,7 +14,7 @@
 
 ## classic by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/minimallime.by.cyperdark.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -28,7 +28,7 @@
 
 ## DarkAndWhite by cyperdark
 
-<a href="https://github.com/cyperdark" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/733/733579.png" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/monokaipane.by.xynogen.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="200" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="200" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -42,7 +42,7 @@
 
 ## InGame1 by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/oldclassic.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -56,7 +56,7 @@
 
 ## InGame2 by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/osulike.overlay.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -70,7 +70,7 @@
 
 ## InGame3 by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/recomfortaa.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -84,7 +84,7 @@
 
 ## Kerli 1 by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/simplistic.by.jassper0.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -98,7 +98,7 @@
 
 ## Kerli 2 by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/trafficlight.by.cyperdark.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -112,7 +112,7 @@
 
 ## Luscent Remake by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/victimcrashercompact.by.victimcrasher.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -127,7 +127,7 @@
 
 ## MaximalLime by cyperdark
 
-<a href="https://github.com/cyperdark" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/733/733579.png" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/victimcrasheroverlay.by.victimcrasher.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="200" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="200" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -141,7 +141,7 @@
 
 ## MinimalLime by cyperdark
 
-<a href="https://github.com/cyperdark" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/733/733579.png" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/wavetournament.by.victimcrasher.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="200" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="200" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -155,7 +155,7 @@
 
 ## MonokaiPane by Xynogen
 
-<a href="https://github.com/Xyn0gen" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/basic-unstable-rate.by.cyperdark.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Xyn0gen" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -169,7 +169,7 @@
 
 ## OldClassic by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/classic.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -183,7 +183,7 @@
 
 ## osuLike Overlay by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/darkandwhite.by.cyperdark.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -197,7 +197,7 @@
 
 ## reComfortaa by Dartandr
 
-<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/ingame1.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -211,7 +211,7 @@
 
 ## Simplistic by jassper0
 
-<a href="https://github.com/jassper0" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/ingame2.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/jassper0" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -225,7 +225,7 @@
 
 ## TrafficLight by cyperdark
 
-<a href="https://github.com/cyperdark" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/733/733579.png" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/ingame3.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img width="200" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img width="200" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -239,7 +239,7 @@
 
 ## VictimCrasherCompact by VictimCrasher
 
-<a href="https://github.com/VictimCrasher" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/kerli.1.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -253,7 +253,7 @@
 
 ## VictimCrasherOverlay by VictimCrasher
 
-<a href="https://github.com/VictimCrasher" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/kerli.2.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -267,7 +267,7 @@
 
 ## WaveTournament by VictimCrasher
 
-<a href="https://github.com/VictimCrasher" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/luscent.remake.by.dartandr.zip" target="_blank"><img width="200" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img width="200" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
