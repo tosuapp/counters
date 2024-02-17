@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: TrafficLight
+Author: cyperdark
+CompatibleWith: gosu, tosu
+Resolution: 245x380
+authorLinks: https://github.com/cyperdark,https://twitter.com/cpol_owo,https://discord.gg/rYHNggbhyY
