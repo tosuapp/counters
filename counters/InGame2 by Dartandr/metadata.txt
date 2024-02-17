@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: InGame2
+Author: Dartandr
+CompatibleWith: gosu, tosu
+Resolution: 325x97
+authorLinks: https://github.com/Dartandr
