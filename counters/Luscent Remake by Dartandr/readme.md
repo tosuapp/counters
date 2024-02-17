@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  1920x 1920 |
+| Size |  1920x1080 |
 
 
 > Open-Source Implementation of [Siae's Luscent](https://twitter.com/mk_cou/status/1464208290158501894) overlay. No elements were stolen. This is a remake. Please [consider buying](https://gumroad.com/l/Luscent) her version!

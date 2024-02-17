@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  300x 300 |
+| Size |  300x50 |
 
 
 <img src="/.github/images/basic-unstable-rate by cyperdark.jpg" /> <img src="/.github/gifs/basic-unstable-rate by cyperdark.gif" /> 
@@ -20,7 +20,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  540x 540 |
+| Size |  540x310 |
 
 
 <img src="/.github/images/classic by dartandr.jpg" /> <img src="/.github/gifs/classic by dartandr.gif" /> 
@@ -34,7 +34,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  840x 840 |
+| Size |  840x161 |
 
 
 <img src="/.github/images/darkandwhite by cyperdark.jpg" /> <img src="/.github/gifs/darkandwhite by cyperdark.gif" /> 
@@ -48,7 +48,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  240x 240 |
+| Size |  240x133 |
 
 
 <img src="/.github/images/ingame1 by dartandr.jpg" /> <img src="/.github/gifs/ingame1 by dartandr.gif" /> 
@@ -62,7 +62,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  325x 325 |
+| Size |  325x97 |
 
 
 <img src="/.github/images/ingame2 by dartandr.jpg" /> <img src="/.github/gifs/ingame2 by dartandr.gif" /> 
@@ -76,7 +76,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  220x 220 |
+| Size |  220x90 |
 
 
 <img src="/.github/images/ingame3 by dartandr.jpg" /> <img src="/.github/gifs/ingame3 by dartandr.gif" /> 
@@ -90,7 +90,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  794x 794 |
+| Size |  794x124 |
 
 
 <img src="/.github/images/kerli 1 by dartandr.jpg" /> 
@@ -104,7 +104,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  794x 794 |
+| Size |  794x124 |
 
 
 <img src="/.github/images/kerli 2 by dartandr.jpg" /> <img src="/.github/gifs/kerli 2 by dartandr.gif" /> 
@@ -118,7 +118,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  1920x 1920 |
+| Size |  1920x1080 |
 
 
 > Open-Source Implementation of [Siae's Luscent](https://twitter.com/mk_cou/status/1464208290158501894) overlay. No elements were stolen. This is a remake. Please [consider buying](https://gumroad.com/l/Luscent) her version!
@@ -133,7 +133,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  808x 808 |
+| Size |  808x300 |
 
 
 <img src="/.github/images/maximallime by cyperdark.jpg" /> <img src="/.github/gifs/maximallime by cyperdark.gif" /> 
@@ -147,7 +147,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  640x 640 |
+| Size |  640x120 |
 
 
 <img src="/.github/images/minimallime by cyperdark.jpg" /> <img src="/.github/gifs/minimallime by cyperdark.gif" /> 
@@ -161,7 +161,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  512x 512 |
+| Size |  512x150 |
 
 
 <img src="/.github/images/monokaipane by xynogen.jpg" /> <img src="/.github/gifs/monokaipane by xynogen.gif" /> 
@@ -175,9 +175,23 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  500x 500 |
+| Size |  500x190 |
 
 
 <img src="/.github/images/oldclassic by dartandr.jpg" /> <img src="/.github/gifs/oldclassic by dartandr.gif" /> 
+
+
+## osuLike Overlay by Dartandr
+
+<a href="https://github.com/Dartandr" target="_blank"><img width="30" src="https://cdn-icons-png.flaticon.com/128/5968/5968866.png" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | ingame, obs-overlay
+| Compatible with | gosu, tosu |
+| Size | ANYxANY |
+
+
+<img src="/.github/images/osulike overlay by dartandr.jpg" /> <img src="/.github/gifs/osulike overlay by dartandr.gif" /> 
 
 

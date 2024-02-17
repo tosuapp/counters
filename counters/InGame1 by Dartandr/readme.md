@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  240x 240 |
+| Size |  240x133 |
 
 
 <img src="/.github/images/ingame1 by dartandr.jpg" /> <img src="/.github/gifs/ingame1 by dartandr.gif" /> 

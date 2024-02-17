@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  640x 640 |
+| Size |  640x120 |
 
 
 <img src="/.github/images/minimallime by cyperdark.jpg" /> <img src="/.github/gifs/minimallime by cyperdark.gif" /> 

@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  500x 500 |
+| Size |  500x190 |
 
 
 <img src="/.github/images/oldclassic by dartandr.jpg" /> <img src="/.github/gifs/oldclassic by dartandr.gif" /> 

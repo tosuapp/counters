@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  300x 300 |
+| Size |  300x50 |
 
 
 <img src="/.github/images/basic-unstable-rate by cyperdark.jpg" /> <img src="/.github/gifs/basic-unstable-rate by cyperdark.gif" /> 

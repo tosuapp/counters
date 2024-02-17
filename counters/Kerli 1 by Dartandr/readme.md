@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  794x 794 |
+| Size |  794x124 |
 
 
 <img src="/.github/images/kerli 1 by dartandr.jpg" /> 

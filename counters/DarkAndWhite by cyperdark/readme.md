@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  840x 840 |
+| Size |  840x161 |
 
 
 <img src="/.github/images/darkandwhite by cyperdark.jpg" /> <img src="/.github/gifs/darkandwhite by cyperdark.gif" /> 

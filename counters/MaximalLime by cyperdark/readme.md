@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  808x 808 |
+| Size |  808x300 |
 
 
 <img src="/.github/images/maximallime by cyperdark.jpg" /> <img src="/.github/gifs/maximallime by cyperdark.gif" /> 

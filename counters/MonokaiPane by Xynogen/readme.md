@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay
 | Compatible with | gosu, tosu |
-| Size |  512x 512 |
+| Size |  512x150 |
 
 
 <img src="/.github/images/monokaipane by xynogen.jpg" /> <img src="/.github/gifs/monokaipane by xynogen.gif" /> 
