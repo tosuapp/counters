@@ -44,3 +44,5 @@ Then you need a little bit knowledge about css, html, javascript (or you can jus
 <br />
 
 *p.s. if you didn't get any responses with-in 5 days, ping me in discord https://discord.gg/rYHNggbhyY*
+
+*p.s.s. At the moment this repo is fork of [gosumemory/static](https://github.com/l3lackShark/static)*
