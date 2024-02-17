@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: Kerli 1
+Author: Dartandr
+CompatibleWith: gosu, tosu
+Resolution: 794x124
+authorLinks: https://github.com/Dartandr
