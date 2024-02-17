@@ -1,6 +1,6 @@
-Usecase: // Specify via comma: ingame / obs-overlay / obs-tourney etc
-Name:  // pp counter name
-Author:  // Author name
-CompatibleWith:  // Specify via comma: gosu / tosu / streamCompanion
-Resolution:  // Width x Height
-authorLinks:  // Specify links via comma
+Usecase: ## Specify via comma: ingame / obs-overlay / obs-tourney etc
+Name:  ## pp counter name
+Author:  ## Author name
+CompatibleWith:  ## Specify via comma: gosu / tosu / streamCompanion
+Resolution:  ## Width x Height
+authorLinks:  ## Specify links via comma
