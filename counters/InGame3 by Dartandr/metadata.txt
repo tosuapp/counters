@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: InGame3
+Author: Dartandr
+CompatibleWith: gosu, tosu
+Resolution: 220x90
+authorLinks: https://github.com/Dartandr
