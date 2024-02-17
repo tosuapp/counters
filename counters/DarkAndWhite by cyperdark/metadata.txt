@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: DarkAndWhite
+Author: cyperdark
+CompatibleWith: gosu, tosu
+Resolution: 840x161
+authorLinks: https://github.com/cyperdark,https://twitter.com/cpol_owo,https://discord.gg/rYHNggbhyY
