@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: MinimalLime
+Author: cyperdark
+CompatibleWith: gosu, tosu
+Resolution: 640x120
+authorLinks: https://github.com/cyperdark,https://twitter.com/cpol_owo,https://discord.gg/rYHNggbhyY
