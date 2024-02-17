@@ -6,4 +6,4 @@
 | Size |  300x 300 |
 
 
-<img src="assets/images/basic-unstable-rate.gif" />
+<img src="/assets/images/basic-unstable-rate.gif" />
