@@ -1,5 +1,9 @@
 <h1 align="center">Welcome 👋</h1>
 
+
+
+<a href="/counters/"><h1 align="center">Check out pp counters</h1></a>
+
 # How to create pp counter
 
 To start creating pp counters you need to download `VS Code` (or other IDE), [tosu](https://github.com/KotRikD/tosu/releases) or [gosu](https://github.com/l3lackShark/gosumemory/releases) and `quickstart example`.
