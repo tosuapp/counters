@@ -1,0 +1,6 @@
+Usecase: ingame, obs-overlay
+Name: VictimCrasherCompact
+Author: VictimCrasher
+CompatibleWith: gosu, tosu
+Resolution: 560x150
+authorLinks: https://github.com/VictimCrasher
