@@ -1,3 +1,4 @@
+Usecase: ingame,obs-overlay
 Name: basic-unstable-rate
 Author: cyperdark
 CompatibleWith: gosu,tosu
