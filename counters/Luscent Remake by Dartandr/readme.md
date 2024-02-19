@@ -9,6 +9,6 @@
 | Size |  1920x1080 |
 
 
-> Open-Source Implementation of [Siae's Luscent](https://twitter.com/mk_cou/status/1464208290158501894) overlay. No elements were stolen. This is a remake. Please [consider buying](https://gumroad.com/l/Luscent) her version!
+> Open-Source Implementation of [Siae's Luscent](https://twitter.com/mk_cou/status/1464208290158501894) overlay.<br />No elements were stolen. This is a remake.<br />Please [consider buying](https://gumroad.com/l/Luscent) her version!
 
 <img src="/.github/images/luscent remake by dartandr.jpg" /> <img src="/.github/gifs/luscent remake by dartandr.gif" /> 
