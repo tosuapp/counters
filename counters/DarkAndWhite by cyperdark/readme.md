@@ -4,7 +4,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  840x161 |
 

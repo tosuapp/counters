@@ -4,7 +4,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  300x50 |
 
@@ -18,7 +18,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  540x310 |
 
@@ -32,7 +32,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  840x161 |
 
@@ -46,7 +46,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  240x133 |
 
@@ -60,7 +60,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  325x97 |
 
@@ -74,7 +74,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  220x90 |
 
@@ -88,7 +88,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  794x124 |
 
@@ -102,7 +102,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  794x124 |
 
@@ -116,12 +116,13 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  1920x1080 |
 
 
 > Open-Source Implementation of [Siae's Luscent](https://twitter.com/mk_cou/status/1464208290158501894) overlay. No elements were stolen. This is a remake. Please [consider buying](https://gumroad.com/l/Luscent) her version!
+
 <img src="/.github/images/luscent remake by dartandr.jpg" /> <img src="/.github/gifs/luscent remake by dartandr.gif" /> 
 
 
@@ -131,7 +132,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  808x300 |
 
@@ -145,7 +146,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  640x120 |
 
@@ -159,7 +160,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  512x150 |
 
@@ -173,7 +174,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  500x190 |
 
@@ -187,7 +188,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size | ANYxANY |
 
@@ -201,7 +202,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  1152x244 |
 
@@ -215,7 +216,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  750x250 |
 
@@ -229,7 +230,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  245x380 |
 
@@ -243,7 +244,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  560x150 |
 
@@ -257,7 +258,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  1920x1080 |
 
@@ -271,7 +272,7 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay
+| For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
 | Size |  1920x1080 |
 
