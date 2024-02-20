@@ -84,7 +84,7 @@
 
 ## Kerli 1 by Dartandr
 
-<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/kerli 1.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/kerli.1.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -98,7 +98,7 @@
 
 ## Kerli 2 by Dartandr
 
-<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/kerli 2.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/kerli.2.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -112,7 +112,7 @@
 
 ## Luscent Remake by Dartandr
 
-<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/luscent remake.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/luscent.remake.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -184,7 +184,7 @@
 
 ## osuLike Overlay by Dartandr
 
-<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/osulike overlay.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://github.com/cyperdark/osu-counters/releases/download/1.0.0/osulike.overlay.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
