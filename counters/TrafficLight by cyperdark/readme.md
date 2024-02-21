@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay |
 | Compatible with | gosu, tosu |
-| Size |  245x380 |
+| Size |  458x380 |
 
 
 <img src="/.github/images/trafficlight by cyperdark.jpg" /> <img src="/.github/gifs/trafficlight by cyperdark.gif" /> 
