@@ -1,4 +1,5 @@
-let socket = new ReconnectingWebSocket("ws://127.0.0.1:24050/ws");
+const HOST = window.location.host;
+const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 
 let everything = document.getElementById("everything");
 let bg = document.getElementById("bg");
@@ -111,7 +112,7 @@ socket.onmessage = (event) => {
     let img = data.menu.bm.path.full.replace(/#/g, "%23").replace(/%/g, "%25");
     bg.setAttribute(
       "src",
-      `http://127.0.0.1:24050/Songs/${img}?a=${Math.random(10000)}`
+      `http://${HOST}/Songs/${img}?a=${Math.random(10000)}`
     );
   }
   if (data.menu.bm.rankedStatus === 7) {

@@ -1,4 +1,5 @@
-let socket = new ReconnectingWebSocket("ws://127.0.0.1:24050/ws");
+const HOST = window.location.host;
+const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 let mapid = document.getElementById('mapid');
 
 let bg = document.getElementById("bg");
@@ -26,7 +27,7 @@ socket.onmessage = event => {
 	let data = JSON.parse(event.data);
 	if (tempState !== data.menu.bm.path.full) {
 		tempState = data.menu.bm.path.full
-		bg.setAttribute('src', `http://127.0.0.1:24050/Songs/${data.menu.bm.path.full}?a=${Math.random(10000)}`)
+		bg.setAttribute('src', `http://${HOST}/Songs/${data.menu.bm.path.full}?a=${Math.random(10000)}`)
 		mapid.innerHTML = data.menu.bm.id;
 	}
 	if (data.gameplay.pp.current != '') {
