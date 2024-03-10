@@ -1,0 +1,93 @@
+@font-face {
+    font-family: Montserrat, sans-serif;
+    src: url("./static/Montserrat-Regular.ttf")
+}
+
+html, body {
+    padding: 0;
+    font-family: Montserrat, sans-serif;
+    overflow: hidden;
+}
+
+#Key1Cont,
+#Key2Cont,
+#Mouse1Cont,
+#Mouse2Cont {
+    transition: ease 200ms;
+}
+
+#keys {
+    --keyColor: rgb(105, 105, 105);
+    --keyTap: rgb(175, 175, 175);
+    --fadeIn: linear-gradient(to left, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+    transition: ease-in-out 200ms;
+}
+.keyContainer {
+    width: 300px;
+    height: 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 1fr;
+    padding: 10px;
+}
+.keyTap {
+    border-radius: 5px;
+    position: absolute;
+    right: 35px;
+    width: 8px;
+    height: 100%;
+}
+.odometer.odometer-auto-theme{
+    font-weight: normal;
+    text-align: right;
+}
+.tiles {
+    -webkit-mask: var(--fadeIn);
+    mask: var(--fadeIn);
+}
+.tile {
+    width: 0;
+    height: 100%;
+    max-width: 100%;
+    right: 35px;
+    border-radius: 5px;
+    opacity: 50%;
+}
+
+.absolute {
+    top: 2.5%;
+    position: absolute;
+    width: 100%;
+    height: 95%;
+}
+
+.relative {
+    position: relative;
+    height: 100%;
+}
+.text {
+    font-size: 20px;
+    font-weight: 300;
+    min-width: 50px;
+    top: 10%;
+    right: 50px;
+    color: white;
+    height: 100%;
+    padding: 5px;
+    float: right;
+}
+.keyName {
+    position: absolute;
+    font-size: 20px;
+    min-width: 50px;
+    height: 100%;
+    top: 10px;
+    text-align: right;
+    right: 0;
+    color: rgb(190, 190, 190);
+    text-transform: uppercase;
+    transition: ease-out 300ms;
+}
+@keyframes moveOut {
+    100% { transform: translateX(-100%); }
+}

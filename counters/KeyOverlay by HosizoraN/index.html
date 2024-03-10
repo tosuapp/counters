@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="odometr.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="keys">
+        <div class="keyContainer">
+            <div id="Key1Cont" class="tiles relative">
+                <div id="k1Tiles" class="absolute"></div>
+                <div id="k1" class="keyTap"></div>
+                <div id="k1Text" class="odometer text"></div>
+                <div id="key1" class="keyName">k1</div>
+            </div>
+        </div>
+        <div class="keyContainer">
+            <div id="Key2Cont" class="tiles relative">
+                <div id="k2Tiles" class="absolute"></div>
+                <div id="k2" class="keyTap"></div>
+                <div id="k2Text" class="odometer text"></div>
+                <div id="key2" class="keyName">k2</div>
+            </div>
+        </div>
+        <div class="keyContainer">
+            <div id="Mouse1Cont" class="tiles relative">
+                <div id="m1Tiles" class="absolute"></div>
+                <div id="m1" class="keyTap"></div>
+                <div id="m1Text" class="odometer text"></div>
+                <div id="key3" class="keyName">m1</div>
+            </div>
+        </div>
+        <div class="keyContainer">
+            <div id="Mouse2Cont" class="tiles relative">
+                <div id="m2Tiles" class="absolute"></div>
+                <div id="m2" class="keyTap"></div>
+                <div id="m2Text" class="odometer text"></div>
+                <div id="key4" class="keyName">m2</div>
+            </div>
+        </div>
+    </div>
+    <script src="deps/KeyOverlay.js"></script>
+    <script src="deps/reconnecting-websocket.min.js"></script>
+    <script src="deps/odometr.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
