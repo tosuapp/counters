@@ -1,5 +1,5 @@
 // connecting to websocket
-const HOST = window.location.host;
+const HOST = '127.0.0.1:24050';
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 
 
