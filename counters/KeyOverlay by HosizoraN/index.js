@@ -1,4 +1,4 @@
-let socket = new ReconnectingWebSocket("ws://127.0.0.1:24050/websocket/v2/keys");
+let socket = new ReconnectingWebSocket("ws://127.0.0.1:24050/websocket/v2/precise");
 let keys = document.getElementById('keys');
 let Key1Cont = document.getElementById('Key1Cont');
 let Key2Cont = document.getElementById('Key2Cont');
@@ -25,7 +25,7 @@ socket.onerror = error => {
 socket.onmessage = (event) => {
     let data = JSON.parse(event.data);
 
-    if (data.k1.count > 0) {
+    if (data.keys.k1.count > 0) {
         Key1Cont.style.opacity = 1
         Key1Cont.style.transform = 'translateY(0)';
     }
@@ -33,7 +33,7 @@ socket.onmessage = (event) => {
         Key1Cont.style.opacity = 0
         Key1Cont.style.transform = 'translateY(-10px)';
     }
-    if (data.k2.count > 0) {
+    if (data.keys.k2.count > 0) {
         Key2Cont.style.opacity = 1
         Key2Cont.style.transform = 'translateY(0)';
     }
@@ -41,7 +41,7 @@ socket.onmessage = (event) => {
         Key2Cont.style.opacity = 0
         Key2Cont.style.transform = 'translateY(-10px)';
     }
-    if (data.m1.count > 0) {
+    if (data.keys.m1.count > 0) {
         Mouse1Cont.style.opacity = 1
         Mouse1Cont.style.transform = 'translateY(0)';
     }
@@ -49,7 +49,7 @@ socket.onmessage = (event) => {
         Mouse1Cont.style.opacity = 0
         Mouse1Cont.style.transform = 'translateY(-10px)';
     }
-    if (data.m2.count > 0) {
+    if (data.keys.m2.count > 0) {
         Mouse2Cont.style.opacity = 1
         Mouse2Cont.style.transform = 'translateY(0)';
     }
@@ -58,8 +58,8 @@ socket.onmessage = (event) => {
         Mouse2Cont.style.transform = 'translateY(-10px)';
     }
 
-    k1.update(data.k1, "var(--keyColor)", "var(--keyTap)")
-    k2.update(data.k2, "var(--keyColor)", "var(--keyTap)")
-    m1.update(data.m1, "var(--keyColor)", "var(--keyTap)")
-    m2.update(data.m2, "var(--keyColor)", "var(--keyTap)")
+    k1.update(data.keys.k1, "var(--keyColor)", "var(--keyTap)")
+    k2.update(data.keys.k2, "var(--keyColor)", "var(--keyTap)")
+    m1.update(data.keys.m1, "var(--keyColor)", "var(--keyTap)")
+    m2.update(data.keys.m2, "var(--keyColor)", "var(--keyTap)")
 }
