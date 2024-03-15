@@ -1,0 +1,453 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+
+* {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  font-size: 40px;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0d171b;
+
+  &>* {
+    z-index: 1;
+  }
+}
+
+.flex {
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+}
+
+.scorebar {
+  position: fixed;
+
+  top: 10px;
+  left: 10px;
+
+  width: 800px;
+
+  border-radius: 2px;
+  overflow: hidden;
+
+  .scorebar-normal {
+    height: 10px;
+    background: #b88d67;
+  }
+
+  .scorebar-smooth {
+    height: 10px;
+    background: #773751;
+  }
+}
+
+
+.player {
+  position: fixed;
+  font-size: 0.9em;
+
+  gap: 20px;
+
+  top: 40px;
+  left: 10px;
+
+  .player-hp {
+    font-size: 0.8em;
+  }
+}
+
+.top-right {
+  position: fixed;
+
+  top: 10px;
+  right: 10px;
+}
+
+.acc-rank-progress {
+  font-size: 0.8em;
+
+  gap: 20px;
+
+}
+
+
+.play-mode img {
+  width: 1em;
+  display: flex;
+}
+
+
+.progress {
+  width: 40px;
+  height: 40px;
+  transform: rotate(-90deg);
+
+
+  circle {
+    stroke: #99c3d0;
+    fill: none;
+    stroke-width: 50px;
+    stroke-dasharray: 100;
+    /* equal to circumference of circle 2 * 3.14 * 50 */
+    stroke-dashoffset: var(--progress, 100);
+    /* initial setting */
+    transition: all 0.1s;
+  }
+}
+
+.combo {
+  position: fixed;
+
+  left: 10px;
+  bottom: 10px;
+}
+
+.pp {
+  position: fixed;
+
+  right: 10px;
+  bottom: 10px;
+}
+
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  opacity: 0.1;
+
+  object-fit: cover;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 0 !important;
+}
+
+
+.keys {
+
+  position: fixed;
+  font-size: 0.7em;
+
+  top: 40%;
+  right: 10px;
+
+  &>* {
+    justify-content: flex-end !important;
+
+    gap: 20px;
+  }
+
+  .press {
+    width: 4px;
+    height: 30px;
+
+    background: #eaf3f5;
+    transition: scale 0.1s ease, filter 0.1s ease;
+
+
+    &.active {
+      filter: brightness(0.7);
+      scale: 0.75;
+      transition: scale 0.05s ease, filter 0.05s ease;
+    }
+  }
+
+  .bind {
+    font-size: 0.6em;
+    opacity: 0.5;
+  }
+}
+
+.banchoUser {
+  position: fixed;
+  font-size: 0.6em;
+
+  top: 110px;
+  left: 10px;
+
+  gap: 20px;
+
+  padding-right: 3em;
+
+  &>* {
+    z-index: 1;
+  }
+
+  .bu-pfp {
+    width: 3.5em;
+    border-radius: 0.4em;
+  }
+
+  .bu-flag {
+    position: absolute;
+    width: 1.2em;
+    left: 50%;
+    bottom: -0.2em;
+    translate: -50% 0;
+    z-index: 2;
+  }
+
+  .bu-state {
+    font-size: 0.6em;
+    margin-left: 1em;
+  }
+
+  .bu-status {
+    font-size: 0.6em;
+    width: 6em;
+    margin-left: 1em;
+  }
+
+  .bu-mode {
+    width: 2em;
+  }
+
+  .bu-pp {
+    font-size: 0.7em;
+  }
+
+  .bu-acc {
+    font-size: 0.6em;
+  }
+
+  .bu-lvl {
+    font-size: 0.5em;
+  }
+
+  .bu-globalRank {
+    font-size: 2.5em;
+    position: absolute;
+    // top: 50%;
+    right: 0;
+    bottom: -0.1em;
+    opacity: 0.1;
+    // translate: 0 -50%;
+
+    z-index: 0 !important;
+  }
+
+  .bu-mode {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    opacity: 0.3;
+  }
+
+  .bu-lvl-bar {
+    position: absolute;
+    width: 12em;
+    height: 0.3em;
+    right: 0;
+    bottom: 0;
+    background: #817742;
+    border-radius: 1em;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: var(--progress);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      margin: 0.05em;
+      background: #e9ce47;
+      border-radius: 1em;
+    }
+  }
+
+  .bu-playcount {
+    font-size: 0.6em;
+    position: absolute;
+    color: #e9ce47;
+    right: 0;
+    bottom: 0.5em;
+    opacity: 0.7;
+  }
+}
+
+.settings {
+  position: fixed;
+  font-size: 0.6em;
+
+  top: 230px;
+  left: 10px;
+
+
+  &>*>* {
+    --color: #773751;
+    padding: 0.1em 0.6em;
+    background: var(--color);
+    width: fit-content;
+    margin-bottom: 10px;
+    border-radius: 0.2em;
+    box-shadow: 0 0 1em var(--color);
+
+    transition: 0.1s ease;
+    transition-property: background box-shadow;
+
+    &.active {
+      --color: #628f4d !important;
+    }
+  }
+}
+
+.unstable-rate {
+  font-size: 0.6em;
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+
+  transform: translate(-50%, 0);
+}
+
+
+.graph {
+  position: fixed;
+  top: 120px;
+  right: 10px;
+
+  min-height: fit-content !important;
+  border-bottom: 1px solid red;
+}
+
+.mods {
+  font-size: 0.8em;
+  position: fixed;
+  top: 270px;
+  right: 10px;
+
+  gap: 10px;
+}
+
+.game-state {
+  text-align: center;
+  font-size: 0.6em;
+  position: fixed;
+  top: 10px;
+
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.all-stats {
+  font-size: 0.6em;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: grid;
+  gap: 30px;
+
+  &>* {
+    display: grid;
+    gap: 10px;
+
+    --color: 336, 20%, 34%;
+    padding: 1em 0.8em;
+    background: hsl(var(--color), 0.4);
+    border-radius: 0.2em;
+    box-shadow: 0 0 10em hsl(var(--color), 0.6);
+
+    transition: 0.1s ease;
+    transition-property: background box-shadow;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      // background: hsl(var(--color));
+      // filter: blur(8em);
+    }
+
+    &>* {
+      justify-content: center;
+
+      &>* {
+        justify-content: center;
+        text-shadow: 0 0.05em 0.5em rgba(0, 0, 0, 0.801);
+      }
+    }
+  }
+
+
+  .beatmap-stats {
+    --color: 194, 20%, 52%;
+  }
+
+  .resultsScreen-stats {
+    --color: 28, 20%, 56%;
+  }
+
+  .beatmap-background {
+    --color: transparent;
+    width: 100%;
+    height: 5em;
+
+    padding: 0;
+    opacity: 1;
+
+    object-fit: cover;
+
+    background: transparent;
+  }
+
+}
+
+.stats {
+  gap: 20px;
+}
+
+
+.asd {
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+
+  transform: translate(-50%, 0);
+}
+
+.resultsScreen-stats {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 2em 1.4em;
+  gap: 2em;
+
+  .resultsScreen-rank {
+    font-size: 3em;
+  }
+
+  .resultsScreen-createdAt {
+    font-size: 0.8em;
+    position: absolute;
+    right: 0.4em;
+    bottom: 0.4em;
+    opacity: 0.5;
+  }
+}
+
+.settings-toggles {
+  flex-wrap: wrap;
+  width: 21em;
+  gap: 0.2em 0.5em;
+}

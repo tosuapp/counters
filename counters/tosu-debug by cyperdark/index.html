@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>debug overlay</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--        YOUR STYLES HERE        -->
+  <link rel="stylesheet" href="styles/main.min.css" />
+  <link rel="stylesheet" href="styles/odometr.css" />
+</head>
+
+<body>
+  <div class="game-state">
+    <div class="playtime"></div>
+    <div class="gamestate"></div>
+  </div>
+
+  <div class="all-stats">
+    <img class="beatmap-background" />
+    <div class="beatmap-stats">
+      <div class="flex stats">
+
+        <div class="beatmap-mode flex stats"></div>
+        <div class="beatmap-status"></div>
+      </div>
+      <div class="flex stats">
+        <div class="beatmap-ar"></div>
+        <div class="beatmap-od"></div>
+        <div class="beatmap-cs"></div>
+        <div class="beatmap-hp"></div>
+      </div>
+
+      <div class="flex stats">
+        <div class="beatmap-stars"></div>
+        <div class="beatmap-combo"></div>
+      </div>
+      <div class="beatmap-bpm"></div>
+      <div class="flex stats">
+        <div class="beatmap-circles"></div>
+        <div class="beatmap-sliders"></div>
+        <div class="beatmap-spinners"></div>
+        <div class="beatmap-holds"></div>
+      </div>
+      <div class="flex stats">
+        <div class="beatmap-pp-100"></div>
+        <div class="beatmap-pp-99"></div>
+        <div class="beatmap-pp-98"></div>
+        <div class="beatmap-pp-97"></div>
+        <div class="beatmap-pp-96"></div>
+        <div class="beatmap-pp-95"></div>
+      </div>
+    </div>
+    <div class="play-stats">
+      <div class="flex stats">
+        <div class="hits-geki"></div>
+        <div class="hits-300"></div>
+        <div class="hits-katu"></div>
+        <div class="hits-100"></div>
+        <div class="hits-50"></div>
+        <div class="hits-0"></div>
+        <div class="hits-sb"></div>
+      </div>
+    </div>
+    <div class="resultsScreen-stats">
+      <div>
+        <div class="resultsScreen-rank"></div>
+        <div class="resultsScreen-mods"></div>
+      </div>
+      <div class="resultsScreen-createdAt"></div>
+      <div>
+        <div class="flex stats">
+          <div class="resultsScreen-mode flex stats"></div>
+
+          <div class="resultsScreen-name"></div>
+        </div>
+        <div class="flex stats">
+          <div class="resultsScreen-score"></div>
+          <div class="resultsScreen-maxCombo"></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex stats">
+          <div class="resultsScreen-geki"></div>
+          <div class="resultsScreen-300"></div>
+          <div class="resultsScreen-katu"></div>
+        </div>
+        <div class="flex stats">
+          <div class="resultsScreen-100"></div>
+          <div class="resultsScreen-50"></div>
+          <div class="resultsScreen-0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scorebar">
+    <div class="scorebar-normal"></div>
+    <div class="scorebar-smooth"></div>
+  </div>
+
+  <div class="player flex">
+    <div class="play-mode"></div>
+    <div class="player-name"></div>
+    <div class="player-hp"></div>
+  </div>
+
+  <div class="banchoUser flex">
+    <div>
+      <img class="flex bu-flag" src="" alt="">
+      <img class="flex bu-pfp" src="" alt="">
+    </div>
+    <div>
+      <div class="flex">
+        <div class="bu-name"></div>
+        <div class="bu-state"></div>
+        <div class="bu-status"></div>
+      </div>
+      <div class="bu-pp"></div>
+      <div class="bu-acc"></div>
+      <div class="bu-lvl"></div>
+    </div>
+    <div class="bu-lvl-bar"></div>
+    <div class="bu-playcount"></div>
+    <div class="bu-globalRank"></div>
+    <div class="flex bu-mode"></div>
+  </div>
+
+  <div class="settings">
+    <div>
+      <div class="interface">interface</div>
+      <div class="chat">chat</div>
+      <div class="replayUI">replayUI</div>
+      <div class="isLeaderboardVisible">LeaderboardVisible</div>
+      <div class="backgroundLoadError">backgroundLoadError</div>
+    </div>
+
+    <div>
+      <div class="leaderboardType active">leaderboard:</div>
+      <div class="progressBarType active">progressBar:</div>
+      <div class="scoreMeterType active">scoreMeter:</div>
+      <div class="sortType active">sorted by:</div>
+      <div class="groupType active">grouped by:</div>
+      <div class="cursorSize">cursor:</div>
+      <div class="mouseSens">mouse:</div>
+      <div class="audio">audio:</div>
+      <div class="dim">dim:</div>
+    </div>
+  </div>
+
+
+  <div class="top-right">
+    <div class="score"></div>
+
+    <div class="acc-rank-progress flex">
+      <div class="current-rank"></div>
+      <svg class="progress" viewBox='0 0 100 100'>
+        <circle cx='50' cy='50' r='15' />
+      </svg>
+      <div class="accuracy"></div>
+    </div>
+  </div>
+
+  <div class="combo flex">
+    <div class="player-combo-current"></div>
+    <div>/</div>
+    <div class="player-combo-max"></div>
+    <div>x</div>
+  </div>
+
+  <div class="pp flex">
+    <div class="player-pp-current"></div>
+    <div> (</div>
+    <div class="player-pp-max"></div>
+    <div>) /</div>
+    <div class="player-pp-fc"></div>
+    <div>pp</div>
+  </div>
+
+
+  <div class="keys">
+    <div class="k1 flex">
+      <div class="number"></div>
+      <div class="press"></div>
+      <div class="bind bind-k1"></div>
+    </div>
+    <div class="k2 flex">
+      <div class="number"></div>
+      <div class="press"></div>
+      <div class="bind bind-k2"></div>
+    </div>
+    <div class="m1 flex">
+      <div class="number"></div>
+      <div class="press"></div>
+      <div class="bind bind-m1"></div>
+    </div>
+    <div class="m2 flex">
+      <div class="number"></div>
+      <div class="press"></div>
+      <div class="bind bind-m2"></div>
+    </div>
+  </div>
+
+  <div class="unstable-rate"></div>
+
+
+  <div class="graph" id="graph">
+  </div>
+
+  <div class="mods flex">
+    <div class="mods-num"></div>
+    <div class="mods-str"></div>
+  </div>
+
+
+  <div class="asd"></div>
+
+
+  <img class="background"></img>
+
+  <!--        DO NOT REMOVE THOSE        -->
+  <script src="js/apexcharts.js"></script>
+
+
+  <!--        OTHER SCRIPTS        -->
+  <script src="js/countUp.js"></script>
+  <script src="js/odometr.js"></script>
+
+
+
+  <!--        YOUR COUNTER LOGIC FILES        -->
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>
