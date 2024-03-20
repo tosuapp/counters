@@ -42,7 +42,7 @@ class WebSocketManager {
 
         callback(data);
       } catch (error) {
-        console.log(`[MESSAGE_ERROR] ${url}: Couldn't parse incomming message`);
+        console.error(`[MESSAGE_ERROR] ${url}: Couldn't parse incomming message`, error);
       };
     };
   };
