@@ -556,18 +556,18 @@ export default WebSocketManager;
  * @property {number} beatmap.stats.stars.flashlight
  * @property {number} beatmap.stats.stars.sliderFactor
  * @property {number} beatmap.stats.stars.total
- * @property {object} beatmap.stats.AR
- * @property {number} beatmap.stats.AR.original
- * @property {number} beatmap.stats.AR.converted
- * @property {object} beatmap.stats.CS
- * @property {number} beatmap.stats.CS.original
- * @property {number} beatmap.stats.CS.converted
- * @property {object} beatmap.stats.OD
- * @property {number} beatmap.stats.OD.original
- * @property {number} beatmap.stats.OD.converted
- * @property {object} beatmap.stats.HP
- * @property {number} beatmap.stats.HP.original
- * @property {number} beatmap.stats.HP.converted
+ * @property {object} beatmap.stats.ar
+ * @property {number} beatmap.stats.ar.original
+ * @property {number} beatmap.stats.ar.converted
+ * @property {object} beatmap.stats.cs
+ * @property {number} beatmap.stats.cs.original
+ * @property {number} beatmap.stats.cs.converted
+ * @property {object} beatmap.stats.od
+ * @property {number} beatmap.stats.od.original
+ * @property {number} beatmap.stats.od.converted
+ * @property {object} beatmap.stats.hp
+ * @property {number} beatmap.stats.hp.original
+ * @property {number} beatmap.stats.hp.converted
  * @property {object} beatmap.stats.bpm
  * @property {number} beatmap.stats.bpm.common
  * @property {number} beatmap.stats.bpm.min
@@ -580,10 +580,10 @@ export default WebSocketManager;
  * @property {number} beatmap.stats.objects.total
  * @property {number} beatmap.stats.maxCombo
  * @property {object} play
+ * @property {string} play.playerName
  * @property {object} play.mode
  * @property {number} play.mode.number
  * @property {string} play.mode.name
- * @property {string} play.name
  * @property {number} play.score
  * @property {number} play.accuracy
  * @property {object} play.healthBar
