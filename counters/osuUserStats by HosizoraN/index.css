@@ -1,0 +1,112 @@
+@font-face {
+    font-family: "Torus";
+    src: url(./fonts/Torus-Bold.otf);
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Torus";
+    src: url(./fonts/Torus-SemiBold.otf);
+    font-weight: 500;
+}
+body,
+html {
+	padding: 0;
+	margin: 0;
+}
+#UserMode {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    height: 130px;
+    width: 130px;
+    background-size: 100%;
+    opacity: 30%;
+}
+#UserBG {
+    position: absolute;
+    display: flex;
+    width: 1280px;
+    height: 300px;
+    border: 8px solid rgba(0, 0, 0, 0);
+    border-radius: 20px;
+    background-position: 50% 50%;
+    background-size: 100%;
+    background-color: rgb(39, 39, 39);
+}
+#ColorBG {
+    overflow: hidden;
+    font-family: "Torus";
+    font-weight: 500;
+    position: absolute;
+    display: flex;
+    color: white;
+    width: 1280px;
+    height: 300px;
+    border-radius: 20px;
+    border: 8px solid white;
+    transition: 500ms ease-in-out;
+
+}
+#UserAvatar {
+    border-radius: 20px;
+    width: 270px;
+    height: 270px;
+    margin: 10px;
+    background-size: 100%;
+}
+#UserFlag {
+    position: absolute;
+    width: 70px;
+    height: 47px;
+    border-radius: 10px;
+    bottom: 5px;
+    left: 110px;
+}
+#Username {
+    position: absolute;
+    font-size: 90px;
+    font-weight: 700;
+    top: -10px;
+    left: 300px;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
+#UserRank {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 160px;
+    opacity: 30%;
+}
+.stats {
+    position: absolute;
+    font-size: 50px;
+    left: 300px;
+    top: 100px;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
+#UserCurrentStatus {
+    width: 970px;
+    height: 120px;
+    overflow: hidden;
+}
+#UserStats {
+    animation: fade1 10s linear infinite;
+}
+#UserStatus {
+    animation: fade2 10s linear infinite;
+}
+
+@keyframes fade1 {
+    0% {opacity: 1;}
+    50% {opacity: 1;}
+    55% {opacity: 0;}
+    95% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fade2 {
+    0% {opacity: 0;}
+    50% {opacity: 0;}
+    55% {opacity: 1;}
+    95% {opacity: 1;}
+    100% {opacity: 0;}
+}
