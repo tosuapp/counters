@@ -15,7 +15,7 @@ socket.onmessage = (event) => {
     let data = JSON.parse(event.data);
 
     UserAvatar.style.backgroundImage = `url("https://a.ppy.sh/${data.profile.id}")`
-    UserFlag.style.backgroundImage = `url("./images/flags/${data.profile.countryCode.name}.png")`
+    UserFlag.style.backgroundImage = `url("https://assets.ppy.sh/old-flags/${data.profile.countryCode.name}.png")`
     UserMode.style.backgroundImage = `url("./images/${data.profile.mode.name}.png")`
 
     Username.innerHTML = data.profile.name
@@ -32,9 +32,9 @@ socket.onmessage = (event) => {
     UserCountryNameAndTimes.innerHTML = `${formattedTime} @ ${data.profile.countryCode.name}`
 
     //my vietnamese friend forced to me code this :sob:
-    if (data.profile.countryCode.name == 'VN') {
-        UserCountryNameAndTimes.innerHTML = `${formattedTime} @ (Sponsored by Pho Real)`
-    }
+    // if (data.profile.countryCode.name == 'VN') {
+    //     UserCountryNameAndTimes.innerHTML = `${formattedTime} @ (Sponsored by Pho Real)`
+    // }
 
     if (data.profile.banchoStatus.number == 0 || data.profile.banchoStatus.number == 13) {
         ColorBG.style.backgroundColor = `rgba(63, 124, 169, 0.5)`
