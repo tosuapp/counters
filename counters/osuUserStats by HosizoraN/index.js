@@ -31,7 +31,6 @@ socket.onmessage = (event) => {
 
     UserCountryNameAndTimes.innerHTML = `${formattedTime} @ ${data.profile.countryCode.name}`
 
-    //my vietnamese friend forced to me code this :sob:
     // if (data.profile.countryCode.name == 'VN') {
     //     UserCountryNameAndTimes.innerHTML = `${formattedTime} @ (Sponsored by Pho Real)`
     // }
@@ -90,7 +89,6 @@ socket.onmessage = (event) => {
         UserCurrentStatus.innerHTML = `Multiplaying ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
     }
 
-    // api for user background don't touch (if touch it gonna fucking spam the request)
     // postUserID(data.profile.id)
     // async function postUserID(id) {
     //     try {
