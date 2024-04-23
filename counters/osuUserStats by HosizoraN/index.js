@@ -31,10 +31,6 @@ socket.onmessage = (event) => {
 
     UserCountryNameAndTimes.innerHTML = `${formattedTime} @ ${data.profile.countryCode.name}`
 
-    // if (data.profile.countryCode.name == 'VN') {
-    //     UserCountryNameAndTimes.innerHTML = `${formattedTime} @ (Sponsored by Pho Real)`
-    // }
-
     if (data.profile.banchoStatus.number == 0 || data.profile.banchoStatus.number == 13) {
         ColorBG.style.backgroundColor = `rgba(63, 124, 169, 0.5)`
         ColorBG.style.borderColor = `rgb(110, 168, 230)`
@@ -88,17 +84,4 @@ socket.onmessage = (event) => {
         ColorBG.style.borderColor = `rgb(220, 216, 108)`
         UserCurrentStatus.innerHTML = `Multiplaying ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
     }
-
-    // postUserID(data.profile.id)
-    // async function postUserID(id) {
-    //     try {
-    //         const data = await axios.get(`https://phubahosi.vercel.app/api/user/${id}`).then((response) => {
-    //            rawData = response.data
-    //         });
-    //         UserBG.style.backgroundImage = `url('${rawData.cover.url}')`;
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
-
 }
