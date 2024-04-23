@@ -9,4 +9,4 @@
 | Size |  1920x1080 |
 
 
-<img src="/.github/images/wavetournament by victimcrasher.jpg" /> <img src="/.github/images/wavetournament by victimcrasher.jpg" /> 
+<img src="/.github/images/wavetournament by victimcrasher.jpg" /> <img src="/.github/images/wavetournament by victimcrasher1.jpg" /> 
