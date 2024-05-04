@@ -1,48 +1,63 @@
 class WebSocketManager {
   constructor(host) {
+    this.version = '0.1.0';
+
     if (host) {
       this.host = host;
     }
 
     this.createConnection = this.createConnection.bind(this);
+
+    /**
+     * @type {{ [key: string]: WebSocket }} - asd;
+     */
+    this.sockets = {};
   }
 
   createConnection(url, callback) {
-    if (callback == null) {
-      console.error(`[ISSUE] ${url}: no callback`);
-      return;
-    };
-
     let INTERVAL = '';
 
     const that = this;
-    const socket = new WebSocket(`ws://${url}`);
+    this.sockets[url] = new WebSocket(`ws://${this.host}${url}?l=${encodeURI(window.COUNTER_PATH)}`);
 
-    socket.onopen = () => {
+    this.sockets[url].onopen = () => {
       console.log(`[OPEN] ${url}: Connected`);
 
       if (INTERVAL) clearInterval(INTERVAL);
     };
 
-    socket.onclose = (event) => {
+    this.sockets[url].onclose = (event) => {
       console.log(`[CLOSED] ${url}: ${event.reason}`);
 
+      delete this.sockets[url];
       INTERVAL = setTimeout(() => {
         that.createConnection(url, callback);
       }, 1000);
     };
 
-    socket.onerror = (event) => {
+    this.sockets[url].onerror = (event) => {
       console.log(`[ERROR] ${url}: ${event.reason}`);
     };
 
-    socket.onmessage = (event) => {
+
+    this.sockets[url].onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
+        if (data.error != null) {
+          console.error(`[MESSAGE_ERROR] ${url}:`, data.error);
+          return;
+        };
+
+        if (data.message != null) {
+          if (data.message.error != null) {
+            console.error(`[MESSAGE_ERROR] ${url}:`, data.message.error);
+            return;
+          }
+        };
 
         callback(data);
       } catch (error) {
-        console.error(`[MESSAGE_ERROR] ${url}: Couldn't parse incomming message`, error);
+        console.log(`[MESSAGE_ERROR] ${url}: Couldn't parse incomming message`, error);
       };
     };
   };
@@ -53,7 +68,7 @@ class WebSocketManager {
    * @param {(data: WEBSOCKET_V1) => void} callback - The function to handle received messages.
    */
   api_v1(callback) {
-    this.createConnection(`${this.host}/ws`, callback);
+    this.createConnection(`/ws`, callback);
   };
 
 
@@ -62,7 +77,7 @@ class WebSocketManager {
    * @param {(data: WEBSOCKET_V2) => void} callback - The function to handle received messages.
    */
   api_v2(callback) {
-    this.createConnection(`${this.host}/websocket/v2`, callback);
+    this.createConnection(`/websocket/v2`, callback);
   };
 
 
@@ -71,8 +86,9 @@ class WebSocketManager {
    * @param {(data: WEBSOCKET_V2_KEYS) => void} callback - The function to handle received messages.
    */
   api_v2_precise(callback) {
-    this.createConnection(`${this.host}/websocket/v2/precise`, callback);
+    this.createConnection(`/websocket/v2/precise`, callback);
   };
+
 
   /**
    * Calculate custom pp for a current, or specified map
@@ -105,6 +121,7 @@ class WebSocketManager {
     };
   };
 
+
   /**
    * Get beatmap **.osu** file (local)
    * @param {string} file_path - Path to a file **beatmap_folder_name/osu_file_name.osu**
@@ -132,6 +149,64 @@ class WebSocketManager {
       return {
         error: error.message,
       };
+    };
+  };
+
+
+  /**
+   * Connects to message
+   * @param {(data: { command: string, message: any }) => void} callback - The function to handle received messages.
+   */
+  commands(callback) {
+    this.createConnection(`/websocket/commands`, callback);
+  };
+
+  /**
+   * 
+   * @param {string} name 
+   * @param {string|Object} payload 
+   */
+  sendCommand(name, command, amountOfRetries = 1) {
+    const that = this;
+
+
+    if (!this.sockets['/websocket/commands']) {
+      setTimeout(() => {
+        that.sendCommand(name, command, amountOfRetries + 1);
+      }, 100);
+
+      return;
+    };
+
+
+    try {
+      const payload = typeof command == 'object' ? JSON.stringify(command) : command;
+      this.sockets['/websocket/commands'].send(`${name}:${payload}`);
+    } catch (error) {
+      if (amountOfRetries <= 3) {
+        console.log(`[COMMAND_ERROR] Attempt ${amountOfRetries}`, error);
+        setTimeout(() => {
+          that.sendCommand(name, command, amountOfRetries + 1);
+        }, 1000);
+        return;
+      };
+
+
+      console.error(`[COMMAND_ERROR]`, error);
+    };
+  };
+
+
+  close(url) {
+    this.host = url;
+
+    const array = Object.keys(this.sockets);
+    for (let i = 0; i < array.length; i++) {
+      const key = array[i];
+      const value = this.sockets[key];
+
+      if (!value) continue;
+      value.close();
     };
   };
 };
