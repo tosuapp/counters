@@ -8,7 +8,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  color: white;
+  color: var(--textColor, white);
   background-color: black;
 }
 
@@ -18,7 +18,10 @@ body {
   font-size: 48px;
   font-weight: bold;
   width: 300px;
-  color: white;
   opacity: 0;
   transition: 300ms ease-in-out;
+}
+
+#ur.always {
+  opacity: 1 !important;
 }
