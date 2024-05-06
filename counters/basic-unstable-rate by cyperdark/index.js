@@ -22,13 +22,13 @@ socket.commands((data) => {
         const { command, message } = data;
         // get updates for "getSettings" command
         if (command == 'getSettings') {
-            if (message['showPermanently'] != null) {
-                cache['showPermanently'] = message['showPermanently'];
+            if (message['ingameOnly'] != null) {
+                cache['ingameOnly'] = message['ingameOnly'];
 
-                if (Boolean(cache['showPermanently']) == true)
-                    document.getElementById('ur').classList.add('always');
-                else
+                if (Boolean(cache['ingameOnly']) == true)
                     document.getElementById('ur').classList.remove('always');
+                else
+                    document.getElementById('ur').classList.add('always');
             };
 
 
@@ -40,6 +40,10 @@ socket.commands((data) => {
             if (message['textColor'] != null) {
                 document.body.style.setProperty('--textColor', message['textColor']);
             };
+
+            if (message['fontSize'] != null) {
+                document.body.style.setProperty('--fontSize', `${message['fontSize']}px`);
+            }
         };
 
 
