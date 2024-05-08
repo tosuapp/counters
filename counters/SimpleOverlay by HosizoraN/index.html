@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HosizoraN's Simple Overlay</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--        YOUR STYLES HERE        -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/rankingPanel.css" />
+  </head>
+
+  <body>
+    <div id="main">
+        <div id="gameplay">
+        <div id="hp"></div>
+        <div id="score"></div>
+        <div id="acc"></div>
+        <div id="combo"></div>
+        <div id="ur"></div>
+        <div id="pp"></div>
+        <div id="accInfo">
+            <div id="katu"></div>
+            <div id="h100"></div>
+            <div id="h50"></div> 
+            <div id="h0"></div> 
+            <div id="hSB"></div>      
+        </div>
+        <div id="keyOverlay">
+            <div id="K1" class="keyCont">
+                <div id="K1Text" class="keyText">K1</div>
+            </div>
+            <div id="K2" class="keyCont">
+                <div id="K2Text" class="keyText">K2</div>
+            </div>
+            <div id="M1" class="keyCont">
+                <div id="M1Text" class="keyText">M1</div>
+            </div>
+            <div id="M2" class="keyCont">
+                <div id="M2Text" class="keyText">M2</div>
+            </div>
+        </div>
+        </div>
+        <div id="rankingPanel">
+            <div id="result">
+                <div id="title">
+                    <div id="song"></div>
+                    <div id="mapped"></div>
+                    <div id="played"></div>
+                </div>
+                <div id="rscore"></div>
+                <div id="ranking">
+                    <div class="htotal">
+                        <div id="r300"></div>
+                        <div id="rgeki"></div>
+                    </div>
+                    <div class="htotal">
+                        <div id="r100"></div>
+                        <div id="rkatu"></div>
+                    </div>
+                    <div class="htotal">
+                        <div id="r50"></div>
+                        <div id="r0"></div>
+                    </div>
+                </div>
+                <div id="rst">
+                    <div id="racc"></div>
+                    <div id="rcombo"></div>
+                </div>
+                <div id="rank"></div>
+                <div id="modsused"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--        DO NOT REMOVE THOSE        -->
+    <script src="js/reconnecting-websocket.min.js"></script>
+
+
+    <!--        OTHER SCRIPTS        -->
+    <script src="js/countUp.js"></script>
+
+
+    <!--        YOUR COUNTER LOGIC FILES        -->
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
