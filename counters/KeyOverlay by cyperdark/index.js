@@ -62,6 +62,61 @@ socket.commands((data) => {
       };
 
 
+      if (cache['keynameEnable'] != message['keynameEnable']) {
+        cache['keynameEnable'] = message['keynameEnable'];
+        document.body.style.setProperty('--keyNameOpacity', message['keynameEnable'] == true ? 1 : 0);
+      };
+
+
+      if (cache['k1Enable'] != message['k1Enable']) {
+        cache['k1Enable'] = message['k1Enable'];
+
+        if (message['k1Enable'] == true && cache[`key-k1-count`] > 0) {
+          document.querySelector('.keys.k1').classList.remove('hidden');
+        };
+
+        if (message['k1Enable'] == false) {
+          document.querySelector('.keys.k1').classList.add('hidden');
+        };
+      };
+
+      if (cache['k2Enable'] != message['k2Enable']) {
+        cache['k2Enable'] = message['k2Enable'];
+
+        if (message['k2Enable'] == true && cache[`key-k2-count`] > 0) {
+          document.querySelector('.keys.k2').classList.remove('hidden');
+        };
+
+        if (message['k2Enable'] == false) {
+          document.querySelector('.keys.k2').classList.add('hidden');
+        };
+      };
+
+      if (cache['m1Enable'] != message['m1Enable']) {
+        cache['m1Enable'] = message['m1Enable'];
+
+        if (message['m1Enable'] == true && cache[`key-m1-count`] > 0) {
+          document.querySelector('.keys.m1').classList.remove('hidden');
+        };
+
+        if (message['m1Enable'] == false) {
+          document.querySelector('.keys.m1').classList.add('hidden');
+        };
+      };
+
+      if (cache['m2Enable'] != message['m2Enable']) {
+        cache['m2Enable'] = message['m2Enable'];
+
+        if (message['m2Enable'] == true && cache[`key-m2-count`] > 0) {
+          document.querySelector('.keys.m2').classList.remove('hidden');
+        };
+
+        if (message['m2Enable'] == false) {
+          document.querySelector('.keys.m2').classList.add('hidden');
+        };
+      };
+
+
       if (cache['k1KeyTextColor'] != message['k1KeyTextColor']) {
         cache['k1KeyTextColor'] = message['k1KeyTextColor'];
         document.querySelector('.keys.k1').style.setProperty('--key-color', message['k1KeyTextColor']);
@@ -253,9 +308,6 @@ socket.api_v2((data) => {
         delete cache['key-k1-count'];
         delete cache['key-k1-active'];
         delete cache['key-k1-r'];
-        delete cache['key-k1-timeout'];
-        clearTimeout(cache['key-k1-timeout']);
-        keys['k1'].registerKeypress();
         keys['k1'].bpmArray.length = 0;
 
 
@@ -263,9 +315,6 @@ socket.api_v2((data) => {
         delete cache['key-k2-count'];
         delete cache['key-k2-active'];
         delete cache['key-k2-r'];
-        delete cache['key-k2-timeout'];
-        clearTimeout(cache['key-k2-timeout']);
-        keys['k2'].registerKeypress();
         keys['k2'].bpmArray.length = 0;
 
 
@@ -273,9 +322,6 @@ socket.api_v2((data) => {
         delete cache['key-m1-count'];
         delete cache['key-m1-active'];
         delete cache['key-m1-r'];
-        delete cache['key-m1-timeout'];
-        clearTimeout(cache['key-m1-timeout']);
-        keys['m1'].registerKeypress();
         keys['m1'].bpmArray.length = 0;
 
 
@@ -283,9 +329,6 @@ socket.api_v2((data) => {
         delete cache['key-m2-count'];
         delete cache['key-m2-active'];
         delete cache['key-m2-r'];
-        delete cache['key-m2-timeout'];
-        clearTimeout(cache['key-m2-timeout']);
-        keys['m2'].registerKeypress();
         keys['m2'].bpmArray.length = 0;
       };
 
@@ -329,6 +372,7 @@ socket.api_v2_precise((data) => {
       const value = data.keys[key];
 
       if (!keys[key]) continue;
+      if (cache[`${key}Enable`] != true) continue;
 
 
       if (cache[`key-${key}-press`] != value.isPressed) {
@@ -342,30 +386,16 @@ socket.api_v2_precise((data) => {
 
       if (cache[`key-${key}-count`] != value.count) {
         keys[key].registerKeypress();
-
-
-        if (value.count > (cache[`key-${key}-count`] || 0)) {
-          document.getElementById(`${key}Count`).innerHTML = value.count;
-        };
+        document.getElementById(`${key}Count`).innerHTML = value.count;
 
 
         if (value.count >= 20) cache[`key-${key}-r`] = true;
         cache[`key-${key}-count`] = value.count;
-
-
-        if (value.count > 0) {
-          clearTimeout(cache[`key-${key}-timeout`]);
-          document.querySelector(`.keys.${key}`).classList.remove('hidden');
-
-          cache[`key-${key}-timeout`] = setTimeout(() => {
-            document.querySelector(`.keys.${key}`).classList.add('hidden');
-          }, 15000);
-        };
       };
 
 
       if (cache[`key-${key}-active`] == null) {
-        if (value.isPressed) {
+        if (value.count > 0) {
           document.querySelector(`.keys.${key}`).classList.remove('hidden');
 
           cache[`key-${key}-active`] = true;
