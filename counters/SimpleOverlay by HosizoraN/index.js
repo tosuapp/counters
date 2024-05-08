@@ -100,66 +100,6 @@ socket.commands((data) => {
 socket.api_v2(({ play }) => {
     try {
 
-    if (cache.score !== play.score) {
-        cache.score = play.score;
-        score.innerHTML = play.score;
-        score.update(score.innerHTML);
-    };
-
-    if (cache.acc !== play.accuracy) {
-        cache.acc = play.accuracy;
-        acc.innerHTML = play.accuracy;
-        acc.update(play.accuracy);
-    };
-
-    if (cache.combo != play.combo.current) {
-        cache.combo = play.combo.current;
-        combo.update(play.combo.current);
-        combo.innerHTML = play.combo.current;
-    };
-
-    if (cache.katu !== play.hits.katu) {
-        cache.katu = play.hits.katu;
-        katu.update(play.hits.katu);
-        katu.innerHTML = play.hits.katu
-    };
-
-    if (cache.h100 !== play.hits['100']) {
-        cache.h100 = play.hits['100'];
-        h100.update(play.hits['100']);
-        h100.innerHTML = play.hits['100']
-    };
-
-    if (cache.h50 !== play.hits['50']) {
-        cache.h50 = play.hits['50'];
-        h50.update(play.hits['50']);
-        h50.innerHTML = play.hits['50']
-    };
-  
-    if (cache.h0 !== play.hits['0']) {
-        cache.h0 = play.hits['0'];
-        h0.update(play.hits['0']);
-        h0.innerHTML = play.hits['0']
-    };
-
-    if (cache.hSB !== play.hits.sliderBreaks) {
-        cache.hSB = play.hits.sliderBreaks;
-        hSB.update(play.hits.sliderBreaks);
-        hSB.innerHTML = play.hits.sliderBreaks
-    };
-  
-    if (cache.pp !== Math.round(play.pp.current)) {
-        cache.pp = Math.round(play.pp.current);
-        pp.innerHTML = Math.round(play.pp.current) + "pp";
-    };
-    if (cache.ur !== Math.round(play.unstableRate)) {
-        cache.ur = Math.round(play.unstableRate);
-        ur.innerHTML = Math.round(play.unstableRate) + "UR";
-    }
-    if (cache.hp != play.healthBar.smooth.toFixed(2)) {
-        cache.hp = play.healthBar.smooth.toFixed(2);
-        hp.style.width = `${play.healthBar.smooth}%`;
-    };
 
     } catch (error) {
         console.log(error);
@@ -182,6 +122,8 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             document.getElementById('ur').style.display = `block`;
             document.getElementById('pp').style.left = `10px`;
             document.getElementById('accInfo').style.left = `10px`;
+            document.getElementById('pp').style.right = `initial`;
+            document.getElementById('accInfo').style.right = `initial`;
             rgeki.innerHTML = `Geki: ` + resultsScreen.hits.geki;
             r300.innerHTML = `300: ` + resultsScreen.hits[300];
             rkatu.innerHTML = `Katu: ` + resultsScreen.hits.katu;
@@ -193,12 +135,15 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             r50.style.display = `block`;
           }
           if (profile.mode.name == "Mania") {
+            document.getElementById('accInfo').style.width = `250px`;
             document.getElementById('hSB').style.display = `none`;
             document.getElementById('katu').style.display = `block`;
             document.getElementById('accInfo').style.transform = `translateY(-110px)`;
             document.getElementById('pp').style.transform = `translateY(-110px)`;
             document.getElementById('pp').style.left = `10px`;
             document.getElementById('accInfo').style.left = `10px`;
+            document.getElementById('pp').style.right = `initial`;
+            document.getElementById('accInfo').style.right = `initial`;
             rgeki.innerHTML = `300s: ` + resultsScreen.hits.geki;
             r300.innerHTML = `300: ` + resultsScreen.hits[300];
             rkatu.innerHTML = `200: ` + resultsScreen.hits.katu;
@@ -218,6 +163,8 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             document.getElementById('accInfo').style.right = `10px`;
             document.getElementById('pp').style.transform = `translateY(310px)`;
             document.getElementById('pp').style.right = `10px`;
+            document.getElementById('pp').style.left = `initial`;
+            document.getElementById('accInfo').style.left = `initial`;
             rgeki.innerHTML = `Geki: ` + resultsScreen.hits.geki;
             r300.innerHTML = `300: ` + resultsScreen.hits[300];
             rkatu.innerHTML = `Katu: ` + resultsScreen.hits.katu;
@@ -238,6 +185,8 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             document.getElementById('ur').style.display = `none`;
             document.getElementById('pp').style.left = `10px`;
             document.getElementById('accInfo').style.left = `10px`;
+            document.getElementById('pp').style.right = `initial`;
+            document.getElementById('accInfo').style.right = `initial`;
             rgeki.style.display = `none`;
             r300.innerHTML = `300: ` + resultsScreen.hits[300];
             rkatu.style.display = `none`;
@@ -247,6 +196,66 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             r50.style.display = `block`;
           }
         }
+        if (cache.score !== play.score) {
+          cache.score = play.score;
+          score.innerHTML = play.score;
+          score.update(score.innerHTML);
+        };
+      
+        if (cache.acc !== play.accuracy) {
+            cache.acc = play.accuracy;
+            acc.innerHTML = play.accuracy;
+            acc.update(play.accuracy);
+        };
+      
+        if (cache.combo != play.combo.current) {
+            cache.combo = play.combo.current;
+            combo.update(play.combo.current);
+            combo.innerHTML = play.combo.current;
+        };
+  
+        if (cache.katu !== play.hits.katu) {
+            cache.katu = play.hits.katu;
+            katu.update(play.hits.katu);
+            katu.innerHTML = play.hits.katu;
+        };
+  
+        if (cache.h100 !== play.hits['100']) {
+            cache.h100 = play.hits['100'];
+            h100.update(play.hits['100']);
+            h100.innerHTML = play.hits['100'];
+        };
+  
+        if (cache.h50 !== play.hits['50']) {
+            cache.h50 = play.hits['50'];
+            h50.update(play.hits['50']);
+            h50.innerHTML = play.hits['50'];
+        };
+    
+        if (cache.h0 !== play.hits['0']) {
+            cache.h0 = play.hits['0'];
+            h0.update(play.hits['0']);
+            h0.innerHTML = play.hits['0'];
+        };
+  
+        if (cache.hSB !== play.hits.sliderBreaks) {
+            cache.hSB = play.hits.sliderBreaks;
+            hSB.update(play.hits.sliderBreaks);
+            hSB.innerHTML = play.hits.sliderBreaks;
+        };
+    
+        if (cache.pp !== Math.round(play.pp.current)) {
+            cache.pp = Math.round(play.pp.current);
+            pp.innerHTML = Math.round(play.pp.current) + "pp";
+        };
+        if (cache.ur !== Math.round(play.unstableRate)) {
+            cache.ur = Math.round(play.unstableRate);
+            ur.innerHTML = Math.round(play.unstableRate) + "UR";
+        };
+        if (cache.hp != play.healthBar.smooth.toFixed(2)) {
+            cache.hp = play.healthBar.smooth.toFixed(2);
+            hp.style.width = `${play.healthBar.smooth}%`;
+        };
 
         if (state.number == 2) {
             gameplay.style.opacity = 1;
