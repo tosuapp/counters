@@ -9,4 +9,4 @@
 | Size |  1920x1080 |
 
 
-<img src="/.github/gifs/tosu-debug by cyperdark.gif" /> 
+<img src="/.github/images/tosu-debug by cyperdark.png" /> <img src="/.github/gifs/tosu-debug by cyperdark.gif" /> 

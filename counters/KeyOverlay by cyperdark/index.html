@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>keyOverlay by cyperdark</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--        YOUR STYLES HERE        -->
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/odometr.css" />
+</head>
+
+<body>
+  <div class="main">
+    <div class="keys k1 hidden">
+      <div class="bpm">
+        <div id="k1Bpm" class="bpmcount">0</div>
+        <div class="bpmtext">bpm</div>
+      </div>
+      <div class="wrapper">
+        <div id="k1Press" class="press"></div>
+        <div id="k1Name" class="keyname"></div>
+
+        <div class="count">
+          <div id="k1Count" class="odometer"></div>
+        </div>
+      </div>
+      <canvas id="k1"></canvas>
+    </div>
+    <div class="keys k2 hidden">
+      <div class="bpm">
+        <div id="k2Bpm" class="bpmcount">0</div>
+        <div class="bpmtext">bpm</div>
+      </div>
+      <div class="wrapper">
+        <div id="k2Press" class="press"></div>
+        <div id="k2Name" class="keyname"></div>
+
+        <div class="count">
+          <div id="k2Count" class="odometer"></div>
+        </div>
+      </div>
+      <canvas id="k2"></canvas>
+    </div>
+    <div class="keys m1 hidden">
+      <div class="bpm">
+        <div id="m1Bpm" class="bpmcount">0</div>
+        <div class="bpmtext">bpm</div>
+      </div>
+      <div class="wrapper">
+        <div id="m1Press" class="press"></div>
+        <div id="m1Name" class="keyname">M1</div>
+
+        <div class="count">
+          <div id="m1Count" class="odometer"></div>
+        </div>
+      </div>
+      <canvas id="m1"></canvas>
+    </div>
+    <div class="keys m2 hidden">
+      <div class="bpm">
+        <div id="m2Bpm" class="bpmcount">0</div>
+        <div class="bpmtext">bpm</div>
+      </div>
+      <div class="wrapper">
+        <div id="m2Press" class="press"></div>
+        <div id="m2Name" class="keyname">M2</div>
+
+        <div class="count">
+          <div id="m2Count" class="odometer"></div>
+        </div>
+      </div>
+      <canvas id="m2"></canvas>
+    </div>
+  </div>
+
+
+
+  <!--        OTHER SCRIPTS        -->
+  <script src="js/odometr.js"></script>
+  <script src="js/countUp.js"></script>
+
+
+  <script>
+    window.onerror = function (message, source, lineno, colno, error) {
+      // Log the error message along with other useful information
+      console.error('Error:', message);
+      console.error('Source:', source);
+      console.error('Line number:', lineno);
+      console.error('Column number:', colno);
+
+      // You can also log the actual error object for more details
+      if (error) {
+        console.error('Error object:', error);
+      }
+
+      const d = document.createElement('div');
+      d.classList.add('test')
+
+      d.innerHTML = lineno
+      document.querySelector('.main').appendChild(d)
+
+      // Optionally, you can return true to prevent the default browser
+      // error handling (which usually involves displaying an error message
+      // in the console and/or browser)
+      // return true;
+    };
+  </script>
+
+  <!--        YOUR COUNTER LOGIC FILES        -->
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+[
+  {
+    "uniqueID": "websocketUrl",
+    "type": "text",
+    "title": "Websocket url",
+    "description": "Example: 127.0.0.1:24050 (ip:port)",
+    "options": "",
+    "value": "127.0.0.1:24050"
+  },
+  {
+    "uniqueID": "direction",
+    "type": "options",
+    "title": "Direction",
+    "description": "On which side place keyOverlay",
+    "options": [
+      "top",
+      "left",
+      "right",
+      "bottom"
+    ],
+    "value": "right"
+  },
+  {
+    "uniqueID": "stickPosition",
+    "type": "options",
+    "title": "Position",
+    "description": "To which side stick the keyOverlay",
+    "options": [
+      "to top",
+      "to left",
+      "to right",
+      "to bottom"
+    ],
+    "value": "top"
+  },
+  {
+    "uniqueID": "positionOffset",
+    "type": "number",
+    "title": "Position offset",
+    "description": "How much percent",
+    "options": "",
+    "value": "0"
+  },
+  {
+    "uniqueID": "fontSize",
+    "type": "text",
+    "title": "Font size",
+    "description": "",
+    "options": "",
+    "value": "40px"
+  },
+  {
+    "uniqueID": "fontName",
+    "type": "text",
+    "title": "Font Name",
+    "description": "Font should be installed in the system",
+    "options": "",
+    "value": ""
+  },
+  {
+    "uniqueID": "width",
+    "type": "text",
+    "title": "Width",
+    "description": "Keypresses Field width",
+    "options": "",
+    "value": "300px"
+  },
+  {
+    "uniqueID": "height",
+    "type": "text",
+    "title": "Height",
+    "description": "Keypresses Field height",
+    "options": "",
+    "value": "40px"
+  },
+  {
+    "uniqueID": "keypressesRoundness",
+    "type": "number",
+    "title": "Key Presses Roundness",
+    "description": "Key press blocks rounding",
+    "options": "",
+    "value": "5"
+  },
+  {
+    "uniqueID": "keysSpeed",
+    "type": "number",
+    "title": "Keys speed",
+    "description": "Lower = faster. Higher = slower",
+    "options": "",
+    "value": "200"
+  },
+  {
+    "uniqueID": "bpmInterval",
+    "type": "number",
+    "title": "Calculate BPM Average",
+    "description": "How many X pressed to sum to get average bpm",
+    "options": "",
+    "value": "5"
+  },
+  {
+    "uniqueID": "k1KeyTextColor",
+    "type": "color",
+    "title": "K1 Key Text Color",
+    "description": "Color of the keybind",
+    "options": "",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "k1TextColor",
+    "type": "color",
+    "title": "K1 Text Color",
+    "description": "",
+    "options": "",
+    "value": "#a8d2ff"
+  },
+  {
+    "uniqueID": "k1PressColor",
+    "type": "color",
+    "title": "K1 Press Color",
+    "description": "",
+    "options": "",
+    "value": "#67b0fe"
+  },
+  {
+    "uniqueID": "k1PressedColor",
+    "type": "color",
+    "title": "K1 Pressed Color",
+    "description": "____",
+    "options": "",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "k2KeyTextColor",
+    "type": "color",
+    "title": "K2 Key Text Color",
+    "description": "Color of the keybind",
+    "options": "",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "k2TextColor",
+    "type": "color",
+    "title": "K2 Text Color",
+    "description": "",
+    "options": "",
+    "value": "#86feae"
+  },
+  {
+    "uniqueID": "k2PressColor",
+    "type": "color",
+    "title": "K2 Press Color",
+    "description": "",
+    "options": "",
+    "value": "#55dd82"
+  },
+  {
+    "uniqueID": "k2PressedColor",
+    "type": "color",
+    "title": "K2 Pressed Color",
+    "description": "____",
+    "options": "",
+    "value": "#e0ffeb"
+  },
+  {
+    "uniqueID": "m1KeyTextColor",
+    "type": "color",
+    "title": "M1 Key Text Color",
+    "description": "Color of the keybind",
+    "options": "",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "m1TextColor",
+    "type": "color",
+    "title": "M1 Text Color",
+    "description": "",
+    "options": "",
+    "value": "#ffa8fc"
+  },
+  {
+    "uniqueID": "m1PressColor",
+    "type": "color",
+    "title": "M1 Press Color",
+    "description": "",
+    "options": "",
+    "value": "#d869d5"
+  },
+  {
+    "uniqueID": "m1PressedColor",
+    "type": "color",
+    "title": "M1 Pressed Color",
+    "description": "____",
+    "options": "",
+    "value": "#ffe0fe"
+  },
+  {
+    "uniqueID": "m2KeyTextColor",
+    "type": "color",
+    "title": "M2 Key Text Color",
+    "description": "Color of the keybind",
+    "options": "",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "m2TextColor",
+    "type": "color",
+    "title": "M2 Text Color",
+    "description": "",
+    "options": "",
+    "value": "#ffa3a3"
+  },
+  {
+    "uniqueID": "m2PressColor",
+    "type": "color",
+    "title": "M2 Press Color",
+    "description": "",
+    "options": "",
+    "value": "#f77373"
+  },
+  {
+    "uniqueID": "m2PressedColor",
+    "type": "color",
+    "title": "M2 Pressed Color",
+    "description": "",
+    "options": "",
+    "value": "#ffebeb"
+  }
+]

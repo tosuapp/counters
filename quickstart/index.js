@@ -62,6 +62,6 @@ socket.api_v2(({ play }) => {
       document.getElementById('pp').innerHTML = Math.round(play.pp.current);
     };
   } catch (error) {
-    console.log(err);
+    console.log(error);
   };
 });

@@ -184,6 +184,7 @@ class WebSocketManager {
       this.sockets['/websocket/commands'].send(`${name}:${payload}`);
     } catch (error) {
       if (amountOfRetries <= 3) {
+        console.log(`[COMMAND_ERROR] Attempt ${amountOfRetries}`, error);
         setTimeout(() => {
           that.sendCommand(name, command, amountOfRetries + 1);
         }, 1000);

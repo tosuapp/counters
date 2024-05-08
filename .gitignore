@@ -7,3 +7,4 @@
 *.env
 
 /script
+.github/api1.json

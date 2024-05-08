@@ -8,17 +8,27 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  color: white;
-  background-color: black;
+  color: var(--textColor, white);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* background-color: black; */
+  text-shadow: 0 0 1em black, 0 0 2em black;
+  overflow: hidden;
 }
 
 
 #ur {
   text-align: center;
-  font-size: 48px;
+  font-size: var(--fontSize, 40px);
   font-weight: bold;
-  width: 300px;
-  color: white;
   opacity: 0;
+  margin-bottom: 20px;
   transition: 300ms ease-in-out;
+}
+
+#ur.always {
+  opacity: 1 !important;
 }
