@@ -8,9 +8,17 @@
     "value": "127.0.0.1:24050"
   },
   {
+    "uniqueID": "keynameEnable",
+    "type": "checkbox",
+    "title": "Show Key names?",
+    "description": "",
+    "options": "",
+    "value": true
+  },
+  {
     "uniqueID": "direction",
     "type": "options",
-    "title": "Direction",
+    "title": "Keypresses Direction",
     "description": "On which side place keyOverlay",
     "options": [
       "top",
@@ -23,7 +31,7 @@
   {
     "uniqueID": "stickPosition",
     "type": "options",
-    "title": "Position",
+    "title": "Stick Position",
     "description": "To which side stick the keyOverlay",
     "options": [
       "to top",
@@ -37,7 +45,7 @@
     "uniqueID": "positionOffset",
     "type": "number",
     "title": "Position offset",
-    "description": "How much percent",
+    "description": "Offset within window, in percents",
     "options": "",
     "value": 0
   },
@@ -58,6 +66,14 @@
     "value": ""
   },
   {
+    "uniqueID": "bpmInterval",
+    "type": "number",
+    "title": "Calculate BPM Average",
+    "description": "How many X pressed to sum to get average bpm",
+    "options": "",
+    "value": 5
+  },
+  {
     "uniqueID": "width",
     "type": "text",
     "title": "Width",
@@ -74,17 +90,17 @@
     "value": "40px"
   },
   {
-    "uniqueID": "keynameEnable",
-    "type": "checkbox",
-    "title": "Show Key names?",
-    "description": "",
+    "uniqueID": "pressWidth",
+    "type": "text",
+    "title": "Press Width",
+    "description": "Width of press block",
     "options": "",
-    "value": true
+    "value": "1em"
   },
   {
     "uniqueID": "keypressesRoundness",
     "type": "number",
-    "title": "Key Presses Roundness",
+    "title": "Key Press Roundness",
     "description": "Key press blocks rounding",
     "options": "",
     "value": 5
@@ -96,14 +112,6 @@
     "description": "Lower = faster. Higher = slower",
     "options": "",
     "value": 200
-  },
-  {
-    "uniqueID": "bpmInterval",
-    "type": "number",
-    "title": "Calculate BPM Average",
-    "description": "How many X pressed to sum to get average bpm",
-    "options": "",
-    "value": 5
   },
   {
     "uniqueID": "k1Enable",

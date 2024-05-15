@@ -148,7 +148,7 @@ body::after {
 
 .keys .press {
   position: absolute;
-  width: 1em;
+  width: var(--press-width);
   height: var(--height);
   top: 50%;
   left: 50%;
@@ -252,7 +252,7 @@ body.-top .main .keys .wrapper {
 
 body.-top .main .keys .press {
   width: var(--height);
-  height: 1em;
+  height: var(--press-width);
 }
 
 body.-top .main .keys .press.active {
@@ -387,7 +387,7 @@ body.-bottom .main .keys .wrapper {
 
 body.-bottom .main .keys .press {
   width: var(--height);
-  height: 1em;
+  height: var(--press-width);
 }
 
 body.-bottom .main .keys .press.active {

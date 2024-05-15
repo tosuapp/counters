@@ -274,6 +274,13 @@ socket.commands((data) => {
         if (cache['positionOffset'])
           document.body.style.setProperty('--offset', `${cache['positionOffset']}%`);
       };
+
+
+      if (cache['pressWidth'] != message['pressWidth']) {
+        cache['pressWidth'] = message['pressWidth'];
+        document.body.style.setProperty('--press-width', message['pressWidth']);
+      };
+
     };
 
   } catch (error) {
