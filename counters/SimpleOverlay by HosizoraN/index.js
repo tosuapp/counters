@@ -97,15 +97,6 @@ socket.commands((data) => {
     };
   });
 
-socket.api_v2(({ play }) => {
-    try {
-
-
-    } catch (error) {
-        console.log(error);
-    };
-});
-
 socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) => {
     try {
 
