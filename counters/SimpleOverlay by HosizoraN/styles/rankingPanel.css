@@ -1,0 +1,74 @@
+#rankingPanel {
+    position: absolute;
+    display: flex;
+    width: 1920px;
+    height: 1080px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-size: cover;
+    transition: ease-in-out 500ms;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+#result {
+    width: 55%;
+    height: 90%;
+    padding: 30px;
+    background-color: rgba(104, 104, 104, 0.5);
+    font-size: 30px;
+    text-align: center;
+    overflow: hidden;
+    transition: ease 500ms;
+}
+#rscore {
+    margin: 30px;
+    font-size: 45px;
+    transition: ease-in-out 500ms;
+    transition-delay: 500ms;
+}
+#ranking {
+    margin: 50px;
+}
+.htotal {
+    display: flex;
+    margin-bottom: 30px;
+    justify-content: space-evenly;
+}
+#r300,
+#rgeki {
+    transition: ease-in-out 500ms;
+    transition-delay: 700ms;
+}
+#r100,
+#rkatu {
+    transition: ease-in-out 500ms;
+    transition-delay: 900ms;
+}
+#r50,
+#r0 {
+    transition: ease-in-out 500ms;
+    transition-delay: 1.1s;
+}
+#rst {
+    transition: ease-in-out 500ms;
+    transition-delay: 1.4s;
+}
+#racc,
+#rcombo {
+    margin-bottom: 10px;
+}
+#rank {
+    display: flex;
+    font-size: 300px;
+    justify-content: center;
+    transition: ease-in-out 500ms;
+    transition-delay: 1.8s;
+}
+#modsused {
+    display: flex;
+    justify-content: center;
+    transition: ease-in-out 500ms;
+    transition-delay: 1.6s;
+}

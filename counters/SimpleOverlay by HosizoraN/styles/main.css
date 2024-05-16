@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poetsen+One&display=swap');
+
+:root {
+    --TextColor: #fff;
+    --katuColor: #fff;
+    --h100Color: #fff;
+    --h50Color: #fff;
+    --h0Color: #fff;
+    --hSBColor: #fff;
+    --keyColor: #fff;
+    --keyText: #fff;
+    --hpColor: #fff;
+    --keyPressed: #ffd256;
+}
+#main {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+#gameplay {
+    position: absolute;
+    display: flex;
+    width: 1920px;
+    height: 1080px;
+    color: var(--TextColor);
+    justify-content: center;
+    align-items: center;
+    transition: ease-in-out 500ms;
+}
+#score {
+    position: absolute;
+    top: 20px;
+    font-size: 55px;
+    text-align: center;
+}
+#acc {
+    position: absolute;
+    top: 90px;
+    font-size: 35px;
+    text-align: center;
+}
+#ur {
+    position: absolute;
+    bottom: 30px;
+    font-size: 20px;
+}
+#combo {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 50px;
+}
+#accInfo {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    font-size: 30px;
+    width: 250px;
+    top: 345px;
+}
+#pp {
+    top: 270px;
+    position: absolute;
+    font-size: 50px;
+}
+#katu {
+    color: var(--katuColor);
+}
+#h100 {
+    color: var(--h100Color);
+}
+#h50 {
+    color: var(--h50Color);
+}
+#h0 {
+    color: var(--h0Color);
+}
+#hSB {
+    color: var(--hSBColor);
+}
+#keyOverlay {
+    position: absolute;
+    top: 42%;
+    right: 15px;
+    align-items: center;
+}
+.keyCont {
+    align-items: center;
+    margin-bottom: 20px;
+    width: 7px;
+    height: 50px;
+    background-color: var(--keyColor);
+    justify-content: center;
+    display: flex;
+    transition: transform ease-in 100ms;
+}
+.keyText {
+    position: absolute;
+    right: 25px;
+    font-size: 20px;
+    color: var(--keyText);
+}
+#hp {
+    position: absolute;
+    top: 0;
+    height: 15px;
+    background-color: var(--hpColor);
+    transition: linear 100ms;
+}
+
