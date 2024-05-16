@@ -12,7 +12,7 @@ class KeyOverlay {
      * @param {number=} options.speed
      * @param {string=} options.keyTextId
      */
-    constructor(keyId, tilesId, options = { speed: undefined, keyTextId: undefined , keyNameId: undefined}) {
+    constructor(keyId, tilesId, options = { keyTextId: undefined , keyNameId: undefined }) {
         this.tiles = document.getElementById(tilesId)
         this.keyField = document.getElementById(keyId)
         this.keyText = document.getElementById(options.keyTextId) || undefined
@@ -20,22 +20,24 @@ class KeyOverlay {
         this.keyNameText = document.getElementById(options.keyNameId)
         this.speed = options.speed || 0.3
         this.tile = null
+        this.color = `var(--${keyId}Color)` || `#161616`
+        this.colorpressed = `var(--${keyId}Tap)` || `#ffffff`
     }
 
-    update(key, color, colortap) {
+    update(key) {
         if (key.isPressed == true) {
             if (!this.tile){
                 this.tile = tileWrapperNode.cloneNode(true)
                 this.tiles.appendChild(this.tile)
-                this.updateTile(color)
+                this.updateTile(this.color)
             }
             if (this.keyText && key.count !== 0) this.keyText.innerText = key.count
             
-            this.keyField.style.backgroundColor = colortap
+            this.keyField.style.backgroundColor = this.colorpressed
         } else {
             if (this.tile) {
                 this.tile.end = true
-                this.keyField.style.backgroundColor = color
+                this.keyField.style.backgroundColor = this.color
             }
             if ((this.keyText && this.keyText.innerText !== this.keyName) && key.count === 0) this.keyText.innerText = this.keyName
         }
