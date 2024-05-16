@@ -1,6 +1,7 @@
 */**/*.zip
 */**/*.exe
 */**/*.env
+*/**/*.values.json
 
 *.zip
 *.exe
