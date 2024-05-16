@@ -9,16 +9,34 @@ html, body {
     overflow: hidden;
 }
 
+:root {
+    --k1Color: #686868;
+    --k1Tap: #ffffff;
+    --k1Text: #ffffff;
+
+    --k2Color: #686868;
+    --k2Tap: #ffffff;
+    --k2Text: #ffffff;
+
+    --m1Color: #686868;
+    --m1Tap: #ffffff;
+    --m1Text: #ffffff;
+
+    --m2Color: #686868;
+    --m2Tap: #ffffff;
+    --m2Text: #ffffff;
+
+    --radius: 5px;
+}
+
 #Key1Cont,
 #Key2Cont,
 #Mouse1Cont,
 #Mouse2Cont {
-    transition: ease 200ms;
+    transition: ease 500ms;
 }
 
 #keys {
-    --keyColor: rgb(105, 105, 105);
-    --keyTap: rgb(175, 175, 175);
     --fadeIn: linear-gradient(to left, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
     transition: ease-in-out 200ms;
 }
@@ -50,7 +68,7 @@ html, body {
     height: 100%;
     max-width: 100%;
     right: 35px;
-    border-radius: 5px;
+    border-radius: var(--radius);
     opacity: 50%;
 }
 
@@ -71,7 +89,6 @@ html, body {
     min-width: 50px;
     top: 10%;
     right: 50px;
-    color: white;
     height: 100%;
     padding: 5px;
     float: right;
@@ -82,11 +99,22 @@ html, body {
     min-width: 50px;
     height: 100%;
     top: 10px;
-    text-align: right;
-    right: 0;
-    color: rgb(190, 190, 190);
+    text-align: left;
+    right: -25px;
     text-transform: uppercase;
     transition: ease-out 300ms;
+}
+#key1, #k1Text {
+    color: var(--k1Text);
+}
+#key2, #k2Text {
+    color: var(--k2Text);
+}
+#key3, #m1Text {
+    color: var(--m1Text);
+}
+#key4, #m2Text {
+    color: var(--m2Text);
 }
 @keyframes moveOut {
     100% { transform: translateX(-100%); }
