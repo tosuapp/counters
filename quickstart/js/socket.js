@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.0';
+    this.version = '0.1.1';
 
     if (host) {
       this.host = host;
@@ -14,7 +14,7 @@ class WebSocketManager {
     this.sockets = {};
   }
 
-  createConnection(url, callback) {
+  createConnection(url, callback, filters) {
     let INTERVAL = '';
 
     const that = this;
@@ -24,6 +24,9 @@ class WebSocketManager {
       console.log(`[OPEN] ${url}: Connected`);
 
       if (INTERVAL) clearInterval(INTERVAL);
+      if (Array.isArray(filters)) {
+        this.sockets[url].send(`applyFilters:${JSON.stringify(filters)}`);
+      }
     };
 
     this.sockets[url].onclose = (event) => {
@@ -31,7 +34,7 @@ class WebSocketManager {
 
       delete this.sockets[url];
       INTERVAL = setTimeout(() => {
-        that.createConnection(url, callback);
+        that.createConnection(url, callback, filters);
       }, 1000);
     };
 
@@ -66,27 +69,30 @@ class WebSocketManager {
   /**
    * Connects to gosu compatible socket api.
    * @param {(data: WEBSOCKET_V1) => void} callback - The function to handle received messages.
+   * @param {Filters[]} filters
    */
-  api_v1(callback) {
-    this.createConnection(`/ws`, callback);
+  api_v1(callback, filters) {
+    this.createConnection(`/ws`, callback, filters);
   };
 
 
   /**
    * Connects to tosu advanced socket api.
    * @param {(data: WEBSOCKET_V2) => void} callback - The function to handle received messages.
+   * @param {Filters[]} filters
    */
-  api_v2(callback) {
-    this.createConnection(`/websocket/v2`, callback);
+  api_v2(callback, filters) {
+    this.createConnection(`/websocket/v2`, callback, filters);
   };
 
 
   /**
    * Connects to keyOverlay socket api.
    * @param {(data: WEBSOCKET_V2_KEYS) => void} callback - The function to handle received messages.
+   * @param {Filters[]} filters
    */
-  api_v2_precise(callback) {
-    this.createConnection(`/websocket/v2/precise`, callback);
+  api_v2_precise(callback, filters) {
+    this.createConnection(`/websocket/v2/precise`, callback, filters);
   };
 
 
@@ -184,6 +190,7 @@ class WebSocketManager {
       this.sockets['/websocket/commands'].send(`${name}:${payload}`);
     } catch (error) {
       if (amountOfRetries <= 3) {
+        console.log(`[COMMAND_ERROR] Attempt ${amountOfRetries}`, error);
         setTimeout(() => {
           that.sendCommand(name, command, amountOfRetries + 1);
         }, 1000);
@@ -213,6 +220,11 @@ class WebSocketManager {
 
 export default WebSocketManager;
 
+
+
+/** 
+ * @typedef {string | { field: string; keys: Filters[] }} Filters
+ */
 
 
 /** @typedef {object} CALCULATE_PP
