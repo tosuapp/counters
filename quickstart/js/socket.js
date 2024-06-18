@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.1';
+    this.version = '0.1.2';
 
     if (host) {
       this.host = host;
@@ -683,7 +683,7 @@ export default WebSocketManager;
  * @property {number} play.hits.geki
  * @property {number} play.hits.katu
  * @property {number} play.hits.sliderBreaks
- * @property {} play.hitErrorArray
+ * @property {number[]} play.hitErrorArray
  * @property {object} play.combo
  * @property {number} play.combo.current
  * @property {number} play.combo.max
@@ -698,7 +698,28 @@ export default WebSocketManager;
  * @property {number} play.pp.fc
  * @property {number} play.pp.maxAchievedThisPlay
  * @property {number} play.unstableRate
- * @property {} leaderboard
+ * @property {object[]} leaderboard
+ * @property {boolean} leaderboard.isFailed
+ * @property {number} leaderboard.position
+ * @property {number} leaderboard.team
+ * @property {number} leaderboard.team
+ * @property {string} leaderboard.name
+ * @property {number} leaderboard.score
+ * @property {number} leaderboard.accuracy
+ * @property {object} leaderboard.hits
+ * @property {number} leaderboard.hits.0
+ * @property {number} leaderboard.hits.50
+ * @property {number} leaderboard.hits.100
+ * @property {number} leaderboard.hits.300
+ * @property {number} leaderboard.hits.geki
+ * @property {number} leaderboard.hits.katu
+ * @property {object} leaderboard.combo
+ * @property {number} leaderboard.combo.current
+ * @property {number} leaderboard.combo.max
+ * @property {object} leaderboard.mods
+ * @property {number} leaderboard.mods.number
+ * @property {string} leaderboard.mods.name
+ * @property {string} leaderboard.rank
  * @property {object} performance
  * @property {object} performance.accuracy
  * @property {number} performance.accuracy.95
@@ -713,11 +734,11 @@ export default WebSocketManager;
  * @property {number[]} performance.graph.series.data
  * @property {number[]} performance.graph.xaxis
  * @property {object} resultsScreen
+ * @property {string} resultsScreen.playerName
  * @property {object} resultsScreen.mode
  * @property {number} resultsScreen.mode.number
  * @property {string} resultsScreen.mode.name
  * @property {number} resultsScreen.score
- * @property {string} resultsScreen.name
  * @property {object} resultsScreen.hits
  * @property {number} resultsScreen.hits.0
  * @property {number} resultsScreen.hits.50
@@ -729,6 +750,10 @@ export default WebSocketManager;
  * @property {number} resultsScreen.mods.number
  * @property {string} resultsScreen.mods.name
  * @property {number} resultsScreen.maxCombo
+ * @property {string} resultsScreen.rank
+ * @property {object} resultsScreen.pp
+ * @property {number} resultsScreen.pp.current
+ * @property {number} resultsScreen.pp.fc
  * @property {string} resultsScreen.createdAt
  * @property {object} folders
  * @property {string} folders.game
