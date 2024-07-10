@@ -784,11 +784,16 @@ export default WebSocketManager;
  * @property {object} tourney.points
  * @property {number} tourney.points.left
  * @property {number} tourney.points.right
- * @property {} tourney.chat
+ * @property {object[]} tourney.chat
+ * @property {string} tourney.chat.team
+ * @property {string} tourney.chat.name
+ * @property {string} tourney.chat.message
+ * @property {string} tourney.chat.timestamp
  * @property {object} tourney.totalScore
  * @property {number} tourney.totalScore.left
  * @property {number} tourney.totalScore.right
  * @property {object[]} tourney.clients
+ * @property {number} tourney.clients.ipcId
  * @property {string} tourney.clients.team
  * @property {object} tourney.clients.user
  * @property {number} tourney.clients.user.id
@@ -817,7 +822,7 @@ export default WebSocketManager;
  * @property {number} tourney.clients.play.hits.geki
  * @property {number} tourney.clients.play.hits.katu
  * @property {number} tourney.clients.play.hits.sliderBreaks
- * @property {} tourney.clients.play.hitErrorArray
+ * @property {number[]} tourney.clients.play.hitErrorArray
  * @property {object} tourney.clients.play.mods
  * @property {number} tourney.clients.play.mods.number
  * @property {string} tourney.clients.play.mods.name
@@ -851,4 +856,20 @@ export default WebSocketManager;
  * @property {boolean} keys.m2.isPressed
  * @property {number} keys.m2.count
  * @property {number[]} hitErrors
+ * @property {object[]} tourney.
+ * @property {number} tourney.ipcId
+ * @property {number[]} tourney.hitErrors
+ * @property {object} tourney.keys
+ * @property {object} tourney.keys.k1
+ * @property {boolean} tourney.keys.k1.isPressed
+ * @property {number} tourney.keys.k1.count
+ * @property {object} tourney.keys.k2
+ * @property {boolean} tourney.keys.k2.isPressed
+ * @property {number} tourney.keys.k2.count
+ * @property {object} tourney.keys.m1
+ * @property {boolean} tourney.keys.m1.isPressed
+ * @property {number} tourney.keys.m1.count
+ * @property {object} tourney.keys.m2
+ * @property {boolean} tourney.keys.m2.isPressed
+ * @property {number} tourney.keys.m2.count
  */
