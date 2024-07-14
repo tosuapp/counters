@@ -110,10 +110,11 @@ class WebSocketManager {
       };
 
 
-      const request = await fetch(`${this.host}/api/calculate/pp`, {
-        method: "GET",
-        body: JSON.stringify(params)
-      });
+      const url = new URL(`http://${this.host}/api/calculate/pp`);
+      Object.keys(params)
+        .forEach(key => url.searchParams.append(key, params[key]));
+
+      const request = await fetch(url, { method: "GET", });
 
 
       const json = await request.json();
@@ -246,42 +247,36 @@ export default WebSocketManager;
 
 
 /** @typedef {object} CALCULATE_PP_RESPONSE
- * @property {object} attributes
- * @property {number} attributes.mode
- * @property {number} attributes.version
- * @property {number} attributes.nCircles
- * @property {number} attributes.nSliders
- * @property {number} attributes.nSpinners
- * @property {number} attributes.ar
- * @property {number} attributes.cs
- * @property {number} attributes.hp
- * @property {number} attributes.od
- * @property {number} attributes.arHitWindow
- * @property {number} attributes.odHitWindow
- * @property {number} attributes.clockRate
- * @property {number} attributes.bpm
- * @property {object} performance
- * @property {number} performance.mode
- * @property {number} performance.pp
- * @property {number} performance.ppAcc
- * @property {number} performance.ppAim
- * @property {number} performance.ppFlashlight
- * @property {number} performance.ppSpeed
- * @property {number} performance.effectiveMissCount
- * @property {object} performance.difficulty
- * @property {number} performance.difficulty.mode
- * @property {number} performance.difficulty.aim
- * @property {number} performance.difficulty.speed
- * @property {number} performance.difficulty.flashlight
- * @property {number} performance.difficulty.sliderFactor
- * @property {number} performance.difficulty.speedNoteCount
- * @property {number} performance.difficulty.ar
- * @property {number} performance.difficulty.od
- * @property {number} performance.difficulty.nCircles
- * @property {number} performance.difficulty.nSliders
- * @property {number} performance.difficulty.nSpinners
- * @property {number} performance.difficulty.stars
- * @property {number} performance.difficulty.maxCombo
+ * @property {object} difficulty
+ * @property {number} difficulty.mode
+ * @property {number} difficulty.stars
+ * @property {boolean} difficulty.isConvert
+ * @property {number} difficulty.aim
+ * @property {number} difficulty.speed
+ * @property {number} difficulty.flashlight
+ * @property {number} difficulty.sliderFactor
+ * @property {number} difficulty.speedNoteCount
+ * @property {number} difficulty.od
+ * @property {number} difficulty.hp
+ * @property {number} difficulty.nCircles
+ * @property {number} difficulty.nSliders
+ * @property {number} difficulty.nSpinners
+ * @property {number} difficulty.ar
+ * @property {number} difficulty.maxCombo
+ * @property {object} state
+ * @property {number} state.maxCombo
+ * @property {number} state.nGeki
+ * @property {number} state.nKatu
+ * @property {number} state.n300
+ * @property {number} state.n100
+ * @property {number} state.n50
+ * @property {number} state.misses
+ * @property {number} pp
+ * @property {number} ppAim
+ * @property {number} ppFlashlight
+ * @property {number} ppSpeed
+ * @property {number} ppAccuracy
+ * @property {number} effectiveMissCount
  */
 
 
