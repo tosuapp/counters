@@ -629,6 +629,9 @@ export default WebSocketManager;
  * @property {string} beatmap.titleUnicode
  * @property {string} beatmap.mapper
  * @property {string} beatmap.version
+ * @property {object} beatmap.mode
+ * @property {number} beatmap.mode.number
+ * @property {string} beatmap.mode.name
  * @property {object} beatmap.stats
  * @property {object} beatmap.stats.stars
  * @property {number} beatmap.stats.stars.live
@@ -734,6 +737,7 @@ export default WebSocketManager;
  * @property {number} resultsScreen.mode.number
  * @property {string} resultsScreen.mode.name
  * @property {number} resultsScreen.score
+ * @property {number} resultsScreen.accuracy
  * @property {object} resultsScreen.hits
  * @property {number} resultsScreen.hits.0
  * @property {number} resultsScreen.hits.50
