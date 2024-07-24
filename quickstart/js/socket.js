@@ -841,6 +841,7 @@ export default WebSocketManager;
 
 
 /** @typedef {object} WEBSOCKET_V2_KEYS
+ * @property {number} currentTime
  * @property {object} keys
  * @property {object} keys.k1
  * @property {boolean} keys.k1.isPressed
@@ -855,7 +856,7 @@ export default WebSocketManager;
  * @property {boolean} keys.m2.isPressed
  * @property {number} keys.m2.count
  * @property {number[]} hitErrors
- * @property {object[]} tourney.
+ * @property {object[]} tourney
  * @property {number} tourney.ipcId
  * @property {number[]} tourney.hitErrors
  * @property {object} tourney.keys
