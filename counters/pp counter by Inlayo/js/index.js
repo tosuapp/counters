@@ -1,8 +1,6 @@
 const HOST = '127.0.0.1:24050';
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 let wrapper = document.getElementById('wrapper');
-let ifFcpp = document.getElementsByClassName('ifFcpp')[0];
-let progress = document.getElementById("progress");
 
 socket.onopen = () => console.log("Successfully Connected");
 socket.onclose = event => {
