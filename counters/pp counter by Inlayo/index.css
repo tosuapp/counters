@@ -23,16 +23,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000aa; /* 반투명 검은색 배경 */
+    background-color: #000000aa;
     border-radius: 15px;
-    width: 150px; /* 고정된 너비 */
-    height: 60px; /* 고정된 높이 */
+    width: 150px;
+    height: 60px;
   }
   
   #peppy {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* 세로로 중앙 정렬 */
+    height: 100vh;
   }
   
