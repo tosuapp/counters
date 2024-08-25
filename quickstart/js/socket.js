@@ -653,6 +653,7 @@ export default WebSocketManager;
  * @property {number} beatmap.stats.hp.original
  * @property {number} beatmap.stats.hp.converted
  * @property {object} beatmap.stats.bpm
+ * @property {number} beatmap.stats.bpm.realtime
  * @property {number} beatmap.stats.bpm.common
  * @property {number} beatmap.stats.bpm.min
  * @property {number} beatmap.stats.bpm.max
