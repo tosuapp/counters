@@ -33,23 +33,8 @@ socket.onmessage = (event) => {
   if (data.gameplay.pp.current !== "" && (tempState === 2 || tempState === 7)) {
     animation.pp.update(data.gameplay.pp.current);
   }
-  if (data.menu.pp[100] !== "" && tempState !== 2 && tempState !== 7) {
-    animation.pp.update(data.menu.pp[100]);
-  }
-  if (data.gameplay.hits[0] > 0 || data.gameplay.hits.sliderBreaks > 0) {
-    ifFcpp.style.opacity = 1;
-  } else {
-    ifFcpp.style.opacity = 0;
-  }
-  if (fullTime !== data.menu.bm.time.mp3) {
-    fullTime = data.menu.bm.time.mp3;
-    onepart = 178 / fullTime;
-  }
-  if (
-    seek !== data.menu.bm.time.current &&
-    fullTime !== undefined &&
-    fullTime != 0
-  ) {
+  seek !== data.menu.bm.time.current && fullTime !== undefined && fullTime != 0;
+  {
     seek = data.menu.bm.time.current;
     progress.style.width = onepart * seek + "px";
   }
