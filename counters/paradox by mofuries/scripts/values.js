@@ -13,7 +13,7 @@ let saved = {
     background: {
       normalizeBrightness: true,
       opacity: 30,
-      blur: 5.0,
+      blur: 10.0,
       contrast: 0.7
     },
     customImage: null,
