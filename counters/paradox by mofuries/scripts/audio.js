@@ -8,7 +8,7 @@ let startTime = 0;
 let pausedAt = 0;
 let lastStopTime = 0;
 let currentPlaybackRate = 1.0;
-let volume = 0.0;
+let volume = 0.02;
 
 function fetchAudio(url) {
     audioBuffer = null;
