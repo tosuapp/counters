@@ -570,12 +570,6 @@ function handleAudioError(status) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  backgroundRefresh();
-  hideGameUIRefresh();
-  drawTriangles();
-});
-
 function drawClock(canvas, ctx) {
   ctx.reset();
   const progress = (tokenValue.time / tokenValue.totaltime * 100000).toFixed(2);
