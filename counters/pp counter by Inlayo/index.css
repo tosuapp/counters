@@ -1,0 +1,38 @@
+@font-face {
+    font-family: "Custom-Font";
+    src: url("./font/Letters for Learners.ttf");
+  }
+  
+  body,
+  html {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: "Custom-Font";
+    font-size: 50px;
+  }
+  
+  #wrapper {
+    position: absolute;
+    transform: translateX(-110%);
+    width: 200px;
+  }
+  
+  .pp {
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000aa;
+    border-radius: 15px;
+    width: 150px;
+    height: 60px;
+  }
+  
+  #peppy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
