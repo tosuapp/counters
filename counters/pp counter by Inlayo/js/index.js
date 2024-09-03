@@ -9,33 +9,20 @@ socket.onclose = (event) => {
 };
 socket.onerror = (error) => console.log("Socket Error: ", error);
 
-let animation = {
-  pp: new CountUp("pp", 0, 0, 0, 0.5, {
-    decimalPlaces: 2,
-    useEasing: true,
-    useGrouping: false,
-    separator: " ",
-    decimal: ".",
-  }),
-};
 
-let tempState;
-let seek;
-let fullTime;
-let onepart;
+let pp_animation = new CountUp("pp", 0, 0, 0, 0.5, {
+  decimalPlaces: 2,
+  useEasing: true,
+  useGrouping: false,
+  separator: " ",
+  decimal: ".",
+});
+
 
 socket.onmessage = (event) => {
   let data = JSON.parse(event.data);
 
-  if (data.menu.state !== tempState) {
-    tempState = data.menu.state;
-  }
-  if (data.gameplay.pp.current !== "" && (tempState === 2 || tempState === 7)) {
-    animation.pp.update(data.gameplay.pp.current);
-  }
-  seek !== data.menu.bm.time.current && fullTime !== undefined && fullTime != 0;
-  {
-    seek = data.menu.bm.time.current;
-    progress.style.width = onepart * seek + "px";
+  if (data.gameplay.pp.current !== "" && (data.menu.state === 2 || data.menu.state === 7)) {
+    pp_animation.update(data.gameplay.pp.current);
   }
 };
