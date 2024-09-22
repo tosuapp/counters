@@ -77,8 +77,11 @@ sc.onmessage = (event) => {
                 panelImage.src = currentBG.src;
                 profileDetail.style.height = '100px';
                 background.classList = "";
-                showElement([visualizer, mods, gameOverlay, grade, pp, document.getElementById('progress'), document.getElementById('uihide')]);
+                showElement([mods, gameOverlay, grade, pp, document.getElementById('progress'), document.getElementById('uihide')]);
                 hideElement([avatar, document.getElementById('paddingleft'), document.getElementById('paddingright')]);
+                if (saved.enableAudioVisualizer === true) {
+                  showElement(visualizer);
+                }
                 if (keyOverlayRunning === false) {
                   drawKeyOverlay();
                 }
