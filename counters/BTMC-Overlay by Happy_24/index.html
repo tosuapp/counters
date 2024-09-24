@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>BTMC-Overlay</title>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge"
+		/>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="assets/favicon.ico"
+		/>
+		<link
+			rel="stylesheet"
+			href="styles/odometr.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="styles/style.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="styles/difficulty-graph.css"
+		/>
+	</head>
+
+	<body>
+		<div class="main">
+			<div class="bg"></div>
+			<div class="Left">
+				<img
+					id="bg"
+					class="bg-image"
+					src=""
+				/>
+				<div class="bg-overlay"></div>
+				<div class="SongInfo">
+					<div class="ArtistSong">
+						<!-- Code for Artist & Song -->
+						<span
+							class="title-text"
+							id="title"
+							>Couldn't find an artist & title!</span
+						>
+					</div>
+					<div class="Difficulty">
+						<!-- Code for Diff name -->
+						<span
+							class="diff-text"
+							id="diff"
+							>Couldn't find a difficulty!</span
+						>
+					</div>
+				</div>
+				<div class="MapInfo">
+					<div
+						class="SR"
+						id="srCont"
+					>
+						<!-- Code for Starrating -->
+						<span
+							id="sr"
+							class="odometer"
+							>NaN</span
+						>
+						<object
+							id="srStar"
+							data="assets/star.svg"
+							type="image/svg+xml"
+							width="20"
+							height="20"
+						></object>
+					</div>
+					<div class="MapStatistics">
+						<div class="BPM">
+							<!-- Code for BPM -->
+							<p class="small">BPM</p>
+							<span
+								id="bpm"
+								class="small odometer"
+								>NaN</span
+							>
+						</div>
+						<div class="CS">
+							<!-- Code for CS -->
+							<p class="small">CS</p>
+							<span
+								id="cs"
+								class="small"
+								>NaN</span
+							>
+						</div>
+						<div class="AR">
+							<!-- Code for AR -->
+							<p class="small">AR</p>
+							<span
+								id="ar"
+								class="small"
+								>NaN</span
+							>
+						</div>
+						<div class="OD">
+							<!-- Code for OD -->
+							<p class="small">OD</p>
+							<span
+								id="od"
+								class="small"
+								>NaN</span
+							>
+						</div>
+						<div class="HP">
+							<!-- Code for HP -->
+							<p class="small">HP</p>
+							<span
+								id="hp"
+								class="small"
+								>NaN</span
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Right">
+				<div
+					class="Hits"
+					id="hits"
+				>
+					<div class="hit100">
+						<!-- Code for hit 100 -->
+						<span id="h100">0</span>
+						<div class="hit-icon green"></div>
+					</div>
+					<div class="hit50">
+						<!-- Code for hit 50 -->
+						<span id="h50">0</span>
+						<div class="hit-icon yellow"></div>
+					</div>
+					<div class="hit0">
+						<!-- Code for misscount -->
+						<span id="h0">0</span>
+						<div class="hit-icon red"></div>
+					</div>
+				</div>
+				<div class="PPS">
+					<div class="AlignPP CurrentPP">
+						<!-- Code for current pp -->
+						<span
+							id="pp"
+							class="odometer"
+							>0</span
+						>
+						<p>pp</p>
+					</div>
+					<p class="slash">/</p>
+					<div class="AlignPP PPifFC">
+						<!-- Code for PP if Full Combo -->
+						<span
+							id="ppMax"
+							class="odometer"
+							>0</span
+						>
+						<p>pp</p>
+					</div>
+				</div>
+			</div>
+			<div class="dashed-line-vertical"></div>
+			<div
+				class="dashed-line-horizontal"
+				id="right-horizontal-line"
+			></div>
+		</div>
+
+		<div class="difficulty-graph">
+			<canvas
+				class="chart darker"
+				width="549"
+				height="64"
+			></canvas>
+			<div class="progress">
+				<canvas
+					class="chart lighter"
+					width="549"
+					height="64"
+				></canvas>
+			</div>
+		</div>
+		<!--        OTHER SCRIPTS        -->
+		<script src="js/odometr.js"></script>
+		<script src="js/countUp.js"></script>
+		<script src="js/Chart.min.js"></script>
+		<script src="js/d3.v7.min.js"></script>
+
+		<!--        YOUR COUNTER LOGIC FILES        -->
+		<script
+			type="module"
+			src="index.js"
+		></script>
+	</body>
+</html>
