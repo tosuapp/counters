@@ -1,5 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: reComfortaa
+Version: 1.0
 Author: Dartandr
 CompatibleWith: gosu, tosu
 Resolution: 1152x244

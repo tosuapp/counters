@@ -1,6 +1,6 @@
 ## basic-unstable-rate by cyperdark
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.1/basic-unstable-rate.by.cyperdark.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.1/basic-unstable-rate.by.cyperdarkv.1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -14,7 +14,7 @@
 
 ## BTMC-Overlay by Happy_24
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.0/btmc-overlay.by.happy_24.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://twitter.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.1/btmc-overlay.by.happy_24.v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://twitter.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -30,7 +30,7 @@
 
 ## classic by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/classic.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/classic.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -44,7 +44,7 @@
 
 ## DarkAndWhite by cyperdark
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/darkandwhite.by.cyperdark.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/darkandwhite.by.cyperdark.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -58,7 +58,7 @@
 
 ## InGame1 by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/ingame1.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/ingame1.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -72,7 +72,7 @@
 
 ## InGame2 by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/ingame2.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/ingame2.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -86,7 +86,7 @@
 
 ## InGame3 by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/ingame3.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/ingame3.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -100,7 +100,7 @@
 
 ## Kerli 1 by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/kerli.1.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/kerli.1.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -114,7 +114,7 @@
 
 ## Kerli 2 by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/kerli.2.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/kerli.2.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -128,7 +128,7 @@
 
 ## KeyOverlay by cyperdark
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.2/keyoverlay.by.cyperdark.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.2/keyoverlay.by.cyperdark.v1.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -142,7 +142,7 @@
 
 ## KeyOverlay by HosizoraN
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.1/keyoverlay.by.hosizoran.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.1/keyoverlay.by.hosizoran.v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -156,7 +156,7 @@
 
 ## Luscent Remake by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/luscent.remake.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/luscent.remake.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -172,7 +172,7 @@
 
 ## MaximalLime by cyperdark
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/maximallime.by.cyperdark.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/maximallime.by.cyperdark.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -186,7 +186,7 @@
 
 ## MinimalLime by cyperdark
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/minimallime.by.cyperdark.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/minimallime.by.cyperdark.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -200,7 +200,7 @@
 
 ## MonokaiPane by Xynogen
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/monokaipane.by.xynogen.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Xyn0gen" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/monokaipane.by.xynogen.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Xyn0gen" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -214,7 +214,7 @@
 
 ## OldClassic by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/oldclassic.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/oldclassic.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -228,7 +228,7 @@
 
 ## osuLike Overlay by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/osulike.overlay.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/osulike.overlay.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -242,7 +242,7 @@
 
 ## osuUserStats by HosizoraN
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.0/osuuserstats.by.hosizoran.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/osuuserstats.by.hosizoran.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -256,7 +256,7 @@
 
 ## paradox by mofuries
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.0/paradox.by.mofuries.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mofuries" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/paradox.by.mofuries.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mofuries" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -270,7 +270,7 @@
 
 ## reComfortaa by Dartandr
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/recomfortaa.by.dartandr.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/recomfortaa.by.dartandr.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -284,7 +284,7 @@
 
 ## simple pp counter by Inlayo
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.0/simple.pp.counter.by.inlayo.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Inlayo" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/simple.pp.counter.by.inlayo.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Inlayo" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -298,7 +298,7 @@
 
 ## SimpleOverlay by HosizoraN
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.0/simpleoverlay.by.hosizoran.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/simpleoverlay.by.hosizoran.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -312,7 +312,7 @@
 
 ## Simplistic by jassper0
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/simplistic.by.jassper0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/jassper0" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/simplistic.by.jassper0.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/jassper0" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -326,7 +326,7 @@
 
 ## tosu-debug by cyperdark
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.3/tosu-debug.by.cyperdark.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/tosu-debug.by.cyperdark.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -340,7 +340,7 @@
 
 ## TrafficLight by cyperdark
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/trafficlight.by.cyperdark.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/trafficlight.by.cyperdark.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -354,7 +354,7 @@
 
 ## VictimCrasherCompact by VictimCrasher
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/victimcrashercompact.by.victimcrasher.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/victimcrashercompact.by.victimcrasher.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -368,7 +368,7 @@
 
 ## VictimCrasherOverlay by VictimCrasher
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/victimcrasheroverlay.by.victimcrasher.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/victimcrasheroverlay.by.victimcrasher.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -382,7 +382,7 @@
 
 ## WaveTournament by VictimCrasher
 
-<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0.1/wavetournament.by.victimcrasher.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://github.com/cyperdark/osu-counters/releases/download/1.0/wavetournament.by.victimcrasher.v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/VictimCrasher" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
