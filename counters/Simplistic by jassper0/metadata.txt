@@ -1,5 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: Simplistic
+Version: 1.0
 Author: jassper0
 CompatibleWith: gosu, tosu
 Resolution: 750x250

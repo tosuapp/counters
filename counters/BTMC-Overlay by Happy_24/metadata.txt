@@ -1,5 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: BTMC-Overlay
+Version: 1.1
 Author: Happy_24
 CompatibleWith: tosu
 Resolution: 584x184
