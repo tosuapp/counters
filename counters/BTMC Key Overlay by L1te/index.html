@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTMC Key Overlay</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/odometer-theme-default.css">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+</head>
+<body>
+    <div class="alert"></div>
+    <div class="main-container" id="mainContainer">
+        <img src="img/logo.png" class="bmc-icon">
+        <div class="key-container">
+            <div class="track" id="trackK1">
+                <div class="press-counter">
+                    <span id="counterK1">K1</span>
+                    <span id="bpmK1" class="fw-medium">0<span class="fs-small fw-regular">bpm</span></span>
+                </div>
+            </div>
+            <div class="key active-bg" id="K1"></div>
+            <div class="center-line"></div>
+        </div>
+
+        <div class="key-container">
+            <div class="track" id="trackK2">
+                <div class="press-counter">
+                    <span id="counterK2">K2</span>
+                    <span id="bpmK2" class="fw-medium">0<span class="fs-small fw-regular">bpm</span></span>
+                </div>
+            </div>
+            <div class="key active-bg" id="K2"></div>
+            <div class="center-line"></div>
+        </div>
+
+        <div class="key-container">
+            <div class="track" id="trackM1">
+                <div class="press-counter">
+                    <span id="counterM1">M1</span>
+                    <span id="bpmM1" class="fw-medium">0<span class="fs-small fw-regular">bpm</span></span>
+                </div>
+            </div>
+            <div class="key active-bg" id="M1"></div>
+            <div class="center-line"></div>
+        </div>
+
+        <div class="key-container">
+            <div class="track" id="trackM2">
+                <div class="press-counter">
+                    <span id="counterM2">M2</span>
+                    <span id="bpmM2" class="fw-medium">0<span class="fs-small fw-regular">bpm</span></span>
+                </div>
+            </div>
+            <div class="key active-bg" id="M2"></div>
+            <div class="center-line"></div>
+        </div>
+    </div>
+    <div class="dev" style="visibility: hidden;">
+        <span id="gameState"></span>
+        <span id="k1Dev"></span>
+        <span id="k2Dev"></span>
+        <span id="m1Dev"></span>
+        <span id="m2Dev"></span>
+    </div>
+
+    <script src="js/odometer.min.js"></script>
+    <script src="js/index.js" type="module"></script>
+</body>
+</html>

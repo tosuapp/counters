@@ -1,0 +1,8 @@
+Usecase: ingame, obs-overlay 
+Name: BTMC Key overlay
+Author:  L1te
+CompatibleWith: tosu
+Version: 1.1
+Resolution: 418x340
+authorLinks: https://github.com/L1teD
+Notes: Do he ever need that?
