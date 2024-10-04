@@ -16,6 +16,7 @@
 }
 
 body {
+    background-color: black;
     color: white;
 }
 
@@ -39,6 +40,10 @@ body {
 
     --centerLines: 0;
     --bmcLogo: 1;
+
+    --displayKeys: flex;
+    --displayPressesCounter: flex-reverse;
+    --displayBPMcounter: flex-reverse;
 }
 
 .fw-regular {
@@ -149,13 +154,21 @@ body {
     line-height: 1;
 }
 
+.press-counter span:first-child {
+    display: var(--displayPressesCounter);
+}
+
+.press-counter span:last-child {
+    display: var(--displayBPMcounter);
+}
+
 .key {
     position: relative;
 
     width: 10px;
     height: 100%;
 
-    display: flex;
+    display: var(--displayKeys);
     justify-content: center;
     align-items: center;
 
@@ -166,13 +179,12 @@ body {
     box-shadow: 0 0 5px var(--dashedOutlineColor);
     outline: 1px dashed var(--dashedOutlineColor);
 
-    transition: all var(--transitionDuration) var(--transitionTimingFunction);
+    transition: all .1s var(--transitionTimingFunction);
 
     margin-right: .5rem;
 
     overflow: hidden;
 }
-
 .active-bg::after {
     position: absolute;
     height: 100%;
@@ -265,4 +277,8 @@ body {
 .alert {
     position: absolute;
     color: red;
+}
+
+@keyframes moveOut {
+    100% { transform: translateX(calc(var(--trackWidth) * -1 * 3)); }
 }

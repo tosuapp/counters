@@ -128,19 +128,6 @@
         "value": "50px"
     },
     {
-        "uniqueID": "overlayDirection",
-        "type": "options",
-        "title": "Overlay direction",
-        "description": "Change the direction of the overlay.",
-        "options": [
-            "To left",
-            "To top",
-            "To right",
-            "To bottom"
-        ],
-        "value": "To left"
-    },
-    {
         "uniqueID": "centerLines",
         "type": "checkbox",
         "title": "Center lines",
@@ -203,6 +190,30 @@
             "Hide"
         ],
         "value": "Auto"
+    },
+    {
+        "uniqueID": "hideKeys",
+        "type": "checkbox",
+        "title": "Hide keys",
+        "description": "Hide keys. (that blue pill)",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "hidePressCounter",
+        "type": "checkbox",
+        "title": "Hide presses counter",
+        "description": "Hide presses counter",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "hideBPM",
+        "type": "checkbox",
+        "title": "Hide BPM counter",
+        "description": "Hide BPM counter",
+        "options": "",
+        "value": false
     },
     {
         "uniqueID": "bmcMode",
