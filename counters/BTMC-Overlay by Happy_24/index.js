@@ -287,6 +287,7 @@ const h0 = new CountUp('h0', 0, 0, 0, .5, { useEasing: true, useGrouping: true, 
 
 const channels = new Set(["aim", "speed"]);
 
+
 const ppCache = {
     top: document.querySelector('.ppFC').getBoundingClientRect().top,
     left: document.querySelector('.ppFC').getBoundingClientRect().left

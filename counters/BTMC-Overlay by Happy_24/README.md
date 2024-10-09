@@ -1,26 +1,14 @@
-# BTMC - Stream overlay designed for tosu
+## BTMC-Overlay by Happy_24
 
-A tosu overlay created and designed for BTMC (twitch.tv/BTMC) by happpy24
+<a href="https://osuck.link/redirect/https://github.com/tosuapp/counters/releases/download/1.1/btmc-overlay.by.happy_24.v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://twitter.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  
 
-### Find tosu here: https://github.com/KotRikD/tosu
+|||
+| ------------- | ------------- |
+| For | ingame, obs-overlay |
+| Compatible with | tosu |
+| Size |  584x184 |
 
-## Use Case
 
-|                 |                     |
-| --------------- | ------------------- |
-| For             | ingame, obs-overlay |
-| Compatible with | tosu                |
-| Size            | 584 x 184           |
+> created for BTMC with love <3
 
-## Customizable!
-
-This overlay is _really_ customizable. In tosu, there will be a settings tab for you to play with all sorts of settings!
-
-## With help from
-
--   [CaptSiro](https://github.com/CaptSiro): Created and styled everything from the Graph used, including hit-judgements on the graph!
--   [Xen-000](https://github.com/xen-000): Added finishing touches, state checking & better animations
--   [GabuTheDev](https://github.com/GabuTheDev): Added dynamic color changes on beatmap stats
--   [L1teD](https://github.com/L1teD): Implemented full codebase rewrite, removed unused stuff, fixed issues with css, cleaned up code
--   [Plextora](https://github.com/Plextora): Added a toggle for showing Max-PP / PP-if-FC
--   [AutumnVN](https://github.com/AutumnVN): Made sure in-game overlay works and did some minor hotfixes
+<img src="/.github/images/btmc-overlay by happy_24.png" /> <img src="/.github/gifs/btmc-overlay by happy_24.gif" /> 

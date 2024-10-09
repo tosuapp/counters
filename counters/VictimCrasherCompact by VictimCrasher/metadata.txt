@@ -1,5 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: VictimCrasherCompact
+Version: 1.0
 Author: VictimCrasher
 CompatibleWith: gosu, tosu
 Resolution: 560x150

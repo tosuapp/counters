@@ -1,5 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: MaximalLime
+Version: 1.0
 Author: cyperdark
 CompatibleWith: gosu, tosu
 Resolution: 808x300

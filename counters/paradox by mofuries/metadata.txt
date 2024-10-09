@@ -1,5 +1,6 @@
 Usecase: obs-overlay
 Name:  paradox
+Version: 1.0
 Author:  mofuries
 CompatibleWith:  tosu, streamCompanion
 Resolution:  1920x1080
