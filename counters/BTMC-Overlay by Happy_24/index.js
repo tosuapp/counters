@@ -181,8 +181,8 @@ socket.commands((data) => {
               gradientLighter.setFill(fill.setAlpha(0.5));
               gradientLighter.setBorder(fill.clone().setAlpha(1));
 
-              chartDarker?.update();
-              chartLighter?.update();
+              chartDarker && chartDarker.update();
+              chartLighter && chartLighter.update();
         }
 
         if (message['GraphSmoothing'] != null) {
@@ -241,9 +241,11 @@ socket.commands((data) => {
             if (message['GraphPos'] === 'Above') {
                 difficultyGraph.classList.add('flipped');
                 document.body.style.setProperty('flex-direction', 'column-reverse');
+                document.querySelector('.beat-lighting').style.setProperty('top', '75.5px');
             } else if (message['GraphPos'] === 'Below') {
                 difficultyGraph.classList.remove('flipped');
                 document.body.style.setProperty('flex-direction', 'column');
+                document.querySelector('.beat-lighting').style.setProperty('top', '13.5px');
             }
         }
 
@@ -286,7 +288,6 @@ const h50 = new CountUp('h50', 0, 0, 0, .5, { useEasing: true, useGrouping: true
 const h0 = new CountUp('h0', 0, 0, 0, .5, { useEasing: true, useGrouping: true, separator: " ", decimal: "." });
 
 const channels = new Set(["aim", "speed"]);
-
 
 const ppCache = {
     top: document.querySelector('.ppFC').getBoundingClientRect().top,
@@ -393,7 +394,7 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
             cache.bpm = beatmap.stats.bpm.realtime;
             bpmValue.innerHTML = beatmap.stats.bpm.realtime;
 
-            document.querySelector('.beat-lighting').setAttribute('style', `animation: bpm-animation ${1000 / (beatmap.stats.bpm.realtime / 60)}ms infinite linear;`)
+            document.querySelector('.beat-lighting').style.animationDuration = `${1000 / (beatmap.stats.bpm.realtime / 60)}ms`;
         }
 
         if (cache.cs !== beatmap.stats.cs.converted) {
