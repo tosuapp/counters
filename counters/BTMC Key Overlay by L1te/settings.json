@@ -1,0 +1,226 @@
+[
+    {
+        "uniqueID": "noteSpeed",
+        "type": "text",
+        "title": "Notes speed",
+        "description": "Changes moving speed of notes",
+        "options": "",
+        "value": "3"
+    },
+    {
+        "uniqueID": "gradientColor1",
+        "type": "color",
+        "title": "Gradient color 1",
+        "description": "Change the top gradient color of the background.",
+        "options": "",
+        "value": "#1D3860"
+    },
+    {
+        "uniqueID": "gradientColor2",
+        "type": "color",
+        "title": "Gradient color 2",
+        "description": "Change the bottom gradient color of the background.",
+        "options": "",
+        "value": "#072045"
+    },
+    {
+        "uniqueID": "dashedOutlineColor",
+        "type": "color",
+        "title": "Dashed outline color",
+        "description": "Change the color of the dashed key outline.",
+        "options": "",
+        "value": "#254982"
+    },
+    {
+        "uniqueID": "activeKeyColor",
+        "type": "color",
+        "title": "Active key color",
+        "description": "Change the color of the active key.",
+        "options": "",
+        "value": "#F3F589"
+    },
+    {
+        "uniqueID": "noteColor1",
+        "type": "color",
+        "title": "Note color 1",
+        "description": "Change the first color of the note.",
+        "options": "",
+        "value": "#4c4c4c"
+    },
+    {
+        "uniqueID": "noteColor2",
+        "type": "color",
+        "title": "Note color 2",
+        "description": "Change the second color of the note.",
+        "options": "",
+        "value": "#f06363"
+    },
+    {
+        "uniqueID": "noteShakeAmplitude",
+        "type": "text",
+        "title": "Note shake amplitude",
+        "description": "Change amplitude of note shake. (Depends on the note coloring range)",
+        "options": "",
+        "value": "10"
+    },
+    {
+        "uniqueID": "noteColoring",
+        "type": "checkbox",
+        "title": "Note coloring",
+        "description": "Enable note coloring depending on bpm.",
+        "options": "",
+        "value": true
+    },
+    {
+        "uniqueID": "noteShaking",
+        "type": "checkbox",
+        "title": "Note shaking",
+        "description": "just try it i swear.",
+        "options": "",
+        "value": true
+    },
+    {
+        "uniqueID": "noteColoringRange",
+        "type": "text",
+        "title": "Notes coloring range",
+        "description": "Change range where notes will be colored.",
+        "options": "",
+        "value": "180-220"
+    },
+    {
+        "uniqueID": "noteShakingPoint",
+        "type": "text",
+        "title": "Notes shaking point",
+        "description": "Change point where notes will shake.",
+        "options": "",
+        "value": "240"
+    },
+    {
+        "uniqueID": "transitionDuration",
+        "type": "text",
+        "title": "Transition duration",
+        "description": "Change animations duration.",
+        "options": "",
+        "value": ".3s"
+    },
+    {
+        "uniqueID": "transitionTimingFunction",
+        "type": "text",
+        "title": "Transition timing function",
+        "description": "Change animations timing function.",
+        "options": "",
+        "value": "cubic-bezier(0.165, 0.84, 0.44, 1)"
+    },
+    {
+        "uniqueID": "trackWidth",
+        "type": "text",
+        "title": "Track width",
+        "description": "Change the width of the track.",
+        "options": "",
+        "value": "400px"
+    },
+    {
+        "uniqueID": "trackHeight",
+        "type": "text",
+        "title": "Track height",
+        "description": "Change the height of the track.",
+        "options": "",
+        "value": "50px"
+    },
+    {
+        "uniqueID": "centerLines",
+        "type": "checkbox",
+        "title": "Center lines",
+        "description": "Change the visibility of the center lines.",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "bmcLogo",
+        "type": "checkbox",
+        "title": "Show logo",
+        "description": "Change the visibility of the logo.",
+        "options": "",
+        "value": true
+    },
+    {
+        "uniqueID": "visibilityK1",
+        "type": "options",
+        "title": "Visibility of K1",
+        "description": "Change the visibility of the K1.",
+        "options": [
+            "Auto",
+            "Show",
+            "Hide"
+        ],
+        "value": "Auto"
+    },
+    {
+        "uniqueID": "visibilityK2",
+        "type": "options",
+        "title": "Visibility of K2",
+        "description": "Change the visibility of the K2.",
+        "options": [
+            "Auto",
+            "Show",
+            "Hide"
+        ],
+        "value": "Auto"
+    },
+    {
+        "uniqueID": "visibilityM1",
+        "type": "options",
+        "title": "Visibility of M1",
+        "description": "Change the visibility of the M1.",
+        "options": [
+            "Auto",
+            "Show",
+            "Hide"
+        ],
+        "value": "Auto"
+    },
+    {
+        "uniqueID": "visibilityM2",
+        "type": "options",
+        "title": "Visibility of M2",
+        "description": "Change the visibility of the M2.",
+        "options": [
+            "Auto",
+            "Show",
+            "Hide"
+        ],
+        "value": "Auto"
+    },
+    {
+        "uniqueID": "hideKeys",
+        "type": "checkbox",
+        "title": "Hide keys",
+        "description": "Hide keys. (that blue pill)",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "hidePressCounter",
+        "type": "checkbox",
+        "title": "Hide presses counter",
+        "description": "Hide presses counter",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "hideBPM",
+        "type": "checkbox",
+        "title": "Hide BPM counter",
+        "description": "Hide BPM counter",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "bmcMode",
+        "type": "checkbox",
+        "title": "secret mode",
+        "description": "what do it does?...",
+        "options": "",
+        "value": false
+    }
+]

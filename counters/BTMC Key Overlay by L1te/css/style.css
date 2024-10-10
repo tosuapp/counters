@@ -1,0 +1,291 @@
+@font-face {
+    font-family: 'BalooRegular';
+    src: url('../fonts/Baloo2-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+    font-family: 'BalooMedium';
+    src: url('../fonts/Baloo2-Medium.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'BalooMedium';
+}
+
+html, body {
+    overflow: hidden;
+}
+
+body {
+    color: white;
+}
+
+:root {
+    --gradientColor1: #1D3860;
+    --gradientColor2: #072045;
+    --dashedOutlineColor: #254982;
+    --activeKeyColor: #F3F589;
+
+    --transitionDuration: .3s;
+    --transitionTimingFunction: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    --trackWidth: 400px;
+    --trackHeight: 50px;
+
+    --overlayRotate: 0deg;
+    --overlayTranslate: 0, 0;
+
+    --pressCounterRotate: 0deg;
+    --pressCounterAlign: flex-end;
+
+    --centerLines: 0;
+    --bmcLogo: 1;
+
+    --displayKeys: flex;
+    --displayPressesCounter: flex-reverse;
+    --displayBPMcounter: flex-reverse;
+}
+
+.fw-regular {
+    font-family: 'BalooRegular';
+}
+
+.fw-medium {
+    font-family: 'BalooMedium';
+}
+
+/* Odometer settings */
+.odometer {
+    margin: 20px 0;
+    --odometer-duration: .2s;
+}
+
+.odometer.odometer-animating-up .odometer-ribbon-inner, .odometer.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
+    -webkit-transition-duration: var(--odometer-duration, 3s) !important;
+    -moz-transition-duration: var(--odometer-duration, 3s) !important;
+    -ms-transition-duration: var(--odometer-duration, 3s) !important;
+    -o-transition-duration: var(--odometer-duration, 3s) !important;
+    transition-duration: var(--odometer-duration, 3s) !important;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+
+    transition: opacity var(--transitionDuration) var(--transitionTimingFunction);
+    transform-origin: 0% 0%;
+    transform: rotateZ(var(--overlayRotate)) translate(var(--overlayTranslate));
+}
+
+.bmc-icon {
+    height: 20px;
+
+    align-self: flex-end;
+
+    transform: rotate(var(--pressCounterRotate));
+
+    opacity: var(--bmcLogo);
+
+    margin-block: .25rem;
+}
+
+.fs-small {
+    font-size: .6rem;
+}
+
+.key-container {
+    display: flex;
+    align-items: center;
+    height: var(--trackHeight);
+    margin-bottom: .5rem;
+
+    transform: translateX(40px);
+    opacity: 0;
+
+    transition: all var(--transitionDuration) var(--transitionTimingFunction);
+}
+
+.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.track {
+    position: relative;
+
+    width: var(--trackWidth);
+    height: 100%;
+
+    display: flex;
+    flex-direction: row-reverse;
+
+    mask-image: linear-gradient(to right, transparent, black);
+
+    -webkit-mask-image: linear-gradient(to right, transparent, black);
+
+    transition: transform var(--transitionDuration) var(--transitionTimingFunction);
+
+    border-radius: 5px;
+
+    overflow: hidden;
+}
+
+.press-counter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: var(--pressCounterAlign);
+
+    position: absolute !important;
+
+    margin: 0;
+    right: 0;
+
+    top: 50%;
+    transform: translateY(-50%) rotate(var(--pressCounterRotate));
+
+    width: 50px;
+    height: 34px;
+
+    margin-right: .5rem;
+
+    filter: drop-shadow(0 0 2px black) drop-shadow(0 0 5px black);
+}
+
+.press-counter span {
+    margin: 0;
+    line-height: 1;
+}
+
+.press-counter span:first-child {
+    display: var(--displayPressesCounter);
+}
+
+.press-counter span:last-child {
+    display: var(--displayBPMcounter);
+}
+
+.key {
+    position: relative;
+
+    width: 10px;
+    height: 100%;
+
+    display: var(--displayKeys);
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(to bottom, var(--gradientColor1), var(--gradientColor2));
+
+    border-radius: 5px;
+
+    box-shadow: 0 0 10px var(--dashedOutlineColor);
+    border: 1px dashed var(--dashedOutlineColor);
+
+    transition: all .1s var(--transitionTimingFunction);
+
+    margin-right: .5rem;
+
+    overflow: hidden;
+}
+.active-bg::after {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    content: "";
+
+    background: var(--activeKeyColor);
+    opacity: 0;
+
+    transition: all var(--transitionDuration) var(--transitionTimingFunction);
+}
+
+.active {
+    position: relative;
+    height: 70%;
+
+    box-shadow: 0 0 10px var(--activeKeyColor);
+    border: 1px solid var(--activeKeyColor);
+}
+
+.active.active-bg::after {
+    opacity: 1 !important;
+}
+
+/* .active:after {
+    border-radius: 5px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    content: "";
+
+    box-shadow: 0 0 10px var(--activeKeyColor);
+} */
+
+.key-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100px;
+
+    background: linear-gradient(to bottom, var(--gradientColor1), var(--gradientColor2));
+
+    border-radius: 5px;
+    outline: 1px dashed var(--dashedOutlineColor);
+
+    padding: 0 1rem;
+}
+
+.key-info p, .key-info span {
+    line-height: 1;
+    margin: 0;
+}
+
+.key-info p:nth-child(2) {
+    font-size: .9rem;
+}
+
+.note {
+    position: absolute;
+
+    height: 100%;
+
+    background: var(--noteColor);
+
+    border-radius: 5px;
+}
+
+.dev {
+    display: flex;
+    flex-direction: column;
+}
+
+.dev span {
+    line-height: 1;
+}
+
+.center-line {
+    position: absolute;
+    width: 130%;
+    height: 0;
+    outline: 1px dashed darkorchid;
+
+    opacity: var(--centerLines);
+}
+
+.alert {
+    position: absolute;
+    color: red;
+}
+
+@keyframes moveOut {
+    100% { transform: translateX(calc(var(--trackWidth) * -1 * 3)); }
+}
