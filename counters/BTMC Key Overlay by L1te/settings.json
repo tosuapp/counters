@@ -61,7 +61,7 @@
         "title": "Note shake amplitude",
         "description": "Change amplitude of note shake. (Depends on the note coloring range)",
         "options": "",
-        "value": "70"
+        "value": "10"
     },
     {
         "uniqueID": "noteColoring",

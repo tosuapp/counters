@@ -22,13 +22,19 @@ const bpmCache = {
     M2: { date: Date.now(), timeout: null },
 };
 
-// Get references to the HTML elements for each key
-let keys = {
-    k1: document.getElementById("counterK1"),
-    k2: document.getElementById("counterK2"),
-    m1: document.getElementById("counterM1"),
-    m2: document.getElementById("counterM2"),
-};
+// Declare all vars
+let startBpm,
+    endBpm,
+    steps,
+    colors,
+    shakePoint,
+    shakeAmplitude,
+    noteShaking,
+    noteColoring,
+    bmcMode,
+    trackHeight,
+    trackWidth,
+    noteSpeed
 
 socket.sendCommand("getSettings", encodeURI(window.COUNTER_PATH));
 socket.commands((data) => {
@@ -81,25 +87,25 @@ socket.commands((data) => {
             document.getElementById("trackM1").parentElement.dataset.mode = message.visibilityM1;
             document.getElementById("trackM2").parentElement.dataset.mode = message.visibilityM2;
 
-            window.startBpm = message.noteColoringRange.slice(0, message.noteColoringRange.indexOf('-'))
-            window.endBpm = message.noteColoringRange.slice(message.noteColoringRange.indexOf('-') + 1)
-            window.steps = endBpm - startBpm
+            startBpm = message.noteColoringRange.slice(0, message.noteColoringRange.indexOf('-'))
+            endBpm = message.noteColoringRange.slice(message.noteColoringRange.indexOf('-') + 1)
+            steps = endBpm - startBpm
 
-            window.colors = [message.noteColor1]
+            colors = [message.noteColor1]
             colors = colors.concat(generateColor(message.noteColor2, message.noteColor1, steps))
 
-            window.shakePoint = message.noteShakingPoint
-            window.shakeAmplitude = message.noteShakeAmplitude / 10000
+            shakePoint = message.noteShakingPoint
+            shakeAmplitude = message.noteShakeAmplitude / 10000
 
-            window.noteShaking = message.noteShaking
-            window.noteColoring = message.noteColoring
+            noteShaking = message.noteShaking
+            noteColoring = message.noteColoring
 
-            window.bmcMode = message.bmcMode
+            bmcMode = message.bmcMode
 
-            window.trackHeight = parseInt(message.trackHeight) * 4 + 28
-            window.trackWidth = parseInt(message.trackWidth)
+            trackHeight = parseInt(message.trackHeight) * 4 + 28
+            trackWidth = parseInt(message.trackWidth)
 
-            window.noteSpeed = parseInt(message.noteSpeed)
+            noteSpeed = parseInt(message.noteSpeed)
 
             document.body.style.setProperty("--displayKeys", message.hideKeys ? 'none' : 'flex');
             document.body.style.setProperty("--displayPressesCounter", message.hidePressCounter ? 'none' : 'flex-reverse');
@@ -124,13 +130,13 @@ socket.api_v2_precise((data) => {
                         // Key pressed
                         document.getElementById(key).classList.add('active')
 
-                        if (track.dataset.mode != 'Hide') {
+                        if (track.parentElement.dataset.mode != 'Hide') {
                             track.parentElement.classList.add('show')
                         }
 
                         const note = document.createElement('div')
                         note.classList.add('note')
-                        note.style.width = trackWidth + 'px'
+                        note.style.width = trackWidth + 1 + 'px'
                         note.style.left = trackWidth + 'px'
                         note.style.animation = `moveOut ${noteSpeed}s linear`
 
@@ -151,8 +157,6 @@ socket.api_v2_precise((data) => {
                         // Color note
                         if (noteColoring) {
                             if (bpm > startBpm && bpm < endBpm) {
-
-                                console.log(colors[bpm - startBpm])
                                 note.style.background = '#' + colors[bpm - startBpm]
                             } else if (bpm >= endBpm) {
                                 note.style.background = '#' + colors[steps]
@@ -164,9 +168,20 @@ socket.api_v2_precise((data) => {
                             if (bpm > shakePoint) {
                                 for (let i = 0; i < 10; i++) {
                                     setTimeout(() => {
-                                        const firstCoord = (getRandomInt(10) - 5) * (bpm - startBpm) * shakeAmplitude * 5
-                                        const secondCoord = (getRandomInt(10) - 5) * (bpm - startBpm) * shakeAmplitude * 5
-                                        const thirdCoord = (getRandomInt(10) - 5) * (bpm - startBpm) * shakeAmplitude * 5
+                                        const firstCoord =
+                                            (getRandomInt(10) - 5) *
+                                            (((bpm - startBpm + 5) / 5 ) ** 2) * 
+                                            shakeAmplitude * 5
+
+                                        const secondCoord =
+                                            (getRandomInt(10) - 5) * 
+                                            (((bpm - startBpm + 5) / 5 ) ** 2) * 
+                                            shakeAmplitude * 5
+                                            
+                                        const thirdCoord =
+                                            (getRandomInt(10) - 5) * 
+                                            (((bpm - startBpm + 5) / 5 ) ** 2) * 
+                                            shakeAmplitude * 5
                                         
                                         document.getElementById(`track${key}`).style.transform =
                                             `translate(${firstCoord}px, ${secondCoord}px) rotate(${thirdCoord}deg)`
@@ -200,38 +215,46 @@ socket.api_v2_precise((data) => {
 
                         const note = track.querySelector('.note')
 
-                        note.style.width = Math.abs( trackWidth - note.getBoundingClientRect().left ) + 'px' 
+                        if (note != null) {
+                            note.style.width =
+                                Math.abs(
+                                    track.getBoundingClientRect().right - 
+                                    note.getBoundingClientRect().left 
+                                ) + 'px' 
 
-                        if (note.style.left == '0px') {
-                            note.style.animation = `moveOut ${noteSpeed}s linear`
-                            note.dataset.ln = true
-                        }
+                            if (note.getBoundingClientRect().left <= 0) {
+                                note.style.animation = `moveOut ${noteSpeed}s linear`
+                            }
+                        }   
                     }
 
                     cache[key] = pressed
                 } else {
                     const notes = Array.from(track.querySelectorAll('.note'))
                     notes.forEach(note => {
+                        const _key = track.id.slice(5)
 
-                        const noteRect = note.getBoundingClientRect()
-
-                        if (noteRect.left <= 0 && noteRect.right <= trackWidth && noteRect.width >= trackWidth &&!Boolean(note.dataset.ln)) {
-                            note.style.animation = `none`
-                            note.style.left = `0`
+                        // Check if note is still being pressed
+                        if (
+                            cache[_key] &&
+                            note.getBoundingClientRect().left <= 0 &&
+                            note.getBoundingClientRect().width == trackWidth + 1
+                        
+                        ) {
+                            note.style.animation = 'none'
+                            note.style.left = '0px'
                         }
-    
-                        if (noteRect.right <= 0) {
-                            note.remove();
+
+                        // Remove note if outside of track
+                        if (note.getBoundingClientRect().left < 0 && note.getBoundingClientRect().right < 0) {
+                            note.remove()
                         }
                     })
-
-
                 }
             } 
         }
-        
     } catch (error) {
-        // console.error(error)
+        console.error(error)
     }
 })
 
@@ -250,6 +273,14 @@ socket.api_v2((data) => {
                 .querySelector("div.press-counter")
                 .querySelector("span").innerHTML = 0;
         });
+
+        Array.from(document.getElementsByClassName('track')).forEach(track => {
+            const notes = Array.from(track.querySelectorAll('.note'))
+            notes.forEach(note => {
+                note.remove();
+            })
+        })
+
     } else {
         // Show the main container if the game state is 2
         document.getElementById("mainContainer").style.opacity = 1;
