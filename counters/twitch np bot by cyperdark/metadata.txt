@@ -1,0 +1,8 @@
+Usecase: obs-overlay
+Name: twitch np bot
+Version: 0.2
+Author: cyperdark
+CompatibleWith: tosu
+Resolution: 1x1
+authorLinks: https://github.com/cyperdark,https://twitter.com/cpol_owo,https://discord.gg/rYHNggbhyY
+Notes: you can create custom commands too, with usage of data from tosu

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>twitch np bot by cyperdark</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/font.css" />
+  </head>
+
+  <body>
+    <div class="credits">Twitch NP Bot <b>v0.2</b></div>
+    <script src="js/tmi.js"></script>
+    <script type="module" src="index.js"></script>
+    <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+      }
+      async function copy_text(element, text) {
+        if (!element) return
+        element.classList.add('copied')
+
+        await sleep(100)
+        element.classList.remove('copied')
+
+        navigator.clipboard.writeText(text)
+      }
+    </script>
+  </body>
+</html>

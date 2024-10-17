@@ -1,0 +1,162 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 16px;
+    border-radius: 0.1em;
+    background-color: #42515c;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7d94a5;
+    border-radius: 0.2em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    cursor: grab;
+    background-color: #98b3c7;
+}
+
+::-webkit-scrollbar-thumb:active {
+    cursor: grabbing;
+    background-color: #72899b;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    color: white;
+    font-size: 40px;
+    background-color: black;
+}
+
+
+.modal {
+    font-size: 0.5em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    padding: 1em 2em;
+    border-radius: 0.5em;
+}
+
+.modal.-red {
+    background: #653535;
+}
+
+.modal.-yellow {
+    background: #5e6535;
+}
+
+.modal.-help {
+    /* width: fit-content; */
+    color: #7d92a3;
+    display: grid;
+    width: min(100vw - 3em, 680px + 3em);
+    background: #253039;
+}
+
+.modal .scroll {
+    display: grid;
+    width: min(100vw - 3em, 680px);
+    height: 32vh;
+    margin-top: 1em;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal.-help h2 {
+    color: white;
+}
+
+.modal.-help ul {
+    padding-inline-start: 1em;
+}
+
+.modal.-help b {
+    color: #9dbfdb;
+}
+
+.modal.-help .desc {
+    color: #7d92a3;
+}
+
+
+.copy_text {
+    color: #609c54;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copy_text.copied {
+    color: #e1e8ef;
+    background-color: #609c54;
+    transition: all 0.1s ease;
+    border-radius: 0.1em;
+}
+
+.credits {
+    font-size: 0.5em;
+    position: fixed;
+    top: 1em;
+    left: 1em;
+
+}
+
+.credits b {
+    color: #609c54;
+}
+
+.commands {
+    font-size: 0.5em;
+    position: fixed;
+    left: 1em;
+    bottom: 1em;
+
+}
+
+.commands span {
+    opacity: 0.5;
+}
+
+.commands b:not(.red) {
+    color: #609c54;
+}
+
+.commands b.red {
+    color: #9c5464;
+}
+
+.commands a {
+    margin: 0 0.2em;
+}
+
+.authorization {
+    font-size: 0.5em;
+    position: fixed;
+    padding: 0.4em 1.5em;
+    top: 0.5em;
+    right: 0.5em;
+    background: #595959;
+    border-radius: 1em;
+}
+
+.authorization.-red {
+    background: #73444f;
+}
+
+.authorization.-yellow {
+    background: #727344;
+}
+
+.authorization.-green {
+    background: #497344;
+}

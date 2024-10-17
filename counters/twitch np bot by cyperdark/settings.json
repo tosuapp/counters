@@ -1,0 +1,164 @@
+[
+    {
+        "uniqueID": "twitchAuthLink",
+        "type": "button",
+        "title": "Twitch Authorize",
+        "description": "Click here to get token for a bot",
+        "options": [],
+        "value": "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=tkczcp9ksjp7sji2tww43eerc4vqz7&redirect_uri=http://localhost:24050/twitch np bot by cyperdark/&scope=user:bot chat:read chat:edit&state=twitch"
+    },
+    {
+        "uniqueID": "twitchChannel",
+        "type": "text",
+        "title": "Twitch channel name",
+        "description": "Specify channel name to which send chat messages",
+        "options": [],
+        "value": ""
+    },
+    {
+        "uniqueID": "twitchToken",
+        "type": "password",
+        "title": "Twitch Access Token",
+        "description": "Paste twitch access_token",
+        "options": [],
+        "value": ""
+    },
+    {
+        "uniqueID": "twitchCommands",
+        "type": "commands",
+        "title": "Twitch Commands",
+        "description": "Supports tosu string, check [cheatsheet here](http://127.0.0.1:24050/twitch np bot by cyperdark/#help)",
+        "options": [
+            {
+                "type": "checkbox",
+                "name": "commandStatus",
+                "title": "Status",
+                "description": "",
+                "values": [],
+                "value": false
+            },
+            {
+                "type": "text",
+                "name": "commandName",
+                "title": "Command Name",
+                "description": "",
+                "values": [],
+                "value": "",
+                "required": true
+            },
+            {
+                "type": "number",
+                "name": "commandCooldown",
+                "title": "Cooldown",
+                "description": "",
+                "values": [],
+                "value": 5000,
+                "required": true
+            },
+            {
+                "type": "text",
+                "name": "commandResponse",
+                "title": "Response",
+                "description": "",
+                "values": [],
+                "value": "",
+                "required": true
+            },
+            {
+                "type": "text",
+                "name": "commandAliases",
+                "title": "Command Aliases",
+                "description": "Specify other trigger words via comma",
+                "values": [],
+                "value": ""
+            },
+            {
+                "type": "options",
+                "name": "userLevel",
+                "title": "User level",
+                "description": "Who can trigger the command",
+                "values": [
+                    "everyone",
+                    "subscriber",
+                    "vip",
+                    "moderator",
+                    "broadcaster"
+                ],
+                "value": "everyone",
+                "required": true
+            }
+        ],
+        "value": [
+            {
+                "commandStatus": true,
+                "commandName": "!np",
+                "commandCooldown": 5000,
+                "commandResponse": "{beatmapArtist} - {beatmapTitle}[beatmapVersion != ] [{beatmapVersion}][/beatmapVersion][beatmapAuthor != ] by {beatmapAuthor}[/beatmapAuthor][beatmapID > 0] // https://osu.ppy.sh/b/{beatmapID}[/beatmapID]",
+                "commandAliases": "!map,!song,!beatmap",
+                "userLevel": "everyone"
+            },
+            {
+                "commandStatus": true,
+                "commandName": "!nppp",
+                "commandCooldown": 5000,
+                "commandResponse": "[mods != ]+{mods} [/mods]100%: {pp100}pp  99%: {pp99}pp  98%: {pp98}pp  97%: {pp97}pp  96%: {pp96}pp  95%: {pp95}pp  95%: {pp95}pp",
+                "userLevel": "everyone"
+            },
+            {
+                "commandStatus": true,
+                "commandName": "!calc",
+                "commandCooldown": 5000,
+                "commandResponse": "{calcStars}* - {calcPP}pp [calcMods != ]+{calcMods} [/calcMods][calcAcc != ]{calcAcc}% [/calcAcc][calcCombo != ]{calcCombo}x [/calcCombo][calcMisses != ]{calcMisses}xMiss [/calcMisses]",
+                "userLevel": "everyone"
+            },
+            {
+                "commandStatus": true,
+                "commandName": "!stats",
+                "commandCooldown": 5000,
+                "commandResponse": "Global rank: #{userGlobalRank}  //  PP: {userPP}  //  Playcount: {userPlaycount}",
+                "commandAliases": "!rank",
+                "userLevel": "everyone"
+            },
+            {
+                "commandStatus": true,
+                "commandName": "!profile",
+                "commandCooldown": 5000,
+                "commandResponse": "[userID > 0]https://osu.ppy.sh/users/{userID} or[/userID] https://osu.ppy.sh/users/{userName}",
+                "commandAliases": "!me",
+                "userLevel": "everyone"
+            },
+            {
+                "commandStatus": true,
+                "commandName": "!skin",
+                "commandCooldown": 5000,
+                "commandResponse": "{skinName}",
+                "commandAliases": "",
+                "userLevel": "everyone"
+            },
+            {
+                "commandName": "!res",
+                "commandCooldown": 5000,
+                "commandStatus": true,
+                "userLevel": "everyone",
+                "commandResponse": "{gameWidth}x{gameHeight} game resolution",
+                "commandAliases": "!resolution"
+            },
+            {
+                "commandName": "!sens",
+                "commandCooldown": 5000,
+                "commandStatus": true,
+                "commandResponse": "{mouseSens}x in-game",
+                "userLevel": "everyone",
+                "commandAliases": "!mousesens"
+            },
+            {
+                "commandStatus": true,
+                "commandName": "!credits",
+                "commandCooldown": 5000,
+                "commandResponse": "Uses tosu with \"twitch np bot\" by cyperdark // https://tosu.app",
+                "userLevel": "moderator"
+            }
+        ],
+        "uniqueCheck": "commandName"
+    }
+]
