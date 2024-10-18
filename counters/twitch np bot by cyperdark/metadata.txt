@@ -1,6 +1,6 @@
 Usecase: obs-overlay
 Name: twitch np bot
-Version: 0.2
+Version: 0.21
 Author: cyperdark
 CompatibleWith: tosu
 Resolution: 1x1

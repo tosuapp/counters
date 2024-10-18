@@ -468,6 +468,11 @@ async function startTwitchClient(clientToken) {
             return;
         };
 
+        const compare_types = {
+            "message have command": 'includes',
+            "message starts with": 'startsWith',
+            "message ends with": 'endsWith',
+        };
 
         const command = cache['twitch-commands'].find(r => {
             if (r.commandStatus != true) return false;
@@ -478,7 +483,9 @@ async function startTwitchClient(clientToken) {
             if (r.commandStatus != true) return false;
 
             const alias = r.commandAliases?.split(',').map(r => r.trim()).filter(r => r != null && r != '') || [];
-            return msg.includes(r.commandName.toLowerCase()) || alias.some(a => msg.includes(a.toLowerCase()));
+
+            const compare_type = compare_types[r.triggerType];
+            return msg[compare_type](r.commandName.toLowerCase()) || alias.some(a => msg[compare_type](a.toLowerCase()));
         });
         if (command) {
             if (command.userLevel != 'everyone' && command.userLevel == 'broadcaster') {
