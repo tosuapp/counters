@@ -6,7 +6,7 @@
 | ------------- | ------------- |
 | For | ingame, obs-overlay |
 | Compatible with | tosu |
-| Size |  610x156 |
+| Size |  610x160 |
 
 
 > created for BTMC with love <3
