@@ -472,6 +472,9 @@ async function startTwitchClient(clientToken) {
             "message have command": 'includes',
             "message starts with": 'startsWith',
             "message ends with": 'endsWith',
+            "Anywhere within the message": 'includes',
+            "Only at the beginning": 'startsWith',
+            "Only at the end": 'endsWith',
         };
 
         const command = cache['twitch-commands'].find(r => {
