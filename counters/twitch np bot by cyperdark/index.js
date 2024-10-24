@@ -406,14 +406,14 @@ async function startTwitchClient(clientToken) {
         if (command && command.commandName.toLowerCase() == '!calc') {
             if (cache['commands-cd-calc'] && tags.badges?.broadcaster == null) return;
 
+            if (command.commandStatus != true) return;
+            if (command.userLevel != 'everyone' && tags.badges?.broadcaster == null) {
+                if (command.userLevel == 'moderator' && tags.badges?.moderator == null) return;
+                if (command.userLevel == 'subscriber' && (tags.badges?.subscriber == null && tags.badges?.moderator == null)) return;
+                if (command.userLevel == 'vip' && (tags.badges?.vip == null && tags.badges?.moderator == null)) return;
+            };
+            
             try {
-                if (command.commandStatus != true) return;
-                if (command.userLevel != 'everyone' && tags.badges?.broadcaster == null) {
-                    if (command.userLevel == 'moderator' && tags.badges?.moderator == null) return;
-                    if (command.userLevel == 'subscriber' && (tags.badges?.subscriber == null && tags.badges?.moderator == null)) return;
-                    if (command.userLevel == 'vip' && (tags.badges?.vip == null && tags.badges?.moderator == null)) return;
-                };
-
                 const preset = command?.commandResponse || '{calcStars}* - {calcPP}pp [calcMods != ]+{calcMods} [/calcMods][calcAcc != ]{calcAcc}% [/calcAcc][calcCombo != ]{calcCombo}x [/calcCombo][calcMisses != ]{calcMisses}xMiss [/calcMisses]';
                 const commands = message.toLowerCase().replace('!calc ', '').split(' ');
 
