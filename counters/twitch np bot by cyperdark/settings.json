@@ -115,7 +115,7 @@
                 "commandName": "!nppp",
                 "commandCooldown": 5000,
                 "triggerType": "Only at the beginning",
-                "commandResponse": "[mods != ]+{mods} [/mods]100%: {pp100}pp  99%: {pp99}pp  98%: {pp98}pp  97%: {pp97}pp  96%: {pp96}pp  95%: {pp95}pp  95%: {pp95}pp",
+                "commandResponse": "[mods != ]+{mods} [/mods]100%: {pp100}pp  99%: {pp99}pp  98%: {pp98}pp  97%: {pp97}pp  96%: {pp96}pp  95%: {pp95}pp",
                 "userLevel": "everyone"
             },
             {

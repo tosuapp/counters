@@ -121,7 +121,7 @@ const descriptions = [
     'current beatmap bpm (based on timings)',
     'max beatmap combo',
     'beatmap drain time',
-    'beatamp mp3 time',
+    'beatmap mp3 time',
     'in-game cursor size',
     'in-game mouse sens',
     'name of the skin from skin.ini',
@@ -362,12 +362,57 @@ async function startTwitchClient(clientToken) {
         };
 
 
-        if (msg.startsWith('!calc')) {
-            if (cache['commands-cd-calc'] && tags.badges.broadcaster == null) return;
+        const compare_types = {
+            "message have command": 'includes',
+            "message starts with": 'startsWith',
+            "message ends with": 'endsWith',
+            "Anywhere within the message": 'includes',
+            "Only at the beginning": 'startsWith',
+            "Only at the end": 'endsWith',
+        };
+
+        const command = cache['twitch-commands'].find(r => {
+            if (r.commandStatus != true) return false;
+
+            const alias = r.commandAliases?.split(',').map(r => r.trim()).filter(r => r != null && r != '') || [];
+            return first == r.commandName.toLowerCase() || alias.some(a => first == a.toLowerCase());
+        }) || cache['twitch-commands'].find(r => {
+            if (r.commandStatus != true) return false;
+
+            const alias = r.commandAliases?.split(',').map(r => r.trim()).filter(r => r != null && r != '') || [];
+
+            const compare_type = compare_types[r.triggerType];
+            return msg[compare_type](r.commandName.toLowerCase()) || alias.some(a => msg[compare_type](a.toLowerCase()));
+        });
+        if (command && command.commandName.toLowerCase() != '!calc') {
+            if (command.userLevel != 'everyone' && tags.badges?.broadcaster == null) {
+                if (command.userLevel == 'moderator' && tags.badges?.moderator == null) return;
+                if (command.userLevel == 'subscriber' && (tags.badges?.subscriber == null && tags.badges?.moderator == null)) return;
+                if (command.userLevel == 'vip' && (tags.badges?.vip == null && tags.badges?.moderator == null)) return;
+            };
+
+
+            const cooldown = command.commandCooldown || 5000;
+            if (cooldown && cache[`commands-cd-${command.commandName}`]) return;
+
+            say(channel, tosuRenamer(command.commandResponse), tags.id);
+
+            if (cooldown) cache[`commands-cd-${command.commandName}`] = true;
+            if (cooldown) await sleep(cooldown);
+            if (cooldown) cache[`commands-cd-${command.commandName}`] = false;
+        };
+
+
+        if (command && command.commandName.toLowerCase() == '!calc') {
+            if (cache['commands-cd-calc'] && tags.badges?.broadcaster == null) return;
 
             try {
-                const command = cache['twitch-commands'].find(r => r.commandName.toLowerCase() == '!calc');
-                if (command && command.commandStatus != true) return;
+                if (command.commandStatus != true) return;
+                if (command.userLevel != 'everyone' && tags.badges?.broadcaster == null) {
+                    if (command.userLevel == 'moderator' && tags.badges?.moderator == null) return;
+                    if (command.userLevel == 'subscriber' && (tags.badges?.subscriber == null && tags.badges?.moderator == null)) return;
+                    if (command.userLevel == 'vip' && (tags.badges?.vip == null && tags.badges?.moderator == null)) return;
+                };
 
                 const preset = command?.commandResponse || '{calcStars}* - {calcPP}pp [calcMods != ]+{calcMods} [/calcMods][calcAcc != ]{calcAcc}% [/calcAcc][calcCombo != ]{calcCombo}x [/calcCombo][calcMisses != ]{calcMisses}xMiss [/calcMisses]';
                 const commands = message.toLowerCase().replace('!calc ', '').split(' ');
@@ -396,7 +441,7 @@ async function startTwitchClient(clientToken) {
 
                     const _accuracy = /\d+(\.\d+)?/.exec(r);
                     if (_accuracy) {
-                        accuracy = +_accuracy[0];
+                        accuracy = Math.max(0, Math.min(100, +_accuracy[0]));
                         return;
                     };
 
@@ -461,51 +506,11 @@ async function startTwitchClient(clientToken) {
             } catch (error) {
                 console.log(error);
             } finally {
-                cache['calc'] = true;
-                await sleep(5000);
-                cache['calc'] = false;
+                cache['commands-cd-calc'] = true;
+                await sleep(command.commandCooldown || 5000);
+                cache['commands-cd-calc'] = false;
             };
             return;
-        };
-
-        const compare_types = {
-            "message have command": 'includes',
-            "message starts with": 'startsWith',
-            "message ends with": 'endsWith',
-            "Anywhere within the message": 'includes',
-            "Only at the beginning": 'startsWith',
-            "Only at the end": 'endsWith',
-        };
-
-        const command = cache['twitch-commands'].find(r => {
-            if (r.commandStatus != true) return false;
-
-            const alias = r.commandAliases?.split(',').map(r => r.trim()).filter(r => r != null && r != '') || [];
-            return first == r.commandName.toLowerCase() || alias.some(a => first == a.toLowerCase());
-        }) || cache['twitch-commands'].find(r => {
-            if (r.commandStatus != true) return false;
-
-            const alias = r.commandAliases?.split(',').map(r => r.trim()).filter(r => r != null && r != '') || [];
-
-            const compare_type = compare_types[r.triggerType];
-            return msg[compare_type](r.commandName.toLowerCase()) || alias.some(a => msg[compare_type](a.toLowerCase()));
-        });
-        if (command) {
-            if (command.userLevel != 'everyone' && command.userLevel == 'broadcaster') {
-                if (command.userLevel == 'moderator' && tags.badges.moderator == null) return;
-                if (command.userLevel == 'subscriber' && (tags.badges.subscriber == null && tags.badges.moderator == null)) return;
-                if (command.userLevel == 'vip' && (tags.badges.vip == null && tags.badges.moderator == null)) return;
-            };
-
-
-            const cooldown = command.commandCooldown || 5000;
-            if (cooldown && cache[`commands-cd-${command.commandName}`]) return;
-
-            say(channel, tosuRenamer(command.commandResponse), tags.id);
-
-            if (cooldown) cache[`commands-cd-${command.commandName}`] = true;
-            if (cooldown) await sleep(cooldown);
-            if (cooldown) cache[`commands-cd-${command.commandName}`] = false;
         };
     });
 
@@ -560,8 +565,17 @@ socket.commands(async (data) => {
             commands_text.innerHTML = `<span>Commands:</span> Active <b>${active.length}</b> <a>•</a> Inactive <b class="red">${inactive.length}</b>`;
         };
 
-        if (message['twitchChannel'])
+        if (message['twitchChannel']) {
+            if (cache['twitch-channel'] != message['twitchChannel'] && cache['twitch-client']) {
+                cache['twitch-client'].disconnect();
+                cache['twitch-client'] = undefined;
+
+                await sleep(2000);
+                startTwitchClient(message['twitchToken']);
+            };
+
             cache['twitch-channel'] = message['twitchChannel'];
+        };
 
         if (message['twitchToken']) {
             if (cache['twitch-token'] != message['twitchToken'] && cache['twitch-client']) {
@@ -684,7 +698,7 @@ socket.api_v2(async (data) => {
         if (cache['userID'] != data.profile.id) cache['userID'] = data.profile.id;
         if (cache['userName'] != data.profile.name) cache['userName'] = data.profile.name;
         if (cache['userCountry'] != data.profile.countryCode.name) cache['userCountry'] = data.profile.countryCode.name;
-        if (cache['userPP'] != space_number(data.profile.pp)) cache['userPP'] = space_number(data.profile.pp);
+        if (cache['userPP'] != space_number(data.profile.pp)) cache['userPP'] = space_number(Math.round(data.profile.pp));
         if (cache['userAccuracy'] != data.profile.accuracy) cache['userAccuracy'] = data.profile.accuracy;
         if (cache['userGlobalRank'] != space_number(data.profile.globalRank)) cache['userGlobalRank'] = space_number(data.profile.globalRank);
         if (cache['userRankedScore'] != space_number(data.profile.rankedScore)) cache['userRankedScore'] = space_number(data.profile.rankedScore);
@@ -693,12 +707,12 @@ socket.api_v2(async (data) => {
 
 
 
-        if (cache['pp100'] != data.performance.accuracy[100]) cache['pp100'] = data.performance.accuracy[100];
-        if (cache['pp99'] != data.performance.accuracy[99]) cache['pp99'] = data.performance.accuracy[99];
-        if (cache['pp98'] != data.performance.accuracy[98]) cache['pp98'] = data.performance.accuracy[98];
-        if (cache['pp97'] != data.performance.accuracy[97]) cache['pp97'] = data.performance.accuracy[97];
-        if (cache['pp96'] != data.performance.accuracy[96]) cache['pp96'] = data.performance.accuracy[96];
-        if (cache['pp95'] != data.performance.accuracy[95]) cache['pp95'] = data.performance.accuracy[95];
+        if (cache['pp100'] != data.performance.accuracy[100]) cache['pp100'] = Math.round(data.performance.accuracy[100]);
+        if (cache['pp99'] != data.performance.accuracy[99]) cache['pp99'] = Math.round(data.performance.accuracy[99]);
+        if (cache['pp98'] != data.performance.accuracy[98]) cache['pp98'] = Math.round(data.performance.accuracy[98]);
+        if (cache['pp97'] != data.performance.accuracy[97]) cache['pp97'] = Math.round(data.performance.accuracy[97]);
+        if (cache['pp96'] != data.performance.accuracy[96]) cache['pp96'] = Math.round(data.performance.accuracy[96]);
+        if (cache['pp95'] != data.performance.accuracy[95]) cache['pp95'] = Math.round(data.performance.accuracy[95]);
 
 
         if (data.state.number == 2) {
