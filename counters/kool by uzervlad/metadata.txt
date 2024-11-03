@@ -1,0 +1,7 @@
+Usecase: ingame,obs-overlays
+Name: kool
+Version: 1.0
+Author: uzervlad
+CompatibleWith: tosu,streamCompanion
+Resolution: 980x300
+authorLinks: https://github.com/uzervlad

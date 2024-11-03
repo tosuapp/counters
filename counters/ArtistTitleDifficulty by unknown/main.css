@@ -1,0 +1,434 @@
+/* montserrat-regular - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/montserrat-v26-latin-regular.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-600 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./fonts/montserrat-v26-latin-600.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-700 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./fonts/montserrat-v26-latin-700.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-800 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 800;
+  src: url('./fonts/montserrat-v26-latin-800.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-regular - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/roboto-mono-v23-latin-regular.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-500 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./fonts/roboto-mono-v23-latin-500.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-600 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./fonts/roboto-mono-v23-latin-600.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-700 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./fonts/roboto-mono-v23-latin-700.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+body {
+  font-family: "Roboto Mono", "Montserrat", sans-serif;
+
+  color: white;
+
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay-Listening {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Beatmap */
+
+.beatmap {
+  display: flex;
+  position: absolute;
+  /* left: 20px;
+	top: 20px; */
+}
+
+.cover {
+  overflow: hidden;
+  border-radius: 6px;
+  position: relative;
+}
+
+.image {
+  width: 90px;
+  height: 90px;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+  padding: 0 16px;
+}
+
+.text {
+  flex-grow: 1;
+
+  /* Fix text offset */
+  transform: translate(0, -5px);
+}
+
+.titles {
+  display: flex;
+  align-items: flex-end;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 2px 0 0 0;
+}
+
+.artist {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 2px 0 0 0;
+}
+
+.difficulty {
+  padding: 4px 5px 4px 8px;
+  color: black;
+  background: white;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.mods {
+  margin: 0 0px;
+  color: white;
+  text-shadow: 0 0 25px white, 0 0 25px white, 0 0 25px white;
+}
+
+.mapinfo {
+  font-size: 18px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.bpm {}
+
+.cs,
+.ar,
+.od,
+.hp {}
+
+.stars {}
+
+/* Progress */
+
+.cover svg {
+  transform: rotate(-90deg);
+}
+
+.cover {
+
+  width: 90px;
+  height: 90px;
+}
+
+.cover div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 90px;
+  height: 90px;
+}
+
+.cover svg,
+.cover div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.darken {
+  fill: black;
+  opacity: 0.5;
+}
+
+.remaining,
+.progress {
+  fill: transparent;
+  stroke: white;
+  stroke-width: 4px;
+}
+
+.remaining {
+  opacity: 0.25;
+}
+
+.progress {
+  stroke-dasharray: 188.495px, 188.495px;
+  stroke-dashoffset: 188.495px;
+}
+
+.progress-text {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Performance */
+
+.performance {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  /* top: 20px;
+	right: 20px; */
+  right: 0px;
+  text-align: right;
+}
+
+.performance-group {
+  margin: 4px 0 0 0;
+}
+
+.performance .text {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.performance .subtext {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.rank {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.combo .text {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.combo .subtext {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.combo {
+  position: absolute;
+  bottom: 0;
+  /* bottom: 20px;
+	left: 20px; */
+  letter-spacing: 2px;
+  text-align: left;
+}
+
+.ur {
+  /* position: absolute; */
+  text-align: center;
+  /*right: 47.5%;*/
+  /* bottom: 25px; */
+  bottom: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ur-preview {
+  position: absolute;
+  right: 47.5%;
+}
+
+.hits {
+  display: flex;
+  position: absolute;
+  /* bottom: 30px;
+	right: 20px; */
+  bottom: 0;
+  right: 0;
+  text-align: right;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.h100 {
+  color: hsl(123, 100%, 75%);
+}
+
+.h50 {
+  color: hsl(240, 100%, 75%);
+}
+
+.miss {
+  color: hsl(0, 100%, 70%);
+}
+
+.sb {
+  color: hsl(232, 0%, 70%);
+}
+
+.ppSS {
+  font-size: 25px;
+  font-weight: 600;
+  position: absolute;
+  border: solid rgba(0, 0, 0, 0.4) 8px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  padding-right: 10px;
+}
+
+
+/* Animations and state */
+
+.overlay {
+  --show: cubic-bezier(0.19, 1, 0.22, 1) 300ms;
+  --hide: cubic-bezier(0.55, 0.085, 0.68, 0.53) 200ms;
+}
+
+.beatmap,
+.performance,
+.combo,
+.ur,
+.hits,
+.ppSS>* {
+  transition:
+    opacity var(--show),
+    transform var(--show);
+}
+
+.overlay-playing.hidden .beatmap,
+.overlay-playing.hidden .performance,
+.overlay-playing.hidden .combo,
+.overlay-playing.hidden .ur,
+.overlay-playing.hidden .hits,
+.overlay-Listening.hidden>* {
+  opacity: 0;
+  transform: translate(0, 15px);
+  transition:
+    opacity var(--hide),
+    transform var(--hide);
+}
+
+.performance>*:nth-child(3) {
+  transition-delay: 100ms !important;
+}
+
+.overlay .performance>*:nth-child(2) {
+  transition-delay: 200ms !important;
+}
+
+.overlay .performance>*:nth-child(1) {
+  transition-delay: 300ms !important;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.overlay-preview {
+  flex: 0 0 600px;
+  color: brown
+}
+
+.overlay-preview-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>AccuracyPP</title>
+    <link href="./main.css" rel="stylesheet" />
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/reconnecting-websocket.min.js"></script>
+    <script src="./lib/consts.js"></script>
+    <script src="./lib/utils.js"></script>
+  </head>
+
+  <body>
+    <div id="overlay" v-cloak>
+      <div class="overlay-playing" :class="{'hidden':!isPlayingOrWatching}">
+        <div class="performance">
+          <div class="acc">
+            <span class="text"
+              >{{ getToken('acc', 2) }}%
+              <span class="rank">{{ osuGrade[getToken('grade')] }}</span></span
+            >
+          </div>
+          <div class="pp">
+            <span class="score"
+              >{{ getToken('ppIfMapEndsNow', 0) }}pp<span class="subtext"
+                >/{{ getToken('ppIfRestFced', 0) }}pp</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./main.js" type="module"></script>
+  </body>
+</html>

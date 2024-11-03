@@ -1,0 +1,6 @@
+Usecase: ingame,obs-overlays
+Name: BeatOsu
+Version: 1.1
+Author: unknown
+CompatibleWith: tosu,streamCompanion
+Resolution: 700x340

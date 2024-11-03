@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SC_OverlayElements - 4 Combo</title>
+    <link href="./main.css" rel="stylesheet" />
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/reconnecting-websocket.min.js"></script>
+    <script src="./lib/consts.js"></script>
+    <script src="./lib/utils.js"></script>
+  </head>
+
+  <body>
+    <div id="overlay" v-cloak>
+      <div class="overlay-playing" :class="{'hidden':!isPlayingOrWatching}">
+        <div class="combo">
+          <span class="text" class="combo"
+            >{{ getToken('combo')
+            }}<span class="subtext"
+              >/{{ getToken('maxCombo') }} Combo
+              <span v-if="!fcing" class="subtext"
+                >({{ getToken('currentMaxCombo') }})</span
+              ></span
+            ></span
+          >
+        </div>
+      </div>
+    </div>
+    <script src="./main.js" type="module"></script>
+  </body>
+</html>

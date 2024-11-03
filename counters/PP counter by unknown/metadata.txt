@@ -1,0 +1,6 @@
+Usecase: ingame,obs-overlays
+Name: PP counter
+Version: 1.0
+Author: unknown
+CompatibleWith: tosu,streamCompanion
+Resolution: 500x85

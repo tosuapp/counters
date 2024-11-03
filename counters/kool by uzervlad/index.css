@@ -1,0 +1,326 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: Dosis;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+}
+
+.hits-container {
+  position: absolute;
+  width: 100px;
+  height: 260px;
+  left: 20px;
+
+  padding: 22px 17px 22px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  transition: opacity .4s ease;
+  opacity: 0;
+
+  z-index: 5;
+}
+
+.hits-container.show {
+  opacity: 1;
+}
+
+.hit {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.hit .box {
+  width: 6px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--col);
+  box-shadow: 0 0 6px 0 var(--col);
+}
+
+.hit .value {
+  margin-right: 6px;
+  text-align: right;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--col);
+}
+
+.container {
+  position: absolute;
+  left: 100px;
+  width: 880px;
+  height: 260px;
+  border-radius: 16px;
+  background: #999;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.bg>img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition: opacity .4s ease;
+}
+
+.bg>.hidden {
+  opacity: 0;
+}
+
+.dim {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+span {
+  z-index: 999;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artist {
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 38px;
+  font-weight: 500;
+  text-align: center;
+
+  transition: .3s ease;
+}
+
+.playing .artist {
+  opacity: 0;
+  top: 55px;
+}
+
+.title {
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 48px;
+  font-weight: 600;
+  text-align: center;
+  
+  transition: .3s ease;
+}
+
+.playing .title {
+  top: 0;
+}
+
+.version {
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 36px;
+  font-weight: 500;
+  text-align: center;
+
+  opacity: 0;
+  transition: .3s ease;
+}
+
+.playing .version {
+  top: 55px;
+  opacity: 1;
+}
+
+.pp-previews {
+  position: absolute;
+  width: 100%;
+  top: 140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.pp-preview {
+  display: grid;
+  grid-template-areas: 
+    "acc . ."
+    ". divider ."
+    ". divider pp";
+  
+  transition: opacity .3s ease;
+}
+
+.playing .pp-preview {
+  opacity: 0;
+}
+
+.pp-preview .acc {
+  font-size: 28px;
+  font-weight: 500;
+  grid-area: "acc";
+}
+
+.pp-preview .divider {
+  font-size: 28px;
+  font-weight: 500;
+  grid-area: "divider";
+  line-height: 50px;
+}
+
+.pp-preview .pp {
+  margin-left: 4px;
+  font-size: 64px;
+  font-weight: 700;
+  grid-area: "pp";
+}
+
+div.pp {
+  position: absolute;
+  top: 120px;
+  left: 190px;
+  height: 101px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.playing div.pp {
+  opacity: 1;
+}
+
+div.pp .now {
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  font-size: 80px;
+  font-weight: 700;
+
+  transition: .4s ease;
+}
+
+div.pp .fc {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  font-weight: 700;
+
+  opacity: 0;
+
+  transition: .4s ease;
+}
+
+.rip .now {
+  transform: translateX(-5px) !important;
+}
+
+.rip .fc {
+  transform: translateX(5px) !important;
+  opacity: 1 !important;
+}
+
+.stats {
+  position: absolute;
+  bottom: 16px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  opacity: 0;
+  transition: .3s ease;
+}
+
+.stats.left {
+  left: 16px;
+}
+.stats.right {
+  right: 16px;
+}
+
+.playing .stats {
+  opacity: 1;
+}
+
+.stats>div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2px 7px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  background: rgba(50, 50, 50, 0.75);
+  backdrop-filter: blur(2px);
+  border-radius: 5px;
+}
+
+.stats>div>.value {
+  font-size: 28px;
+}
+
+.mods {
+  position: absolute;
+  top: 240px;
+  left: 100px;
+  width: 880px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.mod {
+  font-size: 42px;
+  font-weight: 800;
+  border-radius: 8px;
+  padding: 2px 12px;
+}
+
+.mod.green {
+  background: rgb(81, 165, 41, 0.85);
+}
+.mod.red {
+  background: rgba(204, 45, 45, 0.85);
+}
+.mod.blue {
+  background: rgb(45, 89, 204, 0.85);
+}
+.mod.gray {
+  background: rgb(125, 125, 125, 0.85);
+}
