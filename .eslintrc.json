@@ -1,0 +1,20 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "ignorePatterns": [
+        "node_modules/*"
+    ],
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-undef": "error",
+        "no-extra-semi": "off",
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-constant-condition": "off",
+        "no-useless-escape": "off"
+    }
+}
