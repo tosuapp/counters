@@ -11,25 +11,68 @@ socket.onerror = (error) => {
     console.log("Socket Error: ", error);
 };
 
+
+const cache = {};
+
 socket.onmessage = (event) => {
     let data = JSON.parse(event.data);
 
-    UserAvatar.style.backgroundImage = `url("https://a.ppy.sh/${data.profile.id}")`
-    UserFlag.style.backgroundImage = `url("https://assets.ppy.sh/old-flags/${data.profile.countryCode.name}.png")`
-    UserMode.style.backgroundImage = `url("./images/${data.profile.mode.name}.png")`
+    if (cache['UserAvatar'] != data.profile.id) {
+        cache['UserAvatar'] = data.profile.id;
+        UserAvatar.style.backgroundImage = `url("https://a.ppy.sh/${data.profile.id}")`;
+    };
 
-    Username.innerHTML = data.profile.name
-    UserRank.innerHTML = "#" + data.profile.globalRank
-    UserPP.innerHTML = `Performance: ${data.profile.pp}pp`
-    UserAcc.innerHTML = `Accuracy: ${data.profile.accuracy}%`
-    UserPlayCountAndLevels.innerHTML = `Play Count: ${data.profile.playCount} (Lv${data.profile.level.toFixed(0)})`
+    if (cache['UserFlag'] != data.profile.countryCode.name) {
+        cache['UserFlag'] = data.profile.countryCode.name;
+        UserFlag.style.backgroundImage = `url("https://assets.ppy.sh/old-flags/${data.profile.countryCode.name}.png")`;
+    };
+
+    if (cache['UserMode'] != data.profile.mode.name) {
+        cache['UserMode'] = data.profile.mode.name;
+        UserMode.style.backgroundImage = `url("./images/${data.profile.mode.name}.png")`;
+    };
+
+
+    if (cache['profile.name'] != data.profile.name) {
+        cache['profile.name'] = data.profile.name;
+
+        Username.innerHTML = data.profile.name;
+    };
+
+    if (cache['profile.globalRank'] != data.profile.globalRank) {
+        cache['profile.globalRank'] = data.profile.globalRank;
+
+        UserRank.innerHTML = "#" + data.profile.globalRank;
+    };
+
+    if (cache['profile.pp'] != data.profile.pp) {
+        cache['profile.pp'] = data.profile.pp;
+
+        UserPP.innerHTML = `Performance: ${data.profile.pp}pp`;
+    };
+
+    if (cache['profile.accuracy'] != data.profile.accuracy) {
+        cache['profile.accuracy'] = data.profile.accuracy;
+
+        UserAcc.innerHTML = `Accuracy: ${data.profile.accuracy}%`;
+    };
+
+
+    if (cache['profile.playCount'] != data.profile.playCount || cache['profile.level'] != data.profile.level) {
+        cache['profile.playCount'] = data.profile.playCount;
+        cache['profile.level'] = data.profile.level;
+
+        UserPlayCountAndLevels.innerHTML = `Play Count: ${data.profile.playCount} (Lv${data.profile.level.toFixed(0)})`
+    };
+
+
 
     const currentTime = new Date();
     const hours = currentTime.getHours().toString().padStart(2, '0');
     const minutes = currentTime.getMinutes().toString().padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
 
-    UserCountryNameAndTimes.innerHTML = `${formattedTime} @ ${data.profile.countryCode.name}`
+    UserCountryNameAndTimes.innerHTML = `${formattedTime} @ ${data.profile.countryCode.name}`;
 
     if (data.profile.banchoStatus.number == 0 || data.profile.banchoStatus.number == 13) {
         ColorBG.style.backgroundColor = `rgba(63, 124, 169, 0.5)`
@@ -84,4 +127,4 @@ socket.onmessage = (event) => {
         ColorBG.style.borderColor = `rgb(220, 216, 108)`
         UserCurrentStatus.innerHTML = `Multiplaying ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
     }
-}
+};

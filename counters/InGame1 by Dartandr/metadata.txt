@@ -1,7 +1,7 @@
 Usecase: ingame, obs-overlay
 Name: InGame1
-Version: 1.0
+Version: 1.001
 Author: Dartandr
 CompatibleWith: gosu, tosu
-Resolution: 240x133
+Resolution: 275x136
 authorLinks: https://github.com/Dartandr

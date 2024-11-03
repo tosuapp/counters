@@ -5,7 +5,6 @@ let score = document.getElementById('score');
 let wrapper = document.getElementById('wrapper');
 let widthBase = scoreColor.offsetWidth;
 
-//score.innerHTML = '0'.padStart(8,"0")
 
 socket.onopen = () => {
     console.log("Successfully Connected");
@@ -24,33 +23,48 @@ socket.onerror = error => {
 let animation = {
     acc: new CountUp('accdata', 0, 0, 2, .2, { useEasing: true, useGrouping: true, separator: " ", decimal: "." }),
     combo: new CountUp('combodata', 0, 0, 0, .2, { useEasing: true, useGrouping: true, separator: " ", decimal: "." }),
-}
+};
 
-let tempState;
+
+const cache = {};
 
 socket.onmessage = event => {
-    let data = JSON.parse(event.data);
-    if (tempState !== data.menu.state) {
-        tempState = data.menu.state;
-        if (tempState == 2) {
-            wrapper.style.opacity = 1;
-        }
-        else {
-            wrapper.style.opacity = 0;
-        }
-    }
-    if (data.gameplay.hp.smooth != "" || data.gameplay.hp.smooth != null || data.gameplay.hp.smooth != undefined) {
+    const data = JSON.parse(event.data);
+
+
+    if (cache['state'] != data.menu.state) {
+        cache['state'] = data.menu.state;
+
+        wrapper.style.opacity = cache['state'] == 2 ? 1 : 0;
+    };
+
+
+    if (cache['hp'] != data.gameplay.hp.smooth) {
+        cache['hp'] = data.gameplay.hp.smooth;
+
+
         let step = widthBase / 200;
-        scoreColor.style.width = step * data.gameplay.hp.smooth + 'px'
-    }
-    if (data.gameplay.score != "") {
-        let text = data.gameplay.score.toString().padStart(8, "0");
-        score.innerHTML = text;
-    }
-    if (data.gameplay.accuracy != "") {
-        animation.acc.update(data.gameplay.accuracy)
-    }
-    if (data.gameplay.combo.current != "") {
-        animation.combo.update(data.gameplay.combo.current)
-    }
-}
+        scoreColor.style.width = step * data.gameplay.hp.smooth + 'px';
+    };
+
+
+    if (cache['score'] != data.gameplay.score) {
+        cache['score'] = data.gameplay.score;
+
+        score.innerHTML = cache['score'].toString().padStart(8, "0");
+    };
+
+
+    if (cache['accuracy'] != data.gameplay.accuracy) {
+        cache['accuracy'] = data.gameplay.accuracy;
+
+        animation.acc.update(cache['accuracy']);
+    };
+
+
+    if (cache['combo'] != data.gameplay.combo.current) {
+        cache['combo'] = data.gameplay.combo.current;
+
+        animation.combo.update(cache['combo']);
+    };
+};

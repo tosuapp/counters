@@ -1,9 +1,8 @@
 const HOST = '127.0.0.1:24050';
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
-let mapid = document.getElementById('mapid');
 
 let bg = document.getElementById("bg");
-let title = document.getElementById("title");
+let titleArtist = document.getElementById("title");
 let pp = document.getElementById("pp");
 let hun = document.getElementById("100");
 let fifty = document.getElementById("50");
@@ -24,64 +23,80 @@ socket.onerror = error => {
     console.log("Socket Error: ", error);
 };
 
-let tempImg;
-let tempTitle;
-let tempStrainBase;
+
+const cache = {};
 let smoothOffset = 2;
-let seek;
-let fullTime;
-let onepart;
 
 socket.onmessage = event => {
-    let data = JSON.parse(event.data);
-    if (tempImg !== data.menu.bm.path.full) {
-        tempImg = data.menu.bm.path.full
-        let img = data.menu.bm.path.full.replace(/#/g, '%23').replace(/%/g, '%25')
-        bg.setAttribute('src', `http://${HOST}/Songs/${img}?a=${Math.random(10000)}`)
-    }
-    if (tempTitle !== data.menu.bm.metadata.artist + ' - ' + data.menu.bm.metadata.title) {
-        tempTitle = data.menu.bm.metadata.artist + ' - ' + data.menu.bm.metadata.title;
-        title.innerHTML = tempTitle
-    }
-    if (data.gameplay.pp.current != '') {
-        pp.innerHTML = Math.round(data.gameplay.pp.current)
-    } else {
-        pp.innerHTML = 0
-    }
-    if (data.gameplay.hits[100] > 0) {
-        hun.innerHTML = data.gameplay.hits[100]
-    } else {
-        hun.innerHTML = 0
-    }
-    if (data.gameplay.hits[50] > 0) {
-        fifty.innerHTML = data.gameplay.hits[50]
-    } else {
-        fifty.innerHTML = 0
-    }
-    if (data.gameplay.hits[0] > 0) {
-        miss.innerHTML = data.gameplay.hits[0]
-    } else {
-        miss.innerHTML = 0
-    }
-    if (tempStrainBase != JSON.stringify(data.menu.pp.strains)) {
-        tempStrainBase = JSON.stringify(data.menu.pp.strains);
-        smoothed = smooth(data.menu.pp.strains, smoothOffset);
+    const data = JSON.parse(event.data);
+
+    if (cache['image'] != data.menu.bm.path.full) {
+        cache['image'] = data.menu.bm.path.full;
+
+
+        let img = data.menu.bm.path.full.replace(/#/g, '%23').replace(/%/g, '%25');
+        bg.setAttribute('src', `http://${HOST}/Songs/${img}?a=${Math.random(10000)}`);
+    };
+
+    const title = `${data.menu.bm.metadata.artist} - ${data.menu.bm.metadata.title}`;
+    if (cache['title'] != title) {
+        cache['title'] = title;
+
+        titleArtist.innerHTML = title;
+    };
+
+
+    if (cache['pp'] != data.gameplay.pp.current) {
+        cache['pp'] = data.gameplay.pp.current;
+
+        pp.innerHTML = Math.round(cache['pp']);
+    };
+
+
+    if (cache['hit100'] != data.gameplay.hits[100]) {
+        cache['hit100'] = data.gameplay.hits[100];
+
+        hun.innerHTML = data.gameplay.hits[100];
+    };
+
+
+    if (cache['hit50'] != data.gameplay.hits[50]) {
+        cache['hit50'] = data.gameplay.hits[50];
+
+        fifty.innerHTML = data.gameplay.hits[50];
+    };
+
+
+    if (cache['hit0'] != data.gameplay.hits[0]) {
+        cache['hit0'] = data.gameplay.hits[0];
+
+        miss.innerHTML = data.gameplay.hits[0];
+    };
+
+
+    if (JSON.stringify(cache['strains']) != JSON.stringify(data.menu.pp.strains)) {
+        cache['strains'] = data.menu.pp.strains;
+
+        const smoothed = smooth(data.menu.pp.strains, smoothOffset);
+
         config.data.datasets[0].data = smoothed;
         config.data.labels = smoothed;
+
         configSecond.data.datasets[0].data = smoothed;
         configSecond.data.labels = smoothed;
+
         window.myLine.update();
         window.myLineSecond.update();
-    }
-    if (fullTime !== data.menu.bm.time.mp3) {
-        fullTime = data.menu.bm.time.mp3
-        onepart = 500 / fullTime
-    }
-    if (seek !== data.menu.bm.time.current && fullTime !== undefined && fullTime != 0) {
-        seek = data.menu.bm.time.current;
-        progressChart.style.width = onepart * seek + 'px'
-    }
-}
+    };
+
+
+    if (cache['current_time'] != data.menu.bm.time.current) {
+        cache['current_time'] = data.menu.bm.time.current;
+
+        progressChart.style.width = (500 / data.menu.bm.time.mp3) * cache['current_time'] + 'px';
+    };
+};
+
 
 window.onload = function () {
     var ctx = document.getElementById('canvas').getContext('2d');
@@ -163,4 +178,4 @@ let configSecond = {
             }
         }
     }
-}
+};

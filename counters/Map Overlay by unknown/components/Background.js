@@ -29,7 +29,7 @@ const background = {
       //method to execute when value defined above changes
       () => {
         var currId = (data.backgroundId += 1);
-        
+
         let width = 1920,
           height = 1080;
         if (backgroundDiv.value) {
@@ -49,7 +49,11 @@ const background = {
     );
 
     //start websocket connection to SC with some predefined tokens
-    data.rws = watchTokens(['backgroundImageLocation', 'md5', 'mapsetid'], (values) => Object.assign(data.tokens, values));
+    data.rws = watchTokens(['backgroundImageLocation', 'md5', 'mapsetid'], (values) => {
+      if (data.tokens['backgroundImageLocation'] != values['backgroundImageLocation']) data.tokens['backgroundImageLocation'] = values['backgroundImageLocation'];
+      if (data.tokens['md5'] != values['md5']) data.tokens['md5'] = values['md5'];
+      if (data.tokens['mapsetid'] != values['mapsetid']) data.tokens['mapsetid'] = values['mapsetid'];
+    });
 
     //return all data & computed vars & methods that we want to use elsewhere in this file or in html template
     return {

@@ -1,23 +1,26 @@
-body,html{
+body,
+html {
     padding: 0;
     margin: 0;
-    overflow-x: hidden;
+    overflow: hidden;
 }
-#main{
+
+#main {
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     color: white;
     height: 270px;
     width: 500px;
-    position: relative;    
-    -webkit-filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.4));
-    -moz-filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.4));
-    -ms-filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.4));
-    -o-filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.4));
+    position: relative;
+    -webkit-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.4));
+    -moz-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.4));
+    -ms-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.4));
+    -o-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.4));
     margin: 20px;
 }
-#target{
+
+#target {
     position: relative;
     height: 210px;
     width: 500px;
@@ -25,7 +28,7 @@ body,html{
     mask-image: url(../static/mask.svg);
 }
 
-#bg{
+#bg {
     background-color: rgb(71, 83, 109);
     position: absolute;
     height: 210px;
@@ -33,34 +36,44 @@ body,html{
     object-fit: cover;
     z-index: -1;
 }
-#bgDark{
+
+#bgDark {
     position: absolute;
     height: 210px;
     width: 500px;
     background-color: rgba(0, 0, 0, 0.65);
 }
-#title{
+
+#title {
     position: absolute;
     left: 105px;
     width: max-content;
     max-height: 30px;
-    overflow:hidden;
+    overflow: hidden;
     transform: translate(400px);
     animation: slide 15s linear infinite;
 }
 
 @keyframes slide {
-    0% {transform: translate(310px);}
-    100% { transform: translate(-100%);; }
+    0% {
+        transform: translate(310px);
+    }
+
+    100% {
+        transform: translate(-100%);
+        ;
+    }
 }
-.currentPP{
+
+.currentPP {
     width: 100px;
     position: absolute;
     top: 35px;
     text-align: center;
     justify-content: center;
 }
-.ifFC{
+
+.ifFC {
     width: 100px;
     position: absolute;
     top: 35px;
@@ -68,7 +81,8 @@ body,html{
     right: 0;
     justify-content: center;
 }
-#mapStatus{
+
+#mapStatus {
     position: absolute;
     bottom: 5px;
     display: flex;
@@ -76,29 +90,36 @@ body,html{
     width: 500px;
     text-align: center;
 }
-#mapStatus hr{
+
+#mapStatus hr {
     height: 5px;
     width: 80px;
     border-radius: 6px;
     border: none;
 }
-.status{
+
+.status {
     line-height: 4px;
     width: calc(max-content + 100px);
 }
-#cs hr{
+
+#cs hr {
     background-color: #9C9236;
 }
-#ar hr{
+
+#ar hr {
     background-color: #4A9C36;
 }
-#od hr{
+
+#od hr {
     background-color: #36849C;
 }
-#hp hr{
+
+#hp hr {
     background-color: #9C365B;
 }
-#state{
+
+#state {
     background-color: #171717;
     z-index: -1;
     position: absolute;
@@ -110,10 +131,11 @@ body,html{
     margin-left: 62px;
     height: 45px;
     border-radius: 0 0 14px 14px;
-    align-items: center ;
+    align-items: center;
     transition: ease-in-out 500ms;
 }
-#mods{
+
+#mods {
     position: fixed;
     display: flex;
     bottom: 120px;
@@ -121,19 +143,28 @@ body,html{
     justify-items: flex-end;
     margin-right: 25px;
 }
-.mod img{
+
+.mod img {
     position: relative;
     height: 50px;
     width: 50px;
     z-index: 1;
     object-fit: cover;
     margin-right: -25px;
-    -webkit-filter: drop-shadow( -5px 5px 5px rgba(0,0,0,0.7));
-    -moz-filter: drop-shadow(-5px 5px 10px rgba(0,0,0,0.7));
-    -ms-filter: drop-shadow(-5px 5px 10px rgba(0,0,0,0.7));
-    -o-filter: drop-shadow(-5px 5px 10px rgba(0,0,0,0.7));
+    -webkit-filter: drop-shadow(-5px 5px 5px rgba(0, 0, 0, 0.7));
+    -moz-filter: drop-shadow(-5px 5px 10px rgba(0, 0, 0, 0.7));
+    -ms-filter: drop-shadow(-5px 5px 10px rgba(0, 0, 0, 0.7));
+    -o-filter: drop-shadow(-5px 5px 10px rgba(0, 0, 0, 0.7));
 }
-.text{
+
+.text {
     display: flex;
     justify-content: center;
+}
+
+
+.h100t,
+.h50t,
+.misst {
+    margin-top: 0.05em;
 }

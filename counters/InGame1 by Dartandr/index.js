@@ -1,7 +1,6 @@
 const HOST = '127.0.0.1:24050';
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 let wrapper = document.getElementById('wrapper');
-let ifFcpp = document.getElementsByClassName('ifFcpp')[0];
 
 socket.onopen = () => console.log("Successfully Connected");
 socket.onclose = event => {
@@ -18,49 +17,52 @@ let animation = {
     miss: new CountUp('miss', 0, 0, 0, 0.5, { decimalPlaces: 2, useEasing: true, useGrouping: false, separator: " ", decimal: "." }),
 };
 
-let tempState
+
+const cache = {};
 
 socket.onmessage = event => {
-    let data = JSON.parse(event.data)
+    const data = JSON.parse(event.data);
 
-    if (data.menu.state !== tempState) {
-        tempState = data.menu.state
-        if (tempState !== 2) {
-            wrapper.style.transform = "translateX(-110%)"
-        } else {
-            wrapper.style.transform = "translateX(0)"
-        }
+    if (cache['state'] != data.menu.state) {
+        cache['state'] = data.menu.state;
 
-    }
-    if (data.gameplay.pp.current !== '' && data.gameplay.pp.current !== 0) {
-        animation.pp.update(data.gameplay.pp.current)
-    } else {
-        animation.pp.update(0)
-    }
-    if (data.gameplay.pp.fc !== '' && data.gameplay.pp.fc !== 0) {
-        animation.ifFcpp.update(data.gameplay.pp.fc)
-    } else {
-        animation.ifFcpp.update(0)
-    }
-    if (data.gameplay.hits[100] > 0) {
-        animation.hun.update(data.gameplay.hits[100])
-    } else {
-        animation.hun.update(0)
-    }
-    if (data.gameplay.hits[50] > 0) {
-        animation.fiv.update(data.gameplay.hits[50])
-    } else {
-        animation.fiv.update(0)
-    }
-    if (data.gameplay.hits[0] > 0) {
-        animation.miss.update(data.gameplay.hits[0])
-    } else {
-        animation.miss.update(0)
-    }
+        wrapper.style.transform = data.menu.state != 2 ? "translateX(-110%)" : "translateX(0)"
+    };
 
-    if (data.gameplay.hits[0] > 0  ||  data.gameplay.hits.sliderBreaks > 0) {
-        ifFcpp.style.opacity = 1
-    } else {
-        ifFcpp.style.opacity = 0
-    }
-}
+
+    if (cache['pp'] != data.gameplay.pp.current) {
+        cache['pp'] = data.gameplay.pp.current;
+
+        if (Number.isFinite(+cache['pp']))
+            animation.pp.update(data.gameplay.pp.current);
+    };
+
+
+    if (cache['ppfc'] != data.gameplay.pp.fc) {
+        cache['ppfc'] = data.gameplay.pp.fc;
+
+        if (Number.isFinite(+cache['ppfc']))
+            animation.ifFcpp.update(data.gameplay.pp.fc);
+    };
+
+
+    if (cache['hit100'] != data.gameplay.hits[100]) {
+        cache['hit100'] = data.gameplay.hits[100];
+
+        animation.hun.update(data.gameplay.hits[100]);
+    };
+
+
+    if (cache['hit50'] != data.gameplay.hits[50]) {
+        cache['hit50'] = data.gameplay.hits[50];
+
+        animation.fiv.update(data.gameplay.hits[50]);
+    };
+
+
+    if (cache['hit0'] != data.gameplay.hits[0]) {
+        cache['hit0'] = data.gameplay.hits[0];
+
+        animation.miss.update(data.gameplay.hits[0]);
+    };
+};

@@ -54,7 +54,17 @@ const app = {
         'md5',
       ],
       (values) => {
-        Object.assign(data.tokens, values);
+        const array = Object.keys(values);
+
+        for (let i = 0; i < array.length; i++) {
+          const key = array[i];
+          const value = values[key];
+
+          if (typeof value == 'object') {
+            if (JSON.stringify(data.tokens[key]) != JSON.stringify(value)) data.tokens[key] = value;
+          }
+          else if (data.tokens[key] != value) data.tokens[key] = value;
+        };
       }
     );
 
@@ -65,7 +75,7 @@ const app = {
       isPlayingOrWatching,
       mapProgress,
       progressColor: Vue.computed(() => data.settings.progressColor),
-      
+
     };
   },
 };

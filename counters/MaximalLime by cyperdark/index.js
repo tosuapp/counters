@@ -10,61 +10,75 @@ let miss = document.getElementById("h0");
 let time = document.getElementById("time");
 
 socket.onopen = () => {
-	console.log("Successfully Connected");
+    console.log("Successfully Connected");
 };
 
 socket.onclose = event => {
-	console.log("Socket Closed Connection: ", event);
-	socket.send("Client Closed!")
+    console.log("Socket Closed Connection: ", event);
+    socket.send("Client Closed!");
 };
 
 socket.onerror = error => {
-	console.log("Socket Error: ", error);
+    console.log("Socket Error: ", error);
 };
 
-let tempState;
-let tempImg;
-socket.onmessage = event => {
-	let data = JSON.parse(event.data);
-	if (tempState !== data.menu.bm.path.full) {
-		tempState = data.menu.bm.path.full
-		bg.setAttribute('src', `http://${HOST}/Songs/${data.menu.bm.path.full}?a=${Math.random(10000)}`)
-	}
-	if (data.menu.bm.time.current > 1000) {
-		let seconds = (data.menu.bm.time.current/1000).toFixed(0);
-		let minutes = Math.floor(seconds % 3600 / 60).toString();
 
-		if (seconds > 60) {
-			time.innerHTML = `${minutes}m ${seconds-(minutes*60)}s`
-		} else {
-			time.innerHTML = `${seconds}s`
-		}
-	}
-	if (data.gameplay.pp.current != '') {
-		let ppData = data.gameplay.pp.current;
-		pp.innerHTML = Math.round(ppData) + "pp"
-	} else {
-		pp.innerHTML = 0 + "pp"
-	}
-	if (data.menu.bm.stats.SR != '') {
-		let SR = data.menu.bm.stats.SR;
-		star.innerHTML = SR.toFixed(2)
-	} else {
-		star.innerHTML = 0
-	}
-	if (data.gameplay.hits[100] > 0) {
-		hun.innerHTML = data.gameplay.hits[100];
-	} else {
-		hun.innerHTML = 0
-	}
-	if (data.gameplay.hits[50] > 0) {
-		fifty.innerHTML = data.gameplay.hits[50];
-	} else {
-		fifty.innerHTML = 0
-	}
-	if (data.gameplay.hits[0] > 0) {
-		miss.innerHTML = data.gameplay.hits[0];
-	} else {
-		miss.innerHTML = 0
-	}
-}
+const cache = {};
+
+socket.onmessage = event => {
+    const data = JSON.parse(event.data);
+
+    if (cache['image'] != data.menu.bm.path.full) {
+        cache['image'] = data.menu.bm.path.full;
+
+        bg.setAttribute('src', `http://${HOST}/Songs/${data.menu.bm.path.full}?a=${Math.random(10000)}`)
+    };
+
+
+    if (data.menu.bm.time.current > 1000) {
+        let seconds = (data.menu.bm.time.current / 1000).toFixed(0);
+        let minutes = Math.floor(seconds % 3600 / 60).toString();
+
+        if (seconds > 60) {
+            time.innerHTML = `${minutes}m ${seconds - (minutes * 60)}s`;
+        } else {
+            time.innerHTML = `${seconds}s`;
+        }
+    };
+
+
+    if (cache['pp'] != data.gameplay.pp.current) {
+        cache['pp'] = data.gameplay.pp.current;
+
+
+        pp.innerHTML = Math.round(cache['pp']) + "pp";
+    };
+
+
+    if (cache['sr'] != data.menu.bm.stats.SR) {
+        cache['sr'] = data.menu.bm.stats.SR;
+
+        star.innerHTML = cache['sr'];
+    };
+
+
+    if (cache['100'] != data.gameplay.hits[100]) {
+        cache['100'] = data.gameplay.hits[100];
+
+        hun.innerHTML = cache['100'];
+    };
+
+
+    if (cache['50'] != data.gameplay.hits[50]) {
+        cache['50'] = data.gameplay.hits[50];
+
+        fifty.innerHTML = cache['50'];
+    };
+
+
+    if (cache['0'] != data.gameplay.hits[0]) {
+        cache['0'] = data.gameplay.hits[0];
+
+        miss.innerHTML = cache['0'];
+    };
+};

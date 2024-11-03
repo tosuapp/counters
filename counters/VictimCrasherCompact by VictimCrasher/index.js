@@ -1,5 +1,4 @@
 let socket = new ReconnectingWebSocket("ws://" + location.host + "/ws");
-let mapid = document.getElementById('mapid');
 
 let bg = document.getElementById("bg");
 let title = document.getElementById("title");
@@ -59,6 +58,9 @@ let tempDiff;
 let tempMods;
 let gameState;
 
+
+const cache = {};
+
 socket.onmessage = event => {
     let data = JSON.parse(event.data);
     if (tempImg !== data.menu.bm.path.full) {
@@ -82,28 +84,38 @@ socket.onmessage = event => {
             mods.style.transform = "translateY(100px)";
             hits.style.transform = "translateY(100px)";
         }
-    }
-    if (data.gameplay.pp.current != '') {
-        let ppData = data.gameplay.pp.current;
-        pp.innerHTML = Math.round(ppData);
-    } else {
-        pp.innerHTML = "";
-    }
-    if (data.gameplay.hits[100] > 0) {
-        hun.innerHTML = data.gameplay.hits[100];
-    } else {
-        hun.innerHTML = 0;
-    }
-    if (data.gameplay.hits[50] > 0) {
-        fifty.innerHTML = data.gameplay.hits[50];
-    } else {
-        fifty.innerHTML = 0;
-    }
-    if (data.gameplay.hits[0] > 0) {
-        miss.innerHTML = data.gameplay.hits[0];
-    } else {
-        miss.innerHTML = 0;
-    }
+    };
+
+
+    if (cache['pp'] != data.gameplay.pp.current) {
+        cache['pp'] = data.gameplay.pp.current;
+
+
+        pp.innerHTML = Math.round(cache['pp']) + "pp";
+    };
+
+
+    if (cache['100'] != data.gameplay.hits[100]) {
+        cache['100'] = data.gameplay.hits[100];
+
+        hun.innerHTML = cache['100'];
+    };
+
+
+    if (cache['50'] != data.gameplay.hits[50]) {
+        cache['50'] = data.gameplay.hits[50];
+
+        fifty.innerHTML = cache['50'];
+    };
+
+
+    if (cache['0'] != data.gameplay.hits[0]) {
+        cache['0'] = data.gameplay.hits[0];
+
+        miss.innerHTML = cache['0'];
+    };
+
+
     if (tempTitle !== data.menu.bm.metadata.artist + ' - ' + data.menu.bm.metadata.title) {
         tempTitle = data.menu.bm.metadata.artist + ' - ' + data.menu.bm.metadata.title;
         title.innerHTML = tempTitle;
@@ -158,4 +170,4 @@ socket.onmessage = event => {
             mods.appendChild(mod);
         }
     }
-}
+};

@@ -16,7 +16,17 @@ const app = {
     //either request all tokens upfront by filling their names in array
     //or request them later using helper getToken method above
     data.rws = watchTokens([], (values) => {
-      Object.assign(data.tokens, values);
+        const array = Object.keys(values);
+
+        for (let i = 0; i < array.length; i++) {
+            const key = array[i];
+            const value = values[key];
+
+            if (typeof value == 'object') {
+                if (JSON.stringify(data.tokens[key]) != JSON.stringify(value)) data.tokens[key] = value;
+            }
+            else if (data.tokens[key] != value) data.tokens[key] = value;
+        };
     });
 
     const totalTime = Vue.computed(() => {

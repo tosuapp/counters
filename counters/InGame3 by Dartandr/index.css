@@ -38,7 +38,6 @@ html {
     font-size: 18px;
     padding: 5px;
     transition: opacity 300ms ease-in-out;
-    opacity: 1;
     transform: translateX(-50%);
     left: 110px;
     top: 35px;

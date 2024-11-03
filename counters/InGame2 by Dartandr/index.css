@@ -23,7 +23,7 @@ html {
     left: 325px;
     transform: translateX(-50%);
     transition: 300ms ease-in-out;
-    opacity: 0;
+    opacity: 1;
 }
 
 #ifFcpp {

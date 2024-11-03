@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: MonokaiPane
-Version: 1.0
+Version: 1.001
 Author: Xynogen
 CompatibleWith: gosu, tosu
 Resolution: 512x150

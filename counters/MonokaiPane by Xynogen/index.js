@@ -22,198 +22,240 @@ let $title = document.getElementsByClassName("title");
 let $artist = document.getElementsByClassName("artist");
 
 socket.onopen = () => {
-  console.log("Successfully Connected");
+    console.log("Successfully Connected");
 };
 
 socket.onclose = (event) => {
-  console.log("Socket Closed Connection: ", event);
-  socket.send("Client Closed!");
+    console.log("Socket Closed Connection: ", event);
+    socket.send("Client Closed!");
 };
 
 socket.onerror = (error) => {
-  console.log("Socket Error: ", error);
+    console.log("Socket Error: ", error);
 };
 
-let tempImg;
-let tempTitle;
-let tempArtist;
-let tempDiff;
-let tempMapper;
-let ppData;
-let gameState;
-let fullTime;
-let onepart;
-let seek;
-let hdfl;
-
 function hide(el) {
-  el.classList.add('hide');
-  el.classList.remove('show')
+    el.classList.add('hide');
+    el.classList.remove('show');
 }
 function show(el) {
-  el.classList.remove('hide');
-  el.classList.add('show')
+    el.classList.remove('hide');
+    el.classList.add('show');
 }
 function toggleFunction() {
-  if(rank.classList.contains("show")){
-      hide(rank);
-      show($title[0]);
-      show($artist[0]);
-  } else {
-      show(rank);
-      hide($title[0]);
-      hide($artist[0]);
-  }
+    if (rank.classList.contains("show")) {
+        hide(rank);
+        show($title[0]);
+        show($artist[0]);
+    } else {
+        show(rank);
+        hide($title[0]);
+        hide($artist[0]);
+    }
 }
-let toggleStatus;
 
-let mapRanking;
+
+const cache = {};
 
 socket.onmessage = (event) => {
-  let data = JSON.parse(event.data), hits = data.gameplay.hits;
-  if (data.menu.mods.str.includes("HD") || data.menu.mods.str.includes("FL")) {
-    hdfl = true;
-  } else hdfl = false;
+    /** @type {JsonData} */
+    const data = JSON.parse(event.data);
 
-  if (hits.grade.current == 'SS'){
-    if (hdfl == true) {
-      rank.style.color = "#D3D3D3";
-      rank.style.textShadow = "0 0 0.5rem #D3D3D3";
+
+
+    if (cache['grade'] != data.gameplay.hits.grade.current) {
+        cache['grade'] = data.gameplay.hits.grade.current;
+
+
+        switch (cache['grade']) {
+            case 'XH':
+                rank.style.color = "#D3D3D3";
+                rank.style.textShadow = "0 0 0.5rem #D3D3D3";
+                break;
+
+            case 'X':
+                rank.style.color = "#d6c253";
+                rank.style.textShadow = "0 0 0.5rem #d6c253";
+                break;
+
+            case 'SH':
+                rank.style.color = "#D3D3D3";
+                rank.style.textShadow = "0 0 0.5rem #D3D3D3";
+                break;
+
+            case 'S':
+                rank.style.color = "#d6c253";
+                rank.style.textShadow = "0 0 0.5rem #d6c253";
+                break;
+
+            case 'A':
+                rank.style.color = "#7ed653";
+                rank.style.textShadow = "0 0 0.5rem #7ed653";
+                break;
+
+            case 'B':
+                rank.style.color = "#53d4d6";
+                rank.style.textShadow = "0 0 0.5rem #53d4d6";
+                break;
+
+            case 'C':
+                rank.style.color = "#d6538e";
+                rank.style.textShadow = "0 0 0.5rem #d6538e";
+                break;
+
+            default:
+                rank.style.color = "#d65353";
+                rank.style.textShadow = "0 0 0.5rem #d65353";
+                break;
+        };
+
+        rank.innerHTML = cache['grade'].replace('X', 'SS').replace('H', '');
+    };
+
+
+    if (cache['image'] != data.menu.bm.path.full) {
+        cache['image'] = data.menu.bm.path.full;
+
+
+        let img = cache['image'].replace(/#/g, "%23").replace(/%/g, "%25");
+        bg.setAttribute("src", `http://${HOST}/Songs/${img}?a=${Math.random(10000)}`);
+    };
+
+
+    if (cache['rankedStatus'] != data.menu.bm.rankedStatus) {
+        cache['rankedStatus'] = data.menu.bm.rankedStatus;
+
+        let mapRanking;
+        switch (cache['rankedStatus']) {
+            case 7:
+                mapRanking = "";
+                rankedColor.className = "LOVED";
+                break;
+
+            case 4:
+                mapRanking = "";
+                rankedColor.className = "RANKED";
+                break;
+
+            case 5:
+                mapRanking = "";
+                rankedColor.className = "QUALIFIED";
+                break;
+
+            default:
+                mapRanking = "";
+                rankedColor.className = "GRAVEYARD";
+                break;
+        };
+
+
+        mapRank.innerHTML = mapRanking;
+    };
+
+
+    if (cache['state'] != data.menu.state) {
+        cache['state'] = data.menu.state;
+
+
+        if (cache['state'] == 2) {
+            hit.style.transform = "translateY(0)";
+            infoContainer.style.transform = "translateY(-1.225rem)";
+
+            cache.toggleStatus = setInterval(toggleFunction, 10000);
+        }
+        else {
+            hit.style.transform = "translateY(calc(100% - 0.25rem))";
+            infoContainer.style.transform = "translate(0)";
+            clearInterval(cache.toggleStatus);
+
+            hide(rank);
+            show($title[0]);
+            show($artist[0]);
+            root.style.setProperty("--progress", 0);
+        };
+    };
+
+
+    const time = ((100 / data.menu.bm.time.mp3) * data.menu.bm.time.current).toFixed(1);
+    if (cache['time'] != time) {
+        cache['time'] = time;
+
+
+        root.style.setProperty("--progress", `${cache['time']}%`);
+    };
+
+
+    if (cache['diff'] != data.menu.bm.metadata.difficulty) {
+        cache['diff'] = data.menu.bm.metadata.difficulty;
+
+        diff.innerHTML = cache['diff'];
+    };
+
+    if (cache['mapper'] != data.menu.bm.metadata.mapper) {
+        cache['mapper'] = data.menu.bm.metadata.mapper;
+
+        mapper.innerHTML = cache['mapper'];
+    };
+
+    if (cache['title'] != data.menu.bm.metadata.title) {
+        cache['title'] = data.menu.bm.metadata.title;
+
+        title.innerHTML = cache['title'];
+    };
+
+    if (cache['artist'] != data.menu.bm.metadata.artist) {
+        cache['artist'] = data.menu.bm.metadata.artist;
+
+        artist.innerHTML = cache['artist'];
+    };
+
+
+    const widthLimit = everything.getBoundingClientRect().width * 0.6;
+    const titleWidth = title.offsetWidth;
+    const artistWidth = artist.offsetWidth;
+
+    if (titleWidth > widthLimit) {
+        const timeTaken = titleWidth / 24;
+        title.style.animationDuration = timeTaken + "s";
+        title.className = 'textMarquee';
     } else {
-      rank.style.color = "#d6c253";
-      rank.style.textShadow = "0 0 0.5rem #d6c253";
-    }
-  } else if (hits.grade.current == 'S'){
-    if (hdfl == true) {
-      rank.style.color = "#D3D3D3";
-      rank.style.textShadow = "0 0 0.5rem #D3D3D3";
+        title.className = '';
+    };
+
+
+    if (artistWidth > widthLimit) {
+        const timeTaken = artistWidth / 24;
+        artist.style.animationDuration = timeTaken + "s";
+        artist.className = 'textMarquee';
     } else {
-      rank.style.color = "#d6c253";
-      rank.style.textShadow = "0 0 0.5rem #d6c253";
-    }
-  } else if (hits.grade.current == 'A'){
-    rank.style.color = "#7ed653";
-    rank.style.textShadow = "0 0 0.5rem #7ed653";
-  } else if (hits.grade.current == 'B'){
-    rank.style.color = "#53d4d6";
-    rank.style.textShadow = "0 0 0.5rem #53d4d6";
-  } else if (hits.grade.current == 'C'){
-    rank.style.color = "#d6538e";
-    rank.style.textShadow = "0 0 0.5rem #d6538e";
-  } else {
-    rank.style.color = "#d65353";
-    rank.style.textShadow = "0 0 0.5rem #d65353";
-  }
-  rank.innerHTML = hits.grade.current;
-  console.log(hits.grade.current);
-
-  if (tempImg !== data.menu.bm.path.full) {
-    tempImg = data.menu.bm.path.full;
-    let img = data.menu.bm.path.full.replace(/#/g, "%23").replace(/%/g, "%25");
-    bg.setAttribute(
-      "src",
-      `http://${HOST}/Songs/${img}?a=${Math.random(10000)}`
-    );
-  }
-  if (data.menu.bm.rankedStatus === 7) {
-      mapRanking = "";
-      rankedColor.className = "LOVED";
-  } else if (data.menu.bm.rankedStatus === 4) {
-      mapRanking = "";
-      rankedColor.className = "RANKED";
-  } else if (data.menu.bm.rankedStatus === 5) {
-      mapRanking = "";
-      rankedColor.className = "QUALIFIED";
-  } else {
-      mapRanking = ""
-      rankedColor.className = "GRAVEYARD";
-  }
-  mapRank.innerHTML = mapRanking;
-
-  if (gameState !== data.menu.state) {
-    gameState = data.menu.state;
-    if (gameState === 2) {
-      hit.style.transform = "translateY(0)";
-      infoContainer.style.transform = "translateY(-1.225rem)";
-      toggleStatus = setInterval(toggleFunction, 10000);
-    } else {
-      hit.style.transform = "translateY(calc(100% - 0.25rem))";
-      infoContainer.style.transform = "translate(0)";
-      clearInterval(toggleStatus);
-      hide(rank);
-      show($title[0]);
-      show($artist[0]);
-      root.style.setProperty("--progress", 0);
-    }
-  }
-  if (fullTime !== data.menu.bm.time.mp3) {
-    fullTime = data.menu.bm.time.mp3;
-    onepart = 100 / fullTime;
-  }
-  if (
-    gameState === 2 &&
-    seek !== data.menu.bm.time.current &&
-    fullTime !== undefined &&
-    fullTime != 0
-  ) {
-    seek = data.menu.bm.time.current;
-    root.style.setProperty("--progress", onepart * seek + "%");
-  }
-  if (tempDiff !== data.menu.bm.metadata.difficulty) {
-    tempDiff = data.menu.bm.metadata.difficulty;
-    diff.innerHTML = tempDiff;
-  }
-  if (tempMapper !== data.menu.bm.metadata.mapper) {
-    tempMapper = data.menu.bm.metadata.mapper;
-    mapper.innerHTML = tempMapper;
-  }
-  if (tempTitle !== data.menu.bm.metadata.title) {
-    tempTitle = data.menu.bm.metadata.title;
-    title.innerHTML = tempTitle;
-  }
-  if (tempArtist !== data.menu.bm.metadata.artist) {
-    tempArtist = data.menu.bm.metadata.artist;
-    artist.innerHTML = tempArtist;
-  }
-  var widthLimit = everything.getBoundingClientRect().width * 0.6;
-  var titleWidth = title.offsetWidth;
-  var artistWidth = artist.offsetWidth;
-
-  if (titleWidth>widthLimit) {
-    var timeTaken = titleWidth / 24;
-    title.style.animationDuration = timeTaken + "s";
-    title.className = 'textMarquee';
-  } else {
-    title.className = ''
-  }
-  if (artistWidth>widthLimit) {
-    var timeTaken = artistWidth / 24;
-    artist.style.animationDuration = timeTaken + "s";
-    artist.className = 'textMarquee'
-  } else {
-    artist.className = ''
-  }
-  if (data.gameplay.pp.current != "") {
-    let ppData = data.gameplay.pp.current;
-    pp.innerHTML = Math.round(ppData);
-  } else {
-    pp.innerHTML = 0;
-  }
+        artist.className = '';
+    };
 
 
-  if (hits[100] > 0) {
-    hun.innerHTML = hits[100];
-  } else {
-    hun.innerHTML = 0;
-  }
-  if (hits[50] > 0) {
-    fifty.innerHTML = hits[50];
-  } else {
-    fifty.innerHTML = 0;
-  }
-  if (hits[0] > 0) {
-    miss.innerHTML = hits[0];
-  } else {
-    miss.innerHTML = 0;
-  }
+    if (cache['pp'] != data.gameplay.pp.current) {
+        cache['pp'] = data.gameplay.pp.current;
+
+        pp.innerHTML = Math.round(cache['pp']);
+    };
+
+
+    if (cache['100'] != data.gameplay.hits[100]) {
+        cache['100'] = data.gameplay.hits[100];
+
+        hun.innerHTML = cache['100'];
+    };
+
+
+    if (cache['50'] != data.gameplay.hits[50]) {
+        cache['50'] = data.gameplay.hits[50];
+
+        fifty.innerHTML = cache['50'];
+    };
+
+
+    if (cache['0'] != data.gameplay.hits[0]) {
+        cache['0'] = data.gameplay.hits[0];
+
+        miss.innerHTML = cache['0'];
+    };
 };

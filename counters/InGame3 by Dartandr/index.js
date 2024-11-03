@@ -1,7 +1,5 @@
 const HOST = '127.0.0.1:24050';
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
-let ifFcpp = document.getElementsByClassName('ifFcpp')[0];
-let base = document.getElementById('base')
 
 socket.onopen = () => console.log("Successfully Connected");
 socket.onclose = event => {
@@ -15,28 +13,31 @@ let animation = {
     ifFcpp: new CountUp('ifFcpp', 0, 0, 0, 0.5, { decimalPlaces: 2, useEasing: true, useGrouping: false, separator: " ", decimal: "." }),
 };
 
-let tempState;
+
+const cache = {};
 
 socket.onmessage = event => {
-    let data = JSON.parse(event.data)
+    const data = JSON.parse(event.data);
 
-    if (data.menu.state !== tempState) {
-        tempState = data.menu.state
-    }
-    if (data.gameplay.pp.current !== '' && (tempState === 2 || tempState === 7)) {
-        animation.pp.update(data.gameplay.pp.current)
-    }
-    if (data.menu.pp[100] !== '' && (tempState !== 2 && tempState !== 7)) {
-        animation.pp.update(data.menu.pp[100])
-    }
-    if (data.gameplay.pp.fc !== '' && data.gameplay.pp.fc !== 0) {
-        animation.ifFcpp.update(data.gameplay.pp.fc)
+
+    if (data.menu.state == 2 || data.menu.state == 7) {
+        if (cache['pp'] != data.gameplay.pp.current) {
+            cache['pp'] = data.gameplay.pp.current;
+
+            animation.pp.update(cache['pp']);
+        };
     } else {
-        animation.ifFcpp.update(0)
-    }
-    if (data.gameplay.hits[0] > 0 || data.gameplay.hits.sliderBreaks > 0) {
-        ifFcpp.style.opacity = 1
-    } else {
-        ifFcpp.style.opacity = 0
-    }
-}
+        if (cache['pp100'] != data.menu.pp[100]) {
+            cache['pp100'] = data.menu.pp[100];
+
+            animation.pp.update(cache['pp100']);
+        };
+    };
+
+
+    if (cache['ppfc'] != data.gameplay.pp.fc) {
+        cache['ppfc'] = data.gameplay.pp.fc;
+
+        animation.ifFcpp.update(cache['ppfc']);
+    };
+};
