@@ -30,6 +30,7 @@ body {
     color: white;
     line-height: 1;
     display: flex;
+    overflow: hidden;
 }
 
 .odometer {

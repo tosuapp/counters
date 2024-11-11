@@ -10,6 +10,7 @@ body {
   padding: 0;
   background: black;
   color: white;
+  overflow: hidden;
 }
 
 .hits-container {

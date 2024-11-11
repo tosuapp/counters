@@ -11,6 +11,7 @@ body {
   color: white;
   font-size: 50px;
   background-color: transparent;
+  overflow: hidden;
 }
 
 .main {

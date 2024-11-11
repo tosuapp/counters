@@ -21,6 +21,7 @@ html, body {
   color: white;
   width: 1920px;
   height: 1080px;
+  overflow: hidden;
   /*background: #8c8c8c;*/
   border-right: 2px solid white;
   border-bottom: 2px solid white;

@@ -30,6 +30,7 @@ body {
     color: white;
     font-size: 40px;
     background-color: black;
+    overflow: hidden;
 }
 
 
