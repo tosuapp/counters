@@ -612,6 +612,7 @@ export default WebSocketManager;
  * @property {string} profile.countryCode.name
  * @property {string} profile.backgroundColour
  * @property {object} beatmap
+ * @property {boolean} beatmap.isConvert
  * @property {object} beatmap.time
  * @property {number} beatmap.time.live
  * @property {number} beatmap.time.firstObject
