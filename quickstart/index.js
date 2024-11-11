@@ -23,43 +23,43 @@ const h0 = new CountUp('h0', 0, 0, 0, .5, { useEasing: true, useGrouping: true, 
 
 
 // receive message update from websocket
-socket.api_v2(({ play }) => {
+socket.api_v2(data => {
   try {
     // check if value has changed
-    if (cache.h100 !== play.hits['100']) {
+    if (cache.h100 !== data.play.hits['100']) {
       // update cache
-      cache.h100 = play.hits['100'];
+      cache.h100 = data.play.hits['100'];
 
 
       //      IMPORTANT   !!   USE ONE OF THEM
 
       // update html via countup
-      h100.update(play.hits['100']);
+      h100.update(data.play.hits['100']);
 
       // update html via js
-      document.getElementById('h100').innerHTML = play.hits['100'];
+      document.getElementById('h100').innerHTML = data.play.hits['100'];
     };
 
 
 
-    if (cache.h50 !== play.hits['50']) {
-      cache.h50 = play.hits['50'];
-      h50.update(play.hits['50']);
+    if (cache.h50 !== data.play.hits['50']) {
+      cache.h50 = data.play.hits['50'];
+      h50.update(data.play.hits['50']);
     };
 
-    if (cache.h0 !== play.hits['0']) {
-      cache.h0 = play.hits['0'];
-      h0.update(play.hits['0']);
+    if (cache.h0 !== data.play.hits['0']) {
+      cache.h0 = data.play.hits['0'];
+      h0.update(data.play.hits['0']);
     };
 
-    if (cache.accuracy != play.accuracy) {
-      cache.accuracy = play.accuracy;
-      accuracy.update(play.accuracy);
+    if (cache.accuracy != data.play.accuracy) {
+      cache.accuracy = data.play.accuracy;
+      accuracy.update(data.play.accuracy);
     };
 
-    if (cache.pp !== Math.round(play.pp.current)) {
-      cache.pp = Math.round(play.pp.current);
-      document.getElementById('pp').innerHTML = Math.round(play.pp.current);
+    if (cache.pp !== Math.round(data.play.pp.current)) {
+      cache.pp = Math.round(data.play.pp.current);
+      document.getElementById('pp').innerHTML = Math.round(data.play.pp.current);
     };
   } catch (error) {
     console.log(error);
