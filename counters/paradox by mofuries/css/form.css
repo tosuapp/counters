@@ -314,8 +314,8 @@ input[type="password"] {
     color: var(--accentcolor);
 }
 #startup{
-    font-family: 'Roboto', 'Noto Sans JP', 'Segoe UI', 'fa-solid 900';
-    font-size: 0.45rem;
+    font-family: 'Segoe UI', 'Yu Gothic UI';
+    font-size: 0.6rem;
     font-weight: 300;
     position: absolute;
     width: 960px;
@@ -330,15 +330,14 @@ input[type="password"] {
     line-height: 1.05rem;
     box-shadow: 0px 0px 30px var(--accentcolorhalf), 0px 0px 30px black;
     transition: all 0.25s ease-out;
-    visibility: hidden;
-    opacity: 0;
+    opacity: 1;
 }
 #paradox{
     font-family: 'Comfortaa';
     font-size: 1.5rem;
     text-align: center;
     font-weight: 300;
-    margin: 0px 0px 30px 0px;
+    margin: 15px 0px 50px 0px;
     text-shadow: none;
     filter: drop-shadow(0px 0px 10px black);
     background-image: linear-gradient(-45deg, var(--accentcolor) 0%, var(--accentcolor) 49.9%, white 50.1%, white 100%);
@@ -348,7 +347,8 @@ input[type="password"] {
 }
 #textfield{
   position: relative;
-    padding: 40px 50px;
+  font-weight: 400;
+  padding: 40px 50px;
 }
 #startupbottom {
   position: absolute;
