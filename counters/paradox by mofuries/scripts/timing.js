@@ -27,7 +27,7 @@ function drawTimingBar() {
         }
     }
 
-      const VariablesEqual = function() {
+    const VariablesEqual = function() {
         const oldTimingObj = timing;
         const newTimingObj = saved.timing;
         const oldObjValue = Object.values(oldTimingObj);
