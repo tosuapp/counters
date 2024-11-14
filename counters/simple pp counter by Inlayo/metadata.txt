@@ -1,0 +1,7 @@
+Usecase: obs-overlay
+Name: Inlayo pp counter
+Version: 1.1
+Author: Inlayo
+CompatibleWith: tosu
+Resolution: 120x60
+authorLinks: https://github.com/Inlayo
