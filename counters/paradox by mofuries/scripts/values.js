@@ -1,10 +1,9 @@
-const version = "v1.1.0";
+const version = "v1.1.2";
 const channel = "";
 let isLatest;
 
 let saved = {
     apiKey: null,
-    warning: true,
     enableAudioVisualizer: true,
     enableCustomColor: false,
     customColor: [100, 100, 100],

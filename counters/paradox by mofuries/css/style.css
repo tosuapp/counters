@@ -381,7 +381,7 @@ body{
                 line-height: 0.64rem;
             }
             #title{
-                font-size: 0.6rem;
+                font-size: 0.54rem;
                 font-weight: 700;
                 color: var(--primary-font-color);
                 display: flex;
@@ -393,7 +393,7 @@ body{
             flex-direction: row;
             align-items: flex-start;
             justify-content: flex-start;
-            top: 3px;
+            top: 4px;
             width: 530px;
             text-shadow: 0 0 0.1rem black;
             transition: all 1s ease-out;
@@ -405,7 +405,7 @@ body{
                 line-height: 0.5rem;
             }
             #artist{
-                font-size: 0.42rem;
+                font-size: 0.40rem;
                 font-weight: 500;
                 color: var(--primary-font-color);
                 opacity: 0.8;

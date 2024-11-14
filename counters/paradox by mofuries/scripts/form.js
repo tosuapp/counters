@@ -337,27 +337,19 @@ document.addEventListener('DOMContentLoaded', function() {
     getLocalAll()
     .then(saved => {
         initializeSetting();
-        if (saved.warning === true) {
-            document.getElementById('startup').style.visibility = "visible";
-            document.getElementById('startup').style.opacity = 1;
-        }
     })
     .catch(error => {
-        console.error('Error in getLocalAll:', error);
+        console.error('Error in initialize setting:', error);
     });
     backgroundRefresh();
     hideGameUIRefresh();
     drawTriangles();
-});
-
-document.getElementById('Dontshow').addEventListener('change', function(event) {
-    if (this.checked) {
-        saved.warning = false;
-        setLocal('warning', saved.warning);
-    } else {
-        saved.warning = true;
-        setLocal('warning', saved.warning);
-    }
+    setTimeout(() => {
+        document.getElementById('startup').style.opacity = 0;
+        setTimeout(() => {
+            document.getElementById('startup').style.visibility = "hidden";
+        }, 250);
+    }, 5000);
 });
 
 function handleKeyPress(event) {
@@ -405,25 +397,15 @@ document.getElementById('custompanelbgreset').addEventListener('click', event =>
     fade(panelBackground, resizeImage(panelImage, panelBackground.width, panelBackground.height), 500);
 });
 
-
-document.getElementById('continue').addEventListener('click', function(event) {
-    event.preventDefault();
-    document.getElementById('startup').style.opacity = 0;
-    setTimeout(() => {
-        document.getElementById('startup').style.visibility = "hidden";
-        saved.startup = false;
-    }, 250)
-});
-
 document.addEventListener("mousedown", function(event) {
-    if (!event.target.closest("#setting") && !event.target.closest("#profiledetail") && !event.target.closest("#profilewrapper") && document.getElementById('startup').style.opacity == 0) {
+    if (!event.target.closest("#setting") && !event.target.closest("#profiledetail") && !event.target.closest("#profilewrapper")) {
       if (settingVisible === true) {
         settingHide();
       } else {
         settingShow();
       }
     }
-    if (event.target.closest("#profilewrapper") && cache.rawStatus !== 2 && document.getElementById('startup').style.opacity == 0) {
+    if (event.target.closest("#profilewrapper") && cache.rawStatus !== 2) {
         if (document.getElementById('profiledetail').style.height === '305px') {
             document.getElementById('profiledetail').style.height = '100px';
             document.getElementById('profiledetail').style.borderRadius = '20px 15px 15px 50px';
