@@ -34,6 +34,10 @@ socket.onmessage = event => {
         };
     };
 
+    if(cache['misses'] != data.play.hits[0]) {
+        document.querySelector('.ifFcpp').style.opacity = data.play.hits[0] > 0;
+    }
+
 
     if (cache['ppfc'] != data.gameplay.pp.fc) {
         cache['ppfc'] = data.gameplay.pp.fc;
