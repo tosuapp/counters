@@ -195,7 +195,7 @@ socket.onmessage = event => {
 
                 if (cache['menu.pp100'] != menu.pp['100']) {
                     cache['menu.pp100'] = menu.pp["100"];
-                    h0.update(cache['menu.pp100']);
+                    ss.update(cache['menu.pp100']);
                 };
 
                 // Sliderbreak
