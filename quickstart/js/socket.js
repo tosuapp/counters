@@ -9,7 +9,7 @@ class WebSocketManager {
     this.createConnection = this.createConnection.bind(this);
 
     /**
-     * @type {{ [key: string]: WebSocket }} - asd;
+     * @type {{ [key: string]: WebSocket }} asd;
      */
     this.sockets = {};
   }
@@ -68,7 +68,7 @@ class WebSocketManager {
 
   /**
    * Connects to gosu compatible socket api.
-   * @param {(data: WEBSOCKET_V1) => void} callback - The function to handle received messages.
+   * @param {(data: WEBSOCKET_V1) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
    */
   api_v1(callback, filters) {
@@ -78,7 +78,7 @@ class WebSocketManager {
 
   /**
    * Connects to tosu advanced socket api.
-   * @param {(data: WEBSOCKET_V2) => void} callback - The function to handle received messages.
+   * @param {(data: WEBSOCKET_V2) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
    */
   api_v2(callback, filters) {
@@ -88,7 +88,7 @@ class WebSocketManager {
 
   /**
    * Connects to tosu precise socket api.
-   * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback - The function to handle received messages.
+   * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
    */
   api_v2_precise(callback, filters) {
@@ -131,7 +131,7 @@ class WebSocketManager {
 
   /**
    * Get beatmap **.osu** file (local)
-   * @param {string} file_path - Path to a file **beatmap_folder_name/osu_file_name.osu**
+   * @param {string} file_path Path to a file **beatmap_folder_name/osu_file_name.osu**
    * @returns {string | { error: string }}
    */
   async getBeatmapOsuFile(file_path) {
@@ -162,7 +162,7 @@ class WebSocketManager {
 
   /**
    * Connects to message
-   * @param {(data: { command: string, message: any }) => void} callback - The function to handle received messages.
+   * @param {(data: { command: string, message: any }) => void} callback The function to handle received messages.
    */
   commands(callback) {
     this.createConnection(`/websocket/commands`, callback);
@@ -229,19 +229,19 @@ export default WebSocketManager;
 
 
 /** @typedef {object} CALCULATE_PP
- * @property {string} path - Path to .osu file. Example: C:/osu/Songs/beatmap/file.osu
- * @property {number} mode - Osu = 0, Taiko = 1, Catch = 2, Mania = 3
- * @property {number} mods - Mods id. Example: 64 - DT
- * @property {number} acc - Accuracy % from 0 to 100
- * @property {number} nGeki - Amount of Geki (300g / MAX)
- * @property {number} nKatu - Amount of Katu (100k / 200)
- * @property {number} n300 - Amount of 300
- * @property {number} n100 - Amount of 100
- * @property {number} n50 - Amount of 50
- * @property {number} nMisses - Amount of Misses
- * @property {number} combo - combo
- * @property {number} passedObjects - Sum of nGeki, nKatu, n300, n100, n50, nMisses
- * @property {number} clockRate - Map rate number. Example: 1.5 = DT
+ * @property {string} path Path to .osu file. Example: C:/osu/Songs/beatmap/file.osu
+ * @property {number} mode Osu = 0, Taiko = 1, Catch = 2, Mania = 3
+ * @property {number} mods Mods id. Example: 64 - DT
+ * @property {number} acc Accuracy % from 0 to 100
+ * @property {number} nGeki Amount of Geki (300g / MAX)
+ * @property {number} nKatu Amount of Katu (100k / 200)
+ * @property {number} n300 Amount of 300
+ * @property {number} n100 Amount of 100
+ * @property {number} n50 Amount of 50
+ * @property {number} nMisses Amount of Misses
+ * @property {number} combo combo
+ * @property {number} passedObjects Sum of nGeki, nKatu, n300, n100, n50, nMisses
+ * @property {number} clockRate Map rate number. Example: 1.5 = DT
  */
 
 
