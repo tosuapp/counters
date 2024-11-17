@@ -554,8 +554,11 @@ export default WebSocketManager;
  * @property {number} settings.resolution.heightFullscreen
  * @property {object} settings.client
  * @property {boolean} settings.client.updateAvailable
- * @property {0 | 1 | 2 | 3} settings.client.branch
- * @property {string} settings.client.version
+ * @property {0 | 1 | 2 | 3} settings.client.branch - 0: Cutting Edge
+ *                                                  - 1: Stable
+ *                                                  - 2: Beta
+ *                                                  - 3: Stable (Fallback)
+ * @property {string} settings.client.version The full build version, e.g. `b20241029cuttingedge`
  * @property {object} settings.scoreMeter
  * @property {object} settings.scoreMeter.type
  * @property {0 | 1 | 2} settings.scoreMeter.type.number
@@ -578,7 +581,7 @@ export default WebSocketManager;
  * @property {'artist' | 'bpm' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'title'} settings.sort.name
  * @property {object} settings.group
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19} settings.group.number
- * @property {'none' | 'artist' | 'bPM' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'myMaps' | 'search' | 'show_All' | 'title' | 'lastPlayed' | 'onlineFavourites' | 'maniaKeys' | 'mode' | 'collection' | 'rankedStatus'} settings.group.name Note: `search` and `show_All` share the same number `12`
+ * @property {'none' | 'artist' | 'bPM' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'myMaps' | 'search' | 'show_All' | 'title' | 'lastPlayed' | 'onlineFavourites' | 'maniaKeys' | 'mode' | 'collection' | 'rankedStatus'} settings.group.name Note: `search` and `show_All` share the same number - `12`
  * @property {object} settings.skin
  * @property {boolean} settings.skin.useDefaultSkinInEditor
  * @property {boolean} settings.skin.ignoreBeatmapSkins
