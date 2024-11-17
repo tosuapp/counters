@@ -558,7 +558,7 @@ export default WebSocketManager;
  * @property {object} settings.client
  * @property {boolean} settings.client.updateAvailable
  * @property {0 | 1 | 2 | 3} settings.client.branch
- * @property {'cuttingEdge' | 'stable' | 'beta' | 'fallback'} settings.client.version
+ * @property {string} settings.client.version
  * @property {object} settings.scoreMeter
  * @property {object} settings.scoreMeter.type
  * @property {0 | 1 | 2} settings.scoreMeter.type.number
