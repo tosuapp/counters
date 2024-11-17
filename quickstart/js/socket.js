@@ -376,8 +376,8 @@ export default WebSocketManager;
  * @property {number} gameplay.hits.50
  * @property {number} gameplay.hits.100
  * @property {number} gameplay.hits.300
- * @property {number} gameplay.hits.geki
- * @property {number} gameplay.hits.katu
+ * @property {number} gameplay.hits.geki This is also used as the 320's count in the osu!mania ruleset
+ * @property {number} gameplay.hits.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {number} gameplay.hits.sliderBreaks
  * @property {object} gameplay.hits.grade
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} gameplay.hits.grade.current
@@ -444,8 +444,8 @@ export default WebSocketManager;
  * @property {object} resultsScreen.mods
  * @property {number} resultsScreen.mods.num
  * @property {string} resultsScreen.mods.str
- * @property {number} resultsScreen.geki
- * @property {number} resultsScreen.katu
+ * @property {number} resultsScreen.geki This is also used as the 320's count in the osu!mania ruleset
+ * @property {number} resultsScreen.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} resultsScreen.grade
  * @property {string} resultsScreen.createdAt
  * @property {object} userProfile
@@ -511,8 +511,8 @@ export default WebSocketManager;
  * @property {number} tourney.ipcClients.gameplay.hits.50
  * @property {number} tourney.ipcClients.gameplay.hits.100
  * @property {number} tourney.ipcClients.gameplay.hits.300
- * @property {number} tourney.ipcClients.gameplay.hits.geki
- * @property {number} tourney.ipcClients.gameplay.hits.katu
+ * @property {number} tourney.ipcClients.gameplay.hits.geki This is also used as the 320's count in the osu!mania ruleset
+ * @property {number} tourney.ipcClients.gameplay.hits.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {number} tourney.ipcClients.gameplay.hits.sliderBreaks
  * @property {object} tourney.ipcClients.gameplay.hits.grade
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.ipcClients.gameplay.hits.grade.current
@@ -581,7 +581,7 @@ export default WebSocketManager;
  * @property {'artist' | 'bpm' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'title'} settings.sort.name
  * @property {object} settings.group
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19} settings.group.number
- * @property {'none' | 'artist' | 'bPM' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'myMaps' | 'search' | 'show_All' | 'title' | 'lastPlayed' | 'onlineFavourites' | 'maniaKeys' | 'mode' | 'collection' | 'rankedStatus'} settings.group.name
+ * @property {'none' | 'artist' | 'bPM' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'myMaps' | 'search' | 'show_All' | 'title' | 'lastPlayed' | 'onlineFavourites' | 'maniaKeys' | 'mode' | 'collection' | 'rankedStatus'} settings.group.name Note: `search` and `show_All` share the same number `12`
  * @property {object} settings.skin
  * @property {boolean} settings.skin.useDefaultSkinInEditor
  * @property {boolean} settings.skin.ignoreBeatmapSkins
@@ -666,15 +666,15 @@ export default WebSocketManager;
  * @property {object} beatmap.stats
  * @property {object} beatmap.stats.stars
  * @property {number} beatmap.stats.stars.live
- * @property {number} [beatmap.stats.stars.aim]
- * @property {number} [beatmap.stats.stars.speed]
- * @property {number} [beatmap.stats.stars.flashlight]
- * @property {number} [beatmap.stats.stars.sliderFactor]
- * @property {number} [beatmap.stats.stars.stamina]
- * @property {number} [beatmap.stats.stars.rhythm]
- * @property {number} [beatmap.stats.stars.color]
- * @property {number} [beatmap.stats.stars.peak]
- * @property {number} [beatmap.stats.stars.hitWindow]
+ * @property {number} [beatmap.stats.stars.aim] This is available only in the osu! ruleset
+ * @property {number} [beatmap.stats.stars.speed] This is available only in the osu! ruleset
+ * @property {number} [beatmap.stats.stars.flashlight] This is available only in the osu! ruleset
+ * @property {number} [beatmap.stats.stars.sliderFactor] This is available only in the osu! ruleset
+ * @property {number} [beatmap.stats.stars.stamina] This is available only in the osu!taiko ruleset
+ * @property {number} [beatmap.stats.stars.rhythm] This is available only in the osu!taiko ruleset
+ * @property {number} [beatmap.stats.stars.color] This is available only in the osu!taiko ruleset
+ * @property {number} [beatmap.stats.stars.peak] This is available only in the osu!taiko ruleset
+ * @property {number} [beatmap.stats.stars.hitWindow] 300's hit window; this is available only in the osu!mania ruleset
  * @property {number} beatmap.stats.stars.total
  * @property {object} beatmap.stats.ar
  * @property {number} beatmap.stats.ar.original
@@ -715,11 +715,11 @@ export default WebSocketManager;
  * @property {number} play.hits.50
  * @property {number} play.hits.100
  * @property {number} play.hits.300
- * @property {number} play.hits.geki
- * @property {number} play.hits.katu
+ * @property {number} play.hits.geki This is also used as the 320's count in the osu!mania ruleset
+ * @property {number} play.hits.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {number} play.hits.sliderBreaks
- * @property {number} play.hits.sliderEndHits
- * @property {number} play.hits.sliderTickHits
+ * @property {number} play.hits.sliderEndHits This is populated only when playing osu!(lazer)
+ * @property {number} play.hits.sliderTickHits This is populated only when playing osu!(lazer)
  * @property {number[]} play.hitErrorArray
  * @property {object} play.combo
  * @property {number} play.combo.current
@@ -730,7 +730,7 @@ export default WebSocketManager;
  * @property {string} play.mods.name
  * @property {object[]} play.mods.array
  * @property {string} play.mods.array.acronym
- * @property {object} [play.mods.array.settings]
+ * @property {object} [play.mods.array.settings] This exists only when playing osu!(lazer)
  * @property {number} play.mods.rate
  * @property {object} play.rank
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} play.rank.current
@@ -767,8 +767,8 @@ export default WebSocketManager;
  * @property {number} leaderboard.hits.50
  * @property {number} leaderboard.hits.100
  * @property {number} leaderboard.hits.300
- * @property {number} leaderboard.hits.geki
- * @property {number} leaderboard.hits.katu
+ * @property {number} leaderboard.hits.geki This is also used as the 320's count in the osu!mania ruleset
+ * @property {number} leaderboard.hits.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {object} leaderboard.combo
  * @property {number} leaderboard.combo.current
  * @property {number} leaderboard.combo.max
@@ -812,17 +812,17 @@ export default WebSocketManager;
  * @property {number} resultsScreen.hits.50
  * @property {number} resultsScreen.hits.100
  * @property {number} resultsScreen.hits.300
- * @property {number} resultsScreen.hits.geki
- * @property {number} resultsScreen.hits.katu
- * @property {number} resultsScreen.hits.sliderEndHits
- * @property {number} resultsScreen.hits.sliderTickHits
+ * @property {number} resultsScreen.hits.geki This is also used as the 320's count in the osu!mania ruleset
+ * @property {number} resultsScreen.hits.katu This is also used as the 200's count in the osu!mania ruleset
+ * @property {number} resultsScreen.hits.sliderEndHits This is populated only when playing osu!(lazer)
+ * @property {number} resultsScreen.hits.sliderTickHits This is populated only when playing osu!(lazer)
  * @property {object} resultsScreen.mods
  * @property {string} resultsScreen.mods.checksum
  * @property {number} resultsScreen.mods.number
  * @property {string} resultsScreen.mods.name
  * @property {object[]} resultsScreen.mods.array
  * @property {string} resultsScreen.mods.array.acronym
- * @property {object} [resultsScreen.mods.array.settings]
+ * @property {object} [resultsScreen.mods.array.settings] This exists only when playing osu!(lazer)
  * @property {number} resultsScreen.mods.rate
  * @property {number} resultsScreen.maxCombo
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} resultsScreen.rank
@@ -880,15 +880,15 @@ export default WebSocketManager;
  * @property {object} tourney.clients.beatmap.stats
  * @property {object} tourney.clients.beatmap.stats.stars
  * @property {number} tourney.clients.beatmap.stats.stars.live
- * @property {number} [tourney.clients.beatmap.stats.stars.aim]
- * @property {number} [tourney.clients.beatmap.stats.stars.speed]
- * @property {number} [tourney.clients.beatmap.stats.stars.flashlight]
- * @property {number} [tourney.clients.beatmap.stats.stars.sliderFactor]
- * @property {number} [tourney.clients.beatmap.stats.stars.stamina]
- * @property {number} [tourney.clients.beatmap.stats.stars.rhythm]
- * @property {number} [tourney.clients.beatmap.stats.stars.color]
- * @property {number} [tourney.clients.beatmap.stats.stars.peak]
- * @property {number} [tourney.clients.beatmap.stats.stars.hitWindow]
+ * @property {number} [tourney.clients.beatmap.stats.stars.aim] This is available only in the osu! ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.speed] This is available only in the osu! ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.flashlight] This is available only in the osu! ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.sliderFactor] This is available only in the osu! ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.stamina] This is available only in the osu!taiko ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.rhythm] This is available only in the osu!taiko ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.color] This is available only in the osu!taiko ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.peak] This is available only in the osu!taiko ruleset
+ * @property {number} [tourney.clients.beatmap.stats.stars.hitWindow] 300's hit window; this is available only in the osu!mania ruleset
  * @property {number} tourney.clients.beatmap.stats.stars.total
  * @property {object} tourney.clients.beatmap.stats.ar
  * @property {number} tourney.clients.beatmap.stats.ar.original
@@ -929,11 +929,11 @@ export default WebSocketManager;
  * @property {number} tourney.clients.play.hits.50
  * @property {number} tourney.clients.play.hits.100
  * @property {number} tourney.clients.play.hits.300
- * @property {number} tourney.clients.play.hits.geki
- * @property {number} tourney.clients.play.hits.katu
+ * @property {number} tourney.clients.play.hits.geki This is also used as the 320's count in the osu!mania ruleset
+ * @property {number} tourney.clients.play.hits.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {number} tourney.clients.play.hits.sliderBreaks
- * @property {number} tourney.clients.play.hits.sliderEndHits
- * @property {number} tourney.clients.play.hits.sliderTickHits
+ * @property {number} tourney.clients.play.hits.sliderEndHits This is populated only when playing osu!(lazer)
+ * @property {number} tourney.clients.play.hits.sliderTickHits This is populated only when playing osu!(lazer)
  * @property {number[]} tourney.clients.play.hitErrorArray
  * @property {object} tourney.clients.play.mods
  * @property {number} tourney.clients.play.mods.number
@@ -947,7 +947,7 @@ export default WebSocketManager;
  * @property {string} tourney.clients.play.mods.name
  * @property {object[]} tourney.clients.play.mods.array
  * @property {string} tourney.clients.play.mods.array.acronym
- * @property {object} [play.mods.array.settings]
+ * @property {object} [play.mods.array.settings] This exists only when playing osu!(lazer)
  * @property {number} tourney.clients.play.mods.rate
  * @property {object} tourney.clients.play.rank
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.clients.play.rank.current
