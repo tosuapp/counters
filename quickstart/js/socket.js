@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.2';
+    this.version = '0.1.3';
 
     if (host) {
       this.host = host;
