@@ -527,6 +527,7 @@ export default WebSocketManager;
 
 
 /** @typedef {object} WEBSOCKET_V2
+ * @property {string} client
  * @property {object} state
  * @property {number} state.number
  * @property {string} state.name
@@ -629,6 +630,7 @@ export default WebSocketManager;
  * @property {string} profile.name
  * @property {object} profile.mode
  * @property {number} profile.mode.number
+ * @property {string} profile.mode.name
  * @property {number} profile.rankedScore
  * @property {number} profile.level
  * @property {number} profile.accuracy
@@ -652,15 +654,15 @@ export default WebSocketManager;
  * @property {string} beatmap.checksum
  * @property {number} beatmap.id
  * @property {number} beatmap.set
+ * @property {object} beatmap.mode
+ * @property {number} beatmap.mode.number
+ * @property {string} beatmap.mode.name
  * @property {string} beatmap.artist
  * @property {string} beatmap.artistUnicode
  * @property {string} beatmap.title
  * @property {string} beatmap.titleUnicode
  * @property {string} beatmap.mapper
  * @property {string} beatmap.version
- * @property {object} beatmap.mode
- * @property {number} beatmap.mode.number
- * @property {string} beatmap.mode.name
  * @property {object} beatmap.stats
  * @property {object} beatmap.stats.stars
  * @property {number} beatmap.stats.stars.live
@@ -668,6 +670,11 @@ export default WebSocketManager;
  * @property {number} beatmap.stats.stars.speed
  * @property {number} beatmap.stats.stars.flashlight
  * @property {number} beatmap.stats.stars.sliderFactor
+ * @property {number} beatmap.stats.stars.stamina
+ * @property {number} beatmap.stats.stars.rhythm
+ * @property {number} beatmap.stats.stars.color
+ * @property {number} beatmap.stats.stars.peak
+ * @property {number} beatmap.stats.stars.hitWindow
  * @property {number} beatmap.stats.stars.total
  * @property {object} beatmap.stats.ar
  * @property {number} beatmap.stats.ar.original
@@ -711,13 +718,20 @@ export default WebSocketManager;
  * @property {number} play.hits.geki
  * @property {number} play.hits.katu
  * @property {number} play.hits.sliderBreaks
+ * @property {number} play.hits.sliderEndHits
+ * @property {number} play.hits.sliderTickHits
  * @property {number[]} play.hitErrorArray
  * @property {object} play.combo
  * @property {number} play.combo.current
  * @property {number} play.combo.max
  * @property {object} play.mods
+ * @property {string} play.mods.checksum
  * @property {number} play.mods.number
  * @property {string} play.mods.name
+ * @property {object[]} play.mods.array
+ * @property {string} play.mods.array.acronym
+ * @property {object} play.mods.array.settings
+ * @property {number} play.mods.rate
  * @property {object} play.rank
  * @property {string} play.rank.current
  * @property {string} play.rank.maxThisPlay
@@ -745,7 +759,6 @@ export default WebSocketManager;
  * @property {boolean} leaderboard.isFailed
  * @property {number} leaderboard.position
  * @property {number} leaderboard.team
- * @property {number} leaderboard.team
  * @property {string} leaderboard.name
  * @property {number} leaderboard.score
  * @property {number} leaderboard.accuracy
@@ -760,11 +773,21 @@ export default WebSocketManager;
  * @property {number} leaderboard.combo.current
  * @property {number} leaderboard.combo.max
  * @property {object} leaderboard.mods
+ * @property {string} leaderboard.mods.checksum
  * @property {number} leaderboard.mods.number
  * @property {string} leaderboard.mods.name
+ * @property {object[]} leaderboard.mods.array
+ * @property {string} leaderboard.mods.array.acronym
+ * @property {object} leaderboard.mods.array.settings
+ * @property {number} leaderboard.mods.rate
  * @property {string} leaderboard.rank
  * @property {object} performance
  * @property {object} performance.accuracy
+ * @property {number} performance.accuracy.90
+ * @property {number} performance.accuracy.91
+ * @property {number} performance.accuracy.92
+ * @property {number} performance.accuracy.93
+ * @property {number} performance.accuracy.94
  * @property {number} performance.accuracy.95
  * @property {number} performance.accuracy.96
  * @property {number} performance.accuracy.97
@@ -777,6 +800,7 @@ export default WebSocketManager;
  * @property {number[]} performance.graph.series.data
  * @property {number[]} performance.graph.xaxis
  * @property {object} resultsScreen
+ * @property {number} resultsScreen.scoreId
  * @property {string} resultsScreen.playerName
  * @property {object} resultsScreen.mode
  * @property {number} resultsScreen.mode.number
@@ -790,9 +814,16 @@ export default WebSocketManager;
  * @property {number} resultsScreen.hits.300
  * @property {number} resultsScreen.hits.geki
  * @property {number} resultsScreen.hits.katu
+ * @property {number} resultsScreen.hits.sliderEndHits
+ * @property {number} resultsScreen.hits.sliderTickHits
  * @property {object} resultsScreen.mods
+ * @property {string} resultsScreen.mods.checksum
  * @property {number} resultsScreen.mods.number
  * @property {string} resultsScreen.mods.name
+ * @property {object[]} resultsScreen.mods.array
+ * @property {string} resultsScreen.mods.array.acronym
+ * @property {object} resultsScreen.mods.array.settings
+ * @property {number} resultsScreen.mods.rate
  * @property {number} resultsScreen.maxCombo
  * @property {string} resultsScreen.rank
  * @property {object} resultsScreen.pp
@@ -814,9 +845,6 @@ export default WebSocketManager;
  * @property {string} directPath.beatmapAudio
  * @property {string} directPath.beatmapFolder
  * @property {string} directPath.skinFolder
- * @property {string} directPath.collections
- * @property {string} directPath.osudb
- * @property {string} directPath.scoresdb
  * @property {object} tourney
  * @property {boolean} tourney.scoreVisible
  * @property {boolean} tourney.starsVisible
@@ -848,6 +876,44 @@ export default WebSocketManager;
  * @property {number} tourney.clients.user.playCount
  * @property {number} tourney.clients.user.globalRank
  * @property {number} tourney.clients.user.totalPP
+ * @property {object} tourney.clients.beatmap
+ * @property {object} tourney.clients.beatmap.stats
+ * @property {object} tourney.clients.beatmap.stats.stars
+ * @property {number} tourney.clients.beatmap.stats.stars.live
+ * @property {number} tourney.clients.beatmap.stats.stars.aim
+ * @property {number} tourney.clients.beatmap.stats.stars.speed
+ * @property {number} tourney.clients.beatmap.stats.stars.flashlight
+ * @property {number} tourney.clients.beatmap.stats.stars.sliderFactor
+ * @property {number} tourney.clients.beatmap.stats.stars.stamina
+ * @property {number} tourney.clients.beatmap.stats.stars.rhythm
+ * @property {number} tourney.clients.beatmap.stats.stars.color
+ * @property {number} tourney.clients.beatmap.stats.stars.peak
+ * @property {number} tourney.clients.beatmap.stats.stars.hitWindow
+ * @property {number} tourney.clients.beatmap.stats.stars.total
+ * @property {object} tourney.clients.beatmap.stats.ar
+ * @property {number} tourney.clients.beatmap.stats.ar.original
+ * @property {number} tourney.clients.beatmap.stats.ar.converted
+ * @property {object} tourney.clients.beatmap.stats.cs
+ * @property {number} tourney.clients.beatmap.stats.cs.original
+ * @property {number} tourney.clients.beatmap.stats.cs.converted
+ * @property {object} tourney.clients.beatmap.stats.od
+ * @property {number} tourney.clients.beatmap.stats.od.original
+ * @property {number} tourney.clients.beatmap.stats.od.converted
+ * @property {object} tourney.clients.beatmap.stats.hp
+ * @property {number} tourney.clients.beatmap.stats.hp.original
+ * @property {number} tourney.clients.beatmap.stats.hp.converted
+ * @property {object} tourney.clients.beatmap.stats.bpm
+ * @property {number} tourney.clients.beatmap.stats.bpm.realtime
+ * @property {number} tourney.clients.beatmap.stats.bpm.common
+ * @property {number} tourney.clients.beatmap.stats.bpm.min
+ * @property {number} tourney.clients.beatmap.stats.bpm.max
+ * @property {object} tourney.clients.beatmap.stats.objects
+ * @property {number} tourney.clients.beatmap.stats.objects.circles
+ * @property {number} tourney.clients.beatmap.stats.objects.sliders
+ * @property {number} tourney.clients.beatmap.stats.objects.spinners
+ * @property {number} tourney.clients.beatmap.stats.objects.holds
+ * @property {number} tourney.clients.beatmap.stats.objects.total
+ * @property {number} tourney.clients.beatmap.stats.maxCombo
  * @property {object} tourney.clients.play
  * @property {string} tourney.clients.play.playerName
  * @property {object} tourney.clients.play.mode
@@ -866,6 +932,8 @@ export default WebSocketManager;
  * @property {number} tourney.clients.play.hits.geki
  * @property {number} tourney.clients.play.hits.katu
  * @property {number} tourney.clients.play.hits.sliderBreaks
+ * @property {number} tourney.clients.play.hits.sliderEndHits
+ * @property {number} tourney.clients.play.hits.sliderTickHits
  * @property {number[]} tourney.clients.play.hitErrorArray
  * @property {object} tourney.clients.play.mods
  * @property {number} tourney.clients.play.mods.number
@@ -873,6 +941,14 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play.combo
  * @property {number} tourney.clients.play.combo.current
  * @property {number} tourney.clients.play.combo.max
+ * @property {object} tourney.clients.play.mods
+ * @property {string} tourney.clients.play.mods.checksum
+ * @property {number} tourney.clients.play.mods.number
+ * @property {string} tourney.clients.play.mods.name
+ * @property {object[]} tourney.clients.play.mods.array
+ * @property {string} tourney.clients.play.mods.array.acronym
+ * @property {object} play.mods.array.settings
+ * @property {number} tourney.clients.play.mods.rate
  * @property {object} tourney.clients.play.rank
  * @property {string} tourney.clients.play.rank.current
  * @property {string} tourney.clients.play.rank.maxThisPlay
