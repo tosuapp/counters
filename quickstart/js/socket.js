@@ -947,7 +947,7 @@ export default WebSocketManager;
  * @property {string} tourney.clients.play.mods.name
  * @property {object[]} tourney.clients.play.mods.array
  * @property {string} tourney.clients.play.mods.array.acronym
- * @property {object} [play.mods.array.settings] This exists only when playing osu!(lazer)
+ * @property {object} [tourney.clients.play.mods.array.settings] This exists only when playing osu!(lazer)
  * @property {number} tourney.clients.play.mods.rate
  * @property {object} tourney.clients.play.rank
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.clients.play.rank.current
