@@ -625,7 +625,7 @@ export default WebSocketManager;
  * @property {'reconnecting' | 'guest' | 'recieving_data' | 'disconnected' | 'connected'} profile.userStatus.name
  * @property {object} profile.banchoStatus
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13} profile.banchoStatus.number
- * @property {'idle' | 'afk' | 'playing' | 'editing' | 'modding' | 'multiplayer' | 'watching | 'unknown' | 'testing' | 'submitting' | 'paused' | 'lobby' | 'multiplaying' | 'osuDirect'} profile.banchoStatus.name
+ * @property {'idle' | 'afk' | 'playing' | 'editing' | 'modding' | 'multiplayer' | 'watching' | 'unknown' | 'testing' | 'submitting' | 'paused' | 'lobby' | 'multiplaying' | 'osuDirect'} profile.banchoStatus.name
  * @property {number} profile.id
  * @property {string} profile.name
  * @property {object} profile.mode
