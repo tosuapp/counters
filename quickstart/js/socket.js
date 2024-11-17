@@ -87,8 +87,8 @@ class WebSocketManager {
 
 
   /**
-   * Connects to keyOverlay socket api.
-   * @param {(data: WEBSOCKET_V2_KEYS) => void} callback - The function to handle received messages.
+   * Connects to tosu precise socket api.
+   * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback - The function to handle received messages.
    * @param {Filters[]} filters
    */
   api_v2_precise(callback, filters) {
@@ -976,7 +976,7 @@ export default WebSocketManager;
 
 
 
-/** @typedef {object} WEBSOCKET_V2_KEYS
+/** @typedef {object} WEBSOCKET_V2_PRECISE
  * @property {number} currentTime
  * @property {object} keys
  * @property {object} keys.k1
