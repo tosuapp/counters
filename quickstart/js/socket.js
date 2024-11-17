@@ -282,7 +282,7 @@ export default WebSocketManager;
 
 
 /** @typedef {object} WEBSOCKET_V1
- * @property {string} client
+ * @property {'stable' | 'lazer'} client
  * @property {object} settings
  * @property {boolean} settings.showInterface
  * @property {object} settings.folders
@@ -292,9 +292,9 @@ export default WebSocketManager;
  * @property {object} menu
  * @property {object} menu.mainMenu
  * @property {number} menu.mainMenu.bassDensity
- * @property {number} menu.state
- * @property {number} menu.gameMode
- * @property {number} menu.isChatEnabled
+ * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23} menu.state
+ * @property {0 | 1 | 2 | 3 } menu.gameMode
+ * @property {0 | 1} menu.isChatEnabled
  * @property {object} menu.bm
  * @property {object} menu.bm.time
  * @property {number} menu.bm.time.firstObj
@@ -304,7 +304,7 @@ export default WebSocketManager;
  * @property {number} menu.bm.id
  * @property {number} menu.bm.set
  * @property {string} menu.bm.md5
- * @property {number} menu.bm.rankedStatus
+ * @property {0 | 1 | 2 | 4 | 5 | 6 | 7} menu.bm.rankedStatus
  * @property {object} menu.bm.metadata
  * @property {string} menu.bm.metadata.artist
  * @property {string} menu.bm.metadata.artistOriginal
@@ -357,11 +357,11 @@ export default WebSocketManager;
  * @property {number[]} menu.pp.strains
  * @property {object} menu.pp.strainsAll
  * @property {object[]} menu.pp.strainsAll.series
- * @property {string} menu.pp.strainsAll.series.name
+ * @property {'aim' | 'aimNoSliders' | 'flashlight' | 'speed' | 'color' | 'rhythm' | 'stamina' | 'movement' | 'strains'} menu.pp.strainsAll.series.name
  * @property {number[]} menu.pp.strainsAll.series.data
  * @property {number[]} menu.pp.strainsAll.xaxis
  * @property {object} gameplay
- * @property {number} gameplay.gameMode
+ * @property {0 | 1 | 2 | 3 } gameplay.gameMode
  * @property {string} gameplay.name
  * @property {number} gameplay.score
  * @property {number} gameplay.accuracy
@@ -380,8 +380,8 @@ export default WebSocketManager;
  * @property {number} gameplay.hits.katu
  * @property {number} gameplay.hits.sliderBreaks
  * @property {object} gameplay.hits.grade
- * @property {string} gameplay.hits.grade.current
- * @property {string} gameplay.hits.grade.maxThisPlay
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} gameplay.hits.grade.current
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} gameplay.hits.grade.maxThisPlay
  * @property {number} gameplay.hits.unstableRate
  * @property {number[]} gameplay.hits.hitErrorArray
  * @property {object} gameplay.pp
@@ -436,7 +436,7 @@ export default WebSocketManager;
  * @property {number} resultsScreen.50
  * @property {number} resultsScreen.100
  * @property {number} resultsScreen.300
- * @property {number} resultsScreen.mode
+ * @property {0 | 1 | 2 | 3} resultsScreen.mode
  * @property {string} resultsScreen.name
  * @property {number} resultsScreen.score
  * @property {number} resultsScreen.accuracy
@@ -446,21 +446,21 @@ export default WebSocketManager;
  * @property {string} resultsScreen.mods.str
  * @property {number} resultsScreen.geki
  * @property {number} resultsScreen.katu
- * @property {string} resultsScreen.grade
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} resultsScreen.grade
  * @property {string} resultsScreen.createdAt
  * @property {object} userProfile
- * @property {number} userProfile.rawLoginStatus
+ * @property {0 | 256 | 257 | 65537 | 65793} userProfile.rawLoginStatus
  * @property {string} userProfile.name
  * @property {number} userProfile.accuracy
  * @property {number} userProfile.rankedScore
  * @property {number} userProfile.id
  * @property {number} userProfile.level
  * @property {number} userProfile.playCount
- * @property {number} userProfile.playMode
+ * @property {0 | 1 | 2 | 3 } userProfile.playMode
  * @property {number} userProfile.rank
  * @property {number} userProfile.countryCode
  * @property {number} userProfile.performancePoints
- * @property {number} userProfile.rawBanchoStatus
+ * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13} userProfile.rawBanchoStatus
  * @property {string} userProfile.backgroundColour
  * @property {object} tourney
  * @property {object} tourney.manager
@@ -496,7 +496,7 @@ export default WebSocketManager;
  * @property {number} tourney.ipcClients.spectating.globalRank
  * @property {number} tourney.ipcClients.spectating.totalPP
  * @property {object} tourney.ipcClients.gameplay
- * @property {number} tourney.ipcClients.gameplay.gameMode
+ * @property {0 | 1 | 2 | 3} tourney.ipcClients.gameplay.gameMode
  * @property {string} tourney.ipcClients.gameplay.name
  * @property {number} tourney.ipcClients.gameplay.score
  * @property {number} tourney.ipcClients.gameplay.accuracy
@@ -515,8 +515,8 @@ export default WebSocketManager;
  * @property {number} tourney.ipcClients.gameplay.hits.katu
  * @property {number} tourney.ipcClients.gameplay.hits.sliderBreaks
  * @property {object} tourney.ipcClients.gameplay.hits.grade
- * @property {string} tourney.ipcClients.gameplay.hits.grade.current
- * @property {string} tourney.ipcClients.gameplay.hits.grade.maxThisPlay
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.ipcClients.gameplay.hits.grade.current
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.ipcClients.gameplay.hits.grade.maxThisPlay
  * @property {number} tourney.ipcClients.gameplay.hits.unstableRate
  * @property {number[]} tourney.ipcClients.gameplay.hits.hitErrorArray
  * @property {object} tourney.ipcClients.gameplay.mods
