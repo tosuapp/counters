@@ -376,7 +376,7 @@ export default WebSocketManager;
  * @property {string} gameplay.hits.grade.current
  * @property {string} gameplay.hits.grade.maxThisPlay
  * @property {number} gameplay.hits.unstableRate
- * @property {} gameplay.hits.hitErrorArray
+ * @property {number[]} gameplay.hits.hitErrorArray
  * @property {object} gameplay.pp
  * @property {number} gameplay.pp.current
  * @property {number} gameplay.pp.fc
@@ -410,7 +410,7 @@ export default WebSocketManager;
  * @property {number} gameplay.leaderboard.ourplayer.team
  * @property {number} gameplay.leaderboard.ourplayer.position
  * @property {number} gameplay.leaderboard.ourplayer.isPassing
- * @property {} gameplay.leaderboard.slots
+ * @property {object[]} gameplay.leaderboard.slots
  * @property {boolean} gameplay._isReplayUiHidden
  * @property {object} resultsScreen
  * @property {number} resultsScreen.0
@@ -451,7 +451,7 @@ export default WebSocketManager;
  * @property {object} tourney.manager.bools
  * @property {boolean} tourney.manager.bools.scoreVisible
  * @property {boolean} tourney.manager.bools.starsVisible
- * @property {} tourney.manager.chat
+ * @property {object[]} tourney.manager.chat
  * @property {object} tourney.manager.gameplay
  * @property {object} tourney.manager.gameplay.score
  * @property {number} tourney.manager.gameplay.score.left
@@ -490,7 +490,7 @@ export default WebSocketManager;
  * @property {string} tourney.ipcClients.gameplay.hits.grade.current
  * @property {string} tourney.ipcClients.gameplay.hits.grade.maxThisPlay
  * @property {number} tourney.ipcClients.gameplay.hits.unstableRate
- * @property {} tourney.ipcClients.gameplay.hits.hitErrorArray
+ * @property {number[]} tourney.ipcClients.gameplay.hits.hitErrorArray
  * @property {object} tourney.ipcClients.gameplay.mods
  * @property {number} tourney.ipcClients.gameplay.mods.num
  * @property {string} tourney.ipcClients.gameplay.mods.str
