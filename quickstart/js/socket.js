@@ -666,15 +666,15 @@ export default WebSocketManager;
  * @property {object} beatmap.stats
  * @property {object} beatmap.stats.stars
  * @property {number} beatmap.stats.stars.live
- * @property {number} beatmap.stats.stars.aim
- * @property {number} beatmap.stats.stars.speed
- * @property {number} beatmap.stats.stars.flashlight
- * @property {number} beatmap.stats.stars.sliderFactor
- * @property {number} beatmap.stats.stars.stamina
- * @property {number} beatmap.stats.stars.rhythm
- * @property {number} beatmap.stats.stars.color
- * @property {number} beatmap.stats.stars.peak
- * @property {number} beatmap.stats.stars.hitWindow
+ * @property {number} [beatmap.stats.stars.aim]
+ * @property {number} [beatmap.stats.stars.speed]
+ * @property {number} [beatmap.stats.stars.flashlight]
+ * @property {number} [beatmap.stats.stars.sliderFactor]
+ * @property {number} [beatmap.stats.stars.stamina]
+ * @property {number} [beatmap.stats.stars.rhythm]
+ * @property {number} [beatmap.stats.stars.color]
+ * @property {number} [beatmap.stats.stars.peak]
+ * @property {number} [beatmap.stats.stars.hitWindow]
  * @property {number} beatmap.stats.stars.total
  * @property {object} beatmap.stats.ar
  * @property {number} beatmap.stats.ar.original
@@ -730,7 +730,7 @@ export default WebSocketManager;
  * @property {string} play.mods.name
  * @property {object[]} play.mods.array
  * @property {string} play.mods.array.acronym
- * @property {object} play.mods.array.settings
+ * @property {object} [play.mods.array.settings]
  * @property {number} play.mods.rate
  * @property {object} play.rank
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} play.rank.current
@@ -822,7 +822,7 @@ export default WebSocketManager;
  * @property {string} resultsScreen.mods.name
  * @property {object[]} resultsScreen.mods.array
  * @property {string} resultsScreen.mods.array.acronym
- * @property {object} resultsScreen.mods.array.settings
+ * @property {object} [resultsScreen.mods.array.settings]
  * @property {number} resultsScreen.mods.rate
  * @property {number} resultsScreen.maxCombo
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} resultsScreen.rank
@@ -880,15 +880,15 @@ export default WebSocketManager;
  * @property {object} tourney.clients.beatmap.stats
  * @property {object} tourney.clients.beatmap.stats.stars
  * @property {number} tourney.clients.beatmap.stats.stars.live
- * @property {number} tourney.clients.beatmap.stats.stars.aim
- * @property {number} tourney.clients.beatmap.stats.stars.speed
- * @property {number} tourney.clients.beatmap.stats.stars.flashlight
- * @property {number} tourney.clients.beatmap.stats.stars.sliderFactor
- * @property {number} tourney.clients.beatmap.stats.stars.stamina
- * @property {number} tourney.clients.beatmap.stats.stars.rhythm
- * @property {number} tourney.clients.beatmap.stats.stars.color
- * @property {number} tourney.clients.beatmap.stats.stars.peak
- * @property {number} tourney.clients.beatmap.stats.stars.hitWindow
+ * @property {number} [tourney.clients.beatmap.stats.stars.aim]
+ * @property {number} [tourney.clients.beatmap.stats.stars.speed]
+ * @property {number} [tourney.clients.beatmap.stats.stars.flashlight]
+ * @property {number} [tourney.clients.beatmap.stats.stars.sliderFactor]
+ * @property {number} [tourney.clients.beatmap.stats.stars.stamina]
+ * @property {number} [tourney.clients.beatmap.stats.stars.rhythm]
+ * @property {number} [tourney.clients.beatmap.stats.stars.color]
+ * @property {number} [tourney.clients.beatmap.stats.stars.peak]
+ * @property {number} [tourney.clients.beatmap.stats.stars.hitWindow]
  * @property {number} tourney.clients.beatmap.stats.stars.total
  * @property {object} tourney.clients.beatmap.stats.ar
  * @property {number} tourney.clients.beatmap.stats.ar.original
@@ -947,7 +947,7 @@ export default WebSocketManager;
  * @property {string} tourney.clients.play.mods.name
  * @property {object[]} tourney.clients.play.mods.array
  * @property {string} tourney.clients.play.mods.array.acronym
- * @property {object} play.mods.array.settings
+ * @property {object} [play.mods.array.settings]
  * @property {number} tourney.clients.play.mods.rate
  * @property {object} tourney.clients.play.rank
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.clients.play.rank.current
