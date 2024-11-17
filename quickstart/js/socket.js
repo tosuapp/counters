@@ -293,7 +293,7 @@ export default WebSocketManager;
  * @property {object} menu.mainMenu
  * @property {number} menu.mainMenu.bassDensity
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23} menu.state
- * @property {0 | 1 | 2 | 3 } menu.gameMode
+ * @property {0 | 1 | 2 | 3} menu.gameMode
  * @property {0 | 1} menu.isChatEnabled
  * @property {object} menu.bm
  * @property {object} menu.bm.time
@@ -361,7 +361,7 @@ export default WebSocketManager;
  * @property {number[]} menu.pp.strainsAll.series.data
  * @property {number[]} menu.pp.strainsAll.xaxis
  * @property {object} gameplay
- * @property {0 | 1 | 2 | 3 } gameplay.gameMode
+ * @property {0 | 1 | 2 | 3} gameplay.gameMode
  * @property {string} gameplay.name
  * @property {number} gameplay.score
  * @property {number} gameplay.accuracy
@@ -456,7 +456,7 @@ export default WebSocketManager;
  * @property {number} userProfile.id
  * @property {number} userProfile.level
  * @property {number} userProfile.playCount
- * @property {0 | 1 | 2 | 3 } userProfile.playMode
+ * @property {0 | 1 | 2 | 3} userProfile.playMode
  * @property {number} userProfile.rank
  * @property {number} userProfile.countryCode
  * @property {number} userProfile.performancePoints
@@ -629,7 +629,7 @@ export default WebSocketManager;
  * @property {number} profile.id
  * @property {string} profile.name
  * @property {object} profile.mode
- * @property {0 | 1 | 2 | 3 } profile.mode.number
+ * @property {0 | 1 | 2 | 3} profile.mode.number
  * @property {'osu' | 'taiko' | 'fruits' | 'mania'} profile.mode.name
  * @property {number} profile.rankedScore
  * @property {number} profile.level
@@ -655,7 +655,7 @@ export default WebSocketManager;
  * @property {number} beatmap.id
  * @property {number} beatmap.set
  * @property {object} beatmap.mode
- * @property {0 | 1 | 2 | 3 } beatmap.mode.number
+ * @property {0 | 1 | 2 | 3} beatmap.mode.number
  * @property {'osu' | 'taiko' | 'fruits' | 'mania'} beatmap.mode.name
  * @property {string} beatmap.artist
  * @property {string} beatmap.artistUnicode
@@ -703,7 +703,7 @@ export default WebSocketManager;
  * @property {object} play
  * @property {string} play.playerName
  * @property {object} play.mode
- * @property {0 | 1 | 2 | 3 } play.mode.number
+ * @property {0 | 1 | 2 | 3} play.mode.number
  * @property {'osu' | 'taiko' | 'fruits' | 'mania'} play.mode.name
  * @property {number} play.score
  * @property {number} play.accuracy
@@ -803,7 +803,7 @@ export default WebSocketManager;
  * @property {number} resultsScreen.scoreId
  * @property {string} resultsScreen.playerName
  * @property {object} resultsScreen.mode
- * @property {0 | 1 | 2 | 3 } resultsScreen.mode.number
+ * @property {0 | 1 | 2 | 3} resultsScreen.mode.number
  * @property {'osu' | 'taiko' | 'fruits' | 'mania'} resultsScreen.mode.name
  * @property {number} resultsScreen.score
  * @property {number} resultsScreen.accuracy
@@ -917,7 +917,7 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play
  * @property {string} tourney.clients.play.playerName
  * @property {object} tourney.clients.play.mode
- * @property {0 | 1 | 2 | 3 } tourney.clients.play.mode.number
+ * @property {0 | 1 | 2 | 3} tourney.clients.play.mode.number
  * @property {'osu' | 'taiko' | 'fruits' | 'mania'} tourney.clients.play.mode.name
  * @property {number} tourney.clients.play.score
  * @property {number} tourney.clients.play.accuracy
