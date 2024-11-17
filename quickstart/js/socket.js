@@ -527,10 +527,10 @@ export default WebSocketManager;
 
 
 /** @typedef {object} WEBSOCKET_V2
- * @property {string} client
+ * @property {'stable' | 'lazer'} client
  * @property {object} state
- * @property {number} state.number
- * @property {string} state.name
+ * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23} state.number
+ * @property {'menu' | 'edit' | 'play' | 'exit' | 'selectEdit' | 'selectPlay' | 'selectDrawings' | 'resultScreen' | 'update' | 'busy' | 'unknown' | 'lobby' | 'matchSetup' | 'selectMulti' | 'rankingVs' | 'onlineSelection' | 'optionsOffsetWizard' | 'rankingTagCoop' | 'rankingTeam' | 'beatmapImport' | 'packageUpdater' | 'benchmark' | 'tourney' | 'charts'} state.name
  * @property {object} session
  * @property {number} session.playTime
  * @property {number} session.playCount
@@ -538,16 +538,16 @@ export default WebSocketManager;
  * @property {boolean} settings.interfaceVisible
  * @property {boolean} settings.replayUIVisible
  * @property {object} settings.chatVisibilityStatus
- * @property {number} settings.chatVisibilityStatus.number
- * @property {string} settings.chatVisibilityStatus.name
+ * @property {0 | 1 | 2} settings.chatVisibilityStatus.number
+ * @property {'hidden' | 'visible' | 'visibleWithFriendsList'} settings.chatVisibilityStatus.name
  * @property {object} settings.leaderboard
  * @property {boolean} settings.leaderboard.visible
  * @property {object} settings.leaderboard.type
- * @property {number} settings.leaderboard.type.number
- * @property {string} settings.leaderboard.type.name
+ * @property {0 | 1 | 2 | 3 | 4} settings.leaderboard.type.number
+ * @property {'local' | 'global' | 'selectedmods' | 'friends' | 'country'} settings.leaderboard.type.name
  * @property {object} settings.progressBar
- * @property {number} settings.progressBar.number
- * @property {string} settings.progressBar.name
+ * @property {0 | 1 | 2 | 3 | 4} settings.progressBar.number
+ * @property {'off' | 'pie' | 'topRight' | 'bottomRight' | 'bottom'} settings.progressBar.name
  * @property {number} settings.bassDensity
  * @property {object} settings.resolution
  * @property {boolean} settings.resolution.fullscreen
@@ -557,12 +557,12 @@ export default WebSocketManager;
  * @property {number} settings.resolution.heightFullscreen
  * @property {object} settings.client
  * @property {boolean} settings.client.updateAvailable
- * @property {number} settings.client.branch
- * @property {string} settings.client.version
+ * @property {0 | 1 | 2 | 3} settings.client.branch
+ * @property {'cuttingEdge' | 'stable' | 'beta' | 'fallback'} settings.client.version
  * @property {object} settings.scoreMeter
  * @property {object} settings.scoreMeter.type
- * @property {number} settings.scoreMeter.type.number
- * @property {string} settings.scoreMeter.type.name
+ * @property {0 | 1 | 2} settings.scoreMeter.type.number
+ * @property {'none' | 'colour' | 'error'} settings.scoreMeter.type.name
  * @property {number} settings.scoreMeter.size
  * @property {object} settings.cursor
  * @property {boolean} settings.cursor.useSkinCursor
@@ -577,11 +577,11 @@ export default WebSocketManager;
  * @property {boolean} settings.mania.speedBPMScale
  * @property {boolean} settings.mania.usePerBeatmapSpeedScale
  * @property {object} settings.sort
- * @property {number} settings.sort.number
- * @property {string} settings.sort.name
+ * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7} settings.sort.number
+ * @property {'artist' | 'bpm' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'title'} settings.sort.name
  * @property {object} settings.group
- * @property {number} settings.group.number
- * @property {string} settings.group.name
+ * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19} settings.group.number
+ * @property {'none' | 'artist' | 'bPM' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'myMaps' | 'search' | 'show_All' | 'title' | 'lastPlayed' | 'onlineFavourites' | 'maniaKeys' | 'mode' | 'collection' | 'rankedStatus'} settings.group.name
  * @property {object} settings.skin
  * @property {boolean} settings.skin.useDefaultSkinInEditor
  * @property {boolean} settings.skin.ignoreBeatmapSkins
@@ -589,8 +589,8 @@ export default WebSocketManager;
  * @property {boolean} settings.skin.useTaikoSkin
  * @property {string} settings.skin.name
  * @property {object} settings.mode
- * @property {number} settings.mode.number
- * @property {string} settings.mode.name
+ * @property {0 | 1 | 2 | 3} settings.mode.number
+ * @property {'osu' | 'taiko' | 'fruits' | 'mania'} settings.mode.name
  * @property {object} settings.audio
  * @property {boolean} settings.audio.ignoreBeatmapSounds
  * @property {boolean} settings.audio.useSkinSamples
@@ -621,16 +621,16 @@ export default WebSocketManager;
  * @property {string} settings.keybinds.quickRetry
  * @property {object} profile
  * @property {object} profile.userStatus
- * @property {number} profile.userStatus.number
- * @property {string} profile.userStatus.name
+ * @property {0 | 256 | 257 | 65537 | 65793} profile.userStatus.number
+ * @property {'reconnecting' | 'guest' | 'recieving_data' | 'disconnected' | 'connected'} profile.userStatus.name
  * @property {object} profile.banchoStatus
- * @property {number} profile.banchoStatus.number
- * @property {string} profile.banchoStatus.name
+ * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13} profile.banchoStatus.number
+ * @property {'idle' | 'afk' | 'playing' | 'editing' | 'modding' | 'multiplayer' | 'watching | 'unknown' | 'testing' | 'submitting' | 'paused' | 'lobby' | 'multiplaying' | 'osuDirect'} profile.banchoStatus.name
  * @property {number} profile.id
  * @property {string} profile.name
  * @property {object} profile.mode
- * @property {number} profile.mode.number
- * @property {string} profile.mode.name
+ * @property {0 | 1 | 2 | 3 } profile.mode.number
+ * @property {'osu' | 'taiko' | 'fruits' | 'mania'} profile.mode.name
  * @property {number} profile.rankedScore
  * @property {number} profile.level
  * @property {number} profile.accuracy
@@ -649,14 +649,14 @@ export default WebSocketManager;
  * @property {number} beatmap.time.lastObject
  * @property {number} beatmap.time.mp3Length
  * @property {object} beatmap.status
- * @property {number} beatmap.status.number
- * @property {string} beatmap.status.name
+ * @property {0 | 1 | 2 | 4 | 5 | 6 | 7} beatmap.status.number
+ * @property {'unknown' | 'notSubmitted' | 'pending' | 'ranked' | 'approved' | 'qualified' | 'loved'} beatmap.status.name
  * @property {string} beatmap.checksum
  * @property {number} beatmap.id
  * @property {number} beatmap.set
  * @property {object} beatmap.mode
- * @property {number} beatmap.mode.number
- * @property {string} beatmap.mode.name
+ * @property {0 | 1 | 2 | 3 } beatmap.mode.number
+ * @property {'osu' | 'taiko' | 'fruits' | 'mania'} beatmap.mode.name
  * @property {string} beatmap.artist
  * @property {string} beatmap.artistUnicode
  * @property {string} beatmap.title
@@ -703,8 +703,8 @@ export default WebSocketManager;
  * @property {object} play
  * @property {string} play.playerName
  * @property {object} play.mode
- * @property {number} play.mode.number
- * @property {string} play.mode.name
+ * @property {0 | 1 | 2 | 3 } play.mode.number
+ * @property {'osu' | 'taiko' | 'fruits' | 'mania'} play.mode.name
  * @property {number} play.score
  * @property {number} play.accuracy
  * @property {object} play.healthBar
@@ -733,8 +733,8 @@ export default WebSocketManager;
  * @property {object} play.mods.array.settings
  * @property {number} play.mods.rate
  * @property {object} play.rank
- * @property {string} play.rank.current
- * @property {string} play.rank.maxThisPlay
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} play.rank.current
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} play.rank.maxThisPlay
  * @property {object} play.pp
  * @property {number} play.pp.current
  * @property {number} play.pp.fc
@@ -780,7 +780,7 @@ export default WebSocketManager;
  * @property {string} leaderboard.mods.array.acronym
  * @property {object} leaderboard.mods.array.settings
  * @property {number} leaderboard.mods.rate
- * @property {string} leaderboard.rank
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} leaderboard.rank
  * @property {object} performance
  * @property {object} performance.accuracy
  * @property {number} performance.accuracy.90
@@ -796,15 +796,15 @@ export default WebSocketManager;
  * @property {number} performance.accuracy.100
  * @property {object} performance.graph
  * @property {object[]} performance.graph.series
- * @property {string} performance.graph.series.name
+ * @property {'aim' | 'aimNoSliders' | 'flashlight' | 'speed' | 'color' | 'rhythm' | 'stamina' | 'movement' | 'strains'} performance.graph.series.name
  * @property {number[]} performance.graph.series.data
  * @property {number[]} performance.graph.xaxis
  * @property {object} resultsScreen
  * @property {number} resultsScreen.scoreId
  * @property {string} resultsScreen.playerName
  * @property {object} resultsScreen.mode
- * @property {number} resultsScreen.mode.number
- * @property {string} resultsScreen.mode.name
+ * @property {0 | 1 | 2 | 3 } resultsScreen.mode.number
+ * @property {'osu' | 'taiko' | 'fruits' | 'mania'} resultsScreen.mode.name
  * @property {number} resultsScreen.score
  * @property {number} resultsScreen.accuracy
  * @property {object} resultsScreen.hits
@@ -825,7 +825,7 @@ export default WebSocketManager;
  * @property {object} resultsScreen.mods.array.settings
  * @property {number} resultsScreen.mods.rate
  * @property {number} resultsScreen.maxCombo
- * @property {string} resultsScreen.rank
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} resultsScreen.rank
  * @property {object} resultsScreen.pp
  * @property {number} resultsScreen.pp.current
  * @property {number} resultsScreen.pp.fc
@@ -866,7 +866,7 @@ export default WebSocketManager;
  * @property {number} tourney.totalScore.right
  * @property {object[]} tourney.clients
  * @property {number} tourney.clients.ipcId
- * @property {string} tourney.clients.team
+ * @property {'left' | 'right'} tourney.clients.team
  * @property {object} tourney.clients.user
  * @property {number} tourney.clients.user.id
  * @property {string} tourney.clients.user.name
@@ -917,8 +917,8 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play
  * @property {string} tourney.clients.play.playerName
  * @property {object} tourney.clients.play.mode
- * @property {number} tourney.clients.play.mode.number
- * @property {string} tourney.clients.play.mode.name
+ * @property {0 | 1 | 2 | 3 } tourney.clients.play.mode.number
+ * @property {'osu' | 'taiko' | 'fruits' | 'mania'} tourney.clients.play.mode.name
  * @property {number} tourney.clients.play.score
  * @property {number} tourney.clients.play.accuracy
  * @property {object} tourney.clients.play.healthBar
@@ -950,8 +950,8 @@ export default WebSocketManager;
  * @property {object} play.mods.array.settings
  * @property {number} tourney.clients.play.mods.rate
  * @property {object} tourney.clients.play.rank
- * @property {string} tourney.clients.play.rank.current
- * @property {string} tourney.clients.play.rank.maxThisPlay
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.clients.play.rank.current
+ * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.clients.play.rank.maxThisPlay
  * @property {object} tourney.clients.play.pp
  * @property {number} tourney.clients.play.pp.current
  * @property {number} tourney.clients.play.pp.fc
