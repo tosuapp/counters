@@ -514,9 +514,6 @@ export default WebSocketManager;
  * @property {number} tourney.ipcClients.gameplay.hits.geki This is also used as the 320's count in the osu!mania ruleset
  * @property {number} tourney.ipcClients.gameplay.hits.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {number} tourney.ipcClients.gameplay.hits.sliderBreaks
- * @property {object} tourney.ipcClients.gameplay.hits.grade
- * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.ipcClients.gameplay.hits.grade.current
- * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.ipcClients.gameplay.hits.grade.maxThisPlay
  * @property {number} tourney.ipcClients.gameplay.hits.unstableRate
  * @property {number[]} tourney.ipcClients.gameplay.hits.hitErrorArray
  * @property {object} tourney.ipcClients.gameplay.mods
@@ -935,9 +932,6 @@ export default WebSocketManager;
  * @property {number} tourney.clients.play.hits.sliderEndHits This is populated only when playing osu!(lazer)
  * @property {number} tourney.clients.play.hits.sliderTickHits This is populated only when playing osu!(lazer)
  * @property {number[]} tourney.clients.play.hitErrorArray
- * @property {object} tourney.clients.play.mods
- * @property {number} tourney.clients.play.mods.number
- * @property {string} tourney.clients.play.mods.name
  * @property {object} tourney.clients.play.combo
  * @property {number} tourney.clients.play.combo.current
  * @property {number} tourney.clients.play.combo.max
