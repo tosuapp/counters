@@ -730,7 +730,7 @@ export default WebSocketManager;
  * @property {string} play.mods.name
  * @property {object[]} play.mods.array
  * @property {string} play.mods.array.acronym
- * @property {object} [play.mods.array.settings] This exists only when playing osu!(lazer)
+ * @property {object} [play.mods.array.settings] This exists only when playing osu!(lazer). You must get the settings manually, e.g. from the `/json/v2` response preview
  * @property {number} play.mods.rate
  * @property {object} play.rank
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} play.rank.current
@@ -778,7 +778,7 @@ export default WebSocketManager;
  * @property {string} leaderboard.mods.name
  * @property {object[]} leaderboard.mods.array
  * @property {string} leaderboard.mods.array.acronym
- * @property {object} leaderboard.mods.array.settings
+ * @property {object} [leaderboard.mods.array.settings] This exists only when playing osu!(lazer). You must get the settings manually, e.g. from the `/json/v2` response preview
  * @property {number} leaderboard.mods.rate
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} leaderboard.rank
  * @property {object} performance
@@ -822,7 +822,7 @@ export default WebSocketManager;
  * @property {string} resultsScreen.mods.name
  * @property {object[]} resultsScreen.mods.array
  * @property {string} resultsScreen.mods.array.acronym
- * @property {object} [resultsScreen.mods.array.settings] This exists only when playing osu!(lazer)
+ * @property {object} [resultsScreen.mods.array.settings] This exists only when playing osu!(lazer). You must get the settings manually, e.g. from the `/json/v2` response preview
  * @property {number} resultsScreen.mods.rate
  * @property {number} resultsScreen.maxCombo
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} resultsScreen.rank
@@ -944,7 +944,7 @@ export default WebSocketManager;
  * @property {string} tourney.clients.play.mods.name
  * @property {object[]} tourney.clients.play.mods.array
  * @property {string} tourney.clients.play.mods.array.acronym
- * @property {object} [tourney.clients.play.mods.array.settings] This exists only when playing osu!(lazer)
+ * @property {object} [tourney.clients.play.mods.array.settings] This exists only when playing osu!(lazer). You must get the settings manually, e.g. from the `/json/v2` response preview
  * @property {number} tourney.clients.play.mods.rate
  * @property {object} tourney.clients.play.rank
  * @property {'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D'} tourney.clients.play.rank.current
