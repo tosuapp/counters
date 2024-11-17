@@ -282,6 +282,7 @@ export default WebSocketManager;
 
 
 /** @typedef {object} WEBSOCKET_V1
+ * @property {string} client
  * @property {object} settings
  * @property {boolean} settings.showInterface
  * @property {object} settings.folders
@@ -318,6 +319,7 @@ export default WebSocketManager;
  * @property {number} menu.bm.stats.HP
  * @property {number} menu.bm.stats.SR
  * @property {object} menu.bm.stats.BPM
+ * @property {number} menu.bm.stats.BPM.realtime
  * @property {number} menu.bm.stats.BPM.common
  * @property {number} menu.bm.stats.BPM.min
  * @property {number} menu.bm.stats.BPM.max
@@ -341,6 +343,11 @@ export default WebSocketManager;
  * @property {number} menu.mods.num
  * @property {string} menu.mods.str
  * @property {object} menu.pp
+ * @property {number} menu.pp.90
+ * @property {number} menu.pp.91
+ * @property {number} menu.pp.92
+ * @property {number} menu.pp.93
+ * @property {number} menu.pp.94
  * @property {number} menu.pp.95
  * @property {number} menu.pp.96
  * @property {number} menu.pp.97
@@ -411,21 +418,38 @@ export default WebSocketManager;
  * @property {number} gameplay.leaderboard.ourplayer.position
  * @property {number} gameplay.leaderboard.ourplayer.isPassing
  * @property {object[]} gameplay.leaderboard.slots
+ * @property {string} gameplay.leaderboard.slots.name
+ * @property {number} gameplay.leaderboard.slots.score
+ * @property {number} gameplay.leaderboard.slots.combo
+ * @property {number} gameplay.leaderboard.slots.maxCombo
+ * @property {string} gameplay.leaderboard.slots.mods
+ * @property {number} gameplay.leaderboard.slots.h300
+ * @property {number} gameplay.leaderboard.slots.h100
+ * @property {number} gameplay.leaderboard.slots.h50
+ * @property {number} gameplay.leaderboard.slots.h0
+ * @property {number} gameplay.leaderboard.slots.team
+ * @property {number} gameplay.leaderboard.slots.position
+ * @property {number} gameplay.leaderboard.slots.isPassing
  * @property {boolean} gameplay._isReplayUiHidden
  * @property {object} resultsScreen
  * @property {number} resultsScreen.0
  * @property {number} resultsScreen.50
  * @property {number} resultsScreen.100
  * @property {number} resultsScreen.300
+ * @property {number} resultsScreen.mode
  * @property {string} resultsScreen.name
  * @property {number} resultsScreen.score
+ * @property {number} resultsScreen.accuracy
  * @property {number} resultsScreen.maxCombo
  * @property {object} resultsScreen.mods
  * @property {number} resultsScreen.mods.num
  * @property {string} resultsScreen.mods.str
  * @property {number} resultsScreen.geki
  * @property {number} resultsScreen.katu
+ * @property {string} resultsScreen.grade
+ * @property {string} resultsScreen.createdAt
  * @property {object} userProfile
+ * @property {number} userProfile.rawLoginStatus
  * @property {string} userProfile.name
  * @property {number} userProfile.accuracy
  * @property {number} userProfile.rankedScore
@@ -436,7 +460,7 @@ export default WebSocketManager;
  * @property {number} userProfile.rank
  * @property {number} userProfile.countryCode
  * @property {number} userProfile.performancePoints
- * @property {boolean} userProfile.isConnected
+ * @property {number} userProfile.rawBanchoStatus
  * @property {string} userProfile.backgroundColour
  * @property {object} tourney
  * @property {object} tourney.manager
@@ -452,6 +476,10 @@ export default WebSocketManager;
  * @property {boolean} tourney.manager.bools.scoreVisible
  * @property {boolean} tourney.manager.bools.starsVisible
  * @property {object[]} tourney.manager.chat
+ * @property {string} tourney.manager.chat.team
+ * @property {string} tourney.manager.chat.time
+ * @property {string} tourney.manager.chat.name
+ * @property {string} tourney.manager.chat.messageBody
  * @property {object} tourney.manager.gameplay
  * @property {object} tourney.manager.gameplay.score
  * @property {number} tourney.manager.gameplay.score.left
