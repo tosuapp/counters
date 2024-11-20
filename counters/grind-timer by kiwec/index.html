@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>grind timer</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+      :root {
+        --gradient-start: #1aa13d;
+        --gradient-end: #9affb5;
+        --paused-start: #0072ff;
+        --paused-end: #bbe3ff;
+      }
+
+      body {
+        background: #000;
+      }
+
+      #timer {
+        font-family: 'Segoe UI', 'Arial';
+        font-size: 5rem;
+        font-weight: bold;
+        background: linear-gradient(0, var(--gradient-start), var(--gradient-end));
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        text-align: right;
+        line-height: 0.9;
+      }
+
+      .paused {
+        background: linear-gradient(0, var(--paused-start), var(--paused-end)) !important;
+        background-clip: text !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="timer" class="paused">0.00</div>
+
+    <script type="text/javascript">
+      let bmap_md5 = null;
+      let start_time = Date.now();
+      let pause_time = start_time;
+
+      function get_time() {
+        if(pause_time == 0) {
+          return Date.now() - start_time;
+        } else {
+          return pause_time - start_time;
+        }
+      }
+
+      function tick() {
+        const diff = get_time();
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        const milliseconds = Math.floor((diff % 1000) / 10);
+
+        let text = '';
+        if(hours > 0) text += hours.toString().padStart(2, '0') + ':';
+        if(minutes > 0) text += minutes.toString().padStart(2, '0') + ':';
+        text += seconds.toString().padStart(2, '0') + '.';
+        text += milliseconds.toString().padStart(2, '0');
+
+        timer.textContent = text;
+
+        requestAnimationFrame(tick);
+      }
+
+      tick();
+
+      const socket = new WebSocket("ws://127.0.0.1:24050/websocket/v2");
+      socket.addEventListener("message", evt => {
+        const tosu = JSON.parse(evt.data);
+        const current_time = Date.now();
+
+        if(tosu.beatmap.checksum != bmap_md5) {
+          bmap_md5 = tosu.beatmap.checksum;
+          start_time = current_time;
+          pause_time = current_time;
+          timer.classList.add('paused');
+        }
+
+        if(pause_time == 0) {
+          if(tosu.state.name != 'play') {
+            pause_time = current_time;
+            timer.classList.add('paused');
+          }
+        } else {
+          if(tosu.state.name == 'play') {
+            start_time += (current_time - pause_time);
+            pause_time = 0;
+            timer.classList.remove('paused');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
