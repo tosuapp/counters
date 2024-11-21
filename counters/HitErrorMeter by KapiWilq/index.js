@@ -1,6 +1,6 @@
 import WebSocketManager from './js/socket.js';
 import HitErrorMeter from './js/hitErrorMeter.js';
-const socket = new WebSocketManager(`${location.host}`);
+const socket = new WebSocketManager(location.host);
 
 let cache = {
     showHitErrorMeterInCatch: false,

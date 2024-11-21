@@ -289,7 +289,7 @@ class HitErrorMeter {
                     hit100: (127 - 3 * this.overallDiff) * this.rate,
                     hit50: (151 - 3 * this.overallDiff) * this.rate
                 };
-            else if (this.client === 'mania' && this.isConvert)
+            else if (this.rulesetName === 'mania' && this.isConvert)
                 // osu!mania converts have different hit windows only in osu!(stable).
                 // See https://osu.ppy.sh/wiki/en/Gameplay/Judgement/osu%21mania#judgements.
                 //     https://osu.ppy.sh/wiki/en/Client/Release_stream/Lazer/Gameplay_differences_in_osu%21%28lazer%29#converts-no-longer-have-different-hit-windows
@@ -574,10 +574,8 @@ class HitErrorMeter {
         tick.classList.add('tick');
 
         // We don't know if hit error segments are hidden - extract RGB(A) values and set the opacity manually.
-        // RegExp source: https://regex101.com/library/dVOwn0
-        const RGBA_REGEXP = /rgba?\((?<r>[.\d]+)[, ]+(?<g>[.\d]+)[, ]+(?<b>[.\d]+)(?:\s?[,\/]\s?(?<a>[.\d]+%?))?\)/;
-        let tickColors = getComputedStyle(segmentForTheTick).backgroundColor.match(RGBA_REGEXP).groups;
-        tick.style.backgroundColor = `rgba(${tickColors.r}, ${tickColors.g}, ${tickColors.b}, 1)`;
+        const [r, g, b] = getComputedStyle(segmentForTheTick).backgroundColor.replace('rgba(', '').replace('rgb(', '').replace(')', '').split(',').map(r => r.trim());
+        tick.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 1)`;
 
         tick.style.left = `${tickPositionPercentage * 100}%`;
         tick.style.transition = `${this.tickAppearanceAnimation} ${this.tickAppearanceDuration}ms`;

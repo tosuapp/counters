@@ -1,4 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+@font-face {
+    font-family: "Roboto";
+    src: url(../static/Roboto.ttf);
+}
 
 :root {
     --hit320BG: #99ddffff;
@@ -17,6 +20,7 @@
 body {
     user-select: none;
     overflow: hidden;
+    font-family: "Roboto", sans-serif;
 }
 
 .main {
@@ -40,7 +44,6 @@ body {
     margin-bottom: 0.5rem;
     transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
     font-size: 1.5rem;
-    font-family: "Roboto", sans-serif;
     color: white;
     text-shadow: 0 0 0.3125rem black;
 }
