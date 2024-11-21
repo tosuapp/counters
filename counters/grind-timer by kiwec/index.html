@@ -13,8 +13,10 @@
         --paused-end: #bbe3ff;
       }
 
-      body {
+      html {
         background: #000;
+        cursor: pointer;
+        user-select: none;
       }
 
       #timer {
@@ -39,8 +41,13 @@
   <body>
     <div id="timer" class="paused">0.00</div>
 
-    <script type="text/javascript">
+    <script type="text/javascript" defer>
+      const COUNTER_PATH = encodeURI('grind-timer by kiwec');
+      let autoTimer = true;
+      let resetOnMapChange = true;
+
       let bmap_md5 = null;
+      let last_state = false;
       let start_time = Date.now();
       let pause_time = start_time;
 
@@ -52,8 +59,54 @@
         }
       }
 
+      function reset() {
+        let current_time = Date.now();
+        start_time = current_time;
+        pause_time = current_time;
+        timer.classList.add('paused');
+      }
+
+      function unpause() {
+        start_time += (Date.now() - pause_time);
+        pause_time = 0;
+        timer.classList.remove('paused');
+      }
+
+      function pause() {
+        pause_time = Date.now();
+        timer.classList.add('paused');
+      }
+
+      function toggle() {
+        if(pause_time == 0) {
+          pause();
+        } else {
+          unpause();
+        }
+      }
+
+      function init_commands_ws() {
+        const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/commands?l=${COUNTER_PATH}`);
+
+        socket.addEventListener("open", () => {
+          socket.send('getSettings:' + COUNTER_PATH);
+        })
+
+        socket.addEventListener("close", evt => {
+          setTimeout(init_commands_ws, 1000);
+        });
+
+        socket.addEventListener("message", evt => {
+          const tosu = JSON.parse(evt.data);
+          if(tosu.command != 'getSettings') return;
+
+          autoTimer = tosu.message.autoTimer;
+          resetOnMapChange = tosu.message.resetOnMapChange;
+        });
+      }
+
       function init_ws() {
-        const socket = new WebSocket("ws://127.0.0.1:24050/websocket/v2");
+        const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/v2?l=${COUNTER_PATH}`);
 
         socket.addEventListener("close", evt => {
           setTimeout(init_ws, 1000);
@@ -61,25 +114,25 @@
 
         socket.addEventListener("message", evt => {
           const tosu = JSON.parse(evt.data);
-          const current_time = Date.now();
 
           if(tosu.beatmap.checksum != bmap_md5) {
             bmap_md5 = tosu.beatmap.checksum;
-            start_time = current_time;
-            pause_time = current_time;
-            timer.classList.add('paused');
+            if(resetOnMapChange) {
+              reset();
+            }
           }
 
-          if(pause_time == 0) {
-            if(tosu.state.name != 'play') {
-              pause_time = current_time;
-              timer.classList.add('paused');
-            }
-          } else {
-            if(tosu.state.name == 'play') {
-              start_time += (current_time - pause_time);
-              pause_time = 0;
-              timer.classList.remove('paused');
+          if(autoTimer && last_state != tosu.state.name) {
+            last_state = tosu.state.name;
+
+            if(pause_time == 0) {
+              if(tosu.state.name != 'play') {
+                pause();
+              }
+            } else {
+              if(tosu.state.name == 'play') {
+                unpause();
+              }
             }
           }
         });
@@ -105,6 +158,13 @@
 
       tick();
       init_ws();
+      init_commands_ws();
+
+      document.addEventListener('click', toggle);
+      document.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        reset();
+      });
     </script>
   </body>
 </html>
