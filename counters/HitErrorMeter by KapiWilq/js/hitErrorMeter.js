@@ -604,7 +604,6 @@ class HitErrorMeter {
                 tick.style.height = 0;
 
             setTimeout(() => tick.remove(), this.tickDisappearanceDuration);
-
         }, this.tickAppearanceDuration + ANIMATION_DELAY);
     };
 
