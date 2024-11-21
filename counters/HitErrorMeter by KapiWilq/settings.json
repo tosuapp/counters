@@ -1,0 +1,262 @@
+[
+  {
+      "uniqueID": "hitErrorMeterScale",
+      "type": "number",
+      "title": "Hit error meter scale",
+      "description": "Must be a number between `0.5` and `5`.",
+      "options": [],
+      "value": 1
+  },
+  {
+      "uniqueID": "scaleHitErrorMeterWithResolution",
+      "type": "checkbox",
+      "title": "Automatically scale the overlay with resolution (osu!(stable) only)",
+      "description": "The in-game score meter's size varies between resolutions. This options allows you to resize the overlay automatically to always have the correct size regardless of the game resolution. If disabled, it will always have the same size (as if you're running at 1080p). ____________________________________________",
+      "options": [],
+      "value": true
+  },
+  {
+      "uniqueID": "unstableRateStyle",
+      "type": "options",
+      "title": "Unstable Rate display style",
+      "description": "",
+      "options": [
+          "Show nothing",
+          "Show only the value",
+          "Show both the prefix and the value" 
+      ],
+      "value": "Show both the prefix and the value"
+  },
+  {
+      "uniqueID": "unstableRateSize",
+      "type": "number",
+      "title": "Unstable Rate display font size (in pixels)",
+      "description": "Must be a positive number.",
+      "options": [],
+      "value": 24
+  },
+  {
+      "uniqueID": "unstableRateFont",
+      "type": "text",
+      "title": "Unstable Rate display font name",
+      "description": "The font must be installed on your system (except for `Roboto` as it's the default for the overlay).",
+      "options": [],
+      "value": "Roboto"
+  },
+  {
+      "uniqueID": "unstableRateColor",
+      "type": "color",
+      "title": "Unstable Rate display text color",
+      "description": "____________________________________________",
+      "options": [],
+      "value": "#ffffff"
+  },
+  {
+      "uniqueID": "showMovingAverageArrow",
+      "type": "checkbox",
+      "title": "Show the moving average arrow",
+      "description": "",
+      "options": [],
+      "value": true
+  },
+  {
+      "uniqueID": "movingAverageArrowSize",
+      "type": "number",
+      "title": "Moving average arrow size (in pixels)",
+      "description": "Must be a positive number.",
+      "options": [],
+      "value": 8
+  },
+  {
+      "uniqueID": "movingAverageArrowColor",
+      "type": "color",
+      "title": "Moving average arrow color",
+      "description": "",
+      "options": [],
+      "value": "#ffffff"
+  },
+  {
+      "uniqueID": "movingAverageArrowAnimationDuration",
+      "type": "number",
+      "title": "Moving average arrow animation duration",
+      "description": "Must be a positive number smaller or equal `3000` (3 seconds).",
+      "options": [],
+      "value": 800
+  },
+  {
+      "uniqueID": "movingAverageArrowAnimation",
+      "type": "text",
+      "title": "Moving average arrow animation",
+      "description": "`[ADVANCED SETTING]` Change this at your own risk. See this page for more information: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function ____________________________________________",
+      "options": [],
+      "value": "cubic-bezier(0.22, 1, 0.36, 1)"
+  },
+  {
+      "uniqueID": "mainTickHeight",
+      "type": "number",
+      "title": "Main tick height (in pixels)",
+      "description": "Must be a number bigger or equal `8`.",
+      "options": [],
+      "value": 24
+  },
+  {
+      "uniqueID": "mainTickColor",
+      "type": "color",
+      "title": "Main tick color",
+      "description": "____________________________________________",
+      "options": [],
+      "value": "#ffffff"
+  },
+  {
+      "uniqueID": "normalizeHitErrorMeterWidth",
+      "type": "checkbox",
+      "title": "Normalize the hit error meter's width",
+      "description": "By default, the hit error meter changes its size depending on the OD. This setting allows you to make the hit error meter have the same size, regardless of the OD value (or CS in osu!catch). This is pretty much what osu!(lazer) does.",
+      "options": [],
+      "value": false
+  },
+  {
+      "uniqueID": "showHitWindows",
+      "type": "checkbox",
+      "title": "Show hit windows",
+      "description": "The equivalent of this being toggled off can be seen in some VSRGs out there.",
+      "options": [],
+      "value": true
+  },
+  {
+      "uniqueID": "showHitErrorMeterInCatch",
+      "type": "checkbox",
+      "title": "Show the hit error meter in osu!catch",
+      "description": "By default, osu!catch uses the hit error array to store where the fruit landed on the catcher's plate relative to their center, which is not that useful for most people. This option is for anyone that wants to see the hit error meter in osu!catch anyway.",
+      "options": [],
+      "value": false
+  },
+  {
+      "uniqueID": "hitWindowsWidthMultiplier",
+      "type": "number",
+      "title": "Hit windows width multiplier",
+      "description": "Must be a number between `0.5` and `5`. ____________________________________________",
+      "options": [],
+      "value": 1
+  },
+  {
+      "uniqueID": "hit320Color",
+      "type": "color",
+      "title": "320's hit window color",
+      "description": "This only affects osu!mania.",
+      "options": [],
+      "value": "#99ddff"
+  },
+  {
+      "uniqueID": "hit300Color",
+      "type": "color",
+      "title": "300's hit window color",
+      "description": "",
+      "options": [],
+      "value": "#47b6eb"
+  },
+  {
+      "uniqueID": "hit200Color",
+      "type": "color",
+      "title": "200's hit window color",
+      "description": "This only affects osu!mania.",
+      "options": [],
+      "value": "#99ffa0"
+  },
+  {
+      "uniqueID": "hit100Color",
+      "type": "color",
+      "title": "100's hit window color",
+      "description": "",
+      "options": [],
+      "value": "#47eb54"
+  },
+  {
+      "uniqueID": "hit50Color",
+      "type": "color",
+      "title": "50's hit window color",
+      "description": "____________________________________________",
+      "options": [],
+      "value": "#ebc247"
+  },
+  {
+      "uniqueID": "tickHeight",
+      "type": "number",
+      "title": "Hit error ticks height (in pixels)",
+      "description": "The height of hit error ticks when their animation is complete. Must be a number bigger or equal `8`.",
+      "options": [],
+      "value": 36
+  },
+  {
+      "uniqueID": "tickWidth",
+      "type": "number",
+      "title": "Hit error ticks width (in pixels)",
+      "description": "Must be a number between `1` and `8`.",
+      "options": [],
+      "value": 4
+  },
+  {
+      "uniqueID": "tickAppearanceStyle",
+      "type": "options",
+      "title": "Hit error ticks appearance style",
+      "description": "",
+      "options": [
+          "Only expand",
+          "Fade in and expand",
+          "Fade in fully expanded"
+      ],
+      "value": "Only expand"
+  },
+  {
+      "uniqueID": "tickAppearanceDuration",
+      "type": "number",
+      "title": "Hit error ticks appearance animation duration (in milliseconds)",
+      "description": "The time it takes for the hit error tick to fully appear. Must be a positive number smaller or equal `5000` (5 seconds).",
+      "options": [],
+      "value": 250
+  },
+  {
+      "uniqueID": "tickAppearanceAnimation",
+      "type": "text",
+      "title": "Hit error ticks appearance animation",
+      "description": "`[ADVANCED SETTING]` Change this at your own risk. See this page for more information: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function",
+      "options": [],
+      "value": "cubic-bezier(0, 1, 0.33, 1)"
+  },
+  {
+      "uniqueID": "tickDisappearanceStyle",
+      "type": "options",
+      "title": "Hit error ticks disappearance style",
+      "description": "",
+      "options": [
+          "Only fade out",
+          "Only decrease the height",
+          "Fade out and decrease the height"
+      ],
+      "value": "Only fade out"
+  },
+  {
+      "uniqueID": "tickDisappearanceDuration",
+      "type": "number",
+      "title": "Hit error ticks disappearance animation duration (in milliseconds)",
+      "description": "The time it takes for the hit error tick to fully disappear. Must be a positive number smaller or equal `10000` (10 seconds).",
+      "options": [],
+      "value": 3000
+  },
+  {
+      "uniqueID": "tickDisappearanceAnimation",
+      "type": "text",
+      "title": "Hit error ticks disappearance animation",
+      "description": "`[ADVANCED SETTING]` Change this at your own risk. See this page for more information: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function ____________________________________________",
+      "options": [],
+      "value": "linear"
+  },
+  {
+      "uniqueID": "hideInGameScoreMeter",
+      "type": "checkbox",
+      "title": "Hide the in-game score meter (osu!(stable) only)",
+      "description": "Useful for people who want to both see the in-game score meter and use the overlay somewhere else. Note that this setting currently does **NOT** work in osu!taiko due to a currently unknown way osu!(stable) offsets backgrounds. **!!! IMPORTANT !!!** If this is enabled, the overlay MUST BE at the exact bottom center of the screen.",
+      "options": [],
+      "value": true
+  }
+]

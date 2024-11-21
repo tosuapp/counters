@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>HitErrorMeter by KapiWilq</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+    <div class="main">
+        <div id="unstableRate">UR: 0.00</div>
+        <div class="hitErrorMeterContainer">
+            <!-- This MUST be here, otherwise you wouldn't be able to change its color. -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8" fill="white" class="movingAverageArrow">
+                <path d="M6.29414 7.70615C6.68477 8.09678 7.31914 8.09678 7.70977 7.70615L13.7098 1.70615C14.1004 1.31553 14.1004 0.681152 13.7098 0.290527C13.3191 -0.100098 12.6848 -0.100098 12.2941 0.290527L7.00039 5.58428L1.70664 0.293652C1.31602 -0.0969729 0.681641 -0.0969729 0.291016 0.293652C-0.0996094 0.684277 -0.0996094 1.31865 0.291016 1.70928L6.29102 7.70928L6.29414 7.70615Z"></path>
+            </svg>            
+            <div class="segments">
+                <div class="earlyWindows windowsContainer">
+                    <div id="hit320Early" class="hit320 hitWindow"></div>
+                    <div id="hit300Early" class="hit300 hitWindow"></div>
+                    <div id="hit200Early" class="hit200 hitWindow"></div>
+                    <div id="hit100Early" class="hit100 hitWindow"></div>
+                    <div id="hit50Early" class="hit50 hitWindow"></div>
+                </div>
+                <div class="mainTick"></div>
+                <div class="lateWindows windowsContainer">
+                    <div id="hit320Late" class="hit320 hitWindow"></div>
+                    <div id="hit300Late" class="hit300 hitWindow"></div>
+                    <div id="hit200Late" class="hit200 hitWindow"></div>
+                    <div id="hit100Late" class="hit100 hitWindow"></div>
+                    <div id="hit50Late" class="hit50 hitWindow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="inGameScoreMeterHider">
+            <img src="" id="background">
+        </div>
+    </div>
+
+    <script>
+        // In-game debugging; taken from cyperdark's key overlay with variables renamed.
+        // See https://github.com/tosuapp/counters/blob/master/counters/KeyOverlay%20by%20cyperdark/index.html#L86-L110
+        window.onerror = function (error, file, lineNumber, columnNumber) {
+            let errorElement = document.createElement('div');
+
+            errorElement.innerText = `${error} in ${file}, line ${lineNumber} col ${columnNumber}`;
+            document.querySelector('.main').appendChild(errorElement);
+        };
+    </script>
+    <script src="js/countUp.js"></script>
+
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>
