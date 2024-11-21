@@ -52,6 +52,39 @@
         }
       }
 
+      function init_ws() {
+        const socket = new WebSocket("ws://127.0.0.1:24050/websocket/v2");
+
+        socket.addEventListener("close", evt => {
+          setTimeout(init_ws, 1000);
+        });
+
+        socket.addEventListener("message", evt => {
+          const tosu = JSON.parse(evt.data);
+          const current_time = Date.now();
+
+          if(tosu.beatmap.checksum != bmap_md5) {
+            bmap_md5 = tosu.beatmap.checksum;
+            start_time = current_time;
+            pause_time = current_time;
+            timer.classList.add('paused');
+          }
+
+          if(pause_time == 0) {
+            if(tosu.state.name != 'play') {
+              pause_time = current_time;
+              timer.classList.add('paused');
+            }
+          } else {
+            if(tosu.state.name == 'play') {
+              start_time += (current_time - pause_time);
+              pause_time = 0;
+              timer.classList.remove('paused');
+            }
+          }
+        });
+      }
+
       function tick() {
         const diff = get_time();
         const hours = Math.floor(diff / 3600000);
@@ -71,32 +104,7 @@
       }
 
       tick();
-
-      const socket = new WebSocket("ws://127.0.0.1:24050/websocket/v2");
-      socket.addEventListener("message", evt => {
-        const tosu = JSON.parse(evt.data);
-        const current_time = Date.now();
-
-        if(tosu.beatmap.checksum != bmap_md5) {
-          bmap_md5 = tosu.beatmap.checksum;
-          start_time = current_time;
-          pause_time = current_time;
-          timer.classList.add('paused');
-        }
-
-        if(pause_time == 0) {
-          if(tosu.state.name != 'play') {
-            pause_time = current_time;
-            timer.classList.add('paused');
-          }
-        } else {
-          if(tosu.state.name == 'play') {
-            start_time += (current_time - pause_time);
-            pause_time = 0;
-            timer.classList.remove('paused');
-          }
-        }
-      });
+      init_ws();
     </script>
   </body>
 </html>
