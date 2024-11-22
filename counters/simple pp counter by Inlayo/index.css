@@ -3,8 +3,7 @@
   src: url("./font/Letters for Learners.ttf");
 }
 
-body,
-html {
+body,html {
   padding: 0;
   margin: 0;
   overflow: hidden;
