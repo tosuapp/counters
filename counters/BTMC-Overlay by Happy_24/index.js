@@ -36,7 +36,7 @@ const cache = {
     accuracy: -1,
     title: "",
     artist: "",
-    difficulty: "",
+    difficulty: "{}",
     bpm: -1,
     cs: -1,
     ar: -1,
@@ -196,7 +196,11 @@ socket.commands((data) => {
             };
 
             graphSmoothing = smoothingMap[message['GraphSmoothing']];
-            renderGraph(JSON.parse(cache.difficultyGraph));
+            try {
+                renderGraph(JSON.parse(cache.difficultyGraph));
+            } catch (error) {
+                console.log(error);
+            };
         }
 
         if (message['CutoffPos'] != null) {
