@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "Roboto";
     src: url(../static/Roboto.ttf);
+    font-family: "Roboto";
 }
 
 :root {
@@ -32,7 +32,6 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    margin-bottom: 0.5rem;
 }
 
 /* ---------- UNSTABLE RATE ---------- */
@@ -53,12 +52,12 @@ body {
 .movingAverageArrow {
     transform-origin: bottom;
     filter: drop-shadow(0 0 0.125rem black);
+    fill: white;
     position: relative;
     height: 0.5rem;
     margin-bottom: 0.25rem;
     /* easeOutQuint */
     transition: cubic-bezier(0.22, 1, 0.36, 1) 800ms;
-    fill: white;
 }
 
 /* ---------- HIT ERROR METER ---------- */
@@ -71,6 +70,7 @@ body {
     position: relative;
     opacity: 0;
     width: fit-content;
+    margin-bottom: 0.5rem;
     transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
 }
 
@@ -153,7 +153,7 @@ body {
     transform-origin: bottom;
     position: absolute;
     z-index: -1;
-    bottom: -0.5rem;
+    bottom: 0;
     opacity: 0;
     overflow: hidden;
     width: 0;

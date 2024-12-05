@@ -21,6 +21,7 @@ class HitErrorMeter {
         this.hitErrorMeterScale = 1;
         this.movingAverageArrowAnimationDuration = 800;
         this.movingAverageArrowAnimation = 'cubic-bezier(0.22, 1, 0.36, 1)';
+        this.maniaHit50LateStyle = 'Show nothing';
         this.normalizeHitErrorMeterWidth = false;
         this.hitWindowsWidthMultiplier = 1;
         this.tickHeight = 36;
@@ -49,6 +50,7 @@ class HitErrorMeter {
      *          mainTickColor: string,
      *          showHitWindows: boolean,
      *          showHitErrorMeterInCatch: boolean,
+     *          maniaHit50LateStyle: 'Show nothing' | 'Show only the hit errors' | 'Show both the hit errors and the hit window (inaccurate)'
      *          normalizeHitErrorMeterWidth: boolean
      *          hitWindowsWidthMultiplier: number,
      *          hit320Color: string,
@@ -100,6 +102,8 @@ class HitErrorMeter {
 
         document.querySelector('.mainTick').style.height = `${mainTickHeight / 16}rem`;
         document.querySelector('.mainTick').style.backgroundColor = settings.mainTickColor;
+
+        this.maniaHit50LateStyle = settings.maniaHit50LateStyle;
 
         this.normalizeHitErrorMeterWidth = settings.normalizeHitErrorMeterWidth;
         this.hitWindowsWidthMultiplier = this.clamp(settings.hitWindowsWidthMultiplier, 0.5, 5);
@@ -184,8 +188,11 @@ class HitErrorMeter {
         document.querySelector('.hitErrorMeterContainer').style.width = `${Math.floor(sumOfHitWindowsSizes) * 2 * this.hitErrorMeterScale / 16}rem`;
 
         let edgeSegments = null;
-
-        if (this.rulesetName === 'osu' || this.rulesetName === 'mania') {
+        // This is done only because osu!mania does not use the 50's late hit window.
+        // Reset the hit window's color - it will be changed back later anyway.
+        let hit50Late = document.querySelector('#hit50Late');
+        hit50Late.style.backgroundColor = 'var(--hit50BG)';
+        if (this.rulesetName === 'osu' || (this.rulesetName === 'mania' && this.maniaHit50LateStyle === 'Show both the hit errors and the hit window (inaccurate)')) {
             edgeSegments = document.querySelectorAll('.hit50');
             document.querySelectorAll('.hit100').forEach(segment => segment.style.borderRadius = '0');
             document.querySelectorAll('.hit300').forEach(segment => segment.style.borderRadius = '0');
@@ -193,6 +200,16 @@ class HitErrorMeter {
             edgeSegments = document.querySelectorAll('.hit100');
             document.querySelectorAll('.hit300').forEach(segment => segment.style.borderRadius = '0');
             document.querySelectorAll('.hit50').forEach(segment => segment.style.borderRadius = '0');
+        } else if (this.rulesetName === 'mania') {
+            // Case: user selected to NOT show the 50's late hit window in osu!mania.
+            edgeSegments = [ document.querySelector('#hit100Late'), document.querySelector('#hit50Early') ];
+            document.querySelectorAll('.hit300').forEach(segment => segment.style.borderRadius = '0');
+            document.querySelectorAll('.hit100').forEach(segment => segment.style.borderRadius = '0');
+            document.querySelectorAll('.hit50').forEach(segment => segment.style.borderRadius = '0');
+
+            const [r, g, b] = getComputedStyle(hit50Late).backgroundColor.replace('rgba(', '').replace('rgb(', '').replace(')', '').split(',').map(r => r.trim());
+            // The exact same dirty hack as in the `addColorToRootProperty` method.
+            hit50Late.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${1 / 255})`;
         } else {
             edgeSegments = document.querySelectorAll('.hit300');
             document.querySelectorAll('.hit100').forEach(segment => segment.style.borderRadius = '0');
@@ -221,7 +238,7 @@ class HitErrorMeter {
         this.mods = mods;
 
         // This mess exists purely because osu!mania calculates hit windows differently.
-        // See the osu!mania section in the `recalculateHitWindows()` method.
+        // See the osu!mania section in the `recalculateHitWindows` method.
         if (this.rulesetName === 'mania') {
             this.overallDiff = overallDiff;
             this.circleSize = circleSize;
@@ -276,7 +293,7 @@ class HitErrorMeter {
             break;
 
         case 'mania':
-            // 320's hit windows now scale in osu!(lazer) (and in osu!(stable) with ScoreV2).
+            // 320's hit windows scale in osu!(lazer) (and in osu!(stable) with ScoreV2).
             // Note that in osu!(lazer) the scaling is done "internally" - the visual size of the hit error meter stays the same.
             // See https://osu.ppy.sh/wiki/en/Client/Release_stream/Lazer/Gameplay_differences_in_osu%21%28lazer%29#the-perfect-judgement-hit-window-scales-with-od
             //     https://osu.ppy.sh/wiki/en/Gameplay/Judgement/osu%21mania#scorev2
@@ -289,10 +306,10 @@ class HitErrorMeter {
                     hit100: (127 - 3 * this.overallDiff) * this.rate,
                     hit50: (151 - 3 * this.overallDiff) * this.rate
                 };
+            // osu!mania converts have different hit windows only in osu!(stable).
+            // See https://osu.ppy.sh/wiki/en/Gameplay/Judgement/osu%21mania#judgements.
+            //     https://osu.ppy.sh/wiki/en/Client/Release_stream/Lazer/Gameplay_differences_in_osu%21%28lazer%29#converts-no-longer-have-different-hit-windows
             else if (this.rulesetName === 'mania' && this.isConvert)
-                // osu!mania converts have different hit windows only in osu!(stable).
-                // See https://osu.ppy.sh/wiki/en/Gameplay/Judgement/osu%21mania#judgements.
-                //     https://osu.ppy.sh/wiki/en/Client/Release_stream/Lazer/Gameplay_differences_in_osu%21%28lazer%29#converts-no-longer-have-different-hit-windows
                 this.hitWindows = {
                     hit320: 16 * this.rate,
                     hit300: (this.overallDiff > 4 ? 34 : 47) * this.rate,
@@ -337,6 +354,7 @@ class HitErrorMeter {
      * @param {boolean} shouldBeVisible - Whether the color should be opaque or transparent.
      */
     applyColorToRootProperty(property, color, shouldBeVisible) {
+        // Remove the alpha value in case it's there somehow.
         if (color.length === 9)
             color = color.slice(0, -2);
 
@@ -443,7 +461,7 @@ class HitErrorMeter {
                 console.error(`Couldn't determine the hit window segment.\nClient: ${this.client}\nRuleset: ${this.rulesetName}\nAbsolute hit error: ${absHitError}\nOverall Difficulty: ${this.overallDiff}\nCircle Size: ${this.circleSize}\nHit windows: ${JSON.stringify(this.hitWindows)}`);
                 break;
             };
-        }
+        };
     };
 
     /**
@@ -530,14 +548,14 @@ class HitErrorMeter {
                 console.error(`Couldn't determine the tick's position percentage.\nClient: ${this.client}\nRuleset: ${this.rulesetName}\nAbsolute hit error: ${absHitError}\nOverall Difficulty: ${this.overallDiff}\nCircle Size: ${this.circleSize}\nHit windows: ${JSON.stringify(this.hitWindows)}`);
                 break;
             };
-        }
+        };
     };
 
     /**
      * A helper method to remove all hit error ticks in the hit error meter.
      */
     removeAllHitErrorTicks() {
-        // This is needed so that the animation plays correctly, otherwise it just doesn't apply the transition.
+        // This is needed so that the expansion animation plays correctly, otherwise it just doesn't apply the transition.
         const ANIMATION_DELAY = 17;
 
         document.querySelectorAll('.tick').forEach(tick => {
@@ -559,7 +577,7 @@ class HitErrorMeter {
      * @param {number} hitError - The hit error value.
      */
     addTick(hitError) {
-        // This is needed so that the animation plays correctly, otherwise it just doesn't apply the transition.
+        // This is needed so that the expansion animation plays correctly, otherwise it just doesn't apply the transition.
         const ANIMATION_DELAY = 17;
 
         // osu!catch stores fruits landing on the right side of the catcher as ""early hits"" - flip the hit error to correct it.

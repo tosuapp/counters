@@ -78,7 +78,7 @@
   {
       "uniqueID": "movingAverageArrowAnimationDuration",
       "type": "number",
-      "title": "Moving average arrow animation duration",
+      "title": "Moving average arrow animation duration (in milliseconds)",
       "description": "Must be a positive number smaller or equal `3000` (3 seconds).",
       "options": [],
       "value": 800
@@ -108,14 +108,6 @@
       "value": "#ffffff"
   },
   {
-      "uniqueID": "normalizeHitErrorMeterWidth",
-      "type": "checkbox",
-      "title": "Normalize the hit error meter's width",
-      "description": "By default, the hit error meter changes its size depending on the OD. This setting allows you to make the hit error meter have the same size, regardless of the OD value (or CS in osu!catch). This is pretty much what osu!(lazer) does.",
-      "options": [],
-      "value": false
-  },
-  {
       "uniqueID": "showHitWindows",
       "type": "checkbox",
       "title": "Show hit windows",
@@ -128,6 +120,26 @@
       "type": "checkbox",
       "title": "Show the hit error meter in osu!catch",
       "description": "By default, osu!catch uses the hit error array to store where the fruit landed on the catcher's plate relative to their center, which is not that useful for most people. This option is for anyone that wants to see the hit error meter in osu!catch anyway.",
+      "options": [],
+      "value": false
+  },
+  {
+      "uniqueID": "maniaHit50LateStyle",
+      "type": "options",
+      "title": "50's late hit window style",
+      "description": "osu!mania doesn't use 50's late hit window. This setting exists only if you want to either see 50's late hit errors anyway, or you want to restore the overlay's symmetry.",
+      "options": [
+          "Show nothing",
+          "Show only the hit errors",
+          "Show both the hit errors and the hit window (inaccurate)"
+      ],
+      "value": "Show nothing"
+  },
+  {
+      "uniqueID": "normalizeHitErrorMeterWidth",
+      "type": "checkbox",
+      "title": "Normalize the hit error meter's width",
+      "description": "By default, the hit error meter changes its size depending on the OD. This setting allows you to make the hit error meter have the same size, regardless of the OD value (or CS in osu!catch). This is pretty much what osu!(lazer) does.",
       "options": [],
       "value": false
   },
