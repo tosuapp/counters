@@ -6,6 +6,7 @@ const cache = {};
 const url = new URL(`${window.location.origin}${window.location.pathname}${window.location.hash.replace('#', '?')}`);
 
 const presets = [
+    'serverUrl',
     'beatmapStatus',
     'beatmapID',
     'beatmapSetID',
@@ -96,6 +97,7 @@ const presets = [
 ];
 
 const descriptions = [
+    'link to current server (aka osu.ppy.sh or others)',
     'aka ranked, loved and etc.',
     'difficulty id',
     'beatmapset id',
@@ -412,7 +414,7 @@ async function startTwitchClient(clientToken) {
                 if (command.userLevel == 'subscriber' && (tags.badges?.subscriber == null && tags.badges?.moderator == null)) return;
                 if (command.userLevel == 'vip' && (tags.badges?.vip == null && tags.badges?.moderator == null)) return;
             };
-            
+
             try {
                 const preset = command?.commandResponse || '{calcStars}* - {calcPP}pp [calcMods != ]+{calcMods} [/calcMods][calcAcc != ]{calcAcc}% [/calcAcc][calcCombo != ]{calcCombo}x [/calcCombo][calcMisses != ]{calcMisses}xMiss [/calcMisses]';
                 const commands = message.toLowerCase().replace('!calc ', '').split(' ');
@@ -607,6 +609,9 @@ socket.commands(async (data) => {
 socket.api_v2(async (data) => {
     if (!cache.osu_is_running) cache.osu_is_running = true;
     try {
+        const url = `https://${data.server}`;
+        if (cache['serverUrl'] != url) cache['serverUrl'] = url;
+
         if (cache['beatmapStatus'] != data.beatmap.status.name.toLowerCase()) cache['beatmapStatus'] = data.beatmap.status.name.toLowerCase();
         if (cache['beatmapID'] != data.beatmap.id) cache['beatmapID'] = data.beatmap.id;
         if (cache['beatmapSetID'] != data.beatmap.set) cache['beatmapSetID'] = data.beatmap.set;
@@ -614,7 +619,7 @@ socket.api_v2(async (data) => {
         if (cache['beatmapTitle'] != data.beatmap.title) cache['beatmapTitle'] = data.beatmap.title;
         if (cache['beatmapMapper'] != data.beatmap.mapper) cache['beatmapMapper'] = cache['beatmapAuthor'] = cache['beatmapCreator'] = data.beatmap.mapper;
         if (cache['beatmapVersion'] != data.beatmap.version) cache['beatmapVersion'] = data.beatmap.version;
-        if (cache['beatmapMode'] != data.beatmap.mode.name) cache['beatmapMode'] = data.beatmap.mode.name;
+        if (cache['beatmapMode'] != data.beatmap.mode.name.toLowerCase()) cache['beatmapMode'] = data.beatmap.mode.name.toLowerCase();
 
         if (cache['beatmapStars'] != data.beatmap.stats.stars.total) cache['beatmapStars'] = data.beatmap.stats.stars.total;
         if (cache['beatmapStarsLive'] != data.beatmap.stats.stars.live) cache['beatmapStarsLive'] = data.beatmap.stats.stars.live;

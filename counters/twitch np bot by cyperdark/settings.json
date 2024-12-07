@@ -62,7 +62,7 @@
                 "type": "number",
                 "name": "commandCooldown",
                 "title": "Cooldown",
-                "description": "",
+                "description": "In milliseconds",
                 "values": [],
                 "value": 5000,
                 "required": true
@@ -106,7 +106,7 @@
                 "commandName": "!np",
                 "commandCooldown": 5000,
                 "triggerType": "Only at the beginning",
-                "commandResponse": "{beatmapArtist} - {beatmapTitle}[beatmapVersion != ] [{beatmapVersion}][/beatmapVersion][beatmapAuthor != ] by {beatmapAuthor}[/beatmapAuthor][beatmapID > 0] // https://osu.ppy.sh/b/{beatmapID}[/beatmapID]",
+                "commandResponse": "{beatmapArtist} - {beatmapTitle}[beatmapVersion != ] [{beatmapVersion}][/beatmapVersion][beatmapAuthor != ] by {beatmapAuthor}[/beatmapAuthor][beatmapID > 0] // {serverUrl}/b/{beatmapID}[/beatmapID]",
                 "commandAliases": "!map,!song,!beatmap",
                 "userLevel": "everyone"
             },
@@ -140,7 +140,7 @@
                 "commandName": "!profile",
                 "commandCooldown": 5000,
                 "triggerType": "Only at the beginning",
-                "commandResponse": "[userID > 0]https://osu.ppy.sh/users/{userID} or[/userID] https://osu.ppy.sh/users/{userName}",
+                "commandResponse": "[userID > 0]{serverUrl}/users/{userID} or[/userID] {serverUrl}/users/{userName}",
                 "commandAliases": "!me",
                 "userLevel": "everyone"
             },
@@ -161,6 +161,15 @@
                 "userLevel": "everyone",
                 "commandResponse": "{gameWidth}x{gameHeight} game resolution",
                 "commandAliases": "!resolution"
+            },
+            {
+                "commandName": "!keys",
+                "commandCooldown": 5000,
+                "triggerType": "Only at the beginning",
+                "commandStatus": true,
+                "userLevel": "everyone",
+                "commandResponse": "[beatmapMode == osu][osu] {osuK1} & {osuK2} (Smoke {osuSmoke}) [/beatmapMode][beatmapMode == taiko][taiko] inner keys: {taikoInnerLeft} & {taikoInnerRight} | Outer keys: {taikoOuterLeft} & {taikoOuterRight}[/beatmapMode][beatmapMode == fruits][ctb] {fruitsK1} & {fruitsK2} (Dash {fruitsDash}) [/beatmapMode]",
+                "commandAliases": "!key,!keybinds"
             },
             {
                 "commandName": "!sens",
