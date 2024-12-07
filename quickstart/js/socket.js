@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.3';
+    this.version = '0.1.4';
 
     if (host) {
       this.host = host;
@@ -525,6 +525,7 @@ export default WebSocketManager;
 
 /** @typedef {object} WEBSOCKET_V2
  * @property {'stable' | 'lazer'} client
+ * @property {string} server
  * @property {object} state
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23} state.number
  * @property {'menu' | 'edit' | 'play' | 'exit' | 'selectEdit' | 'selectPlay' | 'selectDrawings' | 'resultScreen' | 'update' | 'busy' | 'unknown' | 'lobby' | 'matchSetup' | 'selectMulti' | 'rankingVs' | 'onlineSelection' | 'optionsOffsetWizard' | 'rankingTagCoop' | 'rankingTeam' | 'beatmapImport' | 'packageUpdater' | 'benchmark' | 'tourney' | 'charts'} state.name
@@ -759,6 +760,7 @@ export default WebSocketManager;
  * @property {boolean} leaderboard.isFailed
  * @property {number} leaderboard.position
  * @property {number} leaderboard.team
+ * @property {number} leaderboard.id
  * @property {string} leaderboard.name
  * @property {number} leaderboard.score
  * @property {number} leaderboard.accuracy
