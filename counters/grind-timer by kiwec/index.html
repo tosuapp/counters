@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>grind timer</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+      :root {
+        --gradient-start: #1aa13d;
+        --gradient-end: #9affb5;
+        --paused-start: #0072ff;
+        --paused-end: #bbe3ff;
+      }
+
+      html {
+        background: #000;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      #timer {
+        font-family: 'Segoe UI', 'Arial';
+        font-size: 5rem;
+        font-weight: bold;
+        background: linear-gradient(0, var(--gradient-start), var(--gradient-end));
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        text-align: right;
+        line-height: 0.9;
+      }
+
+      .paused {
+        background: linear-gradient(0, var(--paused-start), var(--paused-end)) !important;
+        background-clip: text !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="timer" class="paused">0.00</div>
+
+    <script type="text/javascript" defer>
+      let autoTimer = true;
+      let alwaysRun = false;
+      let resetOnMapChange = true;
+
+      let bmap_md5 = null;
+      let last_state = false;
+      let start_time = Date.now();
+      let pause_time = start_time;
+
+      function get_time() {
+        if(pause_time == 0) {
+          return Date.now() - start_time;
+        } else {
+          return pause_time - start_time;
+        }
+      }
+
+      function reset() {
+        let current_time = Date.now();
+        start_time = current_time;
+        pause_time = current_time;
+        timer.classList.add('paused');
+      }
+
+      function unpause() {
+        start_time += (Date.now() - pause_time);
+        pause_time = 0;
+        timer.classList.remove('paused');
+      }
+
+      function pause() {
+        pause_time = Date.now();
+        timer.classList.add('paused');
+      }
+
+      function toggle() {
+        if(pause_time == 0) {
+          pause();
+        } else {
+          unpause();
+        }
+      }
+
+      function init_commands_ws() {
+        if(!window.COUNTER_PATH) {
+            setTimeout(() => {
+                init_commands_ws();
+            }, 100);
+            return;
+        };
+
+
+        const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/commands?l=${encodeURI(window.COUNTER_PATH)}`);
+
+        socket.addEventListener("open", () => {
+          socket.send('getSettings:' + encodeURI(window.COUNTER_PATH));
+        })
+
+        socket.addEventListener("close", evt => {
+          setTimeout(init_commands_ws, 1000);
+        });
+
+        socket.addEventListener("message", evt => {
+          const tosu = JSON.parse(evt.data);
+          if(tosu.command != 'getSettings') return;
+
+          alwaysRun = tosu.message.alwaysRun;
+          resetOnMapChange = tosu.message.resetOnMapChange;
+
+          if(alwaysRun == true) unpause();
+        });
+      }
+
+      function init_ws() {
+        const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/v2`);
+
+        socket.addEventListener("close", evt => {
+          setTimeout(init_ws, 1000);
+        });
+
+        socket.addEventListener("message", evt => {
+          const tosu = JSON.parse(evt.data);
+
+          if(tosu.beatmap.checksum != bmap_md5) {
+            if(resetOnMapChange) {
+              if(bmap_md5) reset();
+              else start_time = pause_time = Date.now();
+            }
+            bmap_md5 = tosu.beatmap.checksum;
+          }
+     
+          if(last_state != tosu.state.name && alwaysRun != true) {
+            last_state = tosu.state.name;
+
+            if(pause_time == 0) {
+              if(tosu.state.name != 'play') {
+                pause();
+              }
+            } else {
+              if(tosu.state.name == 'play') {
+                unpause();
+              }
+            }
+          }
+        });
+      }
+
+      function tick() {
+        const diff = get_time();
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        const milliseconds = Math.floor((diff % 1000) / 10);
+
+        let text = '';
+        if(hours > 0) text += hours.toString().padStart(2, '0') + ':';
+        if(minutes > 0) text += minutes.toString().padStart(2, '0') + ':';
+        text += seconds.toString().padStart(2, '0') + '.';
+        text += milliseconds.toString().padStart(2, '0');
+
+        timer.textContent = text;
+
+        requestAnimationFrame(tick);
+      }
+
+      tick();
+      init_ws();
+      init_commands_ws();
+
+      document.addEventListener('click', toggle);
+      document.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        reset();
+      });
+    </script>
+  </body>
+</html>
