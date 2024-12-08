@@ -1,6 +1,8 @@
 ## AccuracyPP by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/accuracypp by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/accuracypp by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -12,7 +14,9 @@
 
 ## ArtistTitleDifficulty by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/artisttitledifficulty by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/artisttitledifficulty by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -38,7 +42,9 @@
 
 ## BeatOsu by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/beatosu by unknown v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/beatosu by unknown v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -96,7 +102,9 @@
 
 ## Combo by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/combo by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/combo by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -122,7 +130,9 @@
 
 ## HitCounts by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/hitcounts by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/hitcounts by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -246,7 +256,9 @@
 
 ## Live Overlay by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/live overlay by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/live overlay by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -274,7 +286,9 @@
 
 ## Map Display by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map display by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map display by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -286,7 +300,9 @@
 
 ## Map Overlay by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map overlay by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map overlay by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
@@ -396,7 +412,9 @@
 
 ## PP counter by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp counter by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  |||
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp counter by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
 | ------------- | ------------- |
 | For | ingame, obs-overlays |
 | Compatible with | tosu, streamCompanion |
