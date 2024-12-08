@@ -1,0 +1,175 @@
+@font-face {
+    src: url(../static/Roboto.ttf);
+    font-family: "Roboto";
+}
+
+:root {
+    --hit320BG: #99ddffff;
+    --hit300BG: #47b4ebff;
+    --hit200BG: #99ffa2ff;
+    --hit100BG: #47eb55ff;
+    --hit50BG: #ebc247ff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    user-select: none;
+    overflow: hidden;
+    font-family: "Roboto", sans-serif;
+}
+
+.main {
+    transform-origin: bottom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* ---------- UNSTABLE RATE ---------- */
+
+#unstableRate {
+    transform-origin: bottom;
+    opacity: 0;
+    width: fit-content;
+    margin-bottom: 0.5rem;
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 0 0 0.3125rem black;
+}
+
+/* ---------- MOVING AVERAGE ARROW ---------- */
+
+.movingAverageArrow {
+    transform-origin: bottom;
+    filter: drop-shadow(0 0 0.125rem black);
+    fill: white;
+    position: relative;
+    height: 0.5rem;
+    margin-bottom: 0.25rem;
+    /* easeOutQuint */
+    transition: cubic-bezier(0.22, 1, 0.36, 1) 800ms;
+}
+
+/* ---------- HIT ERROR METER ---------- */
+
+.hitErrorMeterContainer {
+    transform-origin: bottom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+    width: fit-content;
+    margin-bottom: 0.5rem;
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+}
+
+.segments {
+    display: inline-flex;
+    align-items: center;
+    height: 2.25rem;
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+}
+
+.windowsContainer {
+    display: inline-flex;
+}
+
+.earlyWindows {
+    transform: rotate(180deg);
+    transition: none;
+}
+
+.hitWindow {
+    position: relative;
+    width: 0;
+    height: 0.375rem;
+}
+
+.mainTick {
+    box-shadow: 0 0 0.3125rem black;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.25rem;
+    height: 1.5rem;
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+    background-color: white;
+    border-radius: 0.125rem;
+}
+
+.tick {
+    mix-blend-mode: screen;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.25rem;
+    height: 0;
+    transition: cubic-bezier(0, 1, 0.33, 1) 250ms;
+    background-color: var(--hit300BG);
+    border-radius: 0.125rem;
+}
+
+/* It must be duplicated like that, otherwise it will not animate at all. */
+.hit320 {
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+    background-color: var(--hit320BG);
+}
+
+.hit300 {
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+    background-color: var(--hit300BG);
+}
+
+.hit200 {
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+    background-color: var(--hit200BG);
+}
+
+.hit100 {
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+    background-color: var(--hit100BG);
+}
+
+.hit50 {
+    transition: cubic-bezier(0, 1, 0.33, 1) 500ms;
+    background-color: var(--hit50BG);
+}
+
+/* ---------- IN-GAME SCORE METER HIDER ---------- */
+
+.inGameScoreMeterHider {
+    transform-origin: bottom;
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    transition: cubic-bezier(0.22, 1, 0.36, 1) 500ms;
+}
+
+#background {
+    object-fit: cover;
+    filter: brightness(0.1);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /* The background will be misaligned without that 1px translation to the right. */
+    transform: translateX(calc(-50% + 0.0625rem));
+    width: 120rem;
+    height: 67.5rem;
+    background-color: black;
+}
