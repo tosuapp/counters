@@ -12,12 +12,6 @@ html {
   font-size: 50px;
 }
 
-#wrapper {
-  position: absolute;
-  transform: translateX(-110%);
-  width: 200px;
-}
-
 .pp {
   color: #ffffff;
   display: flex;
@@ -25,7 +19,7 @@ html {
   align-items: center;
   background-color: #000000aa;
   border-radius: 15px;
-  width: 150px;
+  width: 120px;
   height: 60px;
 }
 
