@@ -23,9 +23,15 @@ const cache = {};
 socket.onmessage = (event) => {
     let data = JSON.parse(event.data);
 
-    if (cache['pp'] != data.gameplay.pp.current && (data.menu.state === 2 || data.menu.state === 7)) {
+    const is_gameplay = data.menu.state === 2 || data.menu.state === 7;
+    if (cache['pp'] != data.gameplay.pp.current && is_gameplay == true) {
         cache['pp'] = data.gameplay.pp.current;
 
         pp_animation.update(data.gameplay.pp.current);
+    };
+
+    if (cache['pp'] != data.menu.pp[100] && is_gameplay == false) {
+        cache['pp'] = data.menu.pp[100];
+        pp_animation.update(data.menu.pp[100]);
     };
 };
