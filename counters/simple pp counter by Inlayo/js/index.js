@@ -1,31 +1,46 @@
 const HOST = "127.0.0.1:24050";
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
+let tempState;
 
 socket.onopen = () => console.log("Successfully Connected");
-socket.onclose = (event) => {
-    console.log("Socket Closed Connection: ", event);
-    socket.send("Client Closed!");
-};
+socket.onclose = (event) => console.log("Socket Closed Connection: ", event);
 socket.onerror = (error) => console.log("Socket Error: ", error);
 
-
-let pp_animation = new CountUp("pp", 0, 0, 0, 0.5, {
+const animation = {
+  pp: new CountUp("pp", 0, 0, 0, 0.5, {
     decimalPlaces: 2,
     useEasing: true,
     useGrouping: false,
     separator: " ",
     decimal: ".",
-});
+  }),
+  ifFcpp: new CountUp("ifFcpp", 0, 0, 0, 0.5, {
+    decimalPlaces: 2,
+    useEasing: true,
+    useGrouping: false,
+    separator: " ",
+    decimal: ".",
+  }),
+};
 
-
-const cache = {};
+function updateCounter(animationObj, newValue) {
+  animationObj.update(newValue || 0);
+}
 
 socket.onmessage = (event) => {
-    let data = JSON.parse(event.data);
+  const data = JSON.parse(event.data);
 
-    if (cache['pp'] != data.gameplay.pp.current && (data.menu.state === 2 || data.menu.state === 7)) {
-        cache['pp'] = data.gameplay.pp.current;
+  if (data.menu.state !== tempState) {
+    tempState = data.menu.state;
+  }
 
-        pp_animation.update(data.gameplay.pp.current);
-    };
+  if (data.gameplay.pp.current && (tempState === 2 || tempState === 7)) {
+    animation.pp.update(data.gameplay.pp.current);
+  } else if (data.menu.pp[100] && tempState !== 2 && tempState !== 7) {
+    animation.pp.update(data.menu.pp[100]);
+  } else {
+    updateCounter(animation.pp, 0);
+  }
+  document.getElementsByClassName("ifFcpp")[0].style.opacity =
+    data.gameplay.hits[0] > 0 || data.gameplay.hits.sliderBreaks > 0 ? 1 : 0;
 };
