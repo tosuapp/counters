@@ -14,9 +14,13 @@
       }
 
       html {
-        background: #000;
         cursor: pointer;
         user-select: none;
+      }
+
+      body {
+        background: #000;
+        margin: 8px !important;
       }
 
       #timer {
@@ -29,11 +33,18 @@
         text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         text-align: right;
         line-height: 0.9;
+
+        /* OBS support */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       .paused {
         background: linear-gradient(0, var(--paused-start), var(--paused-end)) !important;
         background-clip: text !important;
+        
+        /* OBS support */
+        -webkit-background-clip: text !important;
       }
     </style>
   </head>
