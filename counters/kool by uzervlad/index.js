@@ -282,7 +282,7 @@ socket.addEventListener("message", ev => {
         cache['mods'] = data.mods;
 
 
-        let mods = data.mods.split(",");
+        let mods = data.mods.match(/.{1,2}/g);
         if (mods[0] == "None") mods = [];
         if (mods.includes("PF")) mods.splice(mods.indexOf("SD"), 1);
 
@@ -295,7 +295,7 @@ socket.addEventListener("message", ev => {
                 modDiv.classList.add("green");
             if (['HR', 'SD', 'PF', 'DT', 'NC', 'HD', 'FL'].includes(mod))
                 modDiv.classList.add("red");
-            if (['RX', 'AP', 'SO', 'AU', 'CN'].includes(mod))
+            if (['RX', 'AP', 'SO', 'AT', 'CN'].includes(mod))
                 modDiv.classList.add("blue");
             if (['V2'].includes(mod))
                 modDiv.classList.add("gray");
