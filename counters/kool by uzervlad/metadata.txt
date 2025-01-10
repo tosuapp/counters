@@ -1,8 +1,0 @@
-Usecase: ingame,obs-overlays
-Name: kool
-Version: 1.01
-Author: uzervlad
-CompatibleWith: tosu,streamCompanion
-Resolution: 980x300
-authorLinks: https://github.com/uzervlad
-Notes: To apply settings, add them in the link after `#` joined by `+`.\n\nFor example: `http://localhost:20727/overlays/Kool/#hide-fc-pp+hide-stats-l`\nAvailable settings:\n* `hide-hits` - hides hit counts in gameplay\n* `hide-mods` - hides mods\n* `hide-fc-pp` - hides "if fc pp" counter\n* `hide-stats-l`/`hide-stats-r` - hides map stats on left/right side
