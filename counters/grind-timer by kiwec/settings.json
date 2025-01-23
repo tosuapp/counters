@@ -1,1 +1,26 @@
-[{"uniqueID":"alwaysRun","type":"checkbox","title":"Always run timer","description":"Dont pause timer in menu or other game states. If disabled time will be counted only in gameplay","options":[],"value":false},{"uniqueID":"autoTimer","type":"checkbox","title":"Automatically start/pause the timer","description":"You can also manually start/pause the timer by clicking the overlay.","options":[],"value":true},{"uniqueID":"resetOnMapChange","type":"checkbox","title":"Reset timer on map change","description":"You can also manually reset the timer by right-clicking the overlay.","options":[],"value":true}]
+[
+  {
+    "uniqueID": "pauseOn",
+    "type": "options",
+    "title": "Pause timer...",
+    "description": "You can also manually start/pause the timer by clicking the overlay.",
+    "options": [
+      "Outside gameplay",
+      "Always",
+      "Never"
+    ],
+    "value": "Outside gameplay"
+  },
+  {
+    "uniqueID": "resetOn",
+    "type": "options",
+    "title": "Reset timer on...",
+    "description": "You can also manually reset the timer by right-clicking the overlay.",
+    "options": [
+      "Difficulty/map change",
+      "Map change",
+      "Never"
+    ],
+    "value": "Difficulty/map change"
+  }
+]
