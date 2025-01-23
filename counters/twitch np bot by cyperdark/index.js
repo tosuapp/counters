@@ -609,7 +609,7 @@ socket.commands(async (data) => {
 socket.api_v2(async (data) => {
     if (!cache.osu_is_running) cache.osu_is_running = true;
     try {
-        const url = `https://${data.server}`;
+        const url = `https://osu.${data.server}`;
         if (cache['serverUrl'] != url) cache['serverUrl'] = url;
 
         if (cache['beatmapStatus'] != data.beatmap.status.name.toLowerCase()) cache['beatmapStatus'] = data.beatmap.status.name.toLowerCase();
