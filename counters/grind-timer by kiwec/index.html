@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style type="text/css">
+    <style>
       :root {
         --gradient-start: #1aa13d;
         --gradient-end: #9affb5;
@@ -52,22 +52,61 @@
   <body>
     <div id="timer" class="paused">0.00</div>
 
-    <script type="text/javascript" defer>
-      let autoTimer = true;
-      let alwaysRun = false;
-      let resetOnMapChange = true;
+    <script>
+      // User settings
+      let pause_mode = 'Always';
+      let reset_mode = 'Never';
 
-      let bmap_md5 = null;
-      let last_state = false;
+      // Timer/game state
+      let old_state = { beatmap: {}, state: {} };
       let start_time = Date.now();
       let pause_time = start_time;
 
-      function get_time() {
-        if(pause_time == 0) {
-          return Date.now() - start_time;
-        } else {
-          return pause_time - start_time;
+      // User clicked the timer to force pause/unpause, overriding pause conditions.
+      let forced_pause = false;
+      let forced_unpause = false;
+
+      function update(new_state) {
+        const diff_changed = old_state.beatmap.checksum != new_state.beatmap.checksum;
+        const set_changed = old_state.beatmap.set != new_state.beatmap.set;
+
+        // Check if we can clear force pause/unpause flags
+        if(pause_mode == 'Outside gameplay') {
+          if(forced_pause && new_state.state.name != 'play') {
+            forced_pause = false;
+          }
+          if(forced_unpause && new_state.state.name == 'play') {
+            forced_unpause = false;
+          }
         }
+
+        // Check if we need to pause
+        if(!forced_unpause) {
+          if(pause_mode == 'Always') {
+            pause();
+          } else if(pause_mode == 'Outside gameplay' && new_state.state.name != 'play') {
+            pause();
+          }
+        }
+
+        // Check if we need to unpause
+        if(!forced_pause) {
+          if(pause_mode == 'Never') {
+            unpause();
+          } else if(pause_mode == 'Outside gameplay' && new_state.state.name == 'play') {
+            unpause();
+          }
+        }
+
+        // Check if we need to reset
+        if(reset_mode == 'Difficulty/map change' && diff_changed) {
+          reset();
+        } else if(reset_mode == 'Map change' && set_changed) {
+          reset();
+        }
+
+        // Update state
+        old_state = new_state;
       }
 
       function reset() {
@@ -75,93 +114,57 @@
         start_time = current_time;
         pause_time = current_time;
         timer.classList.add('paused');
+        update(old_state); // unpause timer if needed
       }
 
       function unpause() {
+        if(pause_time == 0) return; // Already unpaused
         start_time += (Date.now() - pause_time);
         pause_time = 0;
         timer.classList.remove('paused');
       }
 
       function pause() {
+        if(pause_time > 0) return; // Already paused
         pause_time = Date.now();
         timer.classList.add('paused');
       }
 
-      function toggle() {
-        if(pause_time == 0) {
-          pause();
-        } else {
-          unpause();
-        }
-      }
-
       function init_commands_ws() {
         if(!window.COUNTER_PATH) {
-            setTimeout(() => {
-                init_commands_ws();
-            }, 100);
+            setTimeout(init_commands_ws, 100);
             return;
-        };
-
+        }
 
         const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/commands?l=${encodeURI(window.COUNTER_PATH)}`);
-
-        socket.addEventListener("open", () => {
-          socket.send('getSettings:' + encodeURI(window.COUNTER_PATH));
-        })
-
-        socket.addEventListener("close", evt => {
-          setTimeout(init_commands_ws, 1000);
-        });
-
+        socket.addEventListener("open", () => socket.send('getSettings:' + encodeURI(window.COUNTER_PATH)));
+        socket.addEventListener("close", evt => setTimeout(init_commands_ws, 1000));
         socket.addEventListener("message", evt => {
           const tosu = JSON.parse(evt.data);
           if(tosu.command != 'getSettings') return;
 
-          alwaysRun = tosu.message.alwaysRun;
-          resetOnMapChange = tosu.message.resetOnMapChange;
+          pause_mode = tosu.message.pauseOn;
+          reset_mode = tosu.message.resetOn;
 
-          if(alwaysRun == true) unpause();
+          forced_pause = false;
+          forced_unpause = false;
+
+          update(old_state); // pause/unpause timer if needed
         });
       }
 
       function init_ws() {
         const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/v2`);
-
-        socket.addEventListener("close", evt => {
-          setTimeout(init_ws, 1000);
-        });
-
-        socket.addEventListener("message", evt => {
-          const tosu = JSON.parse(evt.data);
-
-          if(tosu.beatmap.checksum != bmap_md5) {
-            if(resetOnMapChange) {
-              if(bmap_md5) reset();
-              else start_time = pause_time = Date.now();
-            }
-            bmap_md5 = tosu.beatmap.checksum;
-          }
-     
-          if(last_state != tosu.state.name && alwaysRun != true) {
-            last_state = tosu.state.name;
-
-            if(pause_time == 0) {
-              if(tosu.state.name != 'play') {
-                pause();
-              }
-            } else {
-              if(tosu.state.name == 'play') {
-                unpause();
-              }
-            }
-          }
-        });
+        socket.addEventListener("close", evt => setTimeout(init_ws, 1000));
+        socket.addEventListener("message", evt => update(JSON.parse(evt.data)));
       }
 
-      function tick() {
-        const diff = get_time();
+      function draw() {
+        let diff = Date.now() - start_time;
+        if(pause_time > 0) {
+          diff = pause_time - start_time;
+        }
+
         const hours = Math.floor(diff / 3600000);
         const minutes = Math.floor((diff % 3600000) / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
@@ -175,14 +178,26 @@
 
         timer.textContent = text;
 
-        requestAnimationFrame(tick);
+        requestAnimationFrame(draw);
       }
 
-      tick();
-      init_ws();
       init_commands_ws();
+      init_ws();
+      draw();
 
-      document.addEventListener('click', toggle);
+      document.addEventListener('click', e => {
+        e.preventDefault();
+
+        if(pause_time == 0) {
+          forced_unpause = false;
+          forced_pause = true;
+          pause();
+        } else {
+          forced_pause = false;
+          forced_unpause = true;
+          unpause();
+        }
+      });
       document.addEventListener('contextmenu', e => {
         e.preventDefault();
         reset();
