@@ -80,11 +80,17 @@
           }
         }
 
+        // Check if the gameplay is paused
+        let gameplay_paused = false 
+        if (typeof old_state.beatmap.time != "undefined") {
+          gameplay_paused = new_state.beatmap.time.live == old_state.beatmap.time.live
+        }
+
         // Check if we need to pause
         if(!forced_unpause) {
           if(pause_mode == 'Always') {
             pause();
-          } else if(pause_mode == 'Outside gameplay' && new_state.state.name != 'play') {
+          } else if(pause_mode == 'Outside gameplay' && (new_state.state.name != 'play' || gameplay_paused)) {
             pause();
           }
         }
@@ -93,7 +99,7 @@
         if(!forced_pause) {
           if(pause_mode == 'Never') {
             unpause();
-          } else if(pause_mode == 'Outside gameplay' && new_state.state.name == 'play') {
+          } else if(pause_mode == 'Outside gameplay' && !(new_state.state.name != 'play' || gameplay_paused)) {
             unpause();
           }
         }
