@@ -61,6 +61,7 @@
       let old_state = { beatmap: {}, state: {} };
       let start_time = Date.now();
       let pause_time = start_time;
+      let diff_start_time = Number.MAX_SAFE_INTEGER;
 
       // User clicked the timer to force pause/unpause, overriding pause conditions.
       let forced_pause = false;
@@ -70,27 +71,35 @@
         const diff_changed = old_state.beatmap.checksum != new_state.beatmap.checksum;
         const set_changed = old_state.beatmap.set != new_state.beatmap.set;
 
-        // Check if we can clear force pause/unpause flags
-        if(pause_mode == 'Outside gameplay') {
-          if(forced_pause && new_state.state.name != 'play') {
-            forced_pause = false;
+        let paused = false;
+        if(typeof new_state.beatmap.time != "undefined") {
+          paused = old_state.beatmap.time?.live == new_state.beatmap.time?.live;
+
+          // During song loading, the "live" timer stops multiple times.
+          // It looks really jank, so let's take note of the song start time and ignore pauses for a while.
+          if(diff_changed || (new_state.beatmap.time.live < diff_start_time)) {
+            diff_start_time = new_state.beatmap.time.live;
           }
-          if(forced_unpause && new_state.state.name == 'play') {
-            forced_unpause = false;
-          }
+          paused &= new_state.beatmap.time.live > diff_start_time + 500;
         }
 
-        // Check if the gameplay is paused
-        let gameplay_paused = false 
-        if (typeof old_state.beatmap.time != "undefined") {
-          gameplay_paused = new_state.beatmap.time.live == old_state.beatmap.time.live
+        const playing = new_state.state.name == 'play' && !paused;
+
+        // Check if we can clear force pause/unpause flags
+        if(pause_mode == 'Outside gameplay') {
+          if(forced_pause && !playing) {
+            forced_pause = false;
+          }
+          if(forced_unpause && playing) {
+            forced_unpause = false;
+          }
         }
 
         // Check if we need to pause
         if(!forced_unpause) {
           if(pause_mode == 'Always') {
             pause();
-          } else if(pause_mode == 'Outside gameplay' && (new_state.state.name != 'play' || gameplay_paused)) {
+          } else if(pause_mode == 'Outside gameplay' && !playing) {
             pause();
           }
         }
@@ -99,7 +108,7 @@
         if(!forced_pause) {
           if(pause_mode == 'Never') {
             unpause();
-          } else if(pause_mode == 'Outside gameplay' && !(new_state.state.name != 'play' || gameplay_paused)) {
+          } else if(pause_mode == 'Outside gameplay' && playing) {
             unpause();
           }
         }
