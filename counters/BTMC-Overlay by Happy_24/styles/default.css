@@ -8,6 +8,12 @@
     src: url('../fonts/Baloo2-Medium.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'YurukaStd';
+    src: url('../fonts/YurukaStd.ttf') format('truetype');
+}
+
+
 :root {
     --gradientColor1: #1D3860;
     --gradientColor2: #072045;
@@ -97,6 +103,7 @@ body {
 
     width: 570px;
     height: 92px;
+    left: 80px;
     border-radius: 15px;
     border: .3rem solid var(--outlineColor);
 
@@ -109,8 +116,9 @@ body {
 
 .beat-lighting {
     position: absolute;
+    left: 100px;
     top: 13.5px;
-
+    
     height: 65px;
     width: 570px;
 
@@ -408,6 +416,44 @@ body {
     transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+.mod-container {
+    position: absolute;
+    z-index: -10;
+    transform: translateX(100%);
+    transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.mod-bg {
+    background-image: url('../assets/freedomDive/fd-mods.png');
+    background-size: 110%;
+    background-repeat: no-repeat;
+    width: 103px;
+    height: 104px;
+    position: relative;
+    left: -10px;
+    top: 14px;
+    z-index: -10;
+}
+
+.mod-text {
+    position: relative;
+    left: 31px;
+    top: 11px;
+}
+
+.mod-extension {
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    white-space: nowrap;
+    position: absolute;
+    left: 13px;
+    top: 50px;
+    font-size: 0.7rem;
+    z-index: -9;
+}
+
 .title-wrapper {
     display: flex;
 }
@@ -438,3 +484,29 @@ body {
     }
 }
 
+.difficulty-graph {
+    position: relative;
+    left: 77px;
+    height: 64px;
+    width: 549px;
+    margin: 0 10px;
+}
+
+.difficulty-graph > * {
+    position: absolute;
+    top: 0;
+}
+
+.difficulty-graph .progress {
+    width: 549px;
+    overflow: hidden;
+    transition: ease 600ms;
+}
+
+.difficulty-graph .chart {
+    transform: scale(1, -1);
+}
+
+.flipped {
+    transform: scaleY(-1);
+}
