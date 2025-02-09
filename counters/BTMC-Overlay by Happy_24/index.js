@@ -29,23 +29,25 @@ new Odometer({
 });
 
 const cache = {
-    h100: -1,
-    h50: -1,
-    h0: -1,
-    sliderBreaks: -1,
-    accuracy: -1,
+    h100: 0,
+    h50: 0,
+    h0: 0,
+    sliderBreaks: 0,
+    accuracy: 0,
     title: "",
     artist: "",
-    difficulty: "{}",
-    bpm: -1,
-    cs: -1,
-    ar: -1,
-    od: -1,
-    hp: -1,
-    maxSR: -1,
-    ppFC: -1,
+    difficulty: "",
+    bpm: 0,
+    cs: 0,
+    ar: 0,
+    od: 0,
+    hp: 0,
+    maxSR: 0,
+    ppFC: 0,
     background: "",
-    difficultyGraph: ''
+    difficultyGraph: '',
+    skin: "",
+    mods_name: ""
 };
 
 /** @type {0 | 1 | 2 | 3 | 4 | 5} from 0 (no smoothing) to 5 (max smoothing)  */
@@ -143,6 +145,16 @@ socket.commands((data) => {
             }
         }
 
+        if (message['ModsDisabled'] != null) {
+            cache['ModsDisabled'] = message['ModsDisabled'];
+
+            if (Boolean(cache['ModsDisabled']) == true) {
+                document.getElementById('mod-c').style.display = 'none';
+            } else {
+                document.getElementById('mod-c').style.display = 'block';
+            }
+        }
+
         if (message['UseSSPP'] != null) {
             cache['UseSSPP'] = message['UseSSPP'];
         }
@@ -196,11 +208,7 @@ socket.commands((data) => {
             };
 
             graphSmoothing = smoothingMap[message['GraphSmoothing']];
-            try {
-                renderGraph(JSON.parse(cache.difficultyGraph));
-            } catch (error) {
-                console.log(error);
-            };
+            renderGraph(JSON.parse(cache.difficultyGraph));
         }
 
         if (message['CutoffPos'] != null) {
@@ -218,6 +226,17 @@ socket.commands((data) => {
                 "Right": "40px",
                 "None": "20px"
             };
+
+            if (message['CutoffPos'] === 'Left' && message['Skin'] !== 'FREEDOM DiVE REiMAGINED') {
+                document.getElementById('mod-c').style.display = 'none';
+                document.querySelector('.beat-lighting').style.left = '80px';
+            } else if (message['CutoffPos'] === 'Right'&& message['Skin'] !== 'FREEDOM DiVE REiMAGINED'){
+                document.getElementById('mod-c').style.display = 'none';
+                document.querySelector('.beat-lighting').style.left = '120px';
+            } else if (Boolean(cache['ModsDisabled']) == false && message['Skin'] !== 'FREEDOM DiVE REiMAGINED') {
+                document.getElementById('mod-c').style.display = 'block';
+                document.querySelector('.beat-lighting').style.left = '100px';
+            }
 
             let cutoffPosition = message['CutoffPos'];
 
@@ -245,13 +264,29 @@ socket.commands((data) => {
             if (message['GraphPos'] === 'Above') {
                 difficultyGraph.classList.add('flipped');
                 document.body.style.setProperty('flex-direction', 'column-reverse');
-                document.querySelector('.beat-lighting').style.setProperty('top', '75.5px');
             } else if (message['GraphPos'] === 'Below') {
                 difficultyGraph.classList.remove('flipped');
                 document.body.style.setProperty('flex-direction', 'column');
-                document.querySelector('.beat-lighting').style.setProperty('top', '13.5px');
             }
         }
+
+        if (message['Skin'] != null || message['Skin'] != cache['skin']) {
+            cache['skin'] = message['Skin'];
+            const cssfile = document.getElementById('cssfile');
+            if (cssfile) { 
+                if (cache['skin'] === 'FREEDOM DiVE REiMAGINED') {
+                    cssfile.href = 'styles/freedomdive.css';
+                    document.querySelector('.sr-star').style.backgroundColor = '';
+                    document.querySelector('.sr-star').style.backgroundImage = (Math.round(parseFloat(document.getElementById('sr').textContent) * 100) / 100) >= 6.5 ? "url('./assets/freedomDive/fd-star.png')" : "url('./assets/freedomDive/fd-star-black.png')";
+                } else {
+                    cssfile.href = 'styles/default.css';
+                }
+            } else {
+                console.error('CSS file element not found');
+            }
+        }
+        
+        
 
         if (message['GradientColor1'] != null) {
             document.body.style.setProperty('--gradientColor1', message['GradientColor1']);
@@ -266,7 +301,7 @@ socket.commands((data) => {
             document.body.style.setProperty('--dashedLineColor', message['DashedLinesColor']);
         };
         if (message['100Color'] != null) {
-            document.body.style.setProperty('--hunderdColor', message['100Color']);
+            document.body.style.setProperty('--hundredColor', message['100Color']);
         };
         if (message['50Color'] != null) {
             document.body.style.setProperty('--fiftyColor', message['50Color']);
@@ -286,6 +321,7 @@ socket.commands((data) => {
 
 let animationId0;
 let animationId1;
+let animationId2;
 
 const h100 = new CountUp('h100', 0, 0, 0, .5, { useEasing: true, useGrouping: true, separator: " ", decimal: "." });
 const h50 = new CountUp('h50', 0, 0, 0, .5, { useEasing: true, useGrouping: true, separator: " ", decimal: "." });
@@ -316,43 +352,47 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
         let hits = state.name === 'resultScreen' ? resultsScreen.hits : play.hits;
 
         const isSliderBreak = cache.sliderBreaks !== hits['sliderBreaks'];
+        const isMultiplayerResultScreen = ['rankingVs', 'rankingTagCoop', 'rankingTeam'].includes(state.name);
 
-        if (cache.h100 !== hits['100']) {
+        if (cache.h100 !== hits['100'] && !isMultiplayerResultScreen) {
             cache.h100 = hits['100'];
             h100.update(hits['100']);
             hitJudgementsCleared = false;
 
-            if (hits['100'] > 0 && state.name === "play") {
+            if (hits['100'] > 0 && state.name === 'play') {
                 cache.sliderBreaks = hits['sliderBreaks'];
                 hitJudgementsAdd(hitJudgementsElement, "100", percentage, isSliderBreak);
             }
         }
 
-        if (cache.h50 !== hits['50']) {
+        if (cache.h50 !== hits['50'] && !isMultiplayerResultScreen) {
             cache.h50 = hits['50'];
             h50.update(hits['50']);
             hitJudgementsCleared = false;
 
-            if (hits['50'] > 0 && state.name === "play") {
+            if (hits['50'] > 0 && state.name === 'play') {
                 cache.sliderBreaks = hits['sliderBreaks'];
                 hitJudgementsAdd(hitJudgementsElement, "50", percentage, isSliderBreak);
             }
         }
 
-        if (cache.h0 !== hits['0']) {
+        if (cache.h0 !== hits['0'] && !isMultiplayerResultScreen) {
             cache.h0 = hits['0'];
             h0.update(hits['0']);
             hitJudgementsCleared = false;
 
-            if (hits['0'] > 0 && state.name === "play") {
+            if (hits['0'] > 0 && state.name === 'play') {
                 cache.sliderBreaks = hits['sliderBreaks'];
                 hitJudgementsAdd(hitJudgementsElement, "x", percentage, isSliderBreak);
             }
         }
 
-        if (hits['100'] === 0 && hits['50'] === 0 && hits['0'] === 0 && !hitJudgementsCleared && state.name !== 'resultScreen') {
+        const isResultScreen = state.name === 'resultScreen' || isMultiplayerResultScreen;
+
+        if (hits['100'] === 0 && hits['50'] === 0 && hits['0'] === 0 && !hitJudgementsCleared && !isResultScreen) {
             hitJudgementsClear(hitJudgementsElement);
             hitJudgementsCleared = true;
+            cache.sliderBreaks = 0;
         }
 
         if (cache.pp !== Math.round(pp.current)) {
@@ -471,7 +511,12 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
             let srTextColor = beatmap.stats.stars.total >= 6.5 ? '#fd5' : '#000000';
             sr.innerHTML = beatmap.stats.stars.total.toFixed(2);
             sr.style.color = srTextColor;
-            document.querySelector('.sr-star').style.backgroundColor = srTextColor;
+            if (cache.skin === 'FREEDOM DiVE REiMAGINED') {
+                document.querySelector('.sr-star').style.backgroundColor = '';
+                document.querySelector('.sr-star').style.backgroundImage = beatmap.stats.stars.total >= 6.5 ? "url('./assets/freedomDive/fd-star.png')" : "url('./assets/freedomDive/fd-star-black.png')";
+            } else {
+                document.querySelector('.sr-star').style.backgroundColor = srTextColor;
+            }
             document.getElementById('srCont').style.backgroundColor = getDiffColour(cache.maxSR);
         }
 
@@ -495,7 +540,7 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
         const hitErrorsContainer = document.querySelector('.hit-errors')
 
 
-        if (state.name !== 'play' && state.name !== 'resultScreen') {
+        if (state.name !== 'play' && state.name !== 'resultScreen' && !isMultiplayerResultScreen) {
             const pp = document.getElementById('ppFC');
 
             const hitErrors = document.getElementById('ppFC');
@@ -506,10 +551,16 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
 
             hitErrorsContainer.style.height = 0;
             hitErrorsContainer.style.opacity = 0;
-            ppContainer.style.height = '100%';
+            if (cache.skin === 'FREEDOM DiVE REiMAGINED') {
+                ppContainer.style.height = '50%';
+            } else {
+                ppContainer.style.height = '100%';
 
+            }
+            
             ppValueContainer.style.transform =
-                `translateX(-50%) scale(1.8)`
+                `translateX(-50%) scale(1.5)`
+            
             ppValueContainer.style.left = '50%'
 
             ppCurrent.style.opacity = 0;
@@ -522,7 +573,13 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
 
             hitErrorsContainer.style.height = '60%';
             hitErrorsContainer.style.opacity = 1;
-            ppContainer.style.height = '40%';
+        
+            if (cache.skin === 'FREEDOM DiVE REiMAGINED') {
+                ppContainer.style.height = '80%';
+            } else {
+                ppContainer.style.height = '50%';
+
+            }
 
             ppValueContainer.style.transform =
                 `translateX(-50%) scale(1)`
@@ -535,6 +592,20 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
             ppCurrent.style.left = '25%';
             slash.style.transform = 'translate(-50%, 0px)';
         }
+
+        if (cache.mods_name != play.mods.name) {
+            cache.mods_name = play.mods.name;
+            if (play.mods.name === '' || play.mods.name === 'RX') {
+                document.querySelector('.mod-container').style.transform = 'translateX(100%)';
+            } else {
+                document.querySelector('.mod-container').style.transform = 'translateX(0%)';
+            }
+            Array.from(document.getElementsByClassName('mods')).forEach(element => {
+                element.innerHTML = play.mods.name.replace(/(.{2})(?=.)/g, '$1 ');
+            })
+            reset('mods-text')
+            checkAndAnimateScroll(document.querySelector('.mods-wrapper'), document.getElementById('mods'));
+        };
 
         if (cache['menu.bm.path.full'] != directPath.beatmapBackground) {
             cache['menu.bm.path.full'] = directPath.beatmapBackground;
@@ -586,6 +657,8 @@ function reset(item) {
         cancelAnimationFrame(animationId0);
     } else if (animationId1 && item === 'diff-text') {
         cancelAnimationFrame(animationId1);
+    } else if (animationId2 && item === 'mods-text') {
+        cancelAnimationFrame(animationId2);
     }
 }
 
