@@ -6,23 +6,15 @@ import GraphFill from "./GraphFill.js";
  * @typedef {{ x: number, y: number }} Point
  */
 
-// /**
-//  * @param {number} x
-//  * @param {number} y
-//  * @param {Point | undefined} out
-//  * @return {Point}
-//  */
-
 /**
  *
  * @param {ArrayLike<number>} array
  * @param windowSize
  * @return {Float64Array}
  */
-
 export function slidingAverageWindowFilter(array, windowSize) {
     const result = new Float64Array(array.length);
-
+  
     for (let i = 0; i < array.length; i += 1) {
         const left = i - windowSize;
         const from = left >= 0
@@ -40,7 +32,7 @@ export function slidingAverageWindowFilter(array, windowSize) {
 
         result[i] = sum / count;
     }
-
+  
     return result;
 }
 
