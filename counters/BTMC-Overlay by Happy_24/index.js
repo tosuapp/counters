@@ -208,7 +208,7 @@ socket.commands((data) => {
             };
 
             graphSmoothing = smoothingMap[message['GraphSmoothing']];
-            renderGraph(JSON.parse(cache.difficultyGraph));
+            if (cache.difficultyGraph != '') renderGraph(JSON.parse(cache.difficultyGraph));
         }
 
         if (message['CutoffPos'] != null) {
