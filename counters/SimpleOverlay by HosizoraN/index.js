@@ -97,12 +97,12 @@ socket.commands((data) => {
     };
   });
 
-socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) => {
+socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, settings}) => {
     try {
 
-        if (cache.mode != profile.mode.name) {
-          cache.mode = profile.mode.name;
-          if (profile.mode.name == "osu") {
+        if (cache.mode != settings.mode.name) {
+          cache.mode = settings.mode.name;
+          if (settings.mode.name == "osu") {
             document.getElementById('pp').style.transform = `translateY(0)`;
             document.getElementById('accInfo').style.transform = `translateY(0)`;
             document.getElementById('accInfo').style.width = `250px`;
@@ -125,7 +125,7 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             rkatu.style.display = `block`;
             r50.style.display = `block`;
           }
-          if (profile.mode.name == "mania") {
+          if (settings.mode.name == "mania") {
             document.getElementById('accInfo').style.width = `250px`;
             document.getElementById('hSB').style.display = `none`;
             document.getElementById('katu').style.display = `block`;
@@ -145,7 +145,7 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             rkatu.style.display = `block`;
             r50.style.display = `block`;
           }
-          if (profile.mode.name == "taiko") {
+          if (settings.mode.name == "taiko") {
             document.getElementById('katu').style.display = `none`;
             document.getElementById('hSB').style.display = `none`;
             document.getElementById('h50').style.display = `none`;
@@ -165,7 +165,7 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
             rgeki.style.display = `none`;
             rkatu.style.display = `none`;
          }
-         if (profile.mode.name == "fruits") {
+         if (settings.mode.name == "fruits") {
             document.getElementById('pp').style.transform = `translateY(-180px)`;
             document.getElementById('accInfo').style.transform = `translateY(-180px)`;
             document.getElementById('accInfo').style.width = `100px`;
@@ -318,16 +318,16 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, profile}) 
 
         let CalcAcc;
 
-        if (profile.mode.name == `osu`) {
+        if (settings.mode.name == `osu`) {
           CalcAcc = ((resultsScreen.hits[300] + resultsScreen.hits[100] / 3 + resultsScreen.hits[50] / 6) / (resultsScreen.hits[300] + resultsScreen.hits[100] + resultsScreen.hits[50] + resultsScreen.hits[0])) * 100;
         }
-        if (profile.mode.name == `mania`) {
+        if (settings.mode.name == `mania`) {
           CalcAcc = ((6 * resultsScreen.hits[300] + resultsScreen.hits.geki * 6 + resultsScreen.hits.katu * 4 + resultsScreen.hits[100] * 2 + resultsScreen.hits[50]) / (6 * (resultsScreen.hits[300] + resultsScreen.hits.geki + resultsScreen.hits.katu + resultsScreen.hits[100] + resultsScreen.hits[50] + resultsScreen.hits[0]))) * 100;
         }
-        if (profile.mode.name == `taiko`) {
+        if (settings.mode.name == `taiko`) {
           CalcAcc = ((resultsScreen.hits[300] + resultsScreen.hits[100] / 2) / (resultsScreen.hits[300] + resultsScreen.hits[100] + resultsScreen.hits[0])) * 100;
         }
-        if (profile.mode.name == `fruits`) {
+        if (settings.mode.name == `fruits`) {
           CalcAcc = ((resultsScreen.hits[300] + resultsScreen.hits[100] + resultsScreen.hits[50]) / (resultsScreen.hits[300] + resultsScreen.hits.katu + resultsScreen.hits[100] + resultsScreen.hits[50] + resultsScreen.hits[0])) * 100;
         }
 
