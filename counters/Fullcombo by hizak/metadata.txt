@@ -1,1 +1,7 @@
-
+Usecase: ingame, obs-overlay
+Name: Fullcombo
+Version: 1.05
+Author: hizak
+CompatibleWith: gosu, tosu
+Resolution: 1028x768
+authorLinks: https://osu.ppy.sh/users/29277451
