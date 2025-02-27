@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: Fullcombo
-Version: 1.05
+Version: 1.0
 Author: hizak
 CompatibleWith: gosu, tosu
 Resolution: 1028x768
