@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+      #fullcombo {
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+      }
+      p {
+        display: none;
+        top: 0%;
+        left: 0%;
+        color: white;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <img id = "fullcombo" src = "assets/empty.png">
+    <p id = "console"></p>
+    <p id = "error"></p>
+    <script>
+      window.onload = function () {
+        let logs = [];
+        console.log = (...args) => {
+          logs.unshift(args[0])
+          logs = logs.filter((log,i) => i < 15)
+          document.getElementById("console").innerHTML = logs.join("</br>");
+        }
+      }
+    </script>
+    <script src="js/animationPlayer.js"></script>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+[
+  {
+    "uniqueID": "enableSkinFolderAnimation",
+    "type": "checkbox",
+    "title": "Enable skin folder animation",
+    "description": "osu!/Skins/'SKIN'/custom_fullcombo.png (AnimatedPNG)",
+    "options": "",
+    "value": false
+  }
+]
