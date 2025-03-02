@@ -3,5 +3,5 @@ Name: Fullcombo
 Version: 1.0
 Author: hizak
 CompatibleWith: gosu, tosu
-Resolution: 1028x768
+Resolution: Any x Any
 authorLinks: https://osu.ppy.sh/users/29277451
