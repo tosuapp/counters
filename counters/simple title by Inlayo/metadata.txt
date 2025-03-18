@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name: simple title
+Version: 1.0
+Author: Inlayo
+CompatibleWith: gosu, tosu
+Resolution: 500x50
+authorLinks: https://github.com/Inlayo

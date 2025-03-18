@@ -23,9 +23,9 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000000aa;
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
-  width: 150px;
+  width: 120px;
   height: 60px;
 }
 

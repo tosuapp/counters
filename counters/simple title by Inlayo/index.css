@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "Letters for Learner";
+    src: url("./font/Letters for Learners.ttf");
+}
+
+html {
+    font-family: "Letters for Learner";
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#title {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 500;
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    animation: slide 10s linear infinite;
+    left: 0px;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(500px);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
