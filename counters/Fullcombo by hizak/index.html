@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <style>
-      body, html {
+      body,
+      html {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -17,7 +18,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-
       }
       p {
         display: none;
@@ -29,16 +29,16 @@
     </style>
   </head>
   <body>
-    <img id = "fullcombo" src = "assets/empty.png">
-    <p id = "console"></p>
-    <p id = "error"></p>
+    <img id="fullcombo" src="assets/empty.png" />
+    <p id="console"></p>
+    <p id="error"></p>
     <script>
       window.onload = function () {
-        let logs = [];
+        let logs = []
         console.log = (...args) => {
           logs.unshift(args[0])
-          logs = logs.filter((log,i) => i < 15)
-          document.getElementById("console").innerHTML = logs.join("</br>");
+          logs = logs.filter((log, i) => i < 15)
+          document.getElementById('console').innerHTML = logs.join('</br>')
         }
       }
     </script>
