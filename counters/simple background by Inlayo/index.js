@@ -24,9 +24,8 @@ function getRandomInt(max) {
 
 socket.onmessage = event => {
     let data = JSON.parse(event.data);
-    if (tempImg !== data.menu.bm.path.full) {
-        tempImg = data.menu.bm.path.full
-        data.menu.bm.path.full = data.menu.bm.path.full.replace(/#/g, '%23').replace(/%/g, '%25')
-        bg.setAttribute('src', `http://${HOST}/Songs/${data.menu.bm.path.full}?a=${Math.random(10000)}`)
+    if (tempImg !== data.menu.bm.md5) {
+        tempImg = data.menu.bm.md5
+        bg.setAttribute('src', `http://${HOST}/files/beatmap/background?a=${data.menu.bm.md5}`)
     }
 }
