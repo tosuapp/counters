@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name: simple background
+Version: 1.0
+Author: Inlayo
+CompatibleWith: gosu, tosu
+Resolution: 1920x1080
+authorLinks: https://github.com/Inlayo

@@ -1,0 +1,2 @@
+index.css > animation: slide [1~100]s linear infinite;
+index.css > transform: translateX([max size]px);
