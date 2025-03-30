@@ -1,4 +1,4 @@
-const HOST = '127.0.0.1:24050';
+const HOST = window.location.host;
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 let mapid = document.getElementById('mapid');
 

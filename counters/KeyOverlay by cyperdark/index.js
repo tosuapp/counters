@@ -2,7 +2,7 @@ import WebSocketManager from './js/socket.js';
 import CanvasKeys from './js/canvas.js';
 
 
-let websocketUrl = '127.0.0.1:24050';
+let websocketUrl = window.location.host;
 const socket = new WebSocketManager(websocketUrl);
 
 
@@ -29,12 +29,6 @@ socket.commands((data) => {
 
     const { command, message } = data;
     if (command == 'getSettings') {
-      if (message['websocketUrl'] != websocketUrl) {
-        websocketUrl = message['websocketUrl'];
-        socket.close(websocketUrl);
-      };
-
-
       if (cache['k1PressColor'] != message['k1PressColor']) keys.k1.color = message['k1PressColor'];
       if (cache['k2PressColor'] != message['k2PressColor']) keys.k2.color = message['k2PressColor'];
       if (cache['m1PressColor'] != message['m1PressColor']) keys.m1.color = message['m1PressColor'];

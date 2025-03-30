@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: KeyOverlay
-Version: 1.1
+Version: 1.2
 Author: HosizoraN
 CompatibleWith: tosu
 Resolution: 330x240

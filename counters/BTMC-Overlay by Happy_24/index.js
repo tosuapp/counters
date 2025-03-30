@@ -11,7 +11,7 @@ import {
 } from "./js/fast-smooth.js";
 import { hitJudgementsAdd, hitJudgementsClear } from "./js/hit-judgements.js";
 import GraphFill, { Color } from "./js/GraphFill.js";
-const socket = new WebSocketManager('127.0.0.1:24050');
+const socket = new WebSocketManager(window.location.host);
 
 new Odometer({
     el: document.getElementById('bpm'),

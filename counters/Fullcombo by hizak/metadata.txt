@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: Fullcombo
-Version: 1.0
+Version: 1.001
 Author: hizak
 CompatibleWith: gosu, tosu
 authorLinks: https://osu.ppy.sh/users/29277451

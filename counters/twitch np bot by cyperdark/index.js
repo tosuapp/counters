@@ -189,8 +189,7 @@ const descriptions = [
 
 
 
-let host = "127.0.0.1:24050" || window.location.host;
-const socket = new WebSocketManager(host);
+const socket = new WebSocketManager(window.location.host);
 const client_id = 'tkczcp9ksjp7sji2tww43eerc4vqz7';
 
 
@@ -651,7 +650,7 @@ socket.api_v2(async (data) => {
 
         if (cache['skin-name'] != data.folders.skin) {
             try {
-                const request = await fetch(`http://${host}/files/skin/skin.ini`);
+                const request = await fetch(`http://${window.location.host}/files/skin/skin.ini`);
                 const text = await request.text();
 
                 const lines = text.split('\n');

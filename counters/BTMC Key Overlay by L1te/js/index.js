@@ -3,7 +3,7 @@
 import WebSocketManager from "./socket.js";
 import { generateColor, getRandomInt } from "./stackoverflow.js";
 
-let websocketUrl = "127.0.0.1:24050";
+let websocketUrl = window.location.host;
 const socket = new WebSocketManager(websocketUrl);
 
 // Cache for key presses
