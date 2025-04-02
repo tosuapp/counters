@@ -61,7 +61,7 @@
         "title": "Timing Windows Opacity (0 - 1)",
         "description": "",
         "options": [],
-        "value": 0.5
+        "value": 0
     },
     {
         "uniqueID": "timingWindowHeight",
@@ -165,7 +165,7 @@
         "title": "Tick Duration (ms)",
         "description": "",
         "options": [],
-        "value": 1500
+        "value": 500
     },
     {
         "uniqueID": "fadeOutDuration",
@@ -173,7 +173,7 @@
         "title": "Fade Out Duration (ms)",
         "description": "",
         "options": [],
-        "value": 300
+        "value": 800
     },
     {
         "uniqueID": "showSD",
@@ -181,7 +181,7 @@
         "title": "Show UR (ms)",
         "description": "",
         "options": [],
-        "value": true
+        "value": false
     },
     {
         "uniqueID": "isRounded",
