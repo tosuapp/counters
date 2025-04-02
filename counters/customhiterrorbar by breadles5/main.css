@@ -1,0 +1,232 @@
+:root {
+    /* Base colors */
+    --color-300g: #ffffff;
+    --color-300: #ffff00;
+    --color-200: #00ff00;
+    --color-100: #00bfff;
+    --color-50: #8a2ce2;
+    --color-0: #ff0000;
+
+    /* Arrow colors */
+    --arrow-early: #ff0000;
+    --arrow-late: #00aaff;
+    --arrow-perfect: #fff;
+
+    /* Bar settings */
+    --bar-color: #ffffff;
+    --bar-width: 10px;
+    --bar-height: 75px;
+    --bar-radius: 0px;
+
+    /* Sizes */
+    --tick-width: 10px;
+    --tick-height: 50px;
+    --container-width: 752px;
+    --arrow-size: 20px;
+    --tick-radius: 0px;
+
+    /* Theme */
+    --tick-opacity: 0.75;
+    --timing-windows-opacity: 0.33;
+    --timing-window-height: 100;
+    --timing-window-radius: 0px;
+
+    /* Animation */
+    --tick-duration: 3000ms;
+    --fade-out-duration: 300ms;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0);
+    contain: layout style paint;
+    transition: opacity 200ms linear;
+}
+body {
+    display: flex;
+    justify-content: center;
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--container-width);
+    contain: layout style;
+    position: relative;
+    height: var(--bar-height);
+    justify-self: center;
+}
+.sd {
+    text-align: center;
+    font: 2.5rem "Helvetica", sans-serif, bold;
+    color: #ffffff;
+    transition: linear 200ms;
+    width: var(--container-width);
+    contain: content;
+    justify-self: center;
+    transition: opacity 200ms linear;
+    opacity: 0.8;
+}
+
+/*arrow*/
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    width: var(--container-width);
+    height: var(--arrow-size);
+    contain: layout size;
+    justify-self: center;
+}
+
+.arrow {
+    transition: transform 300ms linear, opacity 200ms linear;
+    width: 0;
+    height: 0;
+    border-left: calc(var(--arrow-size) * 0.667) solid transparent;
+    border-right: calc(var(--arrow-size) * 0.667) solid transparent;
+    border-top: var(--arrow-size) solid var(--arrow-perfect);
+    transform: translate3d(0,0,0);
+    opacity: 1;
+    will-change: transform, opacity;
+}
+
+.colors-container,
+.tick-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--bar-height);
+    width: var(--container-width);
+    contain: layout paint style;
+    transition: opacity 200ms linear;
+}
+
+.colors-container {
+    opacity: var(--timing-windows-opacity);
+    contain: layout paint style;
+}
+
+.colors-container > div {
+    opacity: 1;
+    position: absolute;
+    height: calc(var(--timing-window-height) * 1%);
+    transition: linear 200ms;
+    border-radius: var(--timing-window-radius);
+    contain: layout paint;
+}
+
+/* Timing window colors */
+.timing-window-300g {
+    background-color: var(--color-300g);
+    z-index: 6;
+}
+
+.timing-window-300 {
+    background-color: var(--color-300);
+    z-index: 5;
+}
+
+.timing-window-200 {
+    background-color: var(--color-200);
+    z-index: 4;
+}
+
+.timing-window-100 {
+    background-color: var(--color-100);
+    z-index: 3;
+}
+
+.timing-window-50 {
+    background-color: var(--color-50);
+    z-index: 2;
+}
+
+.timing-window-0 {
+    background-color: var(--color-0);
+    max-width: 940px;
+    z-index: 1;
+}
+
+/* Tick styling */
+.tick-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--bar-height);
+    width: var(--container-width);
+    contain: layout paint style;
+    overflow: hidden;
+    opacity: 1;
+    clip-path: inset(0);
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
+}
+
+.tick {
+    position: absolute;
+    width: var(--tick-width);
+    height: var(--tick-height);
+    border-radius: var(--tick-radius);
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    contain: layout paint style;
+    opacity: var(--tick-opacity);
+    z-index: 7;
+}
+
+.tick:not(.inactive) {
+    animation: fadeOut var(--fade-out-duration) linear var(--tick-duration) forwards;
+}
+
+.tick.inactive {
+    visibility: hidden;
+    pointer-events: none;
+    animation: none;
+    opacity: 0;
+}
+/* Timing window-based colors for ticks */
+.tick._300g {
+    background-color: var(--color-300g);
+}
+
+.tick._300 {
+    background-color: var(--color-300);
+}
+
+.tick._200 {
+    background-color: var(--color-200);
+}
+
+.tick._100 {
+    background-color: var(--color-100);
+}
+
+.tick._50 {
+    background-color: var(--color-50);
+}
+
+.tick._0 {
+    background-color: var(--color-0);
+}
+
+.bar {
+    position: absolute;
+    width: var(--bar-width);
+    height: var(--bar-height);
+    background-color: var(--bar-color);
+    border-radius: var(--bar-radius);
+    z-index: 8;
+    contain: layout paint style;
+}
+
+.hidden {
+    opacity: 0 !important;
+    pointer-events: none;
+}

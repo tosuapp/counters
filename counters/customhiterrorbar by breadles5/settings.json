@@ -1,0 +1,194 @@
+[
+    {
+        "uniqueID": "doesNothing",
+        "type": "textarea",
+        "title": "Notes:",
+        "description": "color selection only works in dashboard, not ingame overlay manager (TOSU ISSUE)   \n\nsetting names should be clear as to what they do and how they are implemented relative to another setting/element   \n\nnumeric settings for dimensions and timings (px and ms) do not have any limits, but take note of the following:   \n\n        - adjust your metadata.txt and obs browser source dimension settings when changing (px) values   \n\n        - percentage values should be limited from 0 to 100   \n\n        - opacity values should be limited from 0 to 1   \n\n        - changing the timings to be higher can greatly detriment performance as there will be more elements to render.\n\nhave fun!",
+        "options": [],
+        "value": "feel free to adjust this text. it does nothing."
+    },
+    {
+        "uniqueID": "color300g",
+        "type": "color",
+        "title": "300g Color",
+        "description": "",
+        "options": [],
+        "value": "#ffffff"
+    },
+    {
+        "uniqueID": "color300",
+        "type": "color",
+        "title": "300 Color",
+        "description": "",
+        "options": [],
+        "value": "#ffff00"
+    },
+    {
+        "uniqueID": "color200",
+        "type": "color",
+        "title": "200 Color",
+        "description": "",
+        "options": [],
+        "value": "#00ff40"
+    },
+    {
+        "uniqueID": "color100",
+        "type": "color",
+        "title": "100 Color",
+        "description": "",
+        "options": [],
+        "value": "#0080c0"
+    },
+    {
+        "uniqueID": "color50",
+        "type": "color",
+        "title": "50 Color",
+        "description": "",
+        "options": [],
+        "value": "#8000ff"
+    },
+    {
+        "uniqueID": "color0",
+        "type": "color",
+        "title": " Miss Color",
+        "description": "",
+        "options": [],
+        "value": "#ff0000"
+    },
+    {
+        "uniqueID": "TimingWindowOpacity",
+        "type": "number",
+        "title": "Timing Windows Opacity (0 - 1)",
+        "description": "",
+        "options": [],
+        "value": 0
+    },
+    {
+        "uniqueID": "timingWindowHeight",
+        "type": "number",
+        "title": "Timing Window Height (% of Center Bar Height)",
+        "description": "",
+        "options": [],
+        "value": 40
+    },
+    {
+        "uniqueID": "colorArrowEarly",
+        "type": "color",
+        "title": "Early Arrow Color",
+        "description": "",
+        "options": [],
+        "value": "#0080ff"
+    },
+    {
+        "uniqueID": "colorArrowLate",
+        "type": "color",
+        "title": "Late Arrow Color",
+        "description": "",
+        "options": [],
+        "value": "#ff0000"
+    },
+    {
+        "uniqueID": "colorArrowPerfect",
+        "type": "color",
+        "title": "Perfect Arrow Color",
+        "description": "",
+        "options": [],
+        "value": "#ffffff"
+    },
+    {
+        "uniqueID": "arrowSize",
+        "type": "number",
+        "title": "Arrow Size (px)",
+        "description": "",
+        "options": [],
+        "value": 25
+    },
+    {
+        "uniqueID": "perfectArrowThreshold",
+        "type": "number",
+        "title": "Perfect Arrow Threshold (ms)",
+        "description": "",
+        "options": [],
+        "value": 5
+    },
+    {
+        "uniqueID": "colorBar",
+        "type": "color",
+        "title": "Center Bar Color",
+        "description": "",
+        "options": [],
+        "value": "#bf0000"
+    },
+    {
+        "uniqueID": "barWidth",
+        "type": "number",
+        "title": "Center Bar Width (px)",
+        "description": "",
+        "options": [],
+        "value": 8
+    },
+    {
+        "uniqueID": "barHeight",
+        "type": "number",
+        "title": "Center Bar Height (px)",
+        "description": "",
+        "options": [],
+        "value": 60
+    },
+    {
+        "uniqueID": "tickWidth",
+        "type": "number",
+        "title": "Tick Width (px)",
+        "description": "",
+        "options": [],
+        "value": 8
+    },
+    {
+        "uniqueID": "tickHeight",
+        "type": "number",
+        "title": "Tick Height (px)",
+        "description": "",
+        "options": [],
+        "value": 40
+    },
+    {
+        "uniqueID": "tickOpacity",
+        "type": "number",
+        "title": "Tick Opacity (0 - 1)",
+        "description": "",
+        "options": [],
+        "value": 0.75
+    },
+    {
+        "uniqueID": "tickDuration",
+        "type": "number",
+        "title": "Tick Duration (ms)",
+        "description": "",
+        "options": [],
+        "value": 500
+    },
+    {
+        "uniqueID": "fadeOutDuration",
+        "type": "number",
+        "title": "Fade Out Duration (ms)",
+        "description": "",
+        "options": [],
+        "value": 800
+    },
+    {
+        "uniqueID": "showSD",
+        "type": "checkbox",
+        "title": "Show UR (ms)",
+        "description": "",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "isRounded",
+        "type": "number",
+        "title": "Rounded Elements (%)",
+        "description": "",
+        "options": [],
+        "value": 100
+    }
+]
