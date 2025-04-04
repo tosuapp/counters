@@ -362,8 +362,9 @@ const calculateGameModeWindows = (gamemode, od, mods) => {
 };
 
 const tickElementsArray = [];
+const lastAppliedX = [];
 let areTicksRendered = false;
-const disableHardwareAcceleration$1 = settings.disableHardwareAcceleration;
+const { disableHardwareAcceleration: disableHardwareAcceleration$1 } = settings;
 const renderTicksOnLoad = () => {
   if (areTicksRendered) return;
   const container = getElement(".tick-container");
@@ -373,11 +374,13 @@ const renderTicksOnLoad = () => {
   }
   const fragment = document.createDocumentFragment();
   tickElementsArray.length = 0;
+  lastAppliedX.length = 0;
   for (let i = 0; i < cache.tickPool.PoolSize; i++) {
     const div = document.createElement("div");
     div.className = "tick inactive";
     fragment.appendChild(div);
     tickElementsArray.push(div);
+    lastAppliedX.push(Number.NaN);
   }
   container.appendChild(fragment);
   areTicksRendered = true;
@@ -389,11 +392,11 @@ const resetTicks = () => {
     const tickElement = tickElementsArray[i];
     if (!tickElement) continue;
     tickElement.className = "tick inactive";
-    if (disableHardwareAcceleration$1) {
-      tickElement.style.transform = "translateX(0px)";
-      return;
+    const initialTransform = disableHardwareAcceleration$1 ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
+    if (tickElement.style.transform !== initialTransform) {
+      tickElement.style.transform = initialTransform;
     }
-    tickElement.style.transform = "translate3d(0px, 0px, 0px)";
+    lastAppliedX[i] = 0;
   }
 };
 const updateTicks = () => {
@@ -404,19 +407,22 @@ const updateTicks = () => {
       const tickElement = tickElementsArray[i];
       if (tick.classNames !== tickElement.className) {
         tickElement.className = tick.classNames;
-        if (disableHardwareAcceleration$1) {
-          tickElement.style.transform = `translateX(${tick.position}px)`;
-          return;
+      }
+      const targetX = tick.position;
+      const lastX = lastAppliedX[i];
+      if (targetX !== lastX) {
+        const newTransform = disableHardwareAcceleration$1 ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
+        if (tickElement.style.transform !== newTransform) {
+          tickElement.style.transform = newTransform;
         }
-        tickElement.style.transform = `translate3d(${tick.position}px, 0px, 0px)`;
+        lastAppliedX[i] = targetX;
       }
     }
   });
 };
 
 const arrow = getElement(".arrow");
-const disableHardwareAcceleration = settings.disableHardwareAcceleration;
-const perfectArrowThreshold = settings.perfectArrowThreshold;
+const { perfectArrowThreshold, disableHardwareAcceleration } = settings;
 const getArrowColor = (average) => {
   const absError = Math.abs(average);
   const threshold = perfectArrowThreshold;
@@ -485,7 +491,7 @@ class TickImpl {
     TickImpl.setClassNames(tick);
   }
   static setClassNames(tick) {
-    const timingWindows = cache.timingWindows;
+    const { timingWindows } = cache;
     tick.classNames = "tick";
     const hitError = Math.abs(tick.position >> 1);
     let matched = false;
@@ -522,7 +528,8 @@ class TickPool {
   }
   update(hitErrors) {
     const now = Date.now();
-    const timeoutThreshold = settings.tickDuration + settings.fadeOutDuration;
+    const { tickDuration, fadeOutDuration } = settings;
+    const timeoutThreshold = tickDuration + fadeOutDuration;
     const poolSize = this.PoolSize;
     const pool = this.pool;
     const activeTicks = this.activeTicks;
@@ -627,7 +634,7 @@ if (settings.showSD) {
     const sd = document.createElement("div");
     sd.classList.add("sd");
     sd.innerText = "0.00";
-    container.prepend(sd);
+    container.appendChild(sd);
   }
 }
 const apiV2Filters = ["state", "play", "beatmap"];
@@ -658,35 +665,33 @@ wsManager.api_v2((data) => {
   }
 }, apiV2Filters);
 const apiV2PreciseFilter = ["hitErrors", "currentTime"];
-while (cache.state === "play") {
-  wsManager.api_v2_precise((data) => {
-    const { hitErrors, currentTime } = data;
-    if (currentTime < cache.firstObjectTime) {
-      if (!cache.isReset) {
-        reset();
-        cache.isReset = true;
-      }
-    } else {
-      cache.tickPool.update(hitErrors);
-      if (cache.tickPool.activeTicks.size > 0) {
-        updateTicks();
-      }
-      const activeErrors = [];
-      for (const idx of cache.tickPool.activeTicks) {
-        activeErrors.push(cache.tickPool.pool[idx].position >> 1);
-      }
-      const medianError = median(activeErrors);
-      updateArrow(medianError);
-      if (settings.showSD) {
-        const standardDeviationError = standardDeviation(activeErrors);
-        const sdElement = getElement(".sd");
-        if (sdElement) {
-          sdElement.innerText = standardDeviationError.toFixed(2);
-        }
-      }
-      if (cache.isReset) {
-        cache.isReset = false;
+wsManager.api_v2_precise((data) => {
+  const { hitErrors, currentTime } = data;
+  if (currentTime < cache.firstObjectTime) {
+    if (!cache.isReset) {
+      reset();
+      cache.isReset = true;
+    }
+  } else {
+    cache.tickPool.update(hitErrors);
+    if (cache.tickPool.activeTicks.size > 0) {
+      updateTicks();
+    }
+    const activeErrors = [];
+    for (const idx of cache.tickPool.activeTicks) {
+      activeErrors.push(cache.tickPool.pool[idx].position >> 1);
+    }
+    const medianError = median(activeErrors);
+    updateArrow(medianError);
+    if (settings.showSD) {
+      const standardDeviationError = standardDeviation(activeErrors);
+      const sdElement = getElement(".sd");
+      if (sdElement) {
+        sdElement.innerText = standardDeviationError.toFixed(2);
       }
     }
-  }, apiV2PreciseFilter);
-}
+    if (cache.isReset) {
+      cache.isReset = false;
+    }
+  }
+}, apiV2PreciseFilter);
