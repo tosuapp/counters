@@ -190,5 +190,13 @@
         "description": "",
         "options": [],
         "value": 100
+    },
+    {
+        "uniqueID": "hardwareAcceleration",
+        "type": "checkbox",
+        "title": "Disable Hardware Acceleration",
+        "description": "only check this if you are using the overlay in the ingame overlay injector",
+        "options": [],
+        "value": false
     }
 ]
