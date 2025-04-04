@@ -34,6 +34,10 @@
     /* Animation */
     --tick-duration: 3000ms;
     --fade-out-duration: 300ms;
+
+    /* Hardware Acceleration Control */
+    --transform-prop: translate3d(0,0,0);
+    --will-change-prop: transform, opacity;
 }
 
 body,
@@ -88,9 +92,9 @@ body {
     border-left: calc(var(--arrow-size) * 0.667) solid transparent;
     border-right: calc(var(--arrow-size) * 0.667) solid transparent;
     border-top: var(--arrow-size) solid var(--arrow-perfect);
-    transform: translate3d(0,0,0);
+    transform: var(--transform-prop);
     opacity: 1;
-    will-change: transform, opacity;
+    will-change: var(--will-change-prop);
 }
 
 .colors-container,
@@ -174,8 +178,8 @@ body {
     width: var(--tick-width);
     height: var(--tick-height);
     border-radius: var(--tick-radius);
-    transform: translate3d(0, 0, 0);
-    will-change: transform, opacity;
+    /* transform: translate3d(0, 0, 0); */ /* Managed by JS */
+    will-change: var(--will-change-prop);
     contain: layout paint style;
     opacity: var(--tick-opacity);
     z-index: 7;
