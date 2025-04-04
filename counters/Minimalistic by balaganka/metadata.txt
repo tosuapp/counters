@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name: Minimalistic
+Version: 1.1.0
+Author: balaganka
+CompatibleWith: gosu, tosu
+Resolution: 170x130
+authorLinks: https://github.com/balfag

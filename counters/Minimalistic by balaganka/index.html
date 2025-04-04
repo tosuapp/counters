@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+   <meta http-equiv="Pragma" content="no-cache" />
+   <meta http-equiv="Expires" content="0" />
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>counter</title>
+   <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+   <div id="root">
+      <div id="line" class="line"></div>
+      <div class="main">
+         <div id="rank" class="rank">SS</div>
+         <div class="pp">
+            <div id="pp" class="currentPP">2000pp</div>
+            <div id="maxPP" class="maxPP">2000pp</div>
+         </div>
+      </div>
+      <div class="hits">
+         <div class="hit">
+            <div id="sb" class="sb">0</div>
+            <div class="sb line"></div>
+         </div>
+         <div class="hit">
+            <div dir="hit100" class="hit100">0</div>
+            <div class="hit100 line"></div>
+         </div>
+         <div class="hit">
+            <div id="hit50" class="hit50">0</div>
+            <div class="hit50 line"></div>
+         </div>
+         <div class="hit">
+            <div id="miss" class="miss">0</div>
+            <div class="miss line"></div>
+         </div>
+      </div>
+   </div>
+   <script src="deps/reconnecting-websocket.min.js"></script>
+   <script src="deps/countUp.js"></script>
+   <script src="index.js"></script>
+</body>
+
+</html>
