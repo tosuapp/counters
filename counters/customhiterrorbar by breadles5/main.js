@@ -170,24 +170,26 @@ const clearSD = () => {
   }
 };
 function updateTimingWindowElements() {
-  const timingWindows = cache.timingWindows;
-  const colorsContainer = getElement(".colors-container");
-  if (colorsContainer) {
-    colorsContainer.innerHTML = "";
-  }
-  const containerWidth = Math.abs(timingWindows.get("0") ?? 0) * 4;
-  document.documentElement.style.setProperty("--container-width", `${containerWidth}px`);
-  const createTimingWindow = (grade, width) => {
-    const div = document.createElement("div");
-    div.className = `timing-window-${grade}`;
-    div.style.width = `${Math.abs(width * 4)}px`;
-    return div;
-  };
-  const fragment = document.createDocumentFragment();
-  timingWindows.forEach((width, grade) => {
-    fragment.appendChild(createTimingWindow(String(grade), width));
+  requestAnimationFrame(() => {
+    const timingWindows = cache.timingWindows;
+    const colorsContainer = getElement(".colors-container");
+    if (colorsContainer) {
+      colorsContainer.innerHTML = "";
+    }
+    const containerWidth = Math.abs(timingWindows.get("0") ?? 0) * 4;
+    document.documentElement.style.setProperty("--container-width", `${containerWidth}px`);
+    const createTimingWindow = (grade, width) => {
+      const div = document.createElement("div");
+      div.className = `timing-window-${grade}`;
+      div.style.width = `${Math.abs(width * 4)}px`;
+      return div;
+    };
+    const fragment = document.createDocumentFragment();
+    timingWindows.forEach((width, grade) => {
+      fragment.appendChild(createTimingWindow(String(grade), width));
+    });
+    colorsContainer?.appendChild(fragment);
   });
-  colorsContainer?.appendChild(fragment);
 }
 
 const settings = {
@@ -213,8 +215,8 @@ const settings = {
   color100: "#000000",
   color50: "#000000",
   color0: "#000000",
-  showSD: true,
-  visible: true
+  showSD: false,
+  disableHardwareAcceleration: false
 };
 const root = typeof document !== "undefined" ? document.documentElement : { style: { setProperty: () => {
 } } };
@@ -225,12 +227,16 @@ const updateSettings = (message) => {
   let hasVisualChanges = false;
   let hasLayoutChanges = false;
   for (const [key, value] of Object.entries(message)) {
-    if (Object.prototype.hasOwnProperty.call(settings, key) && settings[key] !== value) {
+    const typedKey = key;
+    if (Object.prototype.hasOwnProperty.call(settings, typedKey) && settings[typedKey] !== value) {
       settings[key] = value;
       if (key.startsWith("color") || key === "TimingWindowOpacity") {
         hasVisualChanges = true;
       } else if (key !== "showSD") {
         hasLayoutChanges = true;
+      }
+      if (typedKey === "disableHardwareAcceleration") {
+        updateHardwareAcceleration();
       }
     }
   }
@@ -242,6 +248,15 @@ const updateSettings = (message) => {
   }
   if (Object.prototype.hasOwnProperty.call(message, "showSD") && oldSettings.showSD !== message.showSD) {
     updateVisibility();
+  }
+};
+const updateHardwareAcceleration = () => {
+  if (settings.disableHardwareAcceleration) {
+    root.style.setProperty("--transform-prop", "none");
+    root.style.setProperty("--will-change-prop", "auto");
+  } else {
+    root.style.setProperty("--transform-prop", "translate3d(0,0,0)");
+    root.style.setProperty("--will-change-prop", "transform, opacity");
   }
 };
 const updateCSSLayout = () => {
@@ -347,7 +362,9 @@ const calculateGameModeWindows = (gamemode, od, mods) => {
 };
 
 const tickElementsArray = [];
+const lastAppliedX = [];
 let areTicksRendered = false;
+const { disableHardwareAcceleration: disableHardwareAcceleration$1 } = settings;
 const renderTicksOnLoad = () => {
   if (areTicksRendered) return;
   const container = getElement(".tick-container");
@@ -357,11 +374,13 @@ const renderTicksOnLoad = () => {
   }
   const fragment = document.createDocumentFragment();
   tickElementsArray.length = 0;
+  lastAppliedX.length = 0;
   for (let i = 0; i < cache.tickPool.PoolSize; i++) {
     const div = document.createElement("div");
     div.className = "tick inactive";
     fragment.appendChild(div);
     tickElementsArray.push(div);
+    lastAppliedX.push(Number.NaN);
   }
   container.appendChild(fragment);
   areTicksRendered = true;
@@ -373,7 +392,11 @@ const resetTicks = () => {
     const tickElement = tickElementsArray[i];
     if (!tickElement) continue;
     tickElement.className = "tick inactive";
-    tickElement.style.transform = "translate3d(0px, 0, 0)";
+    const initialTransform = disableHardwareAcceleration$1 ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
+    if (tickElement.style.transform !== initialTransform) {
+      tickElement.style.transform = initialTransform;
+    }
+    lastAppliedX[i] = 0;
   }
 };
 const updateTicks = () => {
@@ -384,16 +407,25 @@ const updateTicks = () => {
       const tickElement = tickElementsArray[i];
       if (tick.classNames !== tickElement.className) {
         tickElement.className = tick.classNames;
-        tickElement.style.transform = `translate3d(${tick.position}px, 0, 0)`;
+      }
+      const targetX = tick.position;
+      const lastX = lastAppliedX[i];
+      if (targetX !== lastX) {
+        const newTransform = disableHardwareAcceleration$1 ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
+        if (tickElement.style.transform !== newTransform) {
+          tickElement.style.transform = newTransform;
+        }
+        lastAppliedX[i] = targetX;
       }
     }
   });
 };
 
 const arrow = getElement(".arrow");
+const { perfectArrowThreshold, disableHardwareAcceleration } = settings;
 const getArrowColor = (average) => {
   const absError = Math.abs(average);
-  const threshold = settings.perfectArrowThreshold;
+  const threshold = perfectArrowThreshold;
   if (absError <= threshold) {
     return "var(--arrow-perfect)";
   }
@@ -402,16 +434,24 @@ const getArrowColor = (average) => {
   }
   return "var(--arrow-late)";
 };
-function updateArrow(targetPosition) {
+const updateArrow = (targetPosition) => {
   if (arrow) {
-    arrow.style.transform = `translate3d(${targetPosition * 2}px, 0, 0)`;
+    if (disableHardwareAcceleration) {
+      arrow.style.transform = `translateX(${targetPosition * 2}px)`;
+      return;
+    }
+    arrow.style.transform = `translate3d(${targetPosition * 2}px, 0px, 0px)`;
     arrow.style.borderTopColor = getArrowColor(targetPosition);
   }
-}
+};
 function resetArrow() {
   if (arrow) {
-    arrow.style.transform = "translateX(0px)";
     arrow.style.borderTopColor = "#fff";
+    if (disableHardwareAcceleration) {
+      arrow.style.transform = "translateX(0px)";
+      return;
+    }
+    arrow.style.transform = "translate3d(0px, 0px, 0px)";
   }
 }
 
@@ -451,7 +491,7 @@ class TickImpl {
     TickImpl.setClassNames(tick);
   }
   static setClassNames(tick) {
-    const timingWindows = cache.timingWindows;
+    const { timingWindows } = cache;
     tick.classNames = "tick";
     const hitError = Math.abs(tick.position >> 1);
     let matched = false;
@@ -469,7 +509,6 @@ class TickImpl {
 }
 class TickPool {
   PoolSize;
-  timedOutHits;
   processedHits;
   pool;
   // readonly doesnt prevent us from modifying the array, only from reassigning it
@@ -477,7 +516,6 @@ class TickPool {
   // Store indices of active ticks
   constructor() {
     this.PoolSize = 100;
-    this.timedOutHits = 0;
     this.processedHits = 0;
     this.pool = Array.from({ length: this.PoolSize }, () => new TickImpl());
   }
@@ -486,12 +524,12 @@ class TickPool {
       TickImpl.reset(tick);
     }
     this.activeTicks.clear();
-    this.timedOutHits = 0;
     this.processedHits = 0;
   }
   update(hitErrors) {
     const now = Date.now();
-    const timeoutThreshold = settings.tickDuration + settings.fadeOutDuration;
+    const { tickDuration, fadeOutDuration } = settings;
+    const timeoutThreshold = tickDuration + fadeOutDuration;
     const poolSize = this.PoolSize;
     const pool = this.pool;
     const activeTicks = this.activeTicks;
@@ -585,6 +623,20 @@ wsManager.commands((data) => {
     console.error("[MESSAGE_ERROR] Error processing WebSocket message:", error);
   }
 });
+const urlParams = new URLSearchParams(window.location.search);
+const bgColor = urlParams.get("bg");
+if (bgColor) {
+  document.body.style.backgroundColor = bgColor;
+}
+if (settings.showSD) {
+  const container = getElement("#container");
+  if (container) {
+    const sd = document.createElement("div");
+    sd.classList.add("sd");
+    sd.innerText = "0.00";
+    container.appendChild(sd);
+  }
+}
 const apiV2Filters = ["state", "play", "beatmap"];
 wsManager.api_v2((data) => {
   if (cache.state !== data.state.name) {
