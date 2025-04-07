@@ -364,7 +364,7 @@ const calculateGameModeWindows = (gamemode, od, mods) => {
 const tickElementsArray = [];
 const lastAppliedX = [];
 let areTicksRendered = false;
-const { disableHardwareAcceleration: disableHardwareAcceleration$1 } = settings;
+const { disableHardwareAcceleration } = settings;
 const renderTicksOnLoad = () => {
   if (areTicksRendered) return;
   const container = getElement(".tick-container");
@@ -392,7 +392,7 @@ const resetTicks = () => {
     const tickElement = tickElementsArray[i];
     if (!tickElement) continue;
     tickElement.className = "tick inactive";
-    const initialTransform = disableHardwareAcceleration$1 ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
+    const initialTransform = disableHardwareAcceleration ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
     if (tickElement.style.transform !== initialTransform) {
       tickElement.style.transform = initialTransform;
     }
@@ -411,7 +411,7 @@ const updateTicks = () => {
       const targetX = tick.position;
       const lastX = lastAppliedX[i];
       if (targetX !== lastX) {
-        const newTransform = disableHardwareAcceleration$1 ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
+        const newTransform = disableHardwareAcceleration ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
         if (tickElement.style.transform !== newTransform) {
           tickElement.style.transform = newTransform;
         }
@@ -422,24 +422,9 @@ const updateTicks = () => {
 };
 
 const arrow = getElement(".arrow");
-let cachedSettings = {
-  perfectArrowThreshold: settings.perfectArrowThreshold,
-  disableHardwareAcceleration: settings.disableHardwareAcceleration
-};
-const loadArrowSettings = () => {
-  cachedSettings = {
-    perfectArrowThreshold: settings.perfectArrowThreshold,
-    disableHardwareAcceleration: settings.disableHardwareAcceleration
-  };
-  for (const [key, value] of Object.entries(cachedSettings)) {
-    console.log(`[ARROW_SETTINGS] ${key}: ${value}`);
-  }
-  return cachedSettings;
-};
-const { perfectArrowThreshold, disableHardwareAcceleration } = cachedSettings;
 const getArrowColor = (average) => {
   const absError = Math.abs(average);
-  if (absError <= perfectArrowThreshold) {
+  if (absError <= settings.perfectArrowThreshold) {
     return "var(--arrow-perfect)";
   }
   if (average < 0) {
@@ -449,7 +434,7 @@ const getArrowColor = (average) => {
 };
 const updateArrow = (targetPosition) => {
   if (arrow) {
-    if (disableHardwareAcceleration) {
+    if (settings.disableHardwareAcceleration) {
       arrow.style.transform = `translateX(${targetPosition * 2}px)`;
       return;
     }
@@ -460,7 +445,7 @@ const updateArrow = (targetPosition) => {
 function resetArrow() {
   if (arrow) {
     arrow.style.borderTopColor = "#fff";
-    if (disableHardwareAcceleration) {
+    if (settings.disableHardwareAcceleration) {
       arrow.style.transform = "translateX(0px)";
       return;
     }
@@ -642,7 +627,6 @@ wsManager.commands((data) => {
     console.log("[WEBSOCKET] Received command:", command, "with data:", message);
     if (command === "getSettings") {
       updateSettings(message);
-      loadArrowSettings();
     }
   } catch (error) {
     console.error("[MESSAGE_ERROR] Error processing WebSocket message:", error);
