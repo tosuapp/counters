@@ -432,7 +432,12 @@ const getArrowColor = (average) => {
   }
   return "var(--arrow-late)";
 };
+let oldPosition = 0;
 const updateArrow = (targetPosition) => {
+  if (targetPosition === oldPosition) {
+    return;
+  }
+  oldPosition = targetPosition;
   if (arrow) {
     if (settings.disableHardwareAcceleration) {
       arrow.style.transform = `translateX(${targetPosition * 2}px)`;
@@ -443,6 +448,7 @@ const updateArrow = (targetPosition) => {
   }
 };
 function resetArrow() {
+  oldPosition = 0;
   if (arrow) {
     arrow.style.borderTopColor = "#fff";
     if (settings.disableHardwareAcceleration) {
@@ -693,9 +699,3 @@ wsManager.api_v2_precise((data) => {
       if (sdElement) {
         sdElement.innerText = standardDeviationError.toFixed(2);
       }
-    }
-    if (cache.isReset) {
-      cache.isReset = false;
-    }
-  }
-}, apiV2PreciseFilter);
