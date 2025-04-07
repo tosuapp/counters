@@ -422,11 +422,24 @@ const updateTicks = () => {
 };
 
 const arrow = getElement(".arrow");
-const { perfectArrowThreshold, disableHardwareAcceleration } = settings;
+let cachedSettings = {
+  perfectArrowThreshold: settings.perfectArrowThreshold,
+  disableHardwareAcceleration: settings.disableHardwareAcceleration
+};
+const loadArrowSettings = () => {
+  cachedSettings = {
+    perfectArrowThreshold: settings.perfectArrowThreshold,
+    disableHardwareAcceleration: settings.disableHardwareAcceleration
+  };
+  for (const [key, value] of Object.entries(cachedSettings)) {
+    console.log(`[ARROW_SETTINGS] ${key}: ${value}`);
+  }
+  return cachedSettings;
+};
+const { perfectArrowThreshold, disableHardwareAcceleration } = cachedSettings;
 const getArrowColor = (average) => {
   const absError = Math.abs(average);
-  const threshold = perfectArrowThreshold;
-  if (absError <= threshold) {
+  if (absError <= perfectArrowThreshold) {
     return "var(--arrow-perfect)";
   }
   if (average < 0) {
@@ -513,7 +526,9 @@ class TickPool {
   pool;
   // readonly doesnt prevent us from modifying the array, only from reassigning it
   activeTicks = /* @__PURE__ */ new Set();
-  // Store indices of active ticks
+  // Store indices of active ticks'
+  nonFadeOutTicks = /* @__PURE__ */ new Set();
+  // Store indices of visible ticks
   constructor() {
     this.PoolSize = 100;
     this.processedHits = 0;
@@ -524,6 +539,7 @@ class TickPool {
       TickImpl.reset(tick);
     }
     this.activeTicks.clear();
+    this.nonFadeOutTicks.clear();
     this.processedHits = 0;
   }
   update(hitErrors) {
@@ -533,12 +549,19 @@ class TickPool {
     const poolSize = this.PoolSize;
     const pool = this.pool;
     const activeTicks = this.activeTicks;
+    const nonFadeOutTicks = this.nonFadeOutTicks;
     const processedHits = this.processedHits;
     for (const idx of activeTicks) {
       const tick = pool[idx];
       if (now - tick.timestamp > timeoutThreshold) {
         TickImpl.setInactive(tick);
         activeTicks.delete(idx);
+      }
+    }
+    for (const idx of nonFadeOutTicks) {
+      const tick = pool[idx];
+      if (now - tick.timestamp > tickDuration) {
+        nonFadeOutTicks.delete(idx);
       }
     }
     if (processedHits === hitErrors.length) return;
@@ -549,6 +572,7 @@ class TickPool {
       if (!tick.active) {
         TickImpl.setActive(tick, error);
         activeTicks.add(poolIndex);
+        nonFadeOutTicks.add(poolIndex);
         this.processedHits++;
       } else {
         const processedHitsindex = processedHits - 1;
@@ -618,16 +642,12 @@ wsManager.commands((data) => {
     console.log("[WEBSOCKET] Received command:", command, "with data:", message);
     if (command === "getSettings") {
       updateSettings(message);
+      loadArrowSettings();
     }
   } catch (error) {
     console.error("[MESSAGE_ERROR] Error processing WebSocket message:", error);
   }
 });
-const urlParams = new URLSearchParams(window.location.search);
-const bgColor = urlParams.get("bg");
-if (bgColor) {
-  document.body.style.backgroundColor = bgColor;
-}
 if (settings.showSD) {
   const container = getElement("#container");
   if (container) {
@@ -677,14 +697,14 @@ wsManager.api_v2_precise((data) => {
     if (cache.tickPool.activeTicks.size > 0) {
       updateTicks();
     }
-    const activeErrors = [];
-    for (const idx of cache.tickPool.activeTicks) {
-      activeErrors.push(cache.tickPool.pool[idx].position >> 1);
+    const nonFadeOutErrors = [];
+    for (const idx of cache.tickPool.nonFadeOutTicks) {
+      nonFadeOutErrors.push(cache.tickPool.pool[idx].position >> 1);
     }
-    const medianError = median(activeErrors);
+    const medianError = median(nonFadeOutErrors);
     updateArrow(medianError);
     if (settings.showSD) {
-      const standardDeviationError = standardDeviation(activeErrors);
+      const standardDeviationError = standardDeviation(nonFadeOutErrors);
       const sdElement = getElement(".sd");
       if (sdElement) {
         sdElement.innerText = standardDeviationError.toFixed(2);
