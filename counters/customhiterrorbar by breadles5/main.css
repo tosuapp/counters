@@ -46,7 +46,6 @@ html {
     padding: 0;
     overflow: hidden;
     background: rgba(0, 0, 0, 0);
-    contain: layout style paint;
     transition: opacity 200ms linear;
 }
 body {
@@ -58,7 +57,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: var(--container-width);
-    contain: layout style;
     position: relative;
     height: var(--bar-height);
     justify-self: center;
@@ -69,7 +67,6 @@ body {
     color: #ffffff;
     transition: linear 200ms;
     width: var(--container-width);
-    contain: content;
     justify-self: center;
     transition: opacity 200ms linear;
     opacity: 0.8;
@@ -81,7 +78,6 @@ body {
     justify-content: center;
     width: var(--container-width);
     height: var(--arrow-size);
-    contain: layout size;
     justify-self: center;
 }
 
@@ -105,13 +101,11 @@ body {
     justify-content: center;
     height: var(--bar-height);
     width: var(--container-width);
-    contain: layout paint style;
     transition: opacity 200ms linear;
 }
 
 .colors-container {
     opacity: var(--timing-windows-opacity);
-    contain: layout paint style;
 }
 
 .colors-container > div {
@@ -120,7 +114,6 @@ body {
     height: calc(var(--timing-window-height) * 1%);
     transition: linear 200ms;
     border-radius: var(--timing-window-radius);
-    contain: layout paint;
 }
 
 /* Timing window colors */
@@ -163,10 +156,7 @@ body {
     justify-content: center;
     height: var(--bar-height);
     width: var(--container-width);
-    contain: layout paint style;
-    overflow: hidden;
     opacity: 1;
-    clip-path: inset(0);
 }
 
 @keyframes fadeOut {
@@ -178,9 +168,7 @@ body {
     width: var(--tick-width);
     height: var(--tick-height);
     border-radius: var(--tick-radius);
-    /* transform: translate3d(0, 0, 0); */ /* Managed by JS */
     will-change: var(--will-change-prop);
-    contain: layout paint style;
     opacity: var(--tick-opacity);
     z-index: 7;
 }
@@ -227,7 +215,6 @@ body {
     background-color: var(--bar-color);
     border-radius: var(--bar-radius);
     z-index: 8;
-    contain: layout paint style;
 }
 
 .hidden {

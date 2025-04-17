@@ -305,66 +305,105 @@ const updateVisibility = () => {
   }
 };
 
-const calculateModTimingWindows = (gamemode, od, mods) => {
-  let modifiedOD = od;
-  switch (true) {
-    case mods.includes("HR"):
-      modifiedOD = Math.min(modifiedOD * 1.4, 10);
-      return calculateGameModeWindows(gamemode, modifiedOD, mods);
-    case mods.includes("EZ"):
-      modifiedOD *= 0.5;
-      return calculateGameModeWindows(gamemode, modifiedOD, mods);
-    default:
-      return calculateGameModeWindows(gamemode, modifiedOD, mods);
-  }
-};
-const calculateGameModeWindows = (gamemode, od, mods) => {
+const calculateOsuWindows = (od, mods) => {
   const windows = /* @__PURE__ */ new Map();
-  switch (gamemode) {
-    case "osu":
-      windows.set("300", 80 - 6 * od);
-      windows.set("100", 140 - 8 * od);
-      windows.set("50", 200 - 10 * od);
-      windows.set("0", 400);
-      break;
-    case "taiko":
-      if (od <= 5) {
-        windows.set("300", 50 - 3 * od);
-        windows.set("100", 120 - 8 * od);
-        windows.set("0", 135 - 8 * od);
-      } else {
-        windows.set("300", 50 - 3 * od);
-        windows.set("100", 110 - 6 * od);
-        windows.set("0", 120 - 5 * od);
-      }
-      break;
-    case "fruits":
-      windows.set("300", 80 - 6 * od);
-      windows.set("100", 140 - 8 * od);
-      windows.set("50", 200 - 10 * od);
-      break;
-    case "mania":
-      windows.set("300g", mods.includes("EZ") ? 22.5 : mods.includes("HR") ? 11.43 : 16.5);
-      windows.set("300", mods.includes("HR") ? (64 - 3 * od) / 1.4 : 64 - 3 * od);
-      windows.set("200", mods.includes("HR") ? (97 - 3 * od) / 1.4 : 97 - 3 * od);
-      windows.set("100", mods.includes("HR") ? (127 - 3 * od) / 1.4 : 127 - 3 * od);
-      windows.set("50", mods.includes("HR") ? (151 - 3 * od) / 1.4 : 151 - 3 * od);
-      windows.set("0", mods.includes("HR") ? (188 - 3 * od) / 1.4 : 188 - 3 * od);
-      break;
-    default:
-      console.warn(`Unknown gamemode: ${gamemode}, falling back to osu standard`);
-      windows.set("300", 80 - 6 * od);
-      windows.set("100", 140 - 8 * od);
-      windows.set("50", 200 - 10 * od);
-      break;
+  if (mods.includes("EZ")) {
+    const modifiedOd = od / 2;
+    windows.set("300", 50 - 3 * modifiedOd);
+    windows.set("100", 140 - 8 * modifiedOd);
+    windows.set("50", 200 - 10 * modifiedOd);
+  } else if (mods.includes("HR")) {
+    const modifiedOd = Math.min(od * 1.4, 10);
+    windows.set("300", 50 - 3 * modifiedOd);
+    windows.set("100", 140 - 8 * modifiedOd);
+    windows.set("50", 200 - 10 * modifiedOd);
+  } else {
+    windows.set("300", 80 - 6 * od);
+    windows.set("100", 140 - 8 * od);
+    windows.set("50", 200 - 10 * od);
   }
   return windows;
+};
+const calculateTaikoWindows = (od, mods) => {
+  const windows = /* @__PURE__ */ new Map();
+  if (mods.includes("EZ")) {
+    const modifiedOd = od / 2;
+    windows.set("300", 50 - 3 * modifiedOd);
+    if (od >= 5) {
+      windows.set("100", 120 - 8 * modifiedOd);
+      windows.set("50", 135 - 8 * modifiedOd);
+    } else {
+      windows.set("100", 110 - 6 * modifiedOd);
+      windows.set("50", 120 - 5 * modifiedOd);
+    }
+  } else if (mods.includes("HR")) {
+    const modifiedOd = Math.min(od * 1.4, 10);
+    windows.set("300", 50 - 3 * modifiedOd);
+    if (modifiedOd >= 5) {
+      windows.set("100", 120 - 8 * modifiedOd);
+      windows.set("50", 135 - 8 * modifiedOd);
+    } else {
+      windows.set("100", 110 - 6 * modifiedOd);
+      windows.set("50", 120 - 5 * modifiedOd);
+    }
+  } else {
+    windows.set("300", 50 - 3 * od);
+    if (od >= 5) {
+      windows.set("100", 120 - 8 * od);
+      windows.set("50", 135 - 8 * od);
+    } else {
+      windows.set("100", 110 - 6 * od);
+      windows.set("50", 120 - 5 * od);
+    }
+  }
+  return windows;
+};
+const calculateManiaWindows = (od, mods) => {
+  const windows = /* @__PURE__ */ new Map();
+  if (mods.includes("EZ")) {
+    const modifiedOd = od * 0.5;
+    windows.set("300g", 22.5);
+    windows.set("300", 64 - 3 * modifiedOd);
+    windows.set("200", 97 - 3 * modifiedOd);
+    windows.set("100", 127 - 3 * modifiedOd);
+    windows.set("50", 151 - 3 * modifiedOd);
+  } else if (mods.includes("HR")) {
+    const windowMultiplier = 1.4;
+    windows.set("300g", 11.43);
+    windows.set("300", (64 - 3 * od) / windowMultiplier);
+    windows.set("200", (97 - 3 * od) / windowMultiplier);
+    windows.set("100", (127 - 3 * od) / windowMultiplier);
+    windows.set("50", (151 - 3 * od) / windowMultiplier);
+  } else {
+    windows.set("300g", 16.5);
+    windows.set("300", 64 - 3 * od);
+    windows.set("200", 97 - 3 * od);
+    windows.set("100", 127 - 3 * od);
+    windows.set("50", 151 - 3 * od);
+  }
+  return windows;
+};
+const calculateTimingWindows = (gamemode, od, mods) => {
+  switch (gamemode) {
+    case "osu":
+      return calculateOsuWindows(od, mods);
+    case "fruits":
+      console.warn("timing windows for fruits is not applicable");
+      return /* @__PURE__ */ new Map();
+    case "taiko":
+      return calculateTaikoWindows(od, mods);
+    case "mania":
+      return calculateManiaWindows(od, mods);
+    default:
+      console.warn("no gamemode detected, returning no windows");
+      return /* @__PURE__ */ new Map();
+  }
 };
 
 const tickElementsArray = [];
 const lastAppliedX = [];
 let areTicksRendered = false;
-const { disableHardwareAcceleration: disableHardwareAcceleration$1 } = settings;
+const { disableHardwareAcceleration } = settings;
 const renderTicksOnLoad = () => {
   if (areTicksRendered) return;
   const container = getElement(".tick-container");
@@ -392,7 +431,7 @@ const resetTicks = () => {
     const tickElement = tickElementsArray[i];
     if (!tickElement) continue;
     tickElement.className = "tick inactive";
-    const initialTransform = disableHardwareAcceleration$1 ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
+    const initialTransform = disableHardwareAcceleration ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
     if (tickElement.style.transform !== initialTransform) {
       tickElement.style.transform = initialTransform;
     }
@@ -411,7 +450,7 @@ const updateTicks = () => {
       const targetX = tick.position;
       const lastX = lastAppliedX[i];
       if (targetX !== lastX) {
-        const newTransform = disableHardwareAcceleration$1 ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
+        const newTransform = disableHardwareAcceleration ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
         if (tickElement.style.transform !== newTransform) {
           tickElement.style.transform = newTransform;
         }
@@ -422,11 +461,9 @@ const updateTicks = () => {
 };
 
 const arrow = getElement(".arrow");
-const { perfectArrowThreshold, disableHardwareAcceleration } = settings;
 const getArrowColor = (average) => {
   const absError = Math.abs(average);
-  const threshold = perfectArrowThreshold;
-  if (absError <= threshold) {
+  if (absError <= settings.perfectArrowThreshold) {
     return "var(--arrow-perfect)";
   }
   if (average < 0) {
@@ -434,9 +471,14 @@ const getArrowColor = (average) => {
   }
   return "var(--arrow-late)";
 };
+let oldPosition = 0;
 const updateArrow = (targetPosition) => {
+  if (targetPosition === oldPosition) {
+    return;
+  }
+  oldPosition = targetPosition;
   if (arrow) {
-    if (disableHardwareAcceleration) {
+    if (settings.disableHardwareAcceleration) {
       arrow.style.transform = `translateX(${targetPosition * 2}px)`;
       return;
     }
@@ -445,9 +487,10 @@ const updateArrow = (targetPosition) => {
   }
 };
 function resetArrow() {
+  oldPosition = 0;
   if (arrow) {
     arrow.style.borderTopColor = "#fff";
-    if (disableHardwareAcceleration) {
+    if (settings.disableHardwareAcceleration) {
       arrow.style.transform = "translateX(0px)";
       return;
     }
@@ -513,7 +556,10 @@ class TickPool {
   pool;
   // readonly doesnt prevent us from modifying the array, only from reassigning it
   activeTicks = /* @__PURE__ */ new Set();
-  // Store indices of active ticks
+  // Store indices of active ticks'
+  nonFadeOutTicks = /* @__PURE__ */ new Set();
+  // Store indices of visible ticks
+  modMultiplier = 1;
   constructor() {
     this.PoolSize = 100;
     this.processedHits = 0;
@@ -524,7 +570,17 @@ class TickPool {
       TickImpl.reset(tick);
     }
     this.activeTicks.clear();
+    this.nonFadeOutTicks.clear();
     this.processedHits = 0;
+  }
+  updateModMultiplier(mods) {
+    if (mods.includes("HT")) {
+      this.modMultiplier = 1 / 0.75;
+    } else if (/DT|NC/.test(mods)) {
+      this.modMultiplier = 1 / 1.5;
+    } else {
+      this.modMultiplier = 1;
+    }
   }
   update(hitErrors) {
     const now = Date.now();
@@ -533,6 +589,7 @@ class TickPool {
     const poolSize = this.PoolSize;
     const pool = this.pool;
     const activeTicks = this.activeTicks;
+    const nonFadeOutTicks = this.nonFadeOutTicks;
     const processedHits = this.processedHits;
     for (const idx of activeTicks) {
       const tick = pool[idx];
@@ -541,14 +598,21 @@ class TickPool {
         activeTicks.delete(idx);
       }
     }
+    for (const idx of nonFadeOutTicks) {
+      const tick = pool[idx];
+      if (now - tick.timestamp > tickDuration) {
+        nonFadeOutTicks.delete(idx);
+      }
+    }
     if (processedHits === hitErrors.length) return;
     for (let i = processedHits; i < hitErrors.length; i++) {
       const poolIndex = i % poolSize;
-      const error = hitErrors[i];
+      const error = hitErrors[i] * this.modMultiplier;
       const tick = pool[poolIndex];
       if (!tick.active) {
         TickImpl.setActive(tick, error);
         activeTicks.add(poolIndex);
+        nonFadeOutTicks.add(poolIndex);
         this.processedHits++;
       } else {
         const processedHitsindex = processedHits - 1;
@@ -623,18 +687,13 @@ wsManager.commands((data) => {
     console.error("[MESSAGE_ERROR] Error processing WebSocket message:", error);
   }
 });
-const urlParams = new URLSearchParams(window.location.search);
-const bgColor = urlParams.get("bg");
-if (bgColor) {
-  document.body.style.backgroundColor = bgColor;
-}
 if (settings.showSD) {
   const container = getElement("#container");
   if (container) {
     const sd = document.createElement("div");
     sd.classList.add("sd");
     sd.innerText = "0.00";
-    container.appendChild(sd);
+    container.prepend(sd);
   }
 }
 const apiV2Filters = ["state", "play", "beatmap"];
@@ -650,8 +709,9 @@ wsManager.api_v2((data) => {
         cache.od = data.beatmap.stats.od.original;
         cache.mods = data.play.mods.name;
       }
+      cache.tickPool.updateModMultiplier(cache.mods);
       cache.firstObjectTime = data.beatmap.time.firstObject;
-      cache.timingWindows = calculateModTimingWindows(cache.mode, cache.od, cache.mods);
+      cache.timingWindows = calculateTimingWindows(cache.mode, cache.od, cache.mods);
       updateTimingWindowElements();
       setVisible();
       cache.isReset = false;
@@ -677,14 +737,14 @@ wsManager.api_v2_precise((data) => {
     if (cache.tickPool.activeTicks.size > 0) {
       updateTicks();
     }
-    const activeErrors = [];
-    for (const idx of cache.tickPool.activeTicks) {
-      activeErrors.push(cache.tickPool.pool[idx].position >> 1);
+    const nonFadeOutErrors = [];
+    for (const idx of cache.tickPool.nonFadeOutTicks) {
+      nonFadeOutErrors.push(cache.tickPool.pool[idx].position >> 1);
     }
-    const medianError = median(activeErrors);
+    const medianError = median(nonFadeOutErrors);
     updateArrow(medianError);
     if (settings.showSD) {
-      const standardDeviationError = standardDeviation(activeErrors);
+      const standardDeviationError = standardDeviation(nonFadeOutErrors);
       const sdElement = getElement(".sd");
       if (sdElement) {
         sdElement.innerText = standardDeviationError.toFixed(2);
