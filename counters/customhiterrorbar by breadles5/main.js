@@ -473,29 +473,33 @@ const getArrowColor = (average) => {
 };
 let oldPosition = 0;
 const updateArrow = (targetPosition) => {
-  if (targetPosition === oldPosition) {
-    return;
-  }
-  oldPosition = targetPosition;
-  if (arrow) {
-    if (settings.disableHardwareAcceleration) {
-      arrow.style.transform = `translateX(${targetPosition * 2}px)`;
+  requestAnimationFrame(() => {
+    if (targetPosition === oldPosition) {
       return;
     }
-    arrow.style.transform = `translate3d(${targetPosition * 2}px, 0px, 0px)`;
-    arrow.style.borderTopColor = getArrowColor(targetPosition);
-  }
+    oldPosition = targetPosition;
+    if (arrow) {
+      if (settings.disableHardwareAcceleration) {
+        arrow.style.transform = `translateX(${targetPosition * 2}px)`;
+        return;
+      }
+      arrow.style.transform = `translate3d(${targetPosition * 2}px, 0px, 0px)`;
+      arrow.style.borderTopColor = getArrowColor(targetPosition);
+    }
+  });
 };
 function resetArrow() {
-  oldPosition = 0;
-  if (arrow) {
-    arrow.style.borderTopColor = "#fff";
-    if (settings.disableHardwareAcceleration) {
-      arrow.style.transform = "translateX(0px)";
-      return;
+  requestAnimationFrame(() => {
+    oldPosition = 0;
+    if (arrow) {
+      arrow.style.borderTopColor = "#fff";
+      if (settings.disableHardwareAcceleration) {
+        arrow.style.transform = "translateX(0px)";
+        return;
+      }
+      arrow.style.transform = "translate3d(0px, 0px, 0px)";
     }
-    arrow.style.transform = "translate3d(0px, 0px, 0px)";
-  }
+  });
 }
 
 class TickImpl {
@@ -559,7 +563,6 @@ class TickPool {
   // Store indices of active ticks'
   nonFadeOutTicks = /* @__PURE__ */ new Set();
   // Store indices of visible ticks
-  modMultiplier = 1;
   constructor() {
     this.PoolSize = 100;
     this.processedHits = 0;
@@ -573,19 +576,11 @@ class TickPool {
     this.nonFadeOutTicks.clear();
     this.processedHits = 0;
   }
-  updateModMultiplier(mods) {
-    if (mods.includes("HT")) {
-      this.modMultiplier = 1 / 0.75;
-    } else if (/DT|NC/.test(mods)) {
-      this.modMultiplier = 1 / 1.5;
-    } else {
-      this.modMultiplier = 1;
-    }
-  }
   update(hitErrors) {
     const now = Date.now();
     const { tickDuration, fadeOutDuration } = settings;
     const timeoutThreshold = tickDuration + fadeOutDuration;
+    const { rate } = cache;
     const poolSize = this.PoolSize;
     const pool = this.pool;
     const activeTicks = this.activeTicks;
@@ -607,7 +602,7 @@ class TickPool {
     if (processedHits === hitErrors.length) return;
     for (let i = processedHits; i < hitErrors.length; i++) {
       const poolIndex = i % poolSize;
-      const error = hitErrors[i] * this.modMultiplier;
+      const error = hitErrors[i] / rate;
       const tick = pool[poolIndex];
       if (!tick.active) {
         TickImpl.setActive(tick, error);
@@ -666,6 +661,7 @@ const cache = {
   mods: "",
   // mod names concatenated as string
   od: 0,
+  rate: 0,
   state: "",
   timingWindows: /* @__PURE__ */ new Map(),
   // same can't be said here, since mania has 5 timing windows, while all taiko and standard have 3
@@ -709,7 +705,7 @@ wsManager.api_v2((data) => {
         cache.od = data.beatmap.stats.od.original;
         cache.mods = data.play.mods.name;
       }
-      cache.tickPool.updateModMultiplier(cache.mods);
+      cache.rate = data.play.mods.rate;
       cache.firstObjectTime = data.beatmap.time.firstObject;
       cache.timingWindows = calculateTimingWindows(cache.mode, cache.od, cache.mods);
       updateTimingWindowElements();
@@ -744,11 +740,13 @@ wsManager.api_v2_precise((data) => {
     const medianError = median(nonFadeOutErrors);
     updateArrow(medianError);
     if (settings.showSD) {
-      const standardDeviationError = standardDeviation(nonFadeOutErrors);
-      const sdElement = getElement(".sd");
-      if (sdElement) {
-        sdElement.innerText = standardDeviationError.toFixed(2);
-      }
+      requestAnimationFrame(() => {
+        const standardDeviationError = standardDeviation(nonFadeOutErrors);
+        const sdElement = getElement(".sd");
+        if (sdElement) {
+          sdElement.innerText = standardDeviationError.toFixed(2);
+        }
+      });
     }
     if (cache.isReset) {
       cache.isReset = false;
