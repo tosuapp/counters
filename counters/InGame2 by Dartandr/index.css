@@ -23,7 +23,7 @@ html {
     left: 325px;
     transform: translateX(-50%);
     transition: 300ms ease-in-out;
-    opacity: 1;
+    opacity: 0;
 }
 
 #ifFcpp {
@@ -33,7 +33,7 @@ html {
 .base {
     position: absolute;
     height: 72px;
-    width: 325px;
+    width: 335px;
     border-radius: 10px 10px 10px 10px;
     background: linear-gradient(84.26deg, #0F0F0F 1.44%, #0C0C0C 96.32%);
     top: 25px;
@@ -57,7 +57,7 @@ html {
 
 .progress {
     position: absolute;
-    width: 178px;
+    width: 188px;
     height: 4px;
     top: 15px;
     left: 10px;
@@ -79,7 +79,7 @@ html {
     justify-content: space-around;
     color: white;
     font-size: 20px;
-    width: 178px;
+    width: 188px;
     margin-left: 10px;
     bottom: 10px;
 
@@ -110,5 +110,9 @@ html {
 #missUnderline {
     background-color: #7D2A2A;
     box-shadow: 0 0 10px #7D2A2A;
+}
 
+#sbUnderline {
+    background-color: #999999;
+    box-shadow: 0 0 10px #999999;
 }

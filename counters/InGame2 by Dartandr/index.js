@@ -15,6 +15,7 @@ let animation = {
     hun: new CountUp('hun', 0, 0, 0, 0.5, { decimalPlaces: 2, useEasing: true, useGrouping: false, separator: " ", decimal: "." }),
     fiv: new CountUp('fiv', 0, 0, 0, 0.5, { decimalPlaces: 2, useEasing: true, useGrouping: false, separator: " ", decimal: "." }),
     miss: new CountUp('miss', 0, 0, 0, 0.5, { decimalPlaces: 2, useEasing: true, useGrouping: false, separator: " ", decimal: "." }),
+    sb: new CountUp('sb', 0, 0, 0, 0.5, { decimalPlaces: 2, useEasing: true, useGrouping: false, separator: " ", decimal: "." }),
 };
 
 
@@ -37,7 +38,6 @@ socket.onmessage = event => {
             animation.pp.update(cache['pp100']);
         };
     };
-
 
     if (cache['ppfc'] != data.gameplay.pp.fc) {
         cache['ppfc'] = data.gameplay.pp.fc;
@@ -64,6 +64,13 @@ socket.onmessage = event => {
         cache['hit0'] = data.gameplay.hits[0];
 
         animation.miss.update(data.gameplay.hits[0]);
+    };
+
+
+    if (cache['hitsb'] != data.gameplay.hits.sliderBreaks) {
+        cache['hitsb'] = data.gameplay.hits.sliderBreaks;
+
+        animation.sb.update(data.gameplay.hits.sliderBreaks);
     };
 
 
