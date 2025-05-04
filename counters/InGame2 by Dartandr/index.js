@@ -74,6 +74,14 @@ socket.onmessage = event => {
     };
 
 
+    if (cache['missed'] != `${data.gameplay.hits[0]}:${data.gameplay.hits.sliderBreaks}`) {
+        cache['missed'] = `${data.gameplay.hits[0]}:${data.gameplay.hits.sliderBreaks}`;
+
+        if (cache['missed'] != '0:0') document.querySelector('.ifFcpp').style.opacity = 1;
+        else document.querySelector('.ifFcpp').style.opacity = 0;
+    };
+
+
     if (cache['current_time'] != data.menu.bm.time.current) {
         cache['current_time'] = data.menu.bm.time.current;
 
