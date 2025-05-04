@@ -692,7 +692,7 @@ if (settings.showSD) {
     container.prepend(sd);
   }
 }
-const apiV2Filters = ["state", "play", "beatmap"];
+const apiV2Filters = ["state", { field: "play", keys: ['mode', 'mods'] }, { field: "beatmap", keys: ['mode', 'stats', 'time'] }];
 wsManager.api_v2((data) => {
   if (cache.state !== data.state.name) {
     cache.state = data.state.name;

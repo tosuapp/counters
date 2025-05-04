@@ -79,4 +79,37 @@ socket.api_v2(({ play, directPath, beatmap }) => {
         }
 
     } catch (error) { console.log(error) };
-});
+}, [
+  {
+    field: 'beatmap',
+    keys: [
+      {
+        field: 'time',
+        keys: [
+          'live',
+          'lastObject',
+          'mp3Length',
+        ]
+      },
+    ]
+  },
+  {
+    field: 'play',
+    keys: [
+      {
+        field: 'hits',
+        keys: ['0']
+      },
+      {
+        field: 'combo',
+        keys: ['current']
+      },
+    ]
+  },
+  {
+    field: 'directPath',
+    keys: [
+      'skinFolder'
+    ]
+  },
+]);

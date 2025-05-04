@@ -69,4 +69,18 @@ socket.api_v1((data) => {
     } catch (error) {
         console.log(error);
     };
-});
+}, [
+    {
+        field: 'menu',
+        keys: ['state']
+    },
+    {
+        field: 'gameplay',
+        keys: [
+            {
+                field: 'hits',
+                keys: ['unstableRate']
+            }
+        ]
+    }
+]);

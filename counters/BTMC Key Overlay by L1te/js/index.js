@@ -256,7 +256,7 @@ socket.api_v2_precise((data) => {
     } catch (error) {
         console.error(error)
     }
-})
+}, ['keys']);
 
 socket.api_v2((data) => {
     if (data.state.number != 2) {
@@ -293,4 +293,9 @@ socket.api_v2((data) => {
             }
         });
     }
-})
+}, [
+  {
+    field: 'state',
+    keys: ['number']
+  }
+]);

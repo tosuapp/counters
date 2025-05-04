@@ -631,7 +631,92 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
     } catch (error) {
         console.log(error);
     }
-});
+}, [
+  {
+    field: 'beatmap',
+    keys: [
+      {
+        field: 'time',
+        keys: ['live', 'mp3Length']
+      },
+      {
+        field: 'stats',
+        keys: [
+          {
+            field: 'stars',
+            keys: ['total']
+          },
+          {
+            field: 'bpm',
+            keys: ['realtime', 'min', 'max']
+          },
+          'ar',
+          'cs',
+          'hp',
+          'od',
+        ]
+      },
+      'artist',
+      'title',
+      'version',
+    ]
+  },
+  {
+    field: 'play',
+    keys: [
+      {
+        field: 'mods',
+        keys: ['name']
+      },
+      {
+        field: 'hits',
+        keys: ['100', '50', '0','sliderBreaks',]
+      },
+      {
+        field: 'pp',
+        keys: ['current', 'fc']
+      },
+    ]
+  },
+  {
+    field: 'resultsScreen',
+    keys: [
+      {
+        field: 'hits',
+        keys: ['100', '50', '0','sliderBreaks']
+      },
+      {
+        field: 'pp',
+        keys: ['current', 'fc']
+      },
+    ]
+  },
+  {
+    field: 'directPath',
+    keys: [
+      'beatmapBackground'
+    ]
+  },
+  {
+    field: 'folders',
+    keys: [
+      'songs'
+    ]
+  },
+  {
+    field: 'performance',
+    keys: [
+      'graph',
+      'accuracy'
+    ]
+  },
+  {
+    field: 'state',
+    keys: [
+      'name'
+    ]
+  },
+]);
 
 window.addEventListener('load', () => {
     chartDarker = new Chart(

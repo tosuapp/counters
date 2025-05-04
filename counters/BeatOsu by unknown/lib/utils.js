@@ -38,7 +38,7 @@ function watchTokens(tokenList, onTokensUpdated, bulkTokenUpdateType, updatesPer
   rws.watchedTokens = tokenList;
 
   rws.onopen = () => {
-    rws.send(JSON.stringify(rws.watchedTokens))
+    rws.send(`applyFilters:${JSON.stringify(rws.watchedTokens)}`)
   };
   rws.onmessage = (eventData) => {
     onTokensUpdated(JSON.parse(eventData.data));

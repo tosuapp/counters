@@ -31,6 +31,45 @@ const modsImgs = {
 
 socket.onopen = () => {
     console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+      {
+        field: 'menu',
+        keys: [
+          'state',
+          {
+            field: 'mods',
+            keys: ['str']
+          },
+          {
+            field: 'bm',
+            keys: [
+              'path',
+              {
+                field: 'metadata',
+                keys: ['artist', 'title']
+              },
+              {
+                field: 'stats',
+                keys: ['AR', 'CS', 'OD', 'HP']
+              },
+            ]
+          },
+        ]
+      },
+      {
+        field: 'gameplay',
+        keys: [
+          {
+            field: 'pp',
+            keys: ['current', 'pp']
+          },
+          {
+            field: 'hits',
+            keys: ['100', '50', '0']
+          },
+        ]
+      }
+    ])}`);
 };
 
 socket.onclose = event => {
