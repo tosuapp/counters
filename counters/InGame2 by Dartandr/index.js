@@ -31,6 +31,8 @@ socket.onmessage = event => {
 
             animation.pp.update(cache['pp']);
         };
+
+        if(cache['pp100']) cache['pp100'] = undefined;
     } else {
         if (cache['pp100'] != data.menu.pp[100]) {
             cache['pp100'] = data.menu.pp[100];
