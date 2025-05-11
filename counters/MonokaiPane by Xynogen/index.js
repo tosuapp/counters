@@ -23,6 +23,50 @@ let $artist = document.getElementsByClassName("artist");
 
 socket.onopen = () => {
     console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'menu',
+            keys: [
+                'state',
+                {
+                    field: 'bm',
+                    keys: [
+                        'rankedStatus',
+                        {
+                            field: 'path',
+                            keys: ['full']
+                        },
+                        {
+                            field: 'time',
+                            keys: ['current', 'mp3']
+                        },
+                        {
+                            field: 'metadata',
+                            keys: ['title', 'artist', 'mapper', 'difficulty']
+                        }
+                    ]
+                }]
+        },
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'pp',
+                    keys: ['current']
+                },
+                {
+                    field: 'hits',
+                    keys: [
+                        '100', '50', '0',
+                        {
+                            field: 'grade',
+                            keys: ['current']
+                        }
+                    ]
+                }
+            ]
+        }
+    ])}`)
 };
 
 socket.onclose = (event) => {
