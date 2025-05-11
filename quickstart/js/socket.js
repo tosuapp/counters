@@ -957,7 +957,7 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play.pp
  * @property {number} tourney.clients.play.pp.current
  * @property {number} tourney.clients.play.pp.fc
- * @property {number} tourney.clients.play.pp.maxAchievedThisPlay
+ * @property {number} tourney.clients.play.pp.maxAchieved
  * @property {object} tourney.clients.play.pp.detailed
  * @property {object} tourney.clients.play.pp.detailed.current
  * @property {number} tourney.clients.play.pp.detailed.current.aim
