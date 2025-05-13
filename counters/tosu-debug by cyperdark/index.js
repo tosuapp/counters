@@ -342,9 +342,9 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
   };
 
 
-  if (cache['play.pp.maxThisPlay'] != play.pp.maxAchievedThisPlay.toFixed(0)) {
-    cache['play.pp.maxThisPlay'] = play.pp.maxAchievedThisPlay.toFixed(0);
-    document.querySelector('.player-pp-max').innerHTML = play.pp.maxAchievedThisPlay.toFixed(0);
+  if (cache['play.pp.maxAchieved'] != play.pp.maxAchieved.toFixed(0)) {
+    cache['play.pp.maxAchieved'] = play.pp.maxAchieved.toFixed(0);
+    document.querySelector('.player-pp-max').innerHTML = play.pp.maxAchieved.toFixed(0);
   };
 
 
