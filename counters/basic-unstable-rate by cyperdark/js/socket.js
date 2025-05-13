@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.4';
+    this.version = '0.1.5';
 
     if (host) {
       this.host = host;
@@ -741,7 +741,8 @@ export default WebSocketManager;
  * @property {object} play.pp
  * @property {number} play.pp.current
  * @property {number} play.pp.fc
- * @property {number} play.pp.maxAchievedThisPlay
+ * @property {number} play.pp.maxAchieved
+ * @property {number} play.pp.maxAchievable
  * @property {object} play.pp.detailed
  * @property {object} play.pp.detailed.current
  * @property {number} play.pp.detailed.current.aim
@@ -956,7 +957,7 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play.pp
  * @property {number} tourney.clients.play.pp.current
  * @property {number} tourney.clients.play.pp.fc
- * @property {number} tourney.clients.play.pp.maxAchievedThisPlay
+ * @property {number} tourney.clients.play.pp.maxAchieved
  * @property {object} tourney.clients.play.pp.detailed
  * @property {object} tourney.clients.play.pp.detailed.current
  * @property {number} tourney.clients.play.pp.detailed.current.aim

@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.4';
+    this.version = '0.1.5';
 
     if (host) {
       this.host = host;
@@ -14,7 +14,7 @@ class WebSocketManager {
     this.sockets = {};
   }
 
-  createConnection(url, callback, filters, on_open) {
+  createConnection(url, callback, filters) {
     let INTERVAL = '';
 
     const that = this;
@@ -27,8 +27,6 @@ class WebSocketManager {
       if (Array.isArray(filters)) {
         this.sockets[url].send(`applyFilters:${JSON.stringify(filters)}`);
       }
-
-      if(typeof on_open == 'function') on_open();
     };
 
     this.sockets[url].onclose = (event) => {
@@ -36,7 +34,7 @@ class WebSocketManager {
 
       delete this.sockets[url];
       INTERVAL = setTimeout(() => {
-        that.createConnection(url, callback, filters, on_open);
+        that.createConnection(url, callback, filters);
       }, 1000);
     };
 
@@ -72,10 +70,9 @@ class WebSocketManager {
    * Connects to gosu compatible socket api.
    * @param {(data: WEBSOCKET_V1) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
-   * @param {Function} on_open
    */
-  api_v1(callback, filters, on_open) {
-    this.createConnection(`/ws`, callback, filters, on_open);
+  api_v1(callback, filters) {
+    this.createConnection(`/ws`, callback, filters);
   };
 
 
@@ -83,10 +80,9 @@ class WebSocketManager {
    * Connects to tosu advanced socket api.
    * @param {(data: WEBSOCKET_V2) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
-   * @param {Function} on_open
    */
-  api_v2(callback, filters, on_open) {
-    this.createConnection(`/websocket/v2`, callback, filters, on_open);
+  api_v2(callback, filters) {
+    this.createConnection(`/websocket/v2`, callback, filters);
   };
 
 
@@ -94,10 +90,9 @@ class WebSocketManager {
    * Connects to tosu precise socket api.
    * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
-   * @param {Function} on_open
    */
-  api_v2_precise(callback, filters, on_open) {
-    this.createConnection(`/websocket/v2/precise`, callback, filters, on_open);
+  api_v2_precise(callback, filters) {
+    this.createConnection(`/websocket/v2/precise`, callback, filters);
   };
 
 
@@ -226,7 +221,7 @@ class WebSocketManager {
 
 export default WebSocketManager;
 
-/* eslint-disable */
+
 
 /** 
  * @typedef {string | { field: string; keys: Filters[] }} Filters
@@ -648,6 +643,8 @@ export default WebSocketManager;
  * @property {string} profile.countryCode.name
  * @property {string} profile.backgroundColour
  * @property {object} beatmap
+ * @property {boolean} beatmap.isKiai
+ * @property {boolean} beatmap.isBreak
  * @property {boolean} beatmap.isConvert
  * @property {object} beatmap.time
  * @property {number} beatmap.time.live
@@ -744,7 +741,8 @@ export default WebSocketManager;
  * @property {object} play.pp
  * @property {number} play.pp.current
  * @property {number} play.pp.fc
- * @property {number} play.pp.maxAchievedThisPlay
+ * @property {number} play.pp.maxAchieved
+ * @property {number} play.pp.maxAchievable
  * @property {object} play.pp.detailed
  * @property {object} play.pp.detailed.current
  * @property {number} play.pp.detailed.current.aim
@@ -959,7 +957,7 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play.pp
  * @property {number} tourney.clients.play.pp.current
  * @property {number} tourney.clients.play.pp.fc
- * @property {number} tourney.clients.play.pp.maxAchievedThisPlay
+ * @property {number} tourney.clients.play.pp.maxAchieved
  * @property {object} tourney.clients.play.pp.detailed
  * @property {object} tourney.clients.play.pp.detailed.current
  * @property {number} tourney.clients.play.pp.detailed.current.aim

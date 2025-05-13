@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.3';
+    this.version = '0.1.5';
 
     if (host) {
       this.host = host;
@@ -525,6 +525,7 @@ export default WebSocketManager;
 
 /** @typedef {object} WEBSOCKET_V2
  * @property {'stable' | 'lazer'} client
+ * @property {string} server
  * @property {object} state
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23} state.number
  * @property {'menu' | 'edit' | 'play' | 'exit' | 'selectEdit' | 'selectPlay' | 'selectDrawings' | 'resultScreen' | 'update' | 'busy' | 'unknown' | 'lobby' | 'matchSetup' | 'selectMulti' | 'rankingVs' | 'onlineSelection' | 'optionsOffsetWizard' | 'rankingTagCoop' | 'rankingTeam' | 'beatmapImport' | 'packageUpdater' | 'benchmark' | 'tourney' | 'charts'} state.name
@@ -642,6 +643,8 @@ export default WebSocketManager;
  * @property {string} profile.countryCode.name
  * @property {string} profile.backgroundColour
  * @property {object} beatmap
+ * @property {boolean} beatmap.isKiai
+ * @property {boolean} beatmap.isBreak
  * @property {boolean} beatmap.isConvert
  * @property {object} beatmap.time
  * @property {number} beatmap.time.live
@@ -738,7 +741,8 @@ export default WebSocketManager;
  * @property {object} play.pp
  * @property {number} play.pp.current
  * @property {number} play.pp.fc
- * @property {number} play.pp.maxAchievedThisPlay
+ * @property {number} play.pp.maxAchieved
+ * @property {number} play.pp.maxAchievable
  * @property {object} play.pp.detailed
  * @property {object} play.pp.detailed.current
  * @property {number} play.pp.detailed.current.aim
@@ -759,6 +763,7 @@ export default WebSocketManager;
  * @property {boolean} leaderboard.isFailed
  * @property {number} leaderboard.position
  * @property {number} leaderboard.team
+ * @property {number} leaderboard.id
  * @property {string} leaderboard.name
  * @property {number} leaderboard.score
  * @property {number} leaderboard.accuracy
@@ -952,7 +957,7 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play.pp
  * @property {number} tourney.clients.play.pp.current
  * @property {number} tourney.clients.play.pp.fc
- * @property {number} tourney.clients.play.pp.maxAchievedThisPlay
+ * @property {number} tourney.clients.play.pp.maxAchieved
  * @property {object} tourney.clients.play.pp.detailed
  * @property {object} tourney.clients.play.pp.detailed.current
  * @property {number} tourney.clients.play.pp.detailed.current.aim

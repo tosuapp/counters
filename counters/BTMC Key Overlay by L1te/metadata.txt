@@ -2,7 +2,7 @@ Usecase: ingame, obs-overlay
 Name: BTMC Key Overlay
 Author: L1te
 CompatibleWith: tosu
-Version: 2.001
+Version: 2.1
 Resolution: 418x260
 authorLinks: https://github.com/L1teD
 Notes: It looks awesome :> and there are plenty settings
