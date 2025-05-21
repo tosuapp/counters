@@ -400,8 +400,6 @@ const calculateTimingWindows = (gamemode, od, mods) => {
   }
 };
 
-const tickElementsArray = [];
-const lastAppliedX = [];
 let areTicksRendered = false;
 const { disableHardwareAcceleration } = settings;
 const renderTicksOnLoad = () => {
@@ -412,52 +410,24 @@ const renderTicksOnLoad = () => {
     return;
   }
   const fragment = document.createDocumentFragment();
-  tickElementsArray.length = 0;
-  lastAppliedX.length = 0;
-  for (let i = 0; i < cache.tickPool.PoolSize; i++) {
+  const elementsForPool = [];
+  for (let i = 0; i < cache.tickPool.poolSize; i++) {
     const div = document.createElement("div");
     div.className = "tick inactive";
+    const initialTransform = disableHardwareAcceleration ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
+    div.style.transform = initialTransform;
     fragment.appendChild(div);
-    tickElementsArray.push(div);
-    lastAppliedX.push(Number.NaN);
+    elementsForPool.push(div);
   }
   container.appendChild(fragment);
+  cache.tickPool.setElements(elementsForPool);
   areTicksRendered = true;
-  console.log(`Rendered ${tickElementsArray.length} tick elements.`);
+  console.log(`Rendered and assigned ${elementsForPool.length} tick elements.`);
 };
 const resetTicks = () => {
   if (!areTicksRendered) return;
-  for (let i = 0; i < tickElementsArray.length; i++) {
-    const tickElement = tickElementsArray[i];
-    if (!tickElement) continue;
-    tickElement.className = "tick inactive";
-    const initialTransform = disableHardwareAcceleration ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
-    if (tickElement.style.transform !== initialTransform) {
-      tickElement.style.transform = initialTransform;
-    }
-    lastAppliedX[i] = 0;
-  }
-};
-const updateTicks = () => {
-  requestAnimationFrame(() => {
-    const poolSize = cache.tickPool.PoolSize;
-    for (let i = 0; i < poolSize; i++) {
-      const tick = cache.tickPool.pool[i];
-      const tickElement = tickElementsArray[i];
-      if (tick.classNames !== tickElement.className) {
-        tickElement.className = tick.classNames;
-      }
-      const targetX = tick.position;
-      const lastX = lastAppliedX[i];
-      if (targetX !== lastX) {
-        const newTransform = disableHardwareAcceleration ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
-        if (tickElement.style.transform !== newTransform) {
-          tickElement.style.transform = newTransform;
-        }
-        lastAppliedX[i] = targetX;
-      }
-    }
-  });
+  cache.tickPool.set();
+  console.log("TickPool reset triggered by resetTicks.");
 };
 
 const arrow = getElement(".arrow");
@@ -508,54 +478,129 @@ class TickImpl {
   active;
   timestamp;
   // timestamp in milliseconds
+  element;
+  // Added element property
+  lastAppliedX;
+  // Track last applied X for optimization
+  _currentAnimation = null;
   constructor() {
     this.position = 0;
     this.classNames = "tick inactive";
     this.active = false;
     this.timestamp = Date.now();
+    this.element = null;
+    this.lastAppliedX = Number.NaN;
   }
-  // Convert class methods to static methods
-  static reset(tick) {
-    tick.position = 0;
-    tick.classNames = "tick inactive";
-    tick.active = false;
-    tick.timestamp = Date.now();
+  // Instance methods
+  reset() {
+    this._currentAnimation?.cancel();
+    if (this.element) {
+      this.element.style.opacity = "0";
+    }
+    this.position = 0;
+    this.classNames = "tick inactive";
+    this.active = false;
+    this.timestamp = Date.now();
+    this.updateElement();
   }
-  static setActive(tick, hitError) {
-    tick.position = hitError << 1;
-    tick.active = true;
-    tick.timestamp = Date.now();
-    TickImpl.setClassNames(tick);
+  setActive(hitError) {
+    this._currentAnimation?.cancel();
+    if (this.element) {
+      this.element.style.opacity = String(settings.tickOpacity);
+      this.element.style.visibility = "visible";
+      this._currentAnimation = this.element.animate(
+        [
+          { opacity: settings.tickOpacity },
+          { opacity: 0 }
+        ],
+        {
+          duration: settings.fadeOutDuration,
+          delay: settings.tickDuration,
+          easing: "linear",
+          fill: "forwards"
+        }
+      );
+    }
+    this.position = hitError << 1;
+    this.active = true;
+    this.timestamp = Date.now();
+    this.setClassNames();
   }
-  static setInactive(tick) {
-    tick.active = false;
-    tick.classNames = "tick inactive";
-    tick.timestamp = 0;
+  setInactive() {
+    if (this.active) {
+      this._currentAnimation?.cancel();
+      if (this.element) {
+        this.element.style.opacity = "0";
+        this.element.style.visibility = "hidden";
+      }
+      this.active = false;
+      this.classNames = "tick inactive";
+      this.timestamp = 0;
+      this.updateElement();
+    }
   }
-  static resetActive(tick, hitError) {
-    tick.position = hitError << 1;
-    tick.timestamp = Date.now();
-    TickImpl.setClassNames(tick);
+  resetActive(hitError) {
+    this._currentAnimation?.cancel();
+    if (this.element) {
+      this.element.style.opacity = String(settings.tickOpacity);
+      this.element.style.visibility = "visible";
+      this._currentAnimation = this.element.animate(
+        [
+          { opacity: settings.tickOpacity },
+          { opacity: 0 }
+        ],
+        {
+          duration: settings.fadeOutDuration,
+          delay: settings.tickDuration,
+          easing: "linear",
+          fill: "forwards"
+        }
+      );
+    }
+    this.position = hitError << 1;
+    this.timestamp = Date.now();
+    this.setClassNames();
   }
-  static setClassNames(tick) {
+  setClassNames() {
     const { timingWindows } = cache;
-    tick.classNames = "tick";
-    const hitError = Math.abs(tick.position >> 1);
+    let newClassNames = "tick";
+    const hitError = Math.abs(this.position >> 1);
     let matched = false;
     for (const [grade, range] of timingWindows) {
       if (hitError <= range) {
-        tick.classNames += ` _${String(grade)}`;
+        newClassNames += ` _${String(grade)}`;
         matched = true;
         break;
       }
     }
     if (!matched) {
-      tick.classNames += " _0";
+      newClassNames += " _0";
+    }
+    if (this.classNames !== newClassNames) {
+      this.classNames = newClassNames;
+      this.updateElement();
+    } else {
+      this.updateElement();
+    }
+  }
+  // New method to handle DOM updates
+  updateElement() {
+    if (!this.element) return;
+    if (this.element.className !== this.classNames) {
+      this.element.className = this.classNames;
+    }
+    const targetX = this.active ? this.position : 0;
+    if (targetX !== this.lastAppliedX) {
+      const newTransform = settings.disableHardwareAcceleration ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
+      if (this.element.style.transform !== newTransform) {
+        this.element.style.transform = newTransform;
+      }
+      this.lastAppliedX = targetX;
     }
   }
 }
-class TickPool {
-  PoolSize;
+class TickManager {
+  poolSize;
   processedHits;
   pool;
   // readonly doesnt prevent us from modifying the array, only from reassigning it
@@ -564,13 +609,25 @@ class TickPool {
   nonFadeOutTicks = /* @__PURE__ */ new Set();
   // Store indices of visible ticks
   constructor() {
-    this.PoolSize = 100;
+    this.poolSize = 100;
     this.processedHits = 0;
-    this.pool = Array.from({ length: this.PoolSize }, () => new TickImpl());
+    this.pool = Array.from({ length: this.poolSize }, () => new TickImpl());
+  }
+  // New method to assign elements
+  setElements(elements) {
+    if (elements.length !== this.poolSize) {
+      console.error(`TickPool Error: Element count (${elements.length}) does not match PoolSize (${this.poolSize}).`);
+      return;
+    }
+    for (let i = 0; i < this.poolSize; i++) {
+      this.pool[i].element = elements[i];
+      this.pool[i].reset();
+    }
+    console.log("Tick elements assigned to TickPool.");
   }
   set() {
     for (const tick of this.pool) {
-      TickImpl.reset(tick);
+      tick.reset();
     }
     this.activeTicks.clear();
     this.nonFadeOutTicks.clear();
@@ -581,7 +638,7 @@ class TickPool {
     const { tickDuration, fadeOutDuration } = settings;
     const timeoutThreshold = tickDuration + fadeOutDuration;
     const { rate } = cache;
-    const poolSize = this.PoolSize;
+    const poolSize = this.poolSize;
     const pool = this.pool;
     const activeTicks = this.activeTicks;
     const nonFadeOutTicks = this.nonFadeOutTicks;
@@ -589,7 +646,7 @@ class TickPool {
     for (const idx of activeTicks) {
       const tick = pool[idx];
       if (now - tick.timestamp > timeoutThreshold) {
-        TickImpl.setInactive(tick);
+        tick.setInactive();
         activeTicks.delete(idx);
       }
     }
@@ -605,14 +662,20 @@ class TickPool {
       const error = hitErrors[i] / rate;
       const tick = pool[poolIndex];
       if (!tick.active) {
-        TickImpl.setActive(tick, error);
+        tick.setActive(error);
         activeTicks.add(poolIndex);
         nonFadeOutTicks.add(poolIndex);
         this.processedHits++;
       } else {
         const processedHitsindex = processedHits - 1;
         if (i > processedHitsindex) {
-          TickImpl.resetActive(tick, error);
+          if (activeTicks.has(poolIndex)) {
+            tick.setInactive();
+            tick.setActive(error);
+          } else {
+            tick.resetActive(error);
+          }
+          nonFadeOutTicks.add(poolIndex);
           this.processedHits++;
         }
       }
@@ -665,7 +728,7 @@ const cache = {
   state: "",
   timingWindows: /* @__PURE__ */ new Map(),
   // same can't be said here, since mania has 5 timing windows, while all taiko and standard have 3
-  tickPool: new TickPool(),
+  tickPool: new TickManager(),
   firstObjectTime: 0,
   isReset: true
 };
@@ -692,7 +755,7 @@ if (settings.showSD) {
     container.prepend(sd);
   }
 }
-const apiV2Filters = ["state", { field: "play", keys: ['mode', 'mods'] }, { field: "beatmap", keys: ['mode', 'stats', 'time'] }];
+const apiV2Filters = ["state", { field: "play", keys: ["mode", "mods"] }, { field: "beatmap", keys: ["mode", "stats", "time"] }];
 wsManager.api_v2((data) => {
   if (cache.state !== data.state.name) {
     cache.state = data.state.name;
@@ -730,9 +793,6 @@ wsManager.api_v2_precise((data) => {
     }
   } else {
     cache.tickPool.update(hitErrors);
-    if (cache.tickPool.activeTicks.size > 0) {
-      updateTicks();
-    }
     const nonFadeOutErrors = [];
     for (const idx of cache.tickPool.nonFadeOutTicks) {
       nonFadeOutErrors.push(cache.tickPool.pool[idx].position >> 1);
