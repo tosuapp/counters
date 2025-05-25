@@ -159,9 +159,6 @@ body {
     opacity: 1;
 }
 
-@keyframes fadeOut {
-    to { opacity: 0; }
-}
 
 .tick {
     position: absolute;
@@ -173,14 +170,10 @@ body {
     z-index: 7;
 }
 
-.tick:not(.inactive) {
-    animation: fadeOut var(--fade-out-duration) linear var(--tick-duration) forwards;
-}
 
 .tick.inactive {
     visibility: hidden;
     pointer-events: none;
-    animation: none;
     opacity: 0;
 }
 /* Timing window-based colors for ticks */
