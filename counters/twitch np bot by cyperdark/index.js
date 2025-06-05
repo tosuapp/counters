@@ -662,7 +662,7 @@ socket.api_v2(async (data) => {
                 const url = custom_url ? ` ${custom_url}` : '';
 
                 cache['skin-name'] = data.folders.skin;
-                cache['skinName'] = name && author ? `${name} by ${author}${url}` : name ? `${name}${url}` : data.folders.skin;
+                cache['skinName'] = name && author ? `${name} by ${author}${url}` : name ? `${name}${url}` : data.folders.skin.includes('\\') ? '' : data.folders.skin;
             } catch (error) {
                 console.log(error);
             };
