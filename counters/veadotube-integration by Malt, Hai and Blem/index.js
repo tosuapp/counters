@@ -34,23 +34,17 @@ function connectVeadoSocket() {
 
   veadoSocket.onopen = () => {
     setDisplayContainer('veadoStatusText', 'Connected to VeadoTube WebSocket on port ' + cache.veadoPort);
-    console.log('Connected to VeadoTube WebSocket');
   }
   veadoSocket.onerror = (error) => {
     console.error('WebSocket error:', error);
   }
   veadoSocket.onclose = () => {
     setDisplayContainer('veadoStatusText', 'VeadoTube WebSocket connection closed, attempting to reconnect...');;
-    console.log('VeadoTube WebSocket connection closed, attempting to reconnect...');
     // Attempt to reconnect after a three second delay.
     veadoReconnectTimer = setTimeout(connectVeadoSocket, 3000);
   }
 }
 
-
-// veadoSocket.onopen = () => {
-//   console.log('Connected to VeadoTube WebSocket');
-// }
 
 function bubanMoment(combo_percent) {
   if (combo_percent < (cache.minimumComboPercent/100)) {
@@ -70,7 +64,7 @@ function bubanMoment(combo_percent) {
   setTimeout(() => {
     restoreBlem();
   }, bubanTime);
-  console.log(`BUBAN mode activated for ${bubanTime / 1000} seconds`);
+
 }
 
 function blemMoment() {
@@ -86,7 +80,6 @@ function blemMoment() {
   setTimeout(() => {
     restoreBlem();
   }, blemPrime);
-  console.log(`BLEM-PRIME mode activated for ${blemPrime / 1000} seconds`);
 }
 
 
@@ -154,11 +147,8 @@ socket.api_v2(({ play, beatmap }) => {
 	if (beatmap.time.live <= 0) {cache.stateChange = 0}
     if (cache.combo !== play.combo) {
       if (play.combo.current < cache.combo.current) {
-		console.log(`${play.hits[0]} && ${play.hits.sliderBreaks}`);
 		if (play.hits[0] || play.hits.sliderBreaks) {
-		  console.log(`inside choke statement`);
 		  let brokenComboRatio = cache.combo.current / cache.maxCombo;
-		  console.log(`Broken combo percent: ${brokenComboRatio * 100}%`);
 		  bubanMoment(brokenComboRatio);
 		}
 	  }
@@ -168,13 +158,11 @@ socket.api_v2(({ play, beatmap }) => {
 		let reverseChokeRatio = cache.combo.current / cache.maxCombo;
 		if (reverseChokeRatio > 0.85 && !cache.stateChange) {
 			if (play.hits[0] || play.hits.sliderBreaks) {
-				console.log(`inside reverse choke statement`);
 				bubanMoment(reverseChokeRatio)
 				cache.stateChange = 1;
 			}
 		}
 		if (!play.hits[0] && !play.hits.sliderBreaks && play.combo.max && !cache.stateChange) {
-				console.log(`inside fc statement`);
 				blemMoment();
 				cache.stateChange = 1;
 		}
