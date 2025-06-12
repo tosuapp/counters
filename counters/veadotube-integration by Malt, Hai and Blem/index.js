@@ -34,7 +34,7 @@ function connectVeadoSocket() {
   veadoSocket = new WebSocket(`ws://127.0.0.1:${cache.veadoPort}/?n=tosu`);
 
   veadoSocket.onopen = () => {
-    setDisplayContainer('veadoStatusText', 'Connected to VeadoTube WebSocket on port ' + cache.veadoPort);
+    setDisplayContainer('veadoStatusText', 'DON\'T CLOSE THIS TAB!! Connected on port ' + cache.veadoPort);
   }
   veadoSocket.onerror = (error) => {
     console.error('WebSocket error:', error);
