@@ -30,7 +30,8 @@ function connectVeadoSocket() {
   clearTimeout(veadoReconnectTimer);
 
   // Connect to VeadoTube WebSocket
-  veadoSocket = new WebSocket(`ws://127.0.0.1:${cache.veadoPort}/?n=blemtuber`);
+  // default display name given since veadotube rejects unnamed client requests
+  veadoSocket = new WebSocket(`ws://127.0.0.1:${cache.veadoPort}/?n=tosu`);
 
   veadoSocket.onopen = () => {
     setDisplayContainer('veadoStatusText', 'Connected to VeadoTube WebSocket on port ' + cache.veadoPort);
