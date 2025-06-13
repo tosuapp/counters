@@ -138,7 +138,7 @@ function onSocketOpen() {
       if (message["celebrationState"] != null) {
         cache["celebrationState"] = message["celebrationState"];
       }
-	  connectVeadoSocket();
+      connectVeadoSocket();
     } catch (error) {
       console.log(error);
     }
@@ -151,7 +151,7 @@ socket.api_v2(({ play, beatmap }) => {
     if (beatmap.time.live <= 0) {
       cache.stateChange = 0;
     }
-    if (cache.combo !== play.combo) {
+    if (cache.combo !== play.combo.current) {
       if (play.combo.current < cache.combo.current) {
         if (play.hits[0] || play.hits.sliderBreaks) {
           let brokenComboRatio = cache.combo.current / cache.maxCombo;
@@ -159,7 +159,7 @@ socket.api_v2(({ play, beatmap }) => {
         }
       }
 
-      cache.combo = play.combo;
+      cache.combo = play.combo.current;
       if (beatmap.time.live >= beatmap.time.lastObject) {
         let reverseChokeRatio = cache.combo.current / cache.maxCombo;
         if (reverseChokeRatio > 0.85 && !cache.stateChange) {
@@ -188,4 +188,27 @@ socket.api_v2(({ play, beatmap }) => {
   } catch (error) {
     console.log(error);
   }
-});
+}, [
+  {
+    field: 'play',
+    keys: [
+      'combo',
+      {
+        field: 'hits',
+        keys: ['0', 'sliderBreaks']
+      }
+    ],
+  },
+  {
+    field: 'beatmap',
+    keys: [
+      'time',
+      {
+        field: 'stats',
+        keys: [
+          'maxCombo'
+        ]
+      }
+    ]
+  }
+]);
