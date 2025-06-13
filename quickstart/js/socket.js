@@ -587,6 +587,11 @@ export default WebSocketManager;
  * @property {object} settings.mania
  * @property {boolean} settings.mania.speedBPMScale
  * @property {boolean} settings.mania.usePerBeatmapSpeedScale
+ * @property {boolean} settings.mania.usePerBeatmapSpeedScale
+ * @property {number} settings.mania.scrollSpeed
+ * @property {object} settings.mania.scrollDirection
+ * @property {number} settings.mania.scrollDirection.number
+ * @property {'up' | 'down'} settings.mania.scrollDirection.name
  * @property {object} settings.sort
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7} settings.sort.number
  * @property {'artist' | 'bpm' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'title'} settings.sort.name
