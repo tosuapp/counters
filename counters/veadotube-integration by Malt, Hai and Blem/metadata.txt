@@ -1,5 +1,6 @@
-Usecase: veadotube-link
-Name:  veadotube integration
+Usecase: obs, ingame
+Name: veadotube-integration
+Version: 1.0.0
 Author: Malteser, WhatTheHai, Bubbleman
 CompatibleWith: tosu
 Resolution: 1x1
