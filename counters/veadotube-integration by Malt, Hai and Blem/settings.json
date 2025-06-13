@@ -1,0 +1,56 @@
+[
+    {
+        "uniqueID": "baseBuban",
+        "type": "number",
+        "title": "Base Time",
+        "description": "Time spent in 'shocked' state, in milliseconds (ms). Scaled around default of 1000",
+        "values": [],
+        "value": 1000,
+        "required": true
+    },
+    {
+        "uniqueID": "veadoPort",
+        "type": "number",
+        "title": "Veadotube Port",
+        "description": "Port for the Veadotube Websocket",
+        "values": [],
+        "value": 8085,
+        "required": true
+    },
+    {
+        "uniqueID": "minimumComboPercent",
+        "type": "number",
+        "title": "Minimum Combo threshold",
+        "description": "Set the combo threshold for the change to appear, in percent",
+        "values": [],
+        "value": 33,
+        "required": true
+    },
+	{
+        "uniqueID": "defaultState",
+        "type": "text",
+        "title": "Default State",
+        "description": "The name of your pngtuber's default/idle state",
+        "values": [],
+        "value": "BLEM",
+        "required": true
+    },
+	{
+        "uniqueID": "shockedState",
+        "type": "text",
+        "title": "Shocked State",
+        "description": "The name of your pngtuber's shocked/upset state, triggered on miss over the combo threshold or reverse choke",
+        "values": [],
+        "value": "BUBAN",
+        "required": true
+    },
+	{
+        "uniqueID": "celebrationState",
+        "type": "text",
+        "title": "Celebration State",
+        "description": "The name of your pngtuber's happy state, triggered on FC",
+        "values": [],
+        "value": "BLEM-PRIME",
+        "required": true
+    }
+]
