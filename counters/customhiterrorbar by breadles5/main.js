@@ -196,7 +196,7 @@ const settings = {
   TimingWindowOpacity: 0,
   barHeight: 0,
   barWidth: 0,
-  colorBar: "#000000",
+  colorBar: "transparent",
   tickWidth: 0,
   tickHeight: 0,
   tickDuration: 0,
@@ -204,19 +204,21 @@ const settings = {
   fadeOutDuration: 0,
   arrowSize: 0,
   perfectArrowThreshold: 0,
-  colorArrowEarly: "#000000",
-  colorArrowLate: "#000000",
-  colorArrowPerfect: "#000000",
+  colorArrowEarly: "transparent",
+  colorArrowLate: "transparent",
+  colorArrowPerfect: "transparent",
   timingWindowHeight: 0,
   isRounded: 0,
-  color300g: "#000000",
-  color300: "#000000",
-  color200: "#000000",
-  color100: "#000000",
-  color50: "#000000",
-  color0: "#000000",
+  color300g: "transparent",
+  color300: "transparent",
+  color200: "transparent",
+  color100: "transparent",
+  color50: "transparent",
+  color0: "transparent",
   showSD: false,
-  disableHardwareAcceleration: false
+  disableHardwareAcceleration: false,
+  useCustomTimingWindows: false,
+  customTimingWindows: "16.5,64,97,127,151"
 };
 const root = typeof document !== "undefined" ? document.documentElement : { style: { setProperty: () => {
 } } };
@@ -285,18 +287,19 @@ const updateCSSLayout = () => {
   }
 };
 const updateCSSColors = () => {
+  const sanitize = (color) => color.toLowerCase() === "#000000" ? "transparent" : color;
   root.style.setProperty("--timing-windows-opacity", String(settings.TimingWindowOpacity));
   root.style.setProperty("--tick-opacity", String(settings.tickOpacity));
-  root.style.setProperty("--color-300g", settings.color300g);
-  root.style.setProperty("--color-300", settings.color300);
-  root.style.setProperty("--color-200", settings.color200);
-  root.style.setProperty("--color-100", settings.color100);
-  root.style.setProperty("--color-50", settings.color50);
-  root.style.setProperty("--color-0", settings.color0);
-  root.style.setProperty("--arrow-early", settings.colorArrowEarly);
-  root.style.setProperty("--arrow-late", settings.colorArrowLate);
-  root.style.setProperty("--arrow-perfect", settings.colorArrowPerfect);
-  root.style.setProperty("--bar-color", settings.colorBar);
+  root.style.setProperty("--color-300g", sanitize(settings.color300g));
+  root.style.setProperty("--color-300", sanitize(settings.color300));
+  root.style.setProperty("--color-200", sanitize(settings.color200));
+  root.style.setProperty("--color-100", sanitize(settings.color100));
+  root.style.setProperty("--color-50", sanitize(settings.color50));
+  root.style.setProperty("--color-0", sanitize(settings.color0));
+  root.style.setProperty("--arrow-early", sanitize(settings.colorArrowEarly));
+  root.style.setProperty("--arrow-late", sanitize(settings.colorArrowLate));
+  root.style.setProperty("--arrow-perfect", sanitize(settings.colorArrowPerfect));
+  root.style.setProperty("--bar-color", sanitize(settings.colorBar));
 };
 const updateVisibility = () => {
   const sd = getElement(".sd");
@@ -383,7 +386,27 @@ const calculateManiaWindows = (od, mods) => {
   }
   return windows;
 };
-const calculateTimingWindows = (gamemode, od, mods) => {
+const calculateTimingWindows = (gamemode, od, mods, customTimingWindows) => {
+  if (customTimingWindows) {
+    const values = customTimingWindows.split(",").map((v) => Number.parseFloat(v.trim()));
+    const windows = /* @__PURE__ */ new Map();
+    if (gamemode === "mania") {
+      const grades = ["300g", "300", "200", "100", "50"];
+      grades.forEach((grade, idx) => {
+        if (idx < values.length) {
+          windows.set(grade, values[idx]);
+        }
+      });
+    } else {
+      const grades = ["300", "100", "50"];
+      grades.forEach((grade, idx) => {
+        if (idx < values.length) {
+          windows.set(grade, values[idx]);
+        }
+      });
+    }
+    return windows;
+  }
   switch (gamemode) {
     case "osu":
       return calculateOsuWindows(od, mods);
@@ -449,12 +472,12 @@ const updateArrow = (targetPosition) => {
     }
     oldPosition = targetPosition;
     if (arrow) {
+      arrow.style.borderTopColor = getArrowColor(targetPosition);
       if (settings.disableHardwareAcceleration) {
         arrow.style.transform = `translateX(${targetPosition * 2}px)`;
         return;
       }
       arrow.style.transform = `translate3d(${targetPosition * 2}px, 0px, 0px)`;
-      arrow.style.borderTopColor = getArrowColor(targetPosition);
     }
   });
 };
@@ -755,7 +778,11 @@ if (settings.showSD) {
     container.prepend(sd);
   }
 }
-const apiV2Filters = ["state", { field: "play", keys: ["mode", "mods"] }, { field: "beatmap", keys: ["mode", "stats", "time"] }];
+const apiV2Filters = [
+  "state",
+  { field: "play", keys: ["mode", "mods"] },
+  { field: "beatmap", keys: ["mode", "stats", "time"] }
+];
 wsManager.api_v2((data) => {
   if (cache.state !== data.state.name) {
     cache.state = data.state.name;
@@ -770,7 +797,8 @@ wsManager.api_v2((data) => {
       }
       cache.rate = data.play.mods.rate;
       cache.firstObjectTime = data.beatmap.time.firstObject;
-      cache.timingWindows = calculateTimingWindows(cache.mode, cache.od, cache.mods);
+      const custom = settings.useCustomTimingWindows ? settings.customTimingWindows : void 0;
+      cache.timingWindows = calculateTimingWindows(cache.mode, cache.od, cache.mods, custom);
       updateTimingWindowElements();
       setVisible();
       cache.isReset = false;
