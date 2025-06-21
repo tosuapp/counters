@@ -1,0 +1,10 @@
+[
+    {
+        "uniqueID": "KiaiFlashMaskAnimation",
+        "type": "text",
+        "title": "Flash Animation [float]",
+        "description": "(Animation Progress %)-(Current Opacity)/(Another Animation Progress)",
+        "options": [],
+        "value": "0-1/100-0.5"
+    }
+]
