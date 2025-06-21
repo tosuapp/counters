@@ -232,6 +232,10 @@ function onKiaiOrBpmChanged() {
 // 闪光主循环，精准触发每一拍动画
 let lastFlashIndex = -1;
 function flashLoop() {
+    if (cache.stateNumber !== 2) {
+        requestAnimationFrame(flashLoop);
+        return;
+    }
     const now = cache.live;
     for (let i = lastFlashIndex + 1; i < flashBeats.length; i++) {
         if (now >= flashBeats[i]) {
@@ -241,7 +245,6 @@ function flashLoop() {
             break;
         }
     }
-    requestAnimationFrame(flashLoop);
 }
 
 // 触发单次闪光动画
