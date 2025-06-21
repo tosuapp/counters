@@ -1,0 +1,22 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#menuglowmask {
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#menuglowcolor {
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 255, 0);
+    transition: opacity 0.5s ease;
+}
