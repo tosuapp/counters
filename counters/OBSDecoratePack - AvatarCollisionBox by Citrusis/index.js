@@ -34,6 +34,8 @@ socket.commands((data) => {
       console.log(command, message);
     }
 
+    let changed = false; // 标记本次是否有设置变更
+
     // 图片URL
     if (cache.CollisionBoxIMG !== message.CollisionBoxIMG) {
       cache.CollisionBoxIMG = message.CollisionBoxIMG;
@@ -41,29 +43,27 @@ socket.commands((data) => {
         setAvatarSrcWithAssetsFallback(message.CollisionBoxIMG.trim());
       } else if (cache.profileid) {
         avatar.src = `https://a.ppy.sh/${cache.profileid}`;
-        avatar.onload = () => {
-          applySettingsAndReset();
-        };
       } else {
         avatar.src = 'https://a.ppy.sh/1';
-        avatar.onload = () => {
-          applySettingsAndReset();
-        };
       }
+      // 只刷新图片，不做其他设置
+      changed = true;
     }
 
     // 头像大小
     if (cache.CollisionBoxSize !== message.CollisionBoxSize) {
       cache.CollisionBoxSize = message.CollisionBoxSize;
       avatarSize = Number(message.CollisionBoxSize);
-      applySettingsAndReset();
+      setAvatarSizeAndPosition();
+      changed = true;
     }
 
     // 圆角
     if (cache.CollisionBoxFillet !== message.CollisionBoxFillet) {
       cache.CollisionBoxFillet = message.CollisionBoxFillet;
       fillet = Number(message.CollisionBoxFillet);
-      applySettingsAndReset();
+      avatar.style.borderRadius = `${fillet}px`;
+      changed = true;
     }
 
     // 速度
@@ -72,7 +72,8 @@ socket.commands((data) => {
       speed = message.CollisionBoxSpeed !== undefined && message.CollisionBoxSpeed !== null
         ? Number(message.CollisionBoxSpeed)
         : 100;
-      applySettingsAndReset();
+      vel = randomVelocity();
+      changed = true;
     }
 
     // 加速度
@@ -81,14 +82,16 @@ socket.commands((data) => {
       accelerationValue = message.CollisionBoxAcceleration !== undefined && message.CollisionBoxAcceleration !== null
         ? Number(message.CollisionBoxAcceleration)
         : 9.8;
-      applySettingsAndReset();
+      updateAcceleration();
+      changed = true;
     }
 
     // 加速度角度
     if (cache.CollisionBoxAccelerationRotation !== message.CollisionBoxAccelerationRotation) {
       cache.CollisionBoxAccelerationRotation = message.CollisionBoxAccelerationRotation;
       accelerationRotation = (message.CollisionBoxAccelerationRotation ?? -90);
-      applySettingsAndReset();
+      updateAcceleration();
+      changed = true;
     }
 
     // 光标吸引/排斥/无
@@ -101,7 +104,14 @@ socket.commands((data) => {
       } else {
         cursorMode = 'none';
       }
-      applySettingsAndReset();
+      changed = true;
+    }
+
+    // 只在有设置变更时打印一次日志
+    if (changed) {
+      console.log(
+        `头像大小：${avatarWidth}x${avatarHeight}px，速度（每秒）：${speed}px，加速度：${accelerationValue} px/s²，加速度角度：${accelerationRotation}，圆角：${fillet}px，光标模式：${cursorMode}`
+      );
     }
 
   } catch (error) {
@@ -123,21 +133,13 @@ socket.api_v2(({ profile }) => {
   
 });
 
+// 初始化时只绑定一次 onload
 avatar.onload = () => {
   setAvatarSizeAndPosition();
   vel = randomVelocity();
   updateAcceleration();
-
-  // 打印所有设置
-  console.log(
-    `头像大小：${avatarWidth}x${avatarHeight}px，速度（每秒）：${speed}px，加速度：${accelerationValue} px/s²，加速度角度：${accelerationRotation}，圆角：${fillet}px，光标模式：${cursorMode}`
-  );
-
   requestAnimationFrame(animate);
 };
-
-// 初始图片
-avatar.src = 'https://a.ppy.sh/1';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////
@@ -231,20 +233,6 @@ function updateAcceleration() {
   acceleration.y = Math.sin(rad) * acc;
 }
 
-// 应用设置并重置动画
-function applySettingsAndReset() {
-  setAvatarSizeAndPosition();
-  vel = randomVelocity();
-  updateAcceleration();
-
-  // 打印所有设置
-  console.log(
-    `头像大小：${avatarWidth}x${avatarHeight}px，速度（每秒）：${speed}px，加速度：${accelerationValue} px/s²，加速度角度：${accelerationRotation}，圆角：${fillet}px，光标模式：${cursorMode}`
-  );
-
-  requestAnimationFrame(animate);
-}
-
 // 动画主循环
 function animate() {
   // 基础加速度
@@ -308,15 +296,29 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// 设置头像图片源，支持./assets/路径
+// 设置头像图片源，直接使用 CollisionBoxIMG 的 url，留空则用玩家头像，加载失败用默认头像
 function setAvatarSrcWithAssetsFallback(url) {
-  // 如果是纯文件名（不含/或\），自动加上./assets/
-  if (/^[^\/\\]+?\.[a-zA-Z0-9]+$/.test(url)) {
-    avatar.src = `./assets/${url}`;
+  if (url && url.trim() !== '') {
+    // 只有图片url真正变化时才设置src
+    if (avatar.src !== url && !avatar.src.endsWith(url)) {
+      avatar.src = url;
+    }
+  } else if (cache.profileid) {
+    const profileUrl = `https://a.ppy.sh/${cache.profileid}`;
+    if (avatar.src !== profileUrl) {
+      avatar.src = profileUrl;
+    }
   } else {
-    avatar.src = url;
+    const defaultUrl = 'https://a.ppy.sh/1';
+    if (avatar.src !== defaultUrl) {
+      avatar.src = defaultUrl;
+    }
   }
-  avatar.onload = () => {
-    applySettingsAndReset();
-  };
+}
+
+// 只绑定一次 onerror，加载失败时使用默认头像
+avatar.onerror = () => {
+  if (avatar.src !== 'https://a.ppy.sh/1') {
+    avatar.src = 'https://a.ppy.sh/1';
+  }
 }
