@@ -76,20 +76,32 @@ socket.api_v2(({ state, beatmap, play }) => {
 ///////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+let fcBroken = false;
+
 function FCCheck() {
     if (cache.statenumber === 2) {
+
         colorImg.style.opacity = 1;
         colorImg.style.background = cache.FCCheckAPColor;
-        
+
+        // 断连标记
+        if (cache.beatmaptimelive <= cache.beatmaptimefirstObject) {
+            fcBroken = false;
+        }
+        }
+        if (fcBroken) {
+            colorImg.style.opacity = 0;
+            return;
+        }
+
         if (cache.beatmaptimelive > cache.beatmaptimefirstObject) {
             if (cache.playrankcurrent !== 'XH' && cache.playrankcurrent !== 'X') {
                 colorImg.style.background = cache.FCCheckFCColor;
-
-                if (cache.playcombocurrent === 0) {
-                    colorImg.style.opacity = 0;
-                }
             }
-        }
+            if (cache.playcombocurrent === 0) {
+                fcBroken = true;
+            }
+
     } else {
         colorImg.style.opacity = 0;
     }
