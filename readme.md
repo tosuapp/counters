@@ -1,7 +1,7 @@
 <h1>Welcome 👋</h1>
 <h1><a href="https://github.com/cyperdark/osu-counters/tree/master/counters">Check out pp counters</a></h1>  
 
-# This is a tosu folk to add some Decorate Overlays  
+# This is a tosu fork to add some Decorate Overlays  
 Current overlay list:  
 * [AvatarCollisionBox](https://github.com/Citrusis/OBSDecoratePack/tree/master/counters/OBSDecoratePack%20-%20AvatarCollisionBox%20by%20Citrusis)  
 * [Background](https://github.com/Citrusis/OBSDecoratePack/tree/master/counters/OBSDecoratePack%20-%20Background%20by%20Citrusis)  
