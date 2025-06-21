@@ -54,7 +54,7 @@ socket.api_v2(({ state, beatmap, play }) => {
         cache.beatmaptimelive = beatmap.time.live;
     }
 
-    // 总时长
+    // 开始时间
     if (cache.beatmaptimefirstObject !== beatmap.time.firstObject) {
         cache.beatmaptimefirstObject = beatmap.time.firstObject;
     }
@@ -79,29 +79,36 @@ socket.api_v2(({ state, beatmap, play }) => {
 let fcBroken = false;
 
 function FCCheck() {
-    if (cache.statenumber === 2) {
-
-        colorImg.style.opacity = 1;
-        colorImg.style.background = cache.FCCheckAPColor;
-
-        // 断连标记
+    if (
+        cache.statenumber === 2 ||
+        cache.statenumber === 7 ||
+        cache.statenumber === 14 ||
+        cache.statenumber === 17 ||
+        cache.statenumber === 18
+    ) {
+        // 新一局刚开始，重置
         if (cache.beatmaptimelive <= cache.beatmaptimefirstObject) {
             fcBroken = false;
         }
+        // 第一个物件出现时断连
+        if (cache.beatmaptimelive === cache.beatmaptimefirstObject && cache.playcombocurrent === 0) {
+            fcBroken = true;
+        }
+        // 第一个物件后断连
+        if (cache.beatmaptimelive > cache.beatmaptimefirstObject && cache.playcombocurrent === 0) {
+            fcBroken = true;
         }
         if (fcBroken) {
             colorImg.style.opacity = 0;
             return;
         }
-
+        colorImg.style.opacity = 1;
+        colorImg.style.background = cache.FCCheckAPColor;
         if (cache.beatmaptimelive > cache.beatmaptimefirstObject) {
             if (cache.playrankcurrent !== 'XH' && cache.playrankcurrent !== 'X') {
                 colorImg.style.background = cache.FCCheckFCColor;
             }
-            if (cache.playcombocurrent === 0) {
-                fcBroken = true;
-            }
-
+        }
     } else {
         colorImg.style.opacity = 0;
     }
