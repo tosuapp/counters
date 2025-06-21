@@ -3,9 +3,9 @@
         "uniqueID": "CollisionBoxIMG",
         "type": "text",
         "title": "Avatar Image URL",
-        "description": "Empty for default avatar. Paste [image.expand] directly if it exists in assets file.",
+        "description": "Empty for default avatar. Use './' to add loacal files.",
         "options": [],
-        "value": ""
+        "value": "./assets/example.gif"
     },
     {
         "uniqueID": "CollisionBoxSize",
