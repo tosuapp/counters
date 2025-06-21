@@ -1,0 +1,28 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#snowflakes {
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.snowflake {
+    position: absolute;
+    background-size: contain;
+    animation: fall linear infinite;
+    mix-blend-mode: screen;
+}
+@keyframes fall {
+    to {
+        transform: translateX(var(--x)) translateY(calc(100vh + 10px)) rotate(var(--rotate)); /* 随机偏移与旋转 */
+        opacity: 0;  /* 到达底部时完全透明 */
+    }
+}
