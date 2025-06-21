@@ -1,8 +1,0 @@
-Usecase: obs-overlay
-Name:  OBSDecoratePack - AvatarCollisionBox
-Version: 1.0
-Author:  Citrusis
-CompatibleWith:  tosu
-Resolution:  Any x Any
-authorLinks:  https://github.com/Citrusis,https://osu.ppy.sh/users/30298378
-Notes: Set a box and then there will be a pic starting rolling in it!
