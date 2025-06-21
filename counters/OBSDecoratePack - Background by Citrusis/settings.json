@@ -1,0 +1,34 @@
+[
+    {
+        "uniqueID": "BackgroundAnimationDuration",
+        "type": "number",
+        "title": "Animation Duration [ms]",
+        "description": "Transition duration in milliseconds.",
+        "options": [],
+        "value": "500"
+    },
+    {
+        "uniqueID": "BackgroundSwitchTime",
+        "type": "number",
+        "title": "Switch Time [percent]",
+        "description": "When to switch background.",
+        "options": [],
+        "value": "20"
+    },
+    {
+        "uniqueID": "BackgroundBlurAnimation",
+        "type": "text",
+        "title": "Blur Animation [pixel]",
+        "description": "(Animation Progress %)-(Current Blur px)/(Another Animation Progress)",
+        "options": [],
+        "value": "0-30/80-0/100-0"
+    },
+    {
+        "uniqueID": "BackgroundBrightnessAnimation",
+        "type": "text",
+        "title": "Brightness Animation [percent]",
+        "description": "(Animation Progress %)-(Current Brightness %)/(Another Animation Progress)",
+        "options": [],
+        "value": "0-60/20-20/100-40"
+    }
+]
