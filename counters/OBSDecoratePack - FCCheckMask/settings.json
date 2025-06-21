@@ -1,0 +1,26 @@
+[
+    {
+        "uniqueID": "FCCheckFCColor",
+        "type": "color",
+        "title": "FC color",
+        "description": "",
+        "options": [],
+        "value": "#FF8040"
+    },
+    {
+        "uniqueID": "FCCheckAPColor",
+        "type": "color",
+        "title": "AP color",
+        "description": "",
+        "options": [],
+        "value": "#FFFF80"
+    },
+    {
+        "uniqueID": "FCCheckDuration",
+        "type": "number",
+        "title": "Transition duration [ms]",
+        "description": "",
+        "options": [],
+        "value": "300"
+    }
+]
