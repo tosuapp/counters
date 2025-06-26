@@ -152,16 +152,17 @@ socket.api_v2(({ play, beatmap }) => {
       cache.stateChange = 0;
     }
     if (cache.combo !== play.combo.current) {
-      if (play.combo.current < cache.combo.current) {
+      if (play.combo.current < cache.combo) {
         if (play.hits[0] || play.hits.sliderBreaks) {
-          let brokenComboRatio = cache.combo.current / cache.maxCombo;
+          let brokenComboRatio = cache.combo / cache.maxCombo;
           bubanMoment(brokenComboRatio);
+		  console.log(cache.combo);
         }
       }
 
       cache.combo = play.combo.current;
       if (beatmap.time.live >= beatmap.time.lastObject) {
-        let reverseChokeRatio = cache.combo.current / cache.maxCombo;
+        let reverseChokeRatio = cache.combo / cache.maxCombo;
         if (reverseChokeRatio > 0.85 && !cache.stateChange) {
           if (play.hits[0] || play.hits.sliderBreaks) {
             bubanMoment(reverseChokeRatio);
