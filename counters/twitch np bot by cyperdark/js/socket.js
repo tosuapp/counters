@@ -14,7 +14,7 @@ class WebSocketManager {
     this.sockets = {};
   }
 
-  createConnection(url, callback, filters) {
+  createConnection(url, callback, filters, on_open) {
     let INTERVAL = '';
 
     const that = this;
@@ -27,6 +27,8 @@ class WebSocketManager {
       if (Array.isArray(filters)) {
         this.sockets[url].send(`applyFilters:${JSON.stringify(filters)}`);
       }
+
+      if(typeof on_open == 'function') on_open();
     };
 
     this.sockets[url].onclose = (event) => {
@@ -34,7 +36,7 @@ class WebSocketManager {
 
       delete this.sockets[url];
       INTERVAL = setTimeout(() => {
-        that.createConnection(url, callback, filters);
+        that.createConnection(url, callback, filters, on_open);
       }, 1000);
     };
 
@@ -70,9 +72,10 @@ class WebSocketManager {
    * Connects to gosu compatible socket api.
    * @param {(data: WEBSOCKET_V1) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
+   * @param {Function} on_open
    */
-  api_v1(callback, filters) {
-    this.createConnection(`/ws`, callback, filters);
+  api_v1(callback, filters, on_open) {
+    this.createConnection(`/ws`, callback, filters, on_open);
   };
 
 
@@ -80,9 +83,10 @@ class WebSocketManager {
    * Connects to tosu advanced socket api.
    * @param {(data: WEBSOCKET_V2) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
+   * @param {Function} on_open
    */
-  api_v2(callback, filters) {
-    this.createConnection(`/websocket/v2`, callback, filters);
+  api_v2(callback, filters, on_open) {
+    this.createConnection(`/websocket/v2`, callback, filters, on_open);
   };
 
 
@@ -90,9 +94,10 @@ class WebSocketManager {
    * Connects to tosu precise socket api.
    * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
+   * @param {Function} on_open
    */
-  api_v2_precise(callback, filters) {
-    this.createConnection(`/websocket/v2/precise`, callback, filters);
+  api_v2_precise(callback, filters, on_open) {
+    this.createConnection(`/websocket/v2/precise`, callback, filters, on_open);
   };
 
 
@@ -169,9 +174,9 @@ class WebSocketManager {
   };
 
   /**
-   * 
-   * @param {string} name 
-   * @param {string|Object} payload 
+   *
+   * @param {string} name
+   * @param {string|Object} payload
    */
   sendCommand(name, command, amountOfRetries = 1) {
     const that = this;
@@ -223,7 +228,7 @@ export default WebSocketManager;
 
 
 
-/** 
+/**
  * @typedef {string | { field: string; keys: Filters[] }} Filters
  */
 
