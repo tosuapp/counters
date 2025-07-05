@@ -129,4 +129,4 @@ socket.api_v2_precise((data) => {
     k2.update(data.keys.k2);
     m1.update(data.keys.m1);
     m2.update(data.keys.m2);
-});
+}, ['keys']);
