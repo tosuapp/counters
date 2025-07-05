@@ -22,7 +22,7 @@ body, html {
 }
 @keyframes fall {
     to {
-        transform: translateX(var(--x)) translateY(calc(100vh + 10px)) rotate(var(--rotate)); /* 随机偏移与旋转 */
-        opacity: 0;  /* 到达底部时完全透明 */
+        transform: translateX(var(--x)) translateY(calc(100vh + 10px)) rotate(var(--rotate)); /* Random offset and rotation */
+        opacity: 0;  /* Completely transparent when reaching the bottom */
     }
 }
