@@ -1,7 +1,30 @@
+const WS_HOST = window.location.host;
 import WebSocketManager from './socket.js';
-const socket = new WebSocketManager('127.0.0.1:24050');
+const socket = new WebSocketManager(WS_HOST);
 
 const cache = {};
+
+socket.onopen = () => {
+    socket.sendCommand('applyFilters', [
+        {
+            field: 'settings',
+            keys: [
+                'BackgroundAnimationDuration',
+                'BackgroundSwitchTime',
+                'BackgroundBlurAnimation',
+                'BackgroundBrightnessAnimation'
+            ]
+        },
+        {
+            field: 'directPath',
+            keys: ['skinFolder', 'beatmapBackground']
+        },
+        {
+            field: 'state',
+            keys: []
+        }
+    ]);
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////// SETTINGS /////////////////////////////////////////////
@@ -12,38 +35,38 @@ socket.commands((data) => {
   try {
     const { command, message } = data;
     
-    // 更新 getSettings 指令
+    // Update getSettings command
     if (command === 'getSettings') {
       console.log(command, message);
     }
 
     let animChanged = false;
 
-    // 更新动画时长
+    // Update animation duration
     if (cache.BackgroundAnimationDuration !== message.BackgroundAnimationDuration) {
         cache.BackgroundAnimationDuration = message.BackgroundAnimationDuration;
     }
 
-    // 更新切换时间
+    // Update switch time
     if (cache.BackgroundSwitchTime !== message.BackgroundSwitchTime) {
         cache.BackgroundSwitchTime = message.BackgroundSwitchTime;
     }
 
-    // 更新 Blur 动画
+    // Update Blur animation
     if (cache.BackgroundBlurAnimation !== message.BackgroundBlurAnimation) {
         cache.BackgroundBlurAnimation = message.BackgroundBlurAnimation;
         setCustomAnimation('blur', cache.BackgroundBlurAnimation);
         animChanged = true;
     }
 
-    // 更新 Brightness 动画
+    // Update Brightness animation
     if (cache.BackgroundBrightnessAnimation !== message.BackgroundBrightnessAnimation) {
         cache.BackgroundBrightnessAnimation = message.BackgroundBrightnessAnimation;
         setCustomAnimation('brightness', cache.BackgroundBrightnessAnimation);
         animChanged = true;
     }
 
-    // 动画有变化时统一打印
+    // Print all custom animations if changed
     if (animChanged) {
         printAllCustomAnimations();
     }
@@ -58,13 +81,13 @@ socket.commands((data) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 socket.api_v2(({ directPath, folders }) => {
-    // 谱面背景更新
+    // Update beatmap background
     if (cache.beatmapBackground !== directPath.beatmapBackground) {
         cache.beatmapBackground = directPath.beatmapBackground;
         updateBackground(directPath, folders);
     }
 
-    // 皮肤更新
+    // Update skin
     if (cache.skinFolder !== directPath.skinFolder) {
         cache.skinFolder = directPath.skinFolder;
         updateBackground(directPath, folders);
@@ -75,7 +98,7 @@ socket.api_v2(({ directPath, folders }) => {
 ///////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// 加载 URL（返回一个 Promise）
+// Load URL (returns a Promise)
 function urlFallback(urls) {
     return new Promise((resolve) => {
         let currentIndex = 0;
@@ -97,57 +120,57 @@ function urlFallback(urls) {
     });
 }
 
-// 动态生成 blur/brightness 动画，并插入 style
+// Dynamically generate blur/brightness animation and insert style
 function setCustomAnimation(type, animStr) {
     if (!animStr) return;
     // type: 'blur' or 'brightness'
     const animName = `bg-${type}-custom`;
     const styleId = `bg-${type}-style`;
-    // 解析动画字符串
+    // Parse animation string
     const keyframesArr = animStr.split('/').map((seg) => {
         const [percent, value] = seg.split('-').map(Number);
         let percentStr = percent + '%';
         if (type === 'blur') {
-            // blur直接用px值
+            // blur uses px value
             return `${percentStr.padEnd(6, ' ')}{ filter: blur(${value}px) brightness(var(--bg-brightness,0.6)); }`;
         } else if (type === 'brightness') {
-            // brightness直接用百分比
+            // brightness uses percentage
             return `${percentStr.padEnd(6, ' ')}{ filter: blur(var(--bg-blur,0px)) brightness(${value}%); }`;
         }
         return '';
     });
     const keyframes = keyframesArr.join('\n');
 
-    // 移除旧的自定义动画
+    // Remove old custom animation
     const oldStyle = document.getElementById(styleId);
     if (oldStyle) oldStyle.remove();
 
-    // 插入新的 keyframes
+    // Insert new keyframes
     const style = document.createElement('style');
     style.id = styleId;
     style.innerHTML = `@keyframes ${animName} {\n${keyframes}\n}`;
     document.head.appendChild(style);
 
-    // 保存动画格式到全局，供统一打印
+    // Save animation format globally for unified printing
     if (!window._bgAnimPrintCache) window._bgAnimPrintCache = {};
     window._bgAnimPrintCache[type] = `@keyframes ${animName} {\n${keyframes}\n}`;
 }
 
-// 统一打印动画格式
+// Unified print animation format
 function printAllCustomAnimations() {
     if (!window._bgAnimPrintCache) return;
     const blurAnim = window._bgAnimPrintCache['blur'] || '';
     const brightAnim = window._bgAnimPrintCache['brightness'] || '';
     if (blurAnim || brightAnim) {
         console.log(
-            '自定义背景动画格式:\n' +
+            'Custom background animation format:\n' +
             (blurAnim ? '[blur]\n' + blurAnim + '\n' : '') +
             (brightAnim ? '[brightness]\n' + brightAnim + '\n' : '')
         );
     }
 }
 
-// 获取动画字符串的最后一个值
+// Get the last value of the animation string
 function getLastAnimValue(animStr) {
     if (!animStr) return 0;
     const lastSeg = animStr.split('/').pop();
@@ -155,9 +178,9 @@ function getLastAnimValue(animStr) {
     return value;
 }
 
-// 合并动画字符串为关键帧
+// Merge animation strings into keyframes
 function combineKeyframes(blurAnim, brightAnim) {
-    // 解析为数组
+    // Parse to array
     const blurArr = blurAnim.split('/').map(seg => {
         const [percent, value] = seg.split('-').map(Number);
         return { percent, blur: value };
@@ -166,13 +189,13 @@ function combineKeyframes(blurAnim, brightAnim) {
         const [percent, value] = seg.split('-').map(Number);
         return { percent, bright: value };
     });
-    // 合并百分比节点
+    // Merge percent nodes
     const percents = Array.from(new Set([
         ...blurArr.map(b => b.percent),
         ...brightArr.map(b => b.percent)
     ])).sort((a, b) => a - b);
 
-    // 插值
+    // Interpolation
     function getValue(arr, percent, key) {
         for (let i = 0; i < arr.length - 1; i++) {
             if (percent >= arr[i].percent && percent <= arr[i + 1].percent) {
@@ -182,12 +205,12 @@ function combineKeyframes(blurAnim, brightAnim) {
                 return v1 + (v2 - v1) * (percent - p1) / (p2 - p1);
             }
         }
-        // 超出范围取端点
+        // Out of range, take endpoint
         if (percent <= arr[0].percent) return arr[0][key];
         return arr[arr.length - 1][key];
     }
 
-    // 生成关键帧
+    // Generate keyframes
     return percents.map(percent => {
         const blur = getValue(blurArr, percent, 'blur');
         const bright = getValue(brightArr, percent, 'bright');
@@ -195,28 +218,28 @@ function combineKeyframes(blurAnim, brightAnim) {
     }).join('\n');
 }
 
-// 动态生成合并动画
+// Dynamically generate combined animation
 function setCombinedAnimation(blurAnim, brightAnim, duration) {
     const animName = 'bg-combined-custom';
     const styleId = 'bg-combined-style';
     const keyframes = combineKeyframes(blurAnim, brightAnim);
 
-    // 移除旧的自定义动画
+    // Remove old custom animation
     const oldStyle = document.getElementById(styleId);
     if (oldStyle) oldStyle.remove();
 
-    // 插入新的 keyframes
+    // Insert new keyframes
     const style = document.createElement('style');
     style.id = styleId;
     style.innerHTML = `@keyframes ${animName} {\n${keyframes}\n}`;
     document.head.appendChild(style);
 
-    // 应用动画到图片
+    // Apply animation to image
     const bg = document.getElementById('bg');
     bg.style.animation = `${animName} ${duration}ms linear 1`;
 }
 
-// 淡入图片，应用自定义动画
+// Fade in image and apply custom animation
 function imageFade(imgElement, url) {
     if (!url) {
         imgElement.style.backgroundColor = 'transparent';
@@ -224,26 +247,26 @@ function imageFade(imgElement, url) {
         return;
     }
 
-    // 动画参数
+    // Animation parameters
     const blurAnim = cache.BackgroundBlurAnimation || '0-20/100-0';
     const brightAnim = cache.BackgroundBrightnessAnimation || '0-10/100-100';
     const duration = Number(cache.BackgroundAnimationDuration) || 600;
 
-    // 计算切换时机
+    // Calculate switch timing
     let switchPercent = Number(cache.BackgroundSwitchTime);
     if (isNaN(switchPercent)) switchPercent = 50;
     switchPercent = Math.max(0, Math.min(100, switchPercent));
     const switchTime = duration * (switchPercent / 100);
 
-    // 应用合并动画
+    // Apply combined animation
     setCombinedAnimation(blurAnim, brightAnim, duration);
 
-    // 在动画指定百分比时切换图片
+    // Switch image at specified animation percent
     setTimeout(() => {
         imgElement.src = url;
     }, switchTime);
 
-    // 动画结束后设置为动画最后一帧的属性
+    // Set to last frame properties after animation ends
     setTimeout(() => {
         const blurValue = getLastAnimValue(blurAnim); // px
         const brightValue = getLastAnimValue(brightAnim); // %
@@ -252,7 +275,7 @@ function imageFade(imgElement, url) {
     }, duration);
 }
 
-// 更新背景
+// Update background
 function updateBackground(directPath, folders) {
     const background = document.querySelector('#bg');
     const backgroundPath = encodeURIComponent(directPath.beatmapBackground.replace(folders.songs, ''));
