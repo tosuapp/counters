@@ -38,12 +38,12 @@ socket.commands((data) => {
   try {
     const { command, message } = data;
     
-    // 处理 getSettings 指令
+    // Handle getSettings command
     if (command === 'getSettings') {
       console.log(command, message);
     }
 
-    // 雪花显示模式
+    // Snowflake display mode
     if (cache.flakesmode !== message.FlakesMode) {
         cache.flakesmode = message.FlakesMode;
         if (cache.flakesmode === 'Mode icons') {
@@ -53,28 +53,28 @@ socket.commands((data) => {
         }
     }
 
-    // 雪花缩放
+    // Snowflake scale
     if (cache.FlakesScale !== message.FlakesScale) {
         cache.FlakesScale = message.FlakesScale;
     }
 
-    // 雪花密度
+    // Snowflake density
     if (cache.FlakesDensity !== message.FlakesDensity) {
         cache.FlakesDensity = message.FlakesDensity;
         refreshSnowflake();
     }
 
-    // 雪花下落速度倍率
+    // Snowflake falling speed multiplier    
     if (cache.FlakesFallingSpeed !== message.FlakesFallingSpeed) {
         cache.FlakesFallingSpeed = message.FlakesFallingSpeed;
     }
 
-    // 雪花旋转速度倍率
+    // Snowflake spin speed multiplier
     if (cache.FlakesSpinVelocity !== message.FlakesSpinVelocity) {
         cache.FlakesSpinVelocity = message.FlakesSpinVelocity;
     }
 
-    // 雪花平移速度倍率
+    // Snowflake translational speed multiplier
     if (cache.FlakesTranslationalVelocity !== message.FlakesTranslationalVelocity) {
         cache.FlakesTranslationalVelocity = message.FlakesTranslationalVelocity;
     }
@@ -90,7 +90,7 @@ socket.commands((data) => {
 
 socket.api_v2(({ settings, directPath }) => {
     
-    // 游戏模式更新
+    // Game mode update
     if (cache.beatmapMode !== settings.mode.number) {
         cache.beatmapMode = settings.mode.number;
         if (cache.flakesmode === 'Mode icons') {
@@ -99,7 +99,7 @@ socket.api_v2(({ settings, directPath }) => {
         refreshSnowflake();
     }
 
-    // 皮肤更新
+    // Skin update
     if (cache.skinFolder !== directPath.skinFolder) {
         cache.skinFolder = directPath.skinFolder;
         refreshSnowflake();
@@ -111,7 +111,6 @@ socket.api_v2(({ settings, directPath }) => {
 ///////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// 加载图片URL（返回Promise，依次尝试多个URL）
 // Load image URL (returns a Promise, tries multiple URLs in order)
 function urlFallback(urls) {
     return new Promise((resolve) => {
@@ -134,7 +133,6 @@ function urlFallback(urls) {
     });
 }
 
-// 检查皮肤图片是否可用，返回可用图片URL
 // Check if skin image is available, return a valid image URL
 function updateSkinImage(elementName, skinFolder) {
     let baseName = elementName.replace(/(@2x)?\.png$/i, '');
@@ -148,7 +146,6 @@ function updateSkinImage(elementName, skinFolder) {
     return urlFallback(urls);
 }
 
-// 计算雪花生成间隔
 // Calculate snowflake spawn interval
 function getSnowflakeInterval(screenWidth) {
     const baseWidth = 2560;
@@ -159,58 +156,47 @@ function getSnowflakeInterval(screenWidth) {
     return baseInterval * (baseWidth / screenWidth) / densityMultiplier;
 }
 
-// 创建雪花DOM元素
 // Create a snowflake DOM element
 function createSnowflakeElement(options) {
     const snowflake = document.createElement('div');
     snowflake.classList.add('snowflake');
     document.getElementById('snowflakes').appendChild(snowflake);
 
-    // 下落速度倍率
     // Falling speed multiplier
     const speedMultiplier = (cache.FlakesFallingSpeed ? cache.FlakesFallingSpeed : 100) / 100;
-    // 旋转速度倍率
     // Spin speed multiplier
     const spinMultiplier = (cache.FlakesSpinVelocity ? cache.FlakesSpinVelocity : 100) / 100;
-    // 水平平移速度倍率
     // Horizontal move speed multiplier
     const translationalMultiplier = (cache.FlakesTranslationalVelocity ? cache.FlakesTranslationalVelocity : 100) / 100;
 
-    // 动画时长
     // Animation duration
     const baseHeight = 1440;
     const baseDuration = 6;
     const duration = baseDuration * (window.innerHeight / baseHeight) / speedMultiplier;
     snowflake.style.animationDuration = `${duration}s`;
 
-    // 随机初始水平速度(px/s)和加速度(px/s²)
     // Random initial horizontal speed (px/s) and acceleration (px/s²)
     const baseVx = (Math.random() * 50 + 50) * (Math.random() < 0.5 ? -1 : 1) * translationalMultiplier;
     const baseAx = (Math.random() * 10 - 10) * translationalMultiplier;
 
-    // 计算总水平位移 s = v0*t + 0.5*a*t^2
     // Calculate total horizontal movement: s = v0*t + 0.5*a*t^2
     const totalX = baseVx * duration + 0.5 * baseAx * duration * duration;
     snowflake.style.setProperty('--x', `${totalX}px`);
 
-    // 以水平偏移量作为旋转速度，右侧顺时针，左侧逆时针
     // Use horizontal offset as spin direction, right is clockwise, left is counterclockwise
     const rotateDirection = totalX >= 0 ? 1 : -1;
     const rotateFactor = 3;
     const rotationDegree = Math.abs(totalX) * rotateFactor * spinMultiplier * rotateDirection;
     snowflake.style.setProperty('--rotate', `${rotationDegree}deg`);
 
-    // 存储初速度和加速度
     // Store initial speed and acceleration
     snowflake.dataset.vx = baseVx;
     snowflake.dataset.ax = baseAx;
     snowflake.dataset.duration = duration;
 
-    // 动画结束后移除
     // Remove snowflake after animation ends
     setTimeout(() => snowflake.remove(), duration * 1000);
 
-    // 图片雪花
     // Image snowflake
     if (options.type === 'image') {
         snowflake.style.backgroundImage = `url(${options.url})`;
@@ -220,12 +206,10 @@ function createSnowflakeElement(options) {
         snowflake.style.height = `${options.height}px`;
         snowflake.style.top = `-${options.width}px`;
 
-        // 居中
         // Center horizontally
         const left = Math.random() * window.innerWidth;
         snowflake.style.left = `${left - options.width / 2}px`;
     } else if (options.type === 'text') {
-        // 文字雪花
         // Text snowflake
         snowflake.textContent = '❄';
         snowflake.style.fontSize = `${options.size}px`;
@@ -233,7 +217,6 @@ function createSnowflakeElement(options) {
         snowflake.style.filter = `brightness(${options.brightness})`;
         snowflake.style.top = `-${options.size}px`;
 
-        // 居中
         // Center horizontally
         const left = Math.random() * window.innerWidth;
         snowflake.style.left = `${left - options.size / 2}px`;
@@ -241,15 +224,12 @@ function createSnowflakeElement(options) {
     }
 }
 
-// 生成雪花
 // Generate a snowflake
 function createSnowflake(url, mode) {
-    // 获取缩放倍率，默认100
     // Get scale multiplier, default is 100
     const scaleMultiplier = (cache.FlakesScale ? cache.FlakesScale : 100) / 100;
 
     if (url) {
-        // 使用皮肤图片
         // Use skin image
         const skinImg = new Image();
         skinImg.src = url;
@@ -268,7 +248,6 @@ function createSnowflake(url, mode) {
             });
         };
     } else {
-        // 使用本地图片或文字
         // Use local image or text
         if ([0, 1, 2, 3].includes(mode)) {
             let localUrl = '';
@@ -294,7 +273,6 @@ function createSnowflake(url, mode) {
                 });
             };
         } else {
-            // 文字雪花
             // Text snowflake
             const brightness = Math.random() * 0.8 + 0.2;
             let size = (Math.random() * 30 + 20) * scaleMultiplier;
@@ -307,7 +285,6 @@ function createSnowflake(url, mode) {
     }
 }
 
-// 刷新雪花生成定时器
 // Refresh snowflake spawn timer
 function refreshSnowflake() {
     if (!cache.skinFolder) {
