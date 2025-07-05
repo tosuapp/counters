@@ -1,0 +1,8 @@
+Usecase: obs, ingame
+Name: veadotube-integration
+Version: 1.0.1
+Author: Malteser, WhatTheHai, Bubbleman
+CompatibleWith: tosu
+Resolution: 1x1
+authorLinks: https://github.com/aMalteser, https://github.com/WhatTheHai, https://github.com/bubbleman532
+Notes: Made for BBL

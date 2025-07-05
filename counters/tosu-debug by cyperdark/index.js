@@ -1,7 +1,8 @@
 // connecting to websocket
 import WebSocketManager from './js/socket.js';
 
-const socket = new WebSocketManager(window.location.host);
+const host = '127.0.0.1:24050';
+const socket = new WebSocketManager(host);
 
 
 
@@ -124,7 +125,7 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
   if (cache['chatVisibilityStatus'] != settings.chatVisibilityStatus.number) {
     cache['chatVisibilityStatus'] = settings.chatVisibilityStatus.number;
 
-    document.querySelector('.chat').innerHTML = `chat: ${settings.chatVisibilityStatus.name || settings.chatVisibilityStatus.number}`
+    document.querySelector('.chat').innerHTML = `chat: ${settings.chatVisibilityStatus.name}`
     if (settings.chatVisibilityStatus.number > 0)
       document.querySelector('.chat').classList.add('active')
     else
@@ -139,8 +140,9 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
       document.querySelector('.isLeaderboardVisible').classList.remove('active')
   };
 
-  if (cache['leaderboard.type.number'] != settings.leaderboard.type.number) {
+  if (cache['leaderboard.type.number'] != settings.leaderboard.type.number || cache['leaderboard.type.name'] != settings.leaderboard.type.name) {
     cache['leaderboard.type.number'] = settings.leaderboard.type.number;
+    cache['leaderboard.type.name'] = settings.leaderboard.type.name;
     document.querySelector('.leaderboardType').innerHTML = `leaderboard: ${settings.leaderboard.type.name} (${settings.leaderboard.type.number})`
   };
 
@@ -155,13 +157,15 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     document.querySelector('.scoreMeterType').innerHTML = `scoreMeterType: ${settings.scoreMeter.size}x - ${settings.scoreMeter.type.name} (${settings.scoreMeter.type.number})`
   };
 
-  if (cache['sort.number'] != settings.sort.number) {
+  if (cache['sort.number'] != settings.sort.number || cache['sort.name'] != settings.sort.name) {
     cache['sort.number'] = settings.sort.number;
+    cache['sort.name'] = settings.sort.name;
     document.querySelector('.sortType').innerHTML = `sorted by: ${settings.sort.name} (${settings.sort.number})`
   };
 
-  if (cache['group.number'] != settings.group.number) {
+  if (cache['group.number'] != settings.group.number || cache['group.name'] != settings.group.name) {
     cache['group.number'] = settings.group.number;
+    cache['group.name'] = settings.group.name;
     document.querySelector('.groupType').innerHTML = `grouped by: ${settings.group.name} (${settings.group.number})`
   };
 
@@ -183,9 +187,20 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     document.querySelector('.audio').innerHTML = `audio: ${settings.audio.volume.master} - ${settings.audio.volume.music} - ${settings.audio.volume.effect} (Global Offset: ${settings.audio.offset.universal})`;
   };
 
-  if (cache['background.dim'] != settings.background.dim) {
+  if (cache['background.dim'] != settings.background.dim || cache['background.blur'] != settings.background.blur) {
     cache['background.dim'] = settings.background.dim;
-    document.querySelector('.dim').innerHTML = `Background dim: ${settings.background.dim}%`
+    cache['background.blur'] = settings.background.blur;
+    document.querySelector('.dim').innerHTML = `dim: ${settings.background.dim}% | blur: ${settings.background.blur}%`
+  };
+
+  if (cache['skin.name'] != settings.skin.name) {
+    cache['skin.name'] = settings.skin.name;
+    document.querySelector('.skinname').innerHTML = `Skin: ${settings.skin.name}`
+  };
+
+  if (cache['mania.scrollSpeed'] != settings.mania.scrollSpeed) {
+    cache['mania.scrollSpeed'] = settings.mania.scrollSpeed;
+    document.querySelector('.mania_scroll').innerHTML = `Scroll: ${settings.mania.scrollSpeed}`;
   };
 
 
@@ -290,10 +305,8 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
   };
 
 
-  if (cache['menu.bm.path.full'] != directPath.beatmapBackground) {
-    cache['menu.bm.path.full'] = directPath.beatmapBackground;
-
-    const background_path = directPath.beatmapBackground.replace(folders.songs, '');
+  if (cache['beatmap.checksum1'] != beatmap.checksum) {
+    cache['beatmap.checksum1'] = beatmap.checksum;
 
     const background = document.querySelector('.background');
     const background_mini = document.querySelector('.beatmap-background');
@@ -302,8 +315,8 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
 
     // Fade in the new image
     setTimeout(() => {
-      background.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
-      background_mini.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
+      background.src = `http://${host}/files/beatmap/background?checksum=${beatmap.checksum}`;
+      background_mini.src = `http://${host}/files/beatmap/background?checksum=${beatmap.checksum}`;
 
       setTimeout(() => {
         background.style.opacity = 0.1;
@@ -314,7 +327,7 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
 
 
     const image = new Image();
-    image.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
+    image.src = `http://${host}/files/beatmap/background?checksum=${beatmap.checksum}`;
     image.onerror = () => document.querySelector('.backgroundLoadError').classList.add('active');
     image.onload = () => document.querySelector('.backgroundLoadError').classList.remove('active');
   };
@@ -330,21 +343,50 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     document.querySelector('.player-combo-max').innerHTML = play.combo.max;
   };
 
-
-  if (cache['play.pp.current'] != play.pp.current.toFixed(0)) {
-    cache['play.pp.current'] = play.pp.current.toFixed(0);
-    document.querySelector('.player-pp-current').innerHTML = play.pp.current.toFixed(0);
-  };
-
-  if (cache['play.pp.fc'] != play.pp.fc.toFixed(0)) {
-    cache['play.pp.fc'] = play.pp.fc.toFixed(0);
-    document.querySelector('.player-pp-fc').innerHTML = play.pp.fc.toFixed(0);
+  if (cache['combo.max'] != beatmap.stats.maxCombo) {
+    cache['combo.max'] = beatmap.stats.maxCombo;
+    document.querySelector('.combo-max').innerHTML = beatmap.stats.maxCombo;
   };
 
 
-  if (cache['play.pp.maxThisPlay'] != play.pp.maxAchievedThisPlay.toFixed(0)) {
-    cache['play.pp.maxThisPlay'] = play.pp.maxAchievedThisPlay.toFixed(0);
-    document.querySelector('.player-pp-max').innerHTML = play.pp.maxAchievedThisPlay.toFixed(0);
+  if (state.number == 7) {
+    if (cache['resultsScreen.pp.current'] != resultsScreen.pp.current) {
+      cache['resultsScreen.pp.current'] = resultsScreen.pp.current;
+      document.querySelector('.player-pp-current').innerHTML = resultsScreen.pp.current.toFixed(2);
+    };
+
+    if (cache['resultsScreen.pp.fc'] != resultsScreen.pp.fc) {
+      cache['resultsScreen.pp.fc'] = resultsScreen.pp.fc;
+      document.querySelector('.player-pp-fc').innerHTML = resultsScreen.pp.fc.toFixed(2);
+    };
+  } else if (state.number == 2) {
+    if (cache['play.pp.current'] != play.pp.current) {
+      cache['play.pp.current'] = play.pp.current;
+      document.querySelector('.player-pp-current').innerHTML = play.pp.current.toFixed(2);
+    };
+
+    if (cache['play.pp.fc'] != play.pp.fc) {
+      cache['play.pp.fc'] = play.pp.fc;
+      document.querySelector('.player-pp-fc').innerHTML = play.pp.fc.toFixed(2);
+    };
+  } else {
+    if (cache['performance.accuracy[100]'] != performance.accuracy[100]) {
+      cache['performance.accuracy[100]'] = performance.accuracy[100];
+      document.querySelector('.player-pp-current').innerHTML = performance.accuracy[100];
+      document.querySelector('.player-pp-fc').innerHTML = 0;
+    };
+  };
+
+
+  if (cache['play.pp.maxAchieved'] != play.pp.maxAchieved) {
+    cache['play.pp.maxAchieved'] = play.pp.maxAchieved;
+    document.querySelector('.player-pp-max').innerHTML = play.pp.maxAchieved.toFixed(2);
+  };
+
+
+  if (cache['play.pp.maxAchievable'] != play.pp.maxAchievable) {
+    cache['play.pp.maxAchievable'] = play.pp.maxAchievable;
+    document.querySelector('.player-pp-max-achievable').innerHTML = play.pp.maxAchievable.toFixed(3);
   };
 
 
@@ -355,7 +397,7 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
 
   if (cache['bu-flag'] != profile.countryCode.name) {
     cache['bu-flag'] = profile.countryCode.name;
-    document.querySelector('.bu-flag').src = `images/flags/${profile.countryCode.name}.png`;
+    document.querySelector('.bu-flag').src = `/images/flags/${profile.countryCode.name}.png`;
   };
 
   if (cache['bu-name'] != profile.name) {
@@ -405,7 +447,7 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     cache['profile.mode.number'] = profile.mode.number;
 
 
-    if (profile.mode.number >= 0 && profile.mode.number <= 3) document.querySelector('.bu-mode').innerHTML = `<img src="images/${profile.mode.name.toLowerCase()}.png" />`;
+    if (profile.mode.number >= 0 && profile.mode.number <= 3) document.querySelector('.bu-mode').innerHTML = `<img src="/images/${profile.mode.name.toLowerCase()}.png" />`;
     else document.querySelector('.bu-mode').innerHTML = profile.mode.number;
   };
 
@@ -442,6 +484,9 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     });
     graph_options.xaxis.categories = performance.graph.xaxis;
     chart.updateOptions(graph_options);
+
+
+    console.log(...graph_options.series.map(r => ({ name: r.name, amount: r.data.length })), graph_options.xaxis.categories.length);
   };
 
 
@@ -456,10 +501,10 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
   };
 
 
-  if (cache['data.menu.state'] != 2 && cache['data.pp.potential-ss'] != performance.accuracy['100']) {
+  if (cache['data.menu.state'] != 2 && cache['data.menu.state'] != 7 && cache['data.pp.potential-ss'] != performance.accuracy['100']) {
     cache['data.pp.potential-ss'] = performance.accuracy['100'];
 
-    document.querySelector('.player-pp-fc').innerHTML = performance.accuracy['100'].toFixed(0);
+    document.querySelector('.player-pp-fc').innerHTML = performance.accuracy['100'];
   };
 
 
@@ -468,7 +513,7 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     cache['beatmap_mode'] = settings.mode.number;
 
 
-    if (settings.mode.number >= 0 && settings.mode.number <= 3) document.querySelector('.beatmap-mode').innerHTML = `${settings.mode.name} <img width="30px" height="30px" src="images/${settings.mode.name.toLowerCase()}.png" />`;
+    if (settings.mode.number >= 0 && settings.mode.number <= 3) document.querySelector('.beatmap-mode').innerHTML = `${settings.mode.name} <img width="30px" height="30px" src="/images/${settings.mode.name.toLowerCase()}.png" />`;
     else document.querySelector('.beatmap-mode').innerHTML = settings.mode.number;
   };
 
@@ -593,6 +638,21 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     document.querySelector('.hits-sb').innerHTML = `${play.hits.sliderBreaks}xSB`;
   };
 
+  if (cache['play.hits.sliderEndHits'] != play.hits.sliderEndHits) {
+    cache['play.hits.sliderEndHits'] = play.hits.sliderEndHits;
+    document.querySelector('.hits-sliderEndHits').innerHTML = `${play.hits.sliderEndHits}xEnds`;
+  };
+
+  if (cache['play.hits.smallTickHits'] != play.hits.smallTickHits) {
+    cache['play.hits.smallTickHits'] = play.hits.smallTickHits;
+    document.querySelector('.hits-smallTickHits').innerHTML = `${play.hits.smallTickHits}xSmall`;
+  };
+
+  if (cache['play.hits.largeTickHits'] != play.hits.largeTickHits) {
+    cache['play.hits.largeTickHits'] = play.hits.largeTickHits;
+    document.querySelector('.hits-largeTickHits').innerHTML = `${play.hits.largeTickHits}xLarge`;
+  };
+
 
   if (cache['resultsScreen.hits[300]'] != resultsScreen.hits[300]) {
     cache['resultsScreen.hits[300]'] = resultsScreen.hits[300];
@@ -628,7 +688,7 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
     cache['resultScreen-mode'] = resultsScreen.mode.number;
 
 
-    if (resultsScreen.mode.number >= 0 && resultsScreen.mode.number <= 3) document.querySelector('.resultsScreen-mode').innerHTML = `${resultsScreen.mode.name} <img width="30px" height="30px" src="images/${resultsScreen.mode.name.toLowerCase()}.png" />`;
+    if (resultsScreen.mode.number >= 0 && resultsScreen.mode.number <= 3) document.querySelector('.resultsScreen-mode').innerHTML = `${resultsScreen.mode.name} <img width="30px" height="30px" src="/images/${resultsScreen.mode.name.toLowerCase()}.png" />`;
     else document.querySelector('.resultsScreen-mode').innerHTML = resultsScreen.mode.number;
   };
 
@@ -671,9 +731,9 @@ socket.api_v2_precise((data) => {
     document.querySelector('.k1 .number').innerHTML = data.keys.k1.count.toFixed(0);
   };
 
-  if (cache['data.keys.k2.count'] != data.keys.k2.count.toFixed(0)) {
-    cache['data.keys.k2.count'] = data.keys.k2.count.toFixed(0);
-    document.querySelector('.k2 .number').innerHTML = data.keys.k2.count.toFixed(0);
+  if (cache['data.keys.k1.count'] != data.keys.k1.count.toFixed(0)) {
+    cache['data.keys.k1.count'] = data.keys.k1.count.toFixed(0);
+    document.querySelector('.k2 .number').innerHTML = data.keys.k1.count.toFixed(0);
   };
 
   if (cache['data.keys.m1.count'] != data.keys.m1.count.toFixed(0)) {

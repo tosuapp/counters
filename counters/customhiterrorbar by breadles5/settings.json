@@ -3,7 +3,7 @@
         "uniqueID": "doesNothing",
         "type": "textarea",
         "title": "Notes:",
-        "description": "color selection only works in dashboard, not ingame overlay manager (TOSU ISSUE)   \n\nsetting names should be clear as to what they do and how they are implemented relative to another setting/element   \n\nnumeric settings for dimensions and timings (px and ms) do not have any limits, but take note of the following:   \n\n        - adjust your metadata.txt and obs browser source dimension settings when changing (px) values   \n\n        - percentage values should be limited from 0 to 100   \n\n        - opacity values should be limited from 0 to 1   \n\n        - changing the timings to be higher can greatly detriment performance as there will be more elements to render.\n\nhave fun!",
+        "description": "color selection only works in dashboard, not ingame overlay manager (TOSU ISSUE)   \n\nsetting names should be clear as to what they do and how they are implemented relative to another setting/element   \n\nnumeric settings for dimensions and timings (px and ms) do not have any limits, but take note of the following:   \n\n        - adjust your metadata.txt and obs browser source dimension settings when changing (px) values   \n\n        - percentage values should be limited from 0 to 100   \n\n        - opacity values should be limited from 0 to 1   \n\n        - changing the timings to be higher can greatly detriment performance as there will be more elements to render.   \n\n        - using the color value #000000 will render that element transparent.\n\nhave fun!",
         "options": [],
         "value": "feel free to adjust this text. it does nothing."
     },
@@ -198,5 +198,21 @@
         "description": "only check this if you are using the overlay in the ingame overlay injector",
         "options": [],
         "value": false
+    },
+    {
+        "uniqueID": "useCustomTimingWindows",
+        "type": "checkbox",
+        "title": "Use Custom Timing Windows",
+        "description": "enable to override automatic timing window calculation",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "customTimingWindows",
+        "type": "text",
+        "title": "Custom Timing Windows",
+        "description": "comma separated list of 5 timing windows",
+        "options": [],
+        "value": "16.5,64,97,127,151"
     }
 ]

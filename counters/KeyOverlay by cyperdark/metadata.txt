@@ -1,7 +1,7 @@
 Usecase: ingame, obs-overlay
 Name: KeyOverlay
 Author: cyperdark
-Version: 1.3.1
+Version: 1.3.2
 CompatibleWith: tosu
 Resolution: 550x550
 authorLinks:  https://github.com/cyperdark,https://twitter.com/cpol_owo,https://discord.gg/rYHNggbhyY

@@ -1,6 +1,6 @@
 Usecase: obs-overlay
 Name: tosu-debug
-Version: 1.001
+Version: 1.2
 Author: cyperdark
 CompatibleWith: tosu
 Resolution: 1920x1080

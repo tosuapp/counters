@@ -1,6 +1,6 @@
 Usecase: ingame,obs-overlay
 Name: basic-unstable-rate
-Version: 1.2
+Version: 1.3
 Author: cyperdark
 CompatibleWith: gosu,tosu
 Resolution: 300x50
