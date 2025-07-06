@@ -1,0 +1,106 @@
+// connecting to websocket
+import WebSocketManager from './js/socket.js';
+const socket = new WebSocketManager('127.0.0.1:24050');
+
+
+// cache values here to prevent constant updating
+const cache = {
+  h200: 0,
+  h100: 0,
+  h50: 0,
+  h0: 0,
+  pp: 0,
+  ppfc: 0,
+  pp95: 0,
+};
+// Smoouth numbers update
+
+
+function Pad(num) {
+  if (Number.isInteger(num) && num != 0) {
+    const str = num.toString().padStart(5, '0');
+    const firstNonZero = str.search(/[^0]/);
+    const zeros = firstNonZero > 0 ? str.slice(0, firstNonZero) : '';
+    const rest = firstNonZero >= 0 ? str.slice(firstNonZero) : str;
+    return `<span class="zero">${zeros}</span><span class="digit">${rest}</span>`;
+  }
+  else
+  {
+    return '<span class="zero">00000</span>' 
+  }
+    
+  }
+
+
+socket.api_v2(({ play }) => {
+  try {
+    
+    if (cache.h100 !== play.hits['100']) {
+      
+      cache.h100 = play.hits['100'];
+      console.log(play.hits['100']);
+      document.getElementById('h100').innerHTML = Pad(cache.h100)
+    };
+
+    if (cache.h200 !== play.hits['katu']) {
+      
+      cache.h200 = play.hits['katu'];
+      document.getElementById('h200').innerHTML = Pad(cache.h200)
+    };
+
+    if (cache.h50 !== play.hits['50']) {
+      cache.h50 = play.hits['50'];
+      document.getElementById('h50').innerHTML = Pad(cache.h50)
+    };
+
+    if (cache.h0 !== play.hits['0']) {
+      cache.h0 = play.hits['0'];
+      document.getElementById('h0').innerHTML = Pad(cache.h0);
+    };
+
+    if (cache.pp !== Math.round(play.pp.current)) {
+      cache.pp = Math.round(play.pp.current);
+      document.getElementById('pp').innerHTML = Pad(cache.pp);
+    };
+  } catch (error) {
+    console.log(error);
+  };
+});
+
+socket.api_v2(({ performance }) => {
+  try {
+    if (cache.ppfc !== Math.round(performance.accuracy['100'])) {
+      cache.ppfc = Math.round(performance.accuracy['100']);
+      
+      document.getElementById('ppfc').innerHTML = Pad(cache.ppfc);
+    };
+    if (cache.pp95 !== Math.round(performance.accuracy['95'])) {
+      cache.pp95 = Math.round(performance.accuracy['95']);
+      
+      document.getElementById('pp95').innerHTML = Pad(cache.pp95);
+    };
+  } catch (error) {
+    console.log(error);
+  };
+});
+
+socket.api_v2(({ state }) => {
+  try {
+    switch(state.number) {
+      case 2:
+        document.getElementById('gameplay').style.opacity = "1"
+        document.getElementById('gameplay').style.left = "0"
+        document.getElementById('song-select').style.opacity = "0"
+        document.getElementById('song-select').style.left = "50%"
+        break
+      default:
+        document.getElementById('gameplay').style.opacity = "0"
+        document.getElementById('gameplay').style.left = "50%"
+        document.getElementById('song-select').style.opacity = "1"
+        document.getElementById('song-select').style.left = "0"
+        break
+    }
+  } catch (error) {
+    console.log(error);
+  };
+});

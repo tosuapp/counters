@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name:  0pp
+Version: 0.9
+Author:  zeronic // zero
+CompatibleWith:  tosu
+Resolution:  256x640
+authorLinks:  ## Specify links via comma
