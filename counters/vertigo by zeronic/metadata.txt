@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name:  vertigo
-Version: 1.0
+Version: 1.0.1
 Author:  zeronic // zero
 CompatibleWith:  tosu
 Resolution:  256x640

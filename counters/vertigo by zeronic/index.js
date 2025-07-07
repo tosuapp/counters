@@ -1,32 +1,6 @@
 
 import WebSocketManager from './js/socket.js';
-const socket = new WebSocketManager('127.0.0.1:24050');
-
-socket.onopen = () => {
-    console.log("Successfully Connected");
-    socket.send(`applyFilters:${JSON.stringify([
-        {
-            field: 'state',
-            keys: ['number']
-        },
-        {
-            field: 'gameplay',
-            keys: [
-                {
-                    field: 'hits',
-                    keys: ['0', '50', '100', 'katu']
-                },{
-                  field: 'pp',
-                  keys: ['current']
-                }
-            ]
-        },
-        {
-          field: 'performance',
-          keys: ['95', '100']
-        }
-    ])}`)
-};
+const socket = new WebSocketManager(window.location.host);
 
 
 const cache = {
@@ -56,51 +30,51 @@ function Pad(num) {
   }
 
 
-socket.api_v2(({ play, performance, state }) => {
+socket.api_v2((data) => {
   try {
     
-    if (cache.h100 !== play.hits['100']) {
+    if (cache.h100 !== data.play.hits['100']) {
       
-      cache.h100 = play.hits['100'];
-      console.log(play.hits['100']);
+      cache.h100 = data.play.hits['100'];
+      console.log(data.play.hits['100']);
       document.getElementById('h100').innerHTML = Pad(cache.h100)
     };
 
-    if (cache.h200 !== play.hits['katu']) {
+    if (cache.h200 !== data.play.hits['katu']) {
       
-      cache.h200 = play.hits['katu'];
+      cache.h200 = data.play.hits['katu'];
       document.getElementById('h200').innerHTML = Pad(cache.h200)
     };
 
-    if (cache.h50 !== play.hits['50']) {
-      cache.h50 = play.hits['50'];
+    if (cache.h50 !== data.play.hits['50']) {
+      cache.h50 = data.play.hits['50'];
       document.getElementById('h50').innerHTML = Pad(cache.h50)
     };
 
-    if (cache.h0 !== play.hits['0']) {
-      cache.h0 = play.hits['0'];
+    if (cache.h0 !== data.play.hits['0']) {
+      cache.h0 = data.play.hits['0'];
       document.getElementById('h0').innerHTML = Pad(cache.h0);
     };
 
-    if (cache.pp !== Math.round(play.pp.current)) {
-      cache.pp = Math.round(play.pp.current);
+    if (cache.pp !== Math.round(data.play.pp.current)) {
+      cache.pp = Math.round(data.play.pp.current);
       document.getElementById('pp').innerHTML = Pad(cache.pp);
     };
 
 
-    if (cache.ppfc !== Math.round(performance.accuracy['100'])) {
-      cache.ppfc = Math.round(performance.accuracy['100']);
+    if (cache.ppfc !== Math.round(data.performance.accuracy['100'])) {
+      cache.ppfc = Math.round(data.performance.accuracy['100']);
       
       document.getElementById('ppfc').innerHTML = Pad(cache.ppfc);
     };
-    if (cache.pp95 !== Math.round(performance.accuracy['95'])) {
-      cache.pp95 = Math.round(performance.accuracy['95']);
+    if (cache.pp95 !== Math.round(data.performance.accuracy['95'])) {
+      cache.pp95 = Math.round(data.performance.accuracy['95']);
       
       document.getElementById('pp95').innerHTML = Pad(cache.pp95);
     };
 
 
-    switch(state.number) {
+    switch(data.state.number) {
       case 2:
         document.getElementById('gameplay').style.opacity = "1"
         document.getElementById('gameplay').style.left = "0"
@@ -118,4 +92,32 @@ socket.api_v2(({ play, performance, state }) => {
   } catch (error) {
     console.log(error);
   };
-});
+}, [
+     {
+       field: 'state',
+       keys: ['number']
+      },
+      {
+        field: 'play',
+        keys: [
+          {
+            field: 'hits',
+            keys: ['0', '50', '100', 'katu']
+          },
+          {
+            field: 'pp',
+            keys: ['current']
+          }
+        ]
+      },
+      {
+        field: 'performance',
+        keys: [
+          {
+            field: 'accuracy',
+            keys: ['95', '100']
+          }
+        ]
+      }
+   ]);
+   
