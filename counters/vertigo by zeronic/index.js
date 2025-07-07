@@ -1,9 +1,34 @@
-// connecting to websocket
+
 import WebSocketManager from './js/socket.js';
 const socket = new WebSocketManager('127.0.0.1:24050');
 
+socket.onopen = () => {
+    console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'state',
+            keys: ['number']
+        },
+        {
+            field: 'play',
+            keys: [
+                {
+                    field: 'hits',
+                    keys: ['0', '50', '100', 'katu']
+                },{
+                  field: 'pp',
+                  keys: ['current']
+                }
+            ]
+        },
+        {
+          field: 'performance',
+          keys: ['95', '100']
+        }
+    ])}`)
+};
 
-// cache values here to prevent constant updating
+
 const cache = {
   h200: 0,
   h100: 0,
@@ -13,7 +38,6 @@ const cache = {
   ppfc: 0,
   pp95: 0,
 };
-// Smoouth numbers update
 
 
 function Pad(num) {
@@ -32,7 +56,7 @@ function Pad(num) {
   }
 
 
-socket.api_v2(({ play }) => {
+socket.api_v2(({ play, performance, state }) => {
   try {
     
     if (cache.h100 !== play.hits['100']) {
@@ -62,13 +86,8 @@ socket.api_v2(({ play }) => {
       cache.pp = Math.round(play.pp.current);
       document.getElementById('pp').innerHTML = Pad(cache.pp);
     };
-  } catch (error) {
-    console.log(error);
-  };
-});
 
-socket.api_v2(({ performance }) => {
-  try {
+
     if (cache.ppfc !== Math.round(performance.accuracy['100'])) {
       cache.ppfc = Math.round(performance.accuracy['100']);
       
@@ -79,13 +98,8 @@ socket.api_v2(({ performance }) => {
       
       document.getElementById('pp95').innerHTML = Pad(cache.pp95);
     };
-  } catch (error) {
-    console.log(error);
-  };
-});
 
-socket.api_v2(({ state }) => {
-  try {
+
     switch(state.number) {
       case 2:
         document.getElementById('gameplay').style.opacity = "1"
@@ -100,6 +114,7 @@ socket.api_v2(({ state }) => {
         document.getElementById('song-select').style.left = "0"
         break
     }
+
   } catch (error) {
     console.log(error);
   };
