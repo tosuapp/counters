@@ -1,0 +1,53 @@
+@import url('OverpassMono-Medium.ttf');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.box{
+  padding: 6px;
+  background: #292929;
+  border-radius: 12px;
+  
+  width: min-content;
+}
+.row{
+  margin: 6px;
+}
+
+.inner-box{
+  padding: 12px;
+  background: #292929;
+  border: dimgray 2px solid;
+  border-radius: 6px;
+  display: inline-block;
+  width: min-content;
+}
+.digit{
+  color: white;
+  font-size: 20px;
+}
+.zero{
+  color: dimgray;
+  font-size: 20px;
+}
+body {
+  text-align: right;
+  font-family: "Overpass Mono", monospace;
+  font-size: 16px;
+  color: dimgray;
+  overflow: hidden;
+}
+
+#song-select{
+  
+  opacity: 0;
+  
+}
+
+#gameplay, #song-select{
+  position: relative;
+  transition: 0.5s;
+  margin: 6px;
+}
