@@ -10,7 +10,7 @@ socket.onopen = () => {
             keys: ['number']
         },
         {
-            field: 'play',
+            field: 'gameplay',
             keys: [
                 {
                     field: 'hits',
