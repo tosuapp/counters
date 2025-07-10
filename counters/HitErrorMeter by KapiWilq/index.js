@@ -194,7 +194,40 @@ socket.api_v2(({ client, state, settings, beatmap, play, folders, files }) => {
     } catch (error) {
         console.error(error);
     };
-});
+}, [
+    'client',
+    {
+        field: 'state',
+        keys: ['name'],
+    },
+    {
+        field: 'settings',
+        keys: [
+            {
+                field: 'mode',
+                keys: ['name'],
+            },
+            {
+                field: 'scoreMeter',
+                keys: [
+                    'size',
+                    {
+                        field: 'type',
+                        keys: ['name'],
+                    }
+                ],
+            },
+            {
+                field: 'resolution',
+                keys: ['fullscreen', 'height', 'heightFullscreen'],
+            },
+            {
+                field: 'background',
+                keys: ['dim'],
+            }
+        ],
+    }
+]);
 
 socket.api_v2_precise(({ hitErrors }) => {
     try {
@@ -237,4 +270,4 @@ socket.api_v2_precise(({ hitErrors }) => {
     } catch (error) {
         console.error(error);
     };
-});
+}, ['hitErrors']);

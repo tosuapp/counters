@@ -8,6 +8,21 @@ let miss = document.getElementById("h0");
 
 socket.onopen = () => {
     console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'pp',
+                    keys: ['current']
+                },
+                {
+                    field: 'hits',
+                    keys: ['100', '50', '0']
+                }
+            ]
+        },
+    ])}`)
 };
 
 socket.onclose = event => {
