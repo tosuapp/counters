@@ -1,7 +1,7 @@
-Usecase: ingame, obs-overlay
-Name:  Mappool Display
+Usecase: obs-overlay
+Name: Mappool Display
 Version: 1.0
-Author:  Jason House
-CompatibleWith:  tosu
-Resolution:  400x106
-authorLinks:  https://github.com/mas-alone
+Author: Jason House
+CompatibleWith: tosu
+Resolution: 400x106
+authorLinks: https://github.com/mas-alone
