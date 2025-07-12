@@ -10,7 +10,7 @@
 
 > For tournament mappool showcase. Supports all rulesets.
 
-<img src="/.github/images/Mappool Display by Jason House.jpg" />
+<img src="/.github/images/Mappool Display by Jason House.png" />
 
 ## How to use?
 1. Edit the `amxmodx.json` file.
