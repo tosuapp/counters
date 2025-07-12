@@ -4,9 +4,9 @@
 
 |||
 | ------------- | ------------- |
-| For | ingame, obs-overlay |
+| For | obs-overlay |
 | Compatible with | tosu |
-| Size |  500x100 |
+| Size |  400x106 |
 
 > For tournament mappool showcase. Supports all rulesets.
 
