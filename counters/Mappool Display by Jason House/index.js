@@ -58,7 +58,16 @@ fetch('./amxmodx.json')
   })
   .then(mapData => {
     const { idIndex, modIndex } = buildIndexes(mapData);
+	if (Object.keys(idIndex).length === 0) {
+	  container.innerHTML =
+		'Please edit the amxmodx.json file to start using it.<br>' +
+		'For details, please click on settings to open the README';
 
+	  container.style.fontSize = '20px';
+	  container.style.lineHeight = '2';
+	  container.classList.remove('hidden');
+	  return;
+	}
     if (modParam) {
       const upper = modParam.toUpperCase();
       const mod   = upper.match(/[A-Z]+/)?.[0];
