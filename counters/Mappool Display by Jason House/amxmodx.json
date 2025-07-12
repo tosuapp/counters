@@ -1,86 +1,86 @@
 {
     "NM": [
         {
-            "id": 3947924,
-            "skill":  "Consistency"
+            "id": "",
+            "skill":  ""
         },
         {
-            "id": 1675397,
-            "skill":  "Tech"
+            "id": "",
+            "skill":  ""
         },
         {
-            "id": 4054573,
-            "skill":  "Low AR"
+            "id": "",
+            "skill":  ""
         },
         {
-            "id": 2354176,
-            "skill":  "Convert"
+            "id": "",
+            "skill":  ""
         }
     ],
     "HD": [
         {
-            "id": 4394849,
-            "skill":  "Consistency"
+            "id": "",
+            "skill":  ""
         },
         {
-            "id": 1135296,
-            "skill":  "Low AR"
+            "id": "",
+            "skill":  ""
         },
         {
-            "id": 3337327,
-            "skill":  "High CS"
+            "id": "",
+            "skill":  ""
         }
     ],
     "HR": [
         {
-            "id": 2204220,
-            "skill": "Consistency"
+            "id": "",
+            "skill": ""
         },
         {
-            "id": 4377433,
-            "skill": "High CS"
+            "id": "",
+            "skill": ""
         },
         {
-            "id": 2669849,
-            "skill": "Tech"
+            "id": "",
+            "skill": ""
         }
     ],
     "DT": [
         {
-            "id": 3310327,
-            "skill": "Consistency"
+            "id": "",
+            "skill": ""
         },
         {
-            "id": 3554287,
-            "skill": "Control"
+            "id": "",
+            "skill": ""
         },
         {
-            "id": 3757866,
-            "skill": "Speed"
+            "id": "",
+            "skill": ""
         },
         {
-            "id": 2835720,
-            "skill": "High AR"
+            "id": "",
+            "skill": ""
         }
     ],
     "MM": [
         {
-            "id": 4534108,
-            "skill": "roll NM/HD/HTHR"
+            "id": "",
+            "skill": ""
         },
         {
-            "id": 2049204,
-            "skill": "Combo to win"
+            "id": "",
+            "skill": ""
         },
         {
-            "id": 181233,
-            "skill": "FM"
+            "id": "",
+            "skill": ""
         }
     ],
     "TB": [
         {
-            "id": 5177765,
-            "skill": "TB"
+            "id": "",
+            "skill": ""
         }
     ]
 }
