@@ -1,0 +1,86 @@
+{
+    "NM": [
+        {
+            "id": 3947924,
+            "skill":  "Consistency"
+        },
+        {
+            "id": 1675397,
+            "skill":  "Tech"
+        },
+        {
+            "id": 4054573,
+            "skill":  "Low AR"
+        },
+        {
+            "id": 2354176,
+            "skill":  "Convert"
+        }
+    ],
+    "HD": [
+        {
+            "id": 4394849,
+            "skill":  "Consistency"
+        },
+        {
+            "id": 1135296,
+            "skill":  "Low AR"
+        },
+        {
+            "id": 3337327,
+            "skill":  "High CS"
+        }
+    ],
+    "HR": [
+        {
+            "id": 2204220,
+            "skill": "Consistency"
+        },
+        {
+            "id": 4377433,
+            "skill": "High CS"
+        },
+        {
+            "id": 2669849,
+            "skill": "Tech"
+        }
+    ],
+    "DT": [
+        {
+            "id": 3310327,
+            "skill": "Consistency"
+        },
+        {
+            "id": 3554287,
+            "skill": "Control"
+        },
+        {
+            "id": 3757866,
+            "skill": "Speed"
+        },
+        {
+            "id": 2835720,
+            "skill": "High AR"
+        }
+    ],
+    "MM": [
+        {
+            "id": 4534108,
+            "skill": "roll NM/HD/HTHR"
+        },
+        {
+            "id": 2049204,
+            "skill": "Combo to win"
+        },
+        {
+            "id": 181233,
+            "skill": "FM"
+        }
+    ],
+    "TB": [
+        {
+            "id": 5177765,
+            "skill": "TB"
+        }
+    ]
+}
