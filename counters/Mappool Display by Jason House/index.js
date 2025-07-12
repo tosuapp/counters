@@ -63,8 +63,8 @@ fetch('./amxmodx.json')
 		'Please edit the amxmodx.json file to start using it.<br>' +
 		'For details, please click on settings to open the README';
 
-	  container.style.fontSize = '20px';
-	  container.style.lineHeight = '2';
+	  container.style.fontSize = '16px';
+	  container.style.lineHeight = '1.5';
 	  container.classList.remove('hidden');
 	  return;
 	}
