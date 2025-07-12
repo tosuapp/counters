@@ -26,8 +26,8 @@
 }
 ```
 
-2. Use [http://localhost:24050/Mappool Display by Jason House](http://localhost:24050/Mappool Display by Jason House)
- - If the custom beatmap is HD2. Then use [http://localhost:24050/Mappool Display by Jason House/?mod=hd2](http://localhost:24050/Mappool Display by Jason House/?mod=hd2)
+2. Use [http://localhost:24050/Mappool Display by Jason House](<http://localhost:24050/Mappool Display by Jason House>)
+ - If the custom beatmap is HD2. Then use [http://localhost:24050/Mappool Display by Jason House/?mod=hd2](<http://localhost:24050/Mappool Display by Jason House/?mod=hd2>)
 
 > `amxmodx.json` Template here
 
