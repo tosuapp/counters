@@ -53,25 +53,3 @@ body {
   font-weight: bold;
   text-align: right;
 }
-
-.mod-box[data-mod="NM"] {
-  color: #9bc1e4;
-}
-.mod-box[data-mod="HD"] {
-  color: #f2df99;
-}
-.mod-box[data-mod="HR"] {
-  color: #eb9999;
-}
-.mod-box[data-mod="DT"] {
-  color: #cea3ff;
-}
-.mod-box[data-mod="FM"] {
-  color: #c7e1a6;
-}
-.mod-box[data-mod="MM"] {
-  color: #c7e1a6;
-}
-.mod-box[data-mod="TB"] {
-  color: #fff;
-}
