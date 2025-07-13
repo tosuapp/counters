@@ -26,86 +26,121 @@ function renderModBox(container, mod, index, skill) {
   modBox.dataset.mod = mod;
   modBox.textContent = `${mod}${index}`;
 
-  const skillText = document.createElement('div');
-  skillText.className = 'skill-text';
-  skillText.textContent = skill;
+  if (skill) {
+    const skillText = document.createElement('div');
+    skillText.className = 'skill-text';
+    skillText.textContent = skill;
+    block.append(modBox, skillText);
+  } else {
+    block.appendChild(modBox);
+  }
 
-  block.append(modBox, skillText);
   container.appendChild(block);
 }
 
-const socket   = new WebSocketManager(window.location.host);
+const MOD_NAME_MAP = {
+  nomod: 'NM',
+  hidden: 'HD',
+  hardrock: 'HR',
+  doubletime: 'DT',
+  freemod: 'FM',
+  mixedmod: 'MM',
+  tiebreaker: 'TB'
+};
+
+const MOD_ALIAS_MAP = Object.fromEntries(
+  Object.entries(MOD_NAME_MAP).map(([k, v]) => [v.toLowerCase(), k])
+);
+
+const socket = new WebSocketManager(window.location.host);
 const modParam = getURLParam('mod');
 const container = document.getElementById('mod-info');
+let modRenderedFromURL = false;
 
-function buildIndexes(mapData) {
-  const idIndex  = Object.create(null);
+function buildIndexes(settingsData) {
+  const idIndex = Object.create(null);
   const modIndex = Object.create(null);
 
-  for (const mod of Object.keys(mapData)) {
-    modIndex[mod] = mapData[mod];
-    mapData[mod].forEach((entry, i) => {
+  for (const mod of Object.keys(settingsData)) {
+    modIndex[mod] = settingsData[mod];
+    settingsData[mod].forEach((entry, i) => {
       if (entry.id) idIndex[entry.id] = { mod, index: i, skill: entry.skill };
     });
   }
   return { idIndex, modIndex };
 }
 
-fetch('./amxmodx.json')
-  .then(res => {
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json();
-  })
-  .then(mapData => {
-    const { idIndex, modIndex } = buildIndexes(mapData);
-	if (Object.keys(idIndex).length === 0) {
-	  container.innerHTML =
-		'Please edit the amxmodx.json file to start using it.<br>' +
-		'For details, please click on settings to open the README';
+socket.sendCommand("getSettings", encodeURI(window.COUNTER_PATH));
 
-	  container.style.fontSize = '16px';
-	  container.style.lineHeight = '1.5';
-	  container.classList.remove('hidden');
-	  return;
-	}
-    if (modParam) {
-      const upper = modParam.toUpperCase();
-      const mod   = upper.match(/[A-Z]+/)?.[0];
-      const idx   = parseInt(upper.match(/\d+/)?.[0], 10) - 1;
+socket.commands((data) => {
+  try {
+    const { command, message } = data;
 
-      if (!mod || Number.isNaN(idx)) {
-        clearContainer(container);
-        return;
+    if (command === "getSettings") {
+      const settingsData = {
+        nomod: parseModData(message.nomod),
+        hidden: parseModData(message.hidden),
+        hardrock: parseModData(message.hardrock),
+        doubletime: parseModData(message.doubletime),
+        freemod: parseModData(message.freemod),
+        mixedmod: parseModData(message.mixedmod),
+        tiebreaker: parseModData(message.tiebreaker),
+      };
+
+      const { idIndex, modIndex } = buildIndexes(settingsData);
+
+      if (modParam) {
+        const modMatch = modParam.toLowerCase().match(/^([a-z]+)(\d+)$/);
+        if (modMatch) {
+          const shortMod = modMatch[1];
+          const idx = parseInt(modMatch[2], 10) - 1;
+          const originalMod = MOD_ALIAS_MAP[shortMod];
+          if (originalMod && !Number.isNaN(idx)) {
+            const entry = modIndex[originalMod]?.[idx];
+            if (entry) {
+              const displayMod = MOD_NAME_MAP[originalMod] || originalMod;
+              renderModBox(container, displayMod, idx + 1, entry.skill);
+              modRenderedFromURL = true;
+            }
+          }
+        }
       }
 
-      const entry = modIndex[mod]?.[idx];
-      if (entry) {
-        renderModBox(container, mod, idx + 1, entry.skill);
-      } else {
-        clearContainer(container);
-      }
-      return;    }
+		let lastBeatmapId = null;
 
-    let lastBeatmapId = null;
+		socket.api_v2(data => {
+		  const id = data?.beatmap?.id;
+		  if (!id || id === lastBeatmapId) return;
 
-    socket.api_v2(data => {
-      const id = data?.beatmap?.id;
-      if (!id || id === lastBeatmapId) return;
+		  lastBeatmapId = id;
 
-      lastBeatmapId = id;
-
-      const hit = idIndex[id];
-      if (hit) {
-        renderModBox(container, hit.mod, hit.index + 1, hit.skill);
-      } else {
-        clearContainer(container);
-      }
-    });
-  })
-  .catch(err => {
-    console.error('Failed to load amxmodx.json:', err);
-    if (container) {
-      container.textContent = 'Failed to load JSON Mod';
-      container.classList.remove('hidden');
+		  const hit = idIndex[id];
+		  if (hit) {
+			const displayMod = MOD_NAME_MAP[hit.mod.toLowerCase()] || hit.mod;
+			renderModBox(container, displayMod, hit.index + 1, hit.skill);
+			modRenderedFromURL = false;
+		  }
+		});
     }
-  });
+  } catch (error) {
+    console.error('Error handling settings data:', error);
+  }
+});
+
+function parseModData(modData) {
+  if (!modData) return [];
+
+  if (typeof modData === 'string') {
+    modData = modData.split('\n').filter(Boolean);
+  }
+
+  if (!Array.isArray(modData)) return [];
+
+  return modData.map(item => {
+    if (typeof item !== 'string') return null;
+    const [id, skill] = item.split(',');
+    const parsedId = parseInt(id, 10);
+    if (Number.isNaN(parsedId)) return null;
+    return { id: parsedId, skill: skill || null };
+  }).filter(Boolean);
+}
