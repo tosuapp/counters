@@ -13,75 +13,20 @@
 <img src="/.github/images/Mappool Display by Jason House.png" />
 
 ## How to use?
-1. Edit the `amxmodx.json` file.
- - If has custom mappool. Just input "custom" in the json file
+1. Edit the settings.
+ - If has custom mappool. Just input "custom" in the settings
 ```
-{
-    "NM": [
-        {
-            "id": "custom",
-            "skill":  "Consistency"
-        }
-    ]
-}
+4809883,Consistency
+custom,Tech
+3182197
 ```
 
 2. Use [http://localhost:24050/Mappool Display by Jason House](<http://localhost:24050/Mappool Display by Jason House>)
  - If the custom beatmap is HD2. Then use [http://localhost:24050/Mappool Display by Jason House/?mod=hd2](<http://localhost:24050/Mappool Display by Jason House/?mod=hd2>)
 
-> `amxmodx.json` Template here
-
+**Settings Template should be:**
 ```
-{
-    "NM": [
-        {
-            "id": 4809883,
-            "skill":  "Consistency"
-        },
-        {
-            "id": 4053455,
-            "skill":  "Tech"
-        },
-        {
-            "id": 3182197,
-            "skill":  "Convert Jumps"
-        }
-    ],
-    "HD": [
-        {
-            "id": 4268584,
-            "skill":  "Low AR Reading"
-        },
-        {
-            "id": 3570291,
-            "skill":  "HD Jumps"
-        }
-    ],
-    "HR": [
-        {
-            "id": 4564624,
-            "skill": "Consistency"
-        },
-        {
-            "id": 2244507,
-            "skill": "Precision"
-        }
-    ],
-    "DT": [
-        {
-            "id": 4366254,
-            "skill": "Consistency"
-        },
-        {
-            "id": 4610750,
-            "skill": "Control"
-        }
-    ],
-	"TB": [
-        {
-            "id": "custom",
-            "skill": ""
-        }
-    ]
-}
+[Mapid],[Skill] ← line break
+[Mapid],[Skill]
 ```
+*(Each line is one entry. `[Skill]` is optional.)*
