@@ -1,1 +1,155 @@
-[{"uniqueID":"readme","type":"button","title":"Readme","description":"How to use?","options":[],"value":"https://github.com/tosuapp/counters/tree/master/counters/Mappool Display by Jason House#readme"},{"uniqueID":"nmheader","type":"header","title":"NM","description":"","options":[],"value":""},{"uniqueID":"nomod","type":"textarea","title":"input NM mappool mapid.","description":"[Mapid],[Skill]","options":[],"value":"4809883,Consistency\ncustom,Tech\n3182197"},{"uniqueID":"hdheader","type":"header","title":"HD","description":"","options":[],"value":""},{"uniqueID":"hidden","type":"textarea","title":"input HD mappool mapid.","description":"[Mapid],[Skill]","options":[],"value":""},{"uniqueID":"hrheader","type":"header","title":"HR","description":"","options":[],"value":""},{"uniqueID":"hardrock","type":"textarea","title":"input HR mappool mapid.","description":"[Mapid],[Skill]","options":[],"value":""},{"uniqueID":"dtheader","type":"header","title":"DT","description":"","options":[],"value":""},{"uniqueID":"doubletime","type":"textarea","title":"input DT mappool mapid.","description":"[Mapid],[Skill]","options":[],"value":""},{"uniqueID":"fmheader","type":"header","title":"FM","description":"","options":[],"value":""},{"uniqueID":"freemod","type":"textarea","title":"input FM mappool mapid.","description":"[Mapid],[Skill]","options":[],"value":""},{"uniqueID":"mmheader","type":"header","title":"MM","description":"","options":[],"value":""},{"uniqueID":"mixedmod","type":"textarea","title":"input MM mappool mapid.","description":"[Mapid],[Skill]","options":[],"value":""},{"uniqueID":"tbheader","type":"header","title":"TB","description":"","options":[],"value":""},{"uniqueID":"tiebreaker","type":"textarea","title":"input TB mappool mapid.","description":"[Mapid],[Skill]","options":[],"value":""}]
+[{
+	"uniqueID": "readme",
+	"type": "button",
+	"title": "Readme",
+	"description": "How to use?",
+	"options": [],
+	"value": "https://github.com/tosuapp/counters/tree/master/counters/Mappool Display by Jason House#readme"
+}, {
+	"uniqueID": "nmheader",
+	"type": "header",
+	"title": "NM",
+	"description": "",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "nomodcolor",
+	"type": "color",
+	"title": "NM Color",
+	"description": "",
+	"options": [],
+	"value": "#9bc1e4"
+}, {
+	"uniqueID": "nomod",
+	"type": "textarea",
+	"title": "NM mappool mapid.",
+	"description": "[Mapid],[Skill]",
+	"options": [],
+	"value": "4809883,Consistency\ncustom,Tech\n3182197"
+}, {
+	"uniqueID": "hdheader",
+	"type": "header",
+	"title": "HD",
+	"description": "",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "hiddencolor",
+	"type": "color",
+	"title": "HD Color",
+	"description": "",
+	"options": [],
+	"value": "#f2df99"
+}, {
+	"uniqueID": "hidden",
+	"type": "textarea",
+	"title": "HD mappool mapid.",
+	"description": "[Mapid],[Skill]",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "hrheader",
+	"type": "header",
+	"title": "HR",
+	"description": "",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "hardrockcolor",
+	"type": "color",
+	"title": "HR Color",
+	"description": "",
+	"options": [],
+	"value": "#eb9999"
+}, {
+	"uniqueID": "hardrock",
+	"type": "textarea",
+	"title": "HR mappool mapid.",
+	"description": "[Mapid],[Skill]",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "dtheader",
+	"type": "header",
+	"title": "DT",
+	"description": "",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "doubletimecolor",
+	"type": "color",
+	"title": "DT Color",
+	"description": "",
+	"options": [],
+	"value": "#cea3ff"
+}, {
+	"uniqueID": "doubletime",
+	"type": "textarea",
+	"title": "DT mappool mapid.",
+	"description": "[Mapid],[Skill]",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "fmheader",
+	"type": "header",
+	"title": "FM",
+	"description": "",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "freemodcolor",
+	"type": "color",
+	"title": "FM Color",
+	"description": "",
+	"options": [],
+	"value": "#c7e1a6"
+}, {
+	"uniqueID": "freemod",
+	"type": "textarea",
+	"title": "FM mappool mapid.",
+	"description": "[Mapid],[Skill]",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "mmheader",
+	"type": "header",
+	"title": "MM",
+	"description": "",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "mixedmodcolor",
+	"type": "color",
+	"title": "MM Color",
+	"description": "",
+	"options": [],
+	"value": "#c7ffa6"
+}, {
+	"uniqueID": "mixedmod",
+	"type": "textarea",
+	"title": "MM mappool mapid.",
+	"description": "[Mapid],[Skill]",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "tbheader",
+	"type": "header",
+	"title": "TB",
+	"description": "",
+	"options": [],
+	"value": ""
+}, {
+	"uniqueID": "tiebreakercolor",
+	"type": "color",
+	"title": "TB Color",
+	"description": "",
+	"options": [],
+	"value": "#ffffff"
+}, {
+	"uniqueID": "tiebreaker",
+	"type": "textarea",
+	"title": "TB mappool mapid.",
+	"description": "[Mapid],[Skill]",
+	"options": [],
+	"value": ""
+}]
