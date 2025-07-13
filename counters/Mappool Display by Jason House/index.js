@@ -1,34 +1,4 @@
-import WebSocketManager from './js/socket.js';
-
-function getURLParam(k) {
-  const p = new URL(window.location.href).searchParams;
-  const t = k.toLowerCase();
-  for (const [k2, v] of p.entries()) if (k2.toLowerCase() === t) return v;
-  return null;
-}
-
-function clearContainer(c) {
-  c.innerHTML = '';
-  c.classList.add('hidden');
-}
-
-function renderModBox(c, mod, idx, skill) {
-  clearContainer(c);
-  c.classList.remove('hidden');
-  const block = document.createElement('div');
-  block.className = 'mod-block';
-  const modBox = document.createElement('div');
-  modBox.className = 'mod-box';
-  modBox.dataset.mod = mod;
-  modBox.textContent = `${mod}${idx}`;
-  if (skill) {
-    const st = document.createElement('div');
-    st.className = 'skill-text';
-    st.textContent = skill;
-    block.append(modBox, st);
-  } else block.appendChild(modBox);
-  c.appendChild(block);
-}
+const MOD_INDEX_PATTERN = /^([a-z]+)(\d+)$/;
 
 const MOD_NAME_MAP = {
   nomod: 'NM',
@@ -39,87 +9,173 @@ const MOD_NAME_MAP = {
   mixedmod: 'MM',
   tiebreaker: 'TB'
 };
-const MOD_ALIAS_MAP = Object.fromEntries(Object.entries(MOD_NAME_MAP).map(([k, v]) => [v.toLowerCase(), k]));
-const KEYS = Object.keys(MOD_NAME_MAP);
 
-const socket     = new WebSocketManager(window.location.host);
-const modParam   = getURLParam('mod');
-const container  = document.getElementById('mod-info');
+const MOD_ALIAS_MAP = Object.fromEntries(
+  Object.entries(MOD_NAME_MAP).map(([longName, short]) => [short.toLowerCase(), longName])
+);
+
+const MOD_KEYS = Object.keys(MOD_NAME_MAP);
+
+function getUrlParam(key) {
+  const params = new URL(window.location.href).searchParams;
+  const target = key.toLowerCase();
+  for (const [k, v] of params.entries()) {
+    if (k.toLowerCase() === target) return v;
+  }
+  return null;
+}
+
+function clearContainer(container) {
+  container.innerHTML = '';
+  container.classList.add('hidden');
+}
+
+function createModBlock(modShortLabel, index, skill) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'mod-block';
+
+  const modBox = document.createElement('div');
+  modBox.className = 'mod-box';
+  modBox.dataset.mod = modShortLabel;
+  modBox.textContent = `${modShortLabel}${index}`;
+
+  wrapper.appendChild(modBox);
+
+  if (skill) {
+    const skillText = document.createElement('div');
+    skillText.className = 'skill-text';
+    skillText.textContent = skill;
+    wrapper.appendChild(skillText);
+  }
+
+  return wrapper;
+}
+
+function mountModBlock(container, block) {
+  clearContainer(container);
+  container.classList.remove('hidden');
+  container.appendChild(block);
+}
+
+function parseModLine(line) {
+  if (typeof line !== 'string') return null;
+  const [idPart, skillPart] = line.split(',');
+  const trimmedId = idPart.trim();
+
+  if (trimmedId.toLowerCase() === 'custom') {
+    return { id: 'custom', skill: skillPart?.trim() || null };
+  }
+  const numericId = parseInt(trimmedId, 10);
+  if (Number.isNaN(numericId)) return null;
+  return { id: numericId, skill: skillPart?.trim() || null };
+}
+
+function parseModData(raw) {
+  if (!raw) return [];
+  if (typeof raw === 'string') raw = raw.split('\n').filter(Boolean);
+  if (!Array.isArray(raw)) return [];
+  return raw.map(parseModLine).filter(Boolean);
+}
 
 function buildIndexes(setData) {
-  const idIdx  = Object.create(null);
-  const modIdx = Object.create(null);
-  for (const m of KEYS) {
-    modIdx[m] = setData[m];
-    setData[m].forEach((e, i) => {
-      if (e.id) idIdx[e.id] = { mod: m, index: i, skill: e.skill };
+  const idIndex = Object.create(null);
+  const modIndex = Object.create(null);
+
+  for (const modKey of MOD_KEYS) {
+    const list = setData[modKey] ?? [];
+    modIndex[modKey] = list;
+
+    list.forEach((entry, i) => {
+      if (entry.id) {
+        idIndex[entry.id] = { mod: modKey, index: i, skill: entry.skill };
+      }
     });
   }
-  return { idIdx, modIdx };
+  return { idIndex, modIndex };
 }
+
+import WebSocketManager from './js/socket.js';
+
+const socket = new WebSocketManager(window.location.host);
+const modParam = getUrlParam('mod');
+const container = document.getElementById('mod-info');
 
 socket.sendCommand('getSettings', encodeURI(window.COUNTER_PATH));
 
-socket.commands((d) => {
+socket.commands((data) => {
   try {
-    if (d.command !== 'getSettings') return;
+    if (data.command !== 'getSettings') return;
 
     const colors = {};
     const settingsData = {};
-    KEYS.forEach(k => {
-      colors[k] = d.message[`${k}color`];
-      settingsData[k] = parseModData(d.message[k]);
+    MOD_KEYS.forEach((key) => {
+      colors[key] = data.message[`${key}color`];
+      settingsData[key] = parseModData(data.message[key]);
     });
 
-    const style = document.createElement('style');
-    style.textContent = KEYS.filter(k => colors[k]).map(k => `.mod-box[data-mod="${MOD_NAME_MAP[k]}"]{color:${colors[k]};}`).join('');
-    document.head.appendChild(style);
+    injectColorStyles(colors);
 
-    const { idIdx, modIdx } = buildIndexes(settingsData);
+    const { idIndex, modIndex } = buildIndexes(settingsData);
 
-    if (modParam) {
-      const m = modParam.toLowerCase().match(/^([a-z]+)(\d+)$/);
-      if (m) {
-        const short = m[1];
-        const i = parseInt(m[2], 10) - 1;
-        const long = MOD_ALIAS_MAP[short];
-        const e = modIdx[long]?.[i];
-        if (e) renderModBox(container, MOD_NAME_MAP[long], i + 1, e.skill);
-      }
-    }
+    tryRenderInitialModBox(modParam, modIndex);
 
-    let lastBeatmapId = null;
-    socket.api_v2((p) => {
-      try {
-        const id = p?.beatmap?.id;
-        if (!id || id === lastBeatmapId) return;
-        lastBeatmapId = id;
-        const hit = idIdx[id];
-        if (hit) renderModBox(container, MOD_NAME_MAP[hit.mod], hit.index + 1, hit.skill);
-        else clearContainer(container);
-      } catch (e) { console.error(e); }
-    }, [{ field: 'beatmap', keys: ['id'] }]);
-
-	if (typeof socket.onClose === 'function') {
-	  socket.onClose(() => {
-		clearContainer(container);
-		lastBeatmapId = null;
-	  });
-	}
-  } catch (e) { console.error(e); }
+    setupBeatmapListener(socket, idIndex, container);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-function parseModData(md) {
-  if (!md) return [];
-  if (typeof md === 'string') md = md.split('\n').filter(Boolean);
-  if (!Array.isArray(md)) return [];
-  return md.map((l) => {
-    if (typeof l !== 'string') return null;
-    const [id, sk] = l.split(',');
-    const t = id.trim();
-    if (t.toLowerCase() === 'custom') return { id: 'custom', skill: sk?.trim() || null };
-    const n = parseInt(t, 10);
-    if (Number.isNaN(n)) return null;
-    return { id: n, skill: sk?.trim() || null };
-  }).filter(Boolean);
+function injectColorStyles(colors) {
+  const rules = MOD_KEYS.filter((k) => colors[k]).map((k) => `.mod-box[data-mod="${MOD_NAME_MAP[k]}"]{color:${colors[k]};}`).join('');
+
+  if (rules) {
+    const styleTag = document.createElement('style');
+    styleTag.textContent = rules;
+    document.head.appendChild(styleTag);
+  }
+}
+
+function tryRenderInitialModBox(param, modIndex) {
+  if (!param) return;
+  const match = param.toLowerCase().match(MOD_INDEX_PATTERN);
+  if (!match) return;
+
+  const [, short, idxRaw] = match;
+  const idx = parseInt(idxRaw, 10) - 1;
+  const long = MOD_ALIAS_MAP[short];
+
+  const entry = modIndex[long]?.[idx];
+  if (entry) {
+    const block = createModBlock(MOD_NAME_MAP[long], idx + 1, entry.skill);
+    mountModBlock(container, block);
+  }
+}
+
+function setupBeatmapListener(socketInstance, idIndex, uiContainer) {
+  let lastBeatmapId = null;
+
+  socketInstance.api_v2((payload) => {
+    try {
+      const id = payload?.beatmap?.id;
+      if (!id || id === lastBeatmapId) return;
+      lastBeatmapId = id;
+
+      const hit = idIndex[id];
+      if (hit) {
+        const block = createModBlock(MOD_NAME_MAP[hit.mod], hit.index + 1, hit.skill);
+        mountModBlock(uiContainer, block);
+      } else {
+        clearContainer(uiContainer);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [{ field: 'beatmap', keys: ['id'] }]);
+
+  if (typeof socketInstance.onClose === 'function') {
+    socketInstance.onClose(() => {
+      clearContainer(uiContainer);
+      lastBeatmapId = null;
+    });
+  }
 }
