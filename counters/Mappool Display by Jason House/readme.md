@@ -20,7 +20,7 @@
 custom,Tech
 3182197
 ```
-<img width="1293" height="327" alt="QQ20250712-153508" src="https://github.com/user-attachments/assets/df9a5a29-2491-40a1-ab52-69a89ba60c16" />
+<img width="1353" height="786" alt="QQ20250713-141208" src="https://github.com/user-attachments/assets/af7d629d-103a-41cc-904e-21e9c8e507a7" />
 
 2. Use [http://localhost:24050/Mappool Display by Jason House](<http://localhost:24050/Mappool Display by Jason House>)
  - If the custom beatmap is HD2. Then use [http://localhost:24050/Mappool Display by Jason House/?mod=hd2](<http://localhost:24050/Mappool Display by Jason House/?mod=hd2>)
