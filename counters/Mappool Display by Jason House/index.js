@@ -106,24 +106,33 @@ socket.commands((data) => {
         }
       }
 
-		let lastBeatmapId = null;
+      let lastBeatmapId = null;
 
-		socket.api_v2(data => {
-		  const id = data?.beatmap?.id;
-		  if (!id || id === lastBeatmapId) return;
+      socket.api_v2(data => {
+        try {
+          const id = data?.beatmap?.id;
+          if (!id || id === lastBeatmapId) return;
 
-		  lastBeatmapId = id;
+          lastBeatmapId = id;
 
-		  const hit = idIndex[id];
-		  if (hit) {
-			const displayMod = MOD_NAME_MAP[hit.mod.toLowerCase()] || hit.mod;
-			renderModBox(container, displayMod, hit.index + 1, hit.skill);
-			modRenderedFromURL = false;
-		  }
-		});
+          const hit = idIndex[id];
+          if (hit) {
+            const displayMod = MOD_NAME_MAP[hit.mod.toLowerCase()] || hit.mod;
+            renderModBox(container, displayMod, hit.index + 1, hit.skill);
+            modRenderedFromURL = false;
+          }
+        } catch (error) {
+          console.error('Error handling settings data:', error);
+        }
+      }, [
+        {
+          field: 'beatmap',
+          keys: ['id']
+        }
+      ]);
     }
   } catch (error) {
-    console.error('Error handling settings data:', error);
+    console.error('Error handling command data:', error);
   }
 });
 
@@ -138,9 +147,17 @@ function parseModData(modData) {
 
   return modData.map(item => {
     if (typeof item !== 'string') return null;
+
     const [id, skill] = item.split(',');
-    const parsedId = parseInt(id, 10);
+    const trimmedId = id.trim();
+
+    if (trimmedId.toLowerCase() === 'custom') {
+      return { id: 'custom', skill: skill?.trim() || null };
+    }
+
+    const parsedId = parseInt(trimmedId, 10);
     if (Number.isNaN(parsedId)) return null;
-    return { id: parsedId, skill: skill || null };
+
+    return { id: parsedId, skill: skill?.trim() || null };
   }).filter(Boolean);
 }
