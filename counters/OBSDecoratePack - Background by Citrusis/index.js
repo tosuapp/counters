@@ -4,28 +4,6 @@ const socket = new WebSocketManager(WS_HOST);
 
 const cache = {};
 
-socket.onopen = () => {
-    socket.sendCommand('applyFilters', [
-        {
-            field: 'settings',
-            keys: [
-                'BackgroundAnimationDuration',
-                'BackgroundSwitchTime',
-                'BackgroundBlurAnimation',
-                'BackgroundBrightnessAnimation'
-            ]
-        },
-        {
-            field: 'directPath',
-            keys: ['skinFolder', 'beatmapBackground']
-        },
-        {
-            field: 'state',
-            keys: []
-        }
-    ]);
-};
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////// SETTINGS /////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,19 +58,25 @@ socket.commands((data) => {
 /////////////////////////////////////////// MAIN FUNCTION //////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-socket.api_v2(({ directPath, folders }) => {
+socket.api_v2((data) => {
     // Update beatmap background
-    if (cache.beatmapBackground !== directPath.beatmapBackground) {
-        cache.beatmapBackground = directPath.beatmapBackground;
-        updateBackground(directPath, folders);
+    if (cache.beatmapBackground !== data.directPath.beatmapBackground) {
+        cache.beatmapBackground = data.directPath.beatmapBackground;
+        updateBackground(cache.beatmapBackground, cache.skinFolder);
     }
 
     // Update skin
-    if (cache.skinFolder !== directPath.skinFolder) {
-        cache.skinFolder = directPath.skinFolder;
-        updateBackground(directPath, folders);
+    if (cache.skinFolder !== data.directPath.skinFolder) {
+        cache.skinFolder = data.directPath.skinFolder;
+        updateBackground(cache.beatmapBackground, cache.skinFolder);
     }
-});
+},
+[
+    {
+        field: 'directPath',
+        keys: ['beatmapBackground', 'skinFolder']
+    }
+]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////
@@ -276,9 +260,9 @@ function imageFade(imgElement, url) {
 }
 
 // Update background
-function updateBackground(directPath, folders) {
+function updateBackground(beatmapBackground, folders) {
     const background = document.querySelector('#bg');
-    const backgroundPath = encodeURIComponent(directPath.beatmapBackground.replace(folders.songs, ''));
+    const backgroundPath = encodeURIComponent(beatmapBackground.replace(folders.songs, ''));
 
     urlFallback([
         `http://127.0.0.1:24050/files/beatmap/${backgroundPath}`,
