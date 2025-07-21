@@ -2,30 +2,6 @@ const WS_HOST = window.location.host;
 import WebSocketManager from './socket.js';
 const socket = new WebSocketManager(WS_HOST);
 
-socket.onopen = () => {
-    socket.sendCommand('applyFilters', [
-        {
-            field: 'settings',
-            keys: [
-                'FlakesMode',
-                'FlakesScale',
-                'FlakesDensity',
-                'FlakesFallingSpeed',
-                'FlakesSpinVelocity',
-                'FlakesTranslationalVelocity'
-            ]
-        },
-        {
-            field: 'directPath',
-            keys: ['skinFolder']
-        },
-        {
-            field: 'state',
-            keys: []
-        }
-    ]);
-};
-
 const cache = {};
 let snowflakeIntervalId, snowflakeMode;
 
@@ -88,24 +64,39 @@ socket.commands((data) => {
 /////////////////////////////////////////// MAIN FUNCTION //////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-socket.api_v2(({ settings, directPath }) => {
+socket.api_v2((data) => {
     
     // Game mode update
-    if (cache.beatmapMode !== settings.mode.number) {
-        cache.beatmapMode = settings.mode.number;
+    if (cache.beatmapMode !== data.settings.mode.number) {
+        cache.beatmapMode = data.settings.mode.number;
         if (cache.flakesmode === 'Mode icons') {
-            snowflakeMode = settings.mode.number;
+            snowflakeMode = data.settings.mode.number;
         }
         refreshSnowflake();
     }
 
     // Skin update
-    if (cache.skinFolder !== directPath.skinFolder) {
-        cache.skinFolder = directPath.skinFolder;
+    if (cache.skinFolder !== data.directPath.skinFolder) {
+        cache.skinFolder = data.directPath.skinFolder;
         refreshSnowflake();
     }
 
-});
+},
+[
+    {
+        field: 'settings',
+        keys: [
+          {
+            field: 'mode',
+            keys: ['number']
+          }
+        ]
+    },
+    {
+        field: 'directPath',
+        keys: ['skinFolder']
+    }
+]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////// FUNCTIONS ////////////////////////////////////////////
