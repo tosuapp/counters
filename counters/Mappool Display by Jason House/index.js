@@ -117,9 +117,28 @@ socket.commands((data) => {
 
     const { idIndex, modIndex } = buildIndexes(settingsData);
 
-    tryRenderInitialModBox(modParam, modIndex);
+    let paramFallback = null;
+    if (modParam) {
+      const match = modParam.toLowerCase().match(MOD_INDEX_PATTERN);
+      if (match) {
+        const [, short, idxRaw] = match;
+        const idx = parseInt(idxRaw, 10) - 1;
+        const long = MOD_ALIAS_MAP[short];
+        if (long) {
+          const entry = idIndex[Object.keys(idIndex).find(key => {
+            const v = idIndex[key];
+            return v.mod === long && v.index === idx;
+          })];
+          if (entry) {
+            paramFallback = entry;
+            const block = createModBlock(MOD_NAME_MAP[long], idx + 1, entry.skill);
+            mountModBlock(container, block);
+          }
+        }
+      }
+    }
 
-    setupBeatmapListener(socket, idIndex, container);
+    setupBeatmapListener(socket, idIndex, container, paramFallback);
   } catch (err) {
     console.error(err);
   }
@@ -135,23 +154,7 @@ function injectColorStyles(colors) {
   }
 }
 
-function tryRenderInitialModBox(param, modIndex) {
-  if (!param) return;
-  const match = param.toLowerCase().match(MOD_INDEX_PATTERN);
-  if (!match) return;
-
-  const [, short, idxRaw] = match;
-  const idx = parseInt(idxRaw, 10) - 1;
-  const long = MOD_ALIAS_MAP[short];
-
-  const entry = modIndex[long]?.[idx];
-  if (entry) {
-    const block = createModBlock(MOD_NAME_MAP[long], idx + 1, entry.skill);
-    mountModBlock(container, block);
-  }
-}
-
-function setupBeatmapListener(socketInstance, idIndex, uiContainer) {
+function setupBeatmapListener(socketInstance, idIndex, uiContainer, paramFallback) {
   let lastBeatmapId = null;
 
   socketInstance.api_v2((payload) => {
@@ -163,6 +166,9 @@ function setupBeatmapListener(socketInstance, idIndex, uiContainer) {
       const hit = idIndex[id];
       if (hit) {
         const block = createModBlock(MOD_NAME_MAP[hit.mod], hit.index + 1, hit.skill);
+        mountModBlock(uiContainer, block);
+      } else if (paramFallback) {
+        const block = createModBlock(MOD_NAME_MAP[paramFallback.mod], paramFallback.index + 1, paramFallback.skill);
         mountModBlock(uiContainer, block);
       } else {
         clearContainer(uiContainer);
