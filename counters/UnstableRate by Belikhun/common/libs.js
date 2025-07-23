@@ -10,88 +10,6 @@ function emptyNode(node) {
 }
 
 /**
- * Insert a node after a node.
- * 
- * @param	{HTMLElement}	newNode
- * @param	{HTMLElement}	existingNode
- */
-function insertAfter(newNode, existingNode) {
-	existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-}
-
-function time(date) {
-	if (date instanceof Date)
-		return date.getTime() / 1000;
-
-	return Date.now() / 1000;
-}
-
-function parseTime(t = 0, {
-	forceShowHours = false,
-	msDigit = 3,
-	showPlus = false,
-	strVal = true,
-	calcDays = false
-} = {}) {
-	const d = showPlus ? "+" : "";
-	let days = 0;
-	
-	if (t < 0) {
-		t = -t;
-		d = "-";
-	}
-
-	if (calcDays) {
-		days = Math.floor(t / 86400);
-		t %= 86400;
-	}
-	
-	const h = Math.floor(t / 3600);
-	const m = Math.floor(t % 3600 / 60);
-	const s = Math.floor(t % 3600 % 60);
-	const ms = pleft(parseInt(t.toFixed(msDigit).split(".")[1]), msDigit);
-
-	return {
-		h, m, s, ms, d,
-		days,
-		str: (strVal)
-			? d + [h, m, s]
-				.map(v => v < 10 ? "0" + v : v)
-				.filter((v, i) => i > 0 || forceShowHours || v !== "00")
-				.join(":")
-			: null
-	}
-}
-
-function convertSize(bytes) {
-	let sizes = ["B", "KB", "MB", "GB", "TB"];
-	for (var i = 0; bytes >= 1024 && i < (sizes.length -1 ); i++)
-		bytes /= 1024;
-
-	return `${round(bytes, 2)} ${sizes[i]}`;
-}
-
-function round(number, to = 2) {
-	const d = Math.pow(10, to);
-	return Math.round(number * d) / d;
-}
-
-/**
- * Returns a number whose value is limited to the given range.
- *
- * Example: limit the output of this computation to between 0 and 255
- * (x * 255).clamp(0, 255)
- *
- * @param		{Number}	value	The input value
- * @param		{Number}	min		The lower boundary of the output range
- * @param		{Number}	max		The upper boundary of the output range
- * @returns		{Number}	A number in the range [min, max]
- */
-function clamp(value, min, max) {
-	return Math.min(Math.max(value, min), max);
-}
-
-/**
  * Scale value from range [a, b] to [c, d]
  * 
  * @param	{Number}		value		Value to scale
@@ -105,52 +23,6 @@ function scaleValue(value, from, to) {
 	return capped * scale + to[0];
 }
 
-/**
- * Generate Random Number
- * 
- * @param	{Number}		min		Minimum Random Number
- * @param	{Number}		max		Maximum Random Number
- * @param	{Boolean}		toInt	Return an Integer Value
- * @returns	{Number}
- */
-function randBetween(min, max, toInt = true) {
-	return toInt
-		? Math.floor(Math.random() * (max - min + 1) + min)
-		: (Math.random() * (max - min) + min)
-}
-
-/**
- * Generate Random String
- * 
- * @param	{Number}	len			Length of the randomized string
- * @param	{String}	charSet
- * @returns	{String}
- */
-function randString(len = 16, charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
-	let randomString = "";
-
-	for (let i = 0; i < len; i++) {
-		let p = Math.floor(Math.random() * charSet.length);
-		randomString += charSet.substring(p, p + 1);
-	}
-
-	return randomString;
-}
-
-/**
- * Pick a random item in an Array
- * 
- * @template	T
- * @param		{T[]}	array
- * @returns		{T}
- */
-function randItem(array) {
-	if (typeof array.length !== "number")
-		throw { code: -1, description: `randItem(): not a valid array` }
-
-	return array[randBetween(0, array.length - 1, true)];
-}
-
 function delayAsync(time) {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => resolve(), time);
@@ -161,16 +33,6 @@ function nextFrameAsync() {
 	return new Promise((resolve, reject) => {
 		requestAnimationFrame(() =>  resolve());
 	});
-}
-
-/**
- * Verify if a value is an element.
- *
- * @param   {HTMLElement}   element
- * @returns {boolean}
- */
-function isElement(element) {
-	return (element && typeof element === "object" && element.tagName);
 }
 
 /**
@@ -717,7 +579,8 @@ class Animator {
 
 	/**
 	 * Wait for animation to complete.
-	 * @returns {Promise<Boolean>} true if animation completed, false if cancelled
+	 * 
+	 * @returns	{Promise<Boolean>}	true if animation completed, false if cancelled
 	 */
 	complete() {
 		return new Promise((resolve) => {
@@ -730,6 +593,7 @@ class Animator {
 
 	/**
 	 * Animation complete handler
+	 * 
 	 * @param	{(completed: Boolean) => any}	f
 	 */
 	onComplete(f) {
@@ -771,6 +635,10 @@ class SmoothNumber {
 	}
 
 	async set(value) {
+		// Reject invalid value
+		if (isNaN(value) || !isFinite(value))
+			return this;
+
 		if (this.animator) {
 			this.animator.cancel();
 			this.animator = null;
@@ -828,149 +696,5 @@ class SmoothValue {
 	async set(value) {
 		await this.number.set(value);
 		return this;
-	}
-}
-
-/**
- * @class TrendCalculator
- * Calculates the trend of a series of values over a given time duration using an
- * optimized, incremental approach suitable for high-frequency, real-time data.
- *
- * The trend is determined by the slope of a linear regression line. This class
- * maintains running sums of the data points, so calculating the trend is an
- * O(1) operation, and adding/removing data is highly efficient.
- */
-class TrendCalculator {
-	/**
-	 * @param	{number}	duration	The time window in milliseconds to consider for the trend calculation.
-	 */
-	constructor(duration) {
-		if (typeof duration !== 'number' || duration <= 0)
-			throw new Error('Duration must be a positive number in milliseconds.');
-
-		this.duration = duration;
-
-		/** @type {{ value: number, timestamp: number }[]} */
-		this.dataPoints = [];
-
-		this.sumX = 0;  // Sum of relative timestamps
-		this.sumY = 0;  // Sum of values
-		this.sumXY = 0; // Sum of (relative timestamp * value)
-		this.sumX2 = 0; // Sum of (relative timestamp squared)
-		
-		this.firstTimestamp = 0;
-	}
-
-	/**
-	 * Adds a new value to the data set and updates the trend calculation incrementally.
-	 * 
-	 * @param	{number}	value	The numeric value to add.
-	 */
-	addValue(value) {
-		if (typeof value !== 'number' || !isFinite(value)) {
-			console.warn('Invalid value provided. Must be a finite number.');
-			return;
-		}
-
-		const now = Date.now();
-		const point = { value, timestamp: now };
-		this.dataPoints.push(point);
-
-		// If this is the first point, set the baseline timestamp.
-		if (this.dataPoints.length === 1)
-			this.firstTimestamp = now;
-
-		// Incrementally ADD this point's contribution to the sums
-		const x = point.timestamp - this.firstTimestamp; // Relative time
-		const y = point.value;
-
-		this.sumX += x;
-		this.sumY += y;
-		this.sumXY += x * y;
-		this.sumX2 += x * x;
-
-		// Prune old data points from the front of the array.
-		this._pruneData();
-	}
-
-	/**
-	 * Efficiently removes data points older than the specified duration
-	 * and incrementally updates the sums. This is a private helper method.
-	 */
-	_pruneData() {
-		const cutoff = Date.now() - this.duration;
-
-		// Remove old points from the beginning of the array.
-		while (this.dataPoints.length > 0 && this.dataPoints[0].timestamp < cutoff) {
-			const oldPoint = this.dataPoints.shift(); // Remove the oldest point
-
-			// Incrementally SUBTRACT the old point's contribution
-			const x = oldPoint.timestamp - this.firstTimestamp;
-			const y = oldPoint.value;
-
-			this.sumX -= x;
-			this.sumY -= y;
-			this.sumXY -= x * y;
-			this.sumX2 -= x * x;
-		}
-		
-		// If all points were pruned, reset the sums and baseline to prevent drift.
-		if (this.dataPoints.length === 0) {
-			this._resetSums();
-		}
-	}
-	
-	/**
-	 * Resets the internal sums to zero.
-	 */
-	_resetSums() {
-		this.sumX = 0;
-		this.sumY = 0;
-		this.sumXY = 0;
-		this.sumX2 = 0;
-		this.firstTimestamp = 0;
-	}
-
-	/**
-	 * Calculates the trend of the values within the duration using the pre-calculated sums.
-	 * This is a very fast O(1) operation.
-	 * 
-	 * @returns {number} The slope of the trend line (value per second).
-	 * A positive value indicates an increasing trend.
-	 * A negative value indicates a decreasing trend.
-	 * A value of 0 indicates no trend or insufficient data.
-	 */
-	getTrend() {
-		// Prune in case getTrend is called after a period of inactivity.
-		this._pruneData();
-		
-		const n = this.dataPoints.length;
-
-		// We need at least two points to determine a trend.
-		if (n < 2) {
-			return 0;
-		}
-
-		// Calculate the slope (m) of the linear regression line
-		// Formula: m = (n * Σ(xy) - Σx * Σy) / (n * Σ(x^2) - (Σx)^2)
-		const numerator = (n * this.sumXY) - (this.sumX * this.sumY);
-		const denominator = (n * this.sumX2) - (this.sumX * this.sumX);
-
-		// If the denominator is 0, all timestamps are effectively the same.
-		if (denominator === 0)
-			return 0;
-
-		const slopeInMs = numerator / denominator;
-		
-		// Convert slope from (value / millisecond) to (value / second).
-		return slopeInMs * 1000;
-	}
-
-	/**
-	 * Clears all data points and resets the calculator.
-	 */
-	clear() {
-		this.dataPoints = [];
-		this._resetSums();
 	}
 }

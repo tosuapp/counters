@@ -5,4 +5,3 @@ Author: Belikhun
 CompatibleWith: tosu
 Resolution: 380x226
 authorLinks: https://github.com/Belikhun/osu-counters
-Notes: 

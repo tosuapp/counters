@@ -18,6 +18,26 @@ const app = {
 		},
 	},
 
+	filters: {
+		/** @type {Filters[]} */
+		common: [],
+
+		/** @type {Filters[]} */
+		precise: []
+	},
+
+	appliedFilterKeys: {
+		common: {},
+		precise: {}
+	},
+
+	filtersChanged: {
+		common: false,
+		precise: false
+	},
+
+	updateFilterTask: undefined,
+
 	/** @type {{ [channel: string]: { key: string, handler: (value: any) => void }[] }} */
 	handlers: {
 		common: [],
@@ -40,11 +60,11 @@ const app = {
 
 		this.client.api_v2((data) => {
 			this.dispatch(data, "common");
-		});
+		}, this.filters.common);
 
 		this.client.api_v2_precise((data) => {
 			this.dispatch(data, "precise");
-		});
+		}, this.filters.precise);
 	},
 
 	registerCounter(counter) {
@@ -58,12 +78,19 @@ const app = {
 	/**
 	 * Get value by key
 	 * 
-	 * @param	{string}	key
-	 * @param	{any}		[defaultValue]
+	 * Counter should call `app.addFilter()` before calling this to make sure data is pulled from tosu.
+	 * 
+	 * @param	{string}					key
+	 * @param	{any}						[defaultValue]
+	 * @param	{"common" | "precise"}		[channel]
+	 * @param	{"current" | "previous"}	[store]
 	 */
-	get(key, defaultValue = null, store = this.data.common.current) {
+	get(key, defaultValue = null, channel = "common", store = "current") {
+		// Hopefully we can get real value in later calls.
+		this.addFilter(key, channel);
+
 		const path = key.split(".");
-		let value = store;
+		let value = this.data[channel][store];
 
 		for (const token of path) {
 			if (typeof value[token] == "undefined")
@@ -91,6 +118,80 @@ const app = {
 			handler
 		});
 
+		this.addFilter(key, channel);
+		return this;
+	},
+
+	/**
+	 * Add key path to filters
+	 * 
+	 * @param	{string}				key
+	 * @param	{"common" | "precise"}	channel
+	 */
+	addFilter(key, channel) {
+		if (this.appliedFilterKeys[channel][key])
+			return this;
+
+		const tokens = key.split(".");
+		let filters = this.filters[channel];
+
+		for (const [level, token] of tokens.entries()) {
+			if (level == tokens.length - 1) {
+				// Last level, expect this token to be in the filter as string.
+				if (!filters.includes(token))
+					filters.push(token);
+
+				break;
+			}
+
+			let exists = false;
+
+			for (const item of filters) {
+				if (item.field == token) {
+					filters = item.keys;
+					exists = true;
+					break;
+				}
+			}
+
+			if (!exists) {
+				// Remove string key if inserted.
+				if (filters.includes(token))
+					filters.splice(filters.indexOf(token), 1);
+
+				const index = filters.push({
+					field: token,
+					keys: []
+				});
+
+				filters = filters[index - 1].keys;
+			}
+		}
+
+		console.debug(channel, "filters changed", this.filters[channel]);
+		this.appliedFilterKeys[channel][key] = true;
+
+		// Avoid spamming
+		this.filtersChanged[channel] = true;
+		clearTimeout(this.updateFilterTask);
+		this.updateFilterTask = setTimeout(() => this.doUpdateFilters(), 50);
+
+		return this;
+	},
+
+	doUpdateFilters() {
+		if (this.filtersChanged.common) {
+			this.client.sockets["/websocket/v2"].send(`applyFilters:${JSON.stringify(this.filters.common)}`);
+			this.filtersChanged.common = false;
+			console.debug("pushed new common filters to server");
+		}
+
+		if (this.filtersChanged.precise) {
+			this.client.sockets["/websocket/v2/precise"].send(`applyFilters:${JSON.stringify(this.filters.precise)}`);
+			this.filtersChanged.precise = false;
+			console.debug("pushed new precise filters to server");
+		}
+
 		return this;
 	},
 
@@ -107,8 +208,8 @@ const app = {
 		this.data[channel].current = data;
 
 		for (const { key, handler } of this.handlers[channel]) {
-			let current = this.get(key, null, this.data[channel].current);
-			let previous = this.get(key, null, this.data[channel].previous);
+			let current = this.get(key, null, channel, "current");
+			let previous = this.get(key, null, channel, "previous");
 
 			if (!this.isChanged(current, previous))
 				continue;
