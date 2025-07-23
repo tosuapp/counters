@@ -1,0 +1,8 @@
+Usecase: ingame,obs-overlay
+Name: Unstable Rate with Hit Errors
+Version: 1.0
+Author: Belikhun
+CompatibleWith: tosu
+Resolution: 380x226
+authorLinks: https://github.com/Belikhun/osu-counters
+Notes: 
