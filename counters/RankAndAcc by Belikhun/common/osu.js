@@ -5,7 +5,6 @@
  * @param	{number}								od 
  * @param	{"osu" | "mania" | "taiko" | "catch"}	mode 
  * @param	{string[]}								mods
- * @returns 
  */
 function odToMs(od, mode, mods = []) {
 	switch (mode) {
@@ -78,6 +77,9 @@ function odToMs(od, mode, mods = []) {
 function osuHasHit() {
 	const hits = app.get("play.hits");
 
+	if (!hits)
+		return false;
+
 	for (const value of Object.values(hits)) {
 		if (value > 0)
 			return true;
@@ -87,6 +89,11 @@ function osuHasHit() {
 }
 
 function getMinAcc() {
+	const hits = app.get("play.hits");
+
+	if (!hits)
+		return 0;
+
 	const {
 		"0": c0,
 		"50": c50,
@@ -94,7 +101,7 @@ function getMinAcc() {
 		"300": c300,
 		geki,
 		katu
-	} = app.get("play.hits");
+	} = hits;
 
 	const accuracy = (app.get("play.mode.name") == "mania")
 		? (300 * (geki + c300) + (200 * katu) + (100 * c100) + (50 * c50))
@@ -102,10 +109,18 @@ function getMinAcc() {
 		: (300 * c300 + 100 * c100 + 50 * c50)
 			/ (300 * getTotalObjects());
 
+	if (isNaN(accuracy) || !isFinite(accuracy))
+		return 0;
+
 	return accuracy * 100;
 }
 
 function getTotalObjects() {
-	const { circles, holds, sliders, spinners } = app.get("beatmap.stats.objects");
+	const objects = app.get("beatmap.stats.objects");
+
+	if (!objects)
+		return 0;
+
+	const { circles, holds, sliders, spinners } = objects;
 	return circles + (holds * 2) + sliders + spinners;
 }

@@ -717,7 +717,8 @@ class Animator {
 
 	/**
 	 * Wait for animation to complete.
-	 * @returns {Promise<Boolean>} true if animation completed, false if cancelled
+	 * 
+	 * @returns	{Promise<Boolean>}	true if animation completed, false if cancelled
 	 */
 	complete() {
 		return new Promise((resolve) => {
@@ -730,6 +731,7 @@ class Animator {
 
 	/**
 	 * Animation complete handler
+	 * 
 	 * @param	{(completed: Boolean) => any}	f
 	 */
 	onComplete(f) {
@@ -771,6 +773,10 @@ class SmoothNumber {
 	}
 
 	async set(value) {
+		// Reject invalid value
+		if (isNaN(value) || !isFinite(value))
+			return this;
+
 		if (this.animator) {
 			this.animator.cancel();
 			this.animator = null;
