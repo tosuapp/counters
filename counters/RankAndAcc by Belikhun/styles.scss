@@ -6,14 +6,24 @@
 		gap: 0.25rem;
 
 		> .minAcc {
-			color: #949494;
+			color: rgb(131, 216, 255);
 			width: 3.5rem;
-			text-align: center;
+			text-align: right;
 		}
 
 		> .currentAcc {
+			color: rgb(243, 152, 66);
 			width: 3.5rem;
-			text-align: center;
+			text-align: right;
+		}
+
+		> .separator {
+			width: 0.5rem;
+			height: 0.5rem;
+			margin: auto 0.5rem;
+
+			background-color: rgba(210, 210, 210, 0.4);
+			border-radius: 0.5rem;
 		}
 	}
 }

@@ -53,7 +53,7 @@ body {
 	border-radius: 0.5rem;
 
 	opacity: 0;
-	transform: scaleY(0.9);
+	transform: scaleY(0.85);
 	transform-origin: top center;
 	background-color: #212121;
 
@@ -267,7 +267,7 @@ body {
 		text-align: center;
 	}
 
-	>.right {
+	> .right {
 		position: absolute;
 		right: 1rem;
 		bottom: 0.5rem;

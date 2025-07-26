@@ -26,7 +26,7 @@ const RankAndAccuracyPanel = {
 	} = {}) {
 		this.alwaysVisible = alwaysVisible;
 		this.transparent = transparent;
-
+		
 		this.container = makeTree("div", ["counter-panel", "rank-acc-panel", "big", "center", "grade"], {
 			labelNode: { tag: "div", class: "label", text: "rank" },
 			valueNode: { tag: "div", class: "value", text: "---" },
@@ -46,9 +46,11 @@ const RankAndAccuracyPanel = {
 
 			space: { tag: "div", class: ["space", "large"] },
 			right: { tag: "span", class: "right", child: {
+				minLabel: { tag: "span", class: "minLabel", text: "min" },
 				minAcc: { tag: "span", class: "minAcc", text: "0%" },
-				separator: { tag: "span", class: "separator", text: ">" },
-				currentAcc: { tag: "span", class: "currentAcc", text: "0%" }
+				separator: { tag: "span", class: "separator" },
+				currentLabel: { tag: "span", class: "currentLabel", text: "avg" },
+				currentAcc: { tag: "span", class: ["currentAcc", "big"], text: "0%" }
 			}}
 		});
 
