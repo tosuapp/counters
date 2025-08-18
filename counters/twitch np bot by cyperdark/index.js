@@ -306,6 +306,7 @@ async function startTwitchClient(clientToken) {
         connection: {
             reconnect: false,
             secure: false,
+            port: 443
         },
         identity: {
             username: user_login,
