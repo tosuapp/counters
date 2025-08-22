@@ -16,6 +16,7 @@ const cache = {
     beatmapTimeMp3Length: 0,
     hits: 0,
     combo: 0,
+    comboBroken: false,
 
     directPathSkin: 0,
 
@@ -57,6 +58,14 @@ socket.api_v2(({ play, directPath, beatmap }) => {
         if (cache.beatmapTimeLastobject !== beatmap.time.lastObject) cache.beatmapTimeLastobject = beatmap.time.lastObject
         if (cache.beatmapTimeMp3Length !== beatmap.time.mp3Length) cache.beatmapTimeMp3Length = beatmap.time.mp3Length
         if (cache.hits !== play.hits) cache.hits = play.hits
+        if (cache.beatmapTimeLive > 0) {
+            if (play.combo.current < cache.combo) {
+                cache.comboBroken = true;
+            }
+        } else {
+            cache.comboBroken = false;
+        }
+
         if (cache.combo !== play.combo.current) cache.combo = play.combo.current
 
         if (cache.directPathSkin !== directPath.skinFolder) {
@@ -64,8 +73,15 @@ socket.api_v2(({ play, directPath, beatmap }) => {
             update_animation()
         }
 
-        if (cache.beatmapTimeLive > 1000 && cache.beatmapTimeLive >= cache.beatmapTimeLastobject) {
-            if (cache.hits[0] == 0 && cache.combo > 0) {
+        if (
+            cache.beatmapTimeLive > 1000 &&
+            cache.beatmapTimeLive >= cache.beatmapTimeLastobject
+        ) {
+            if (
+                cache.hits[0] == 0 &&
+                cache.combo > 0 &&
+                !cache.comboBroken
+            ) {
                 if (is_animation_playable) {
                     is_animation_playable = false
                     animationPlayer_.play()
@@ -80,36 +96,36 @@ socket.api_v2(({ play, directPath, beatmap }) => {
 
     } catch (error) { console.log(error) };
 }, [
-  {
-    field: 'beatmap',
-    keys: [
-      {
-        field: 'time',
+    {
+        field: 'beatmap',
         keys: [
-          'live',
-          'lastObject',
-          'mp3Length',
+            {
+                field: 'time',
+                keys: [
+                    'live',
+                    'lastObject',
+                    'mp3Length',
+                ]
+            },
         ]
-      },
-    ]
-  },
-  {
-    field: 'play',
-    keys: [
-      {
-        field: 'hits',
-        keys: ['0']
-      },
-      {
-        field: 'combo',
-        keys: ['current']
-      },
-    ]
-  },
-  {
-    field: 'directPath',
-    keys: [
-      'skinFolder'
-    ]
-  },
+    },
+    {
+        field: 'play',
+        keys: [
+            {
+                field: 'hits',
+                keys: ['0']
+            },
+            {
+                field: 'combo',
+                keys: ['current']
+            },
+        ]
+    },
+    {
+        field: 'directPath',
+        keys: [
+            'skinFolder'
+        ]
+    },
 ]);
