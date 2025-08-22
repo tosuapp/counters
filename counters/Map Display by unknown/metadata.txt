@@ -1,6 +1,6 @@
 Usecase: ingame,obs-overlays
 Name: Map Display
-Version: 1.0
+Version: 1.0.1
 Author: unknown
 CompatibleWith: tosu,streamCompanion
 Resolution: 1000x90

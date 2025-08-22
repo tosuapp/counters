@@ -68,8 +68,8 @@ let rawOsuStatusFriendly = {
 
 let osuGrade = {
   0: 'SSH',
-  1: 'SH',
-  2: 'SS',
+  1: 'SS',
+  2: 'SH',
   3: 'S',
   4: 'A',
   5: 'B',

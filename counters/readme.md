@@ -1,6 +1,6 @@
 ## AccuracyPP by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/accuracypp by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/accuracypp by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -14,7 +14,7 @@
 
 ## ArtistTitleDifficulty by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/artisttitledifficulty by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/artisttitledifficulty by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -102,7 +102,7 @@
 
 ## Combo by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/combo by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/combo by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -170,7 +170,7 @@
 
 ## HitCounts by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/hitcounts by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/hitcounts by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -298,7 +298,7 @@
 
 ## Live Overlay by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/live overlay by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/live overlay by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -328,7 +328,7 @@
 
 ## Map Display by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map display by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map display by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -342,7 +342,7 @@
 
 ## Map Overlay by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map overlay by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/map overlay by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -454,7 +454,7 @@
 
 ## PP counter by unknown
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp counter by unknown v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp counter by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
