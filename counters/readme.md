@@ -144,7 +144,7 @@
 
 ## Fullcombo by hizak
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/fullcombo by hizak v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/fullcombo by hizak v1.1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -354,6 +354,20 @@
 <img src="/.github/images/map overlay by unknown.jpg" /> <img src="/.github/gifs/map overlay by unknown.gif" /> 
 
 
+## Mappool Display by Jason House
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/mappool display by jason house v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mas-alone" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | obs-overlay |
+| Compatible with | tosu |
+| Size |  400x106 |
+
+
+<img src="/.github/images/mappool display by jason house.png" /> <img src="/.github/images/mappool display by jason house1.png" /> 
+
+
 ## MaximalLime by cyperdark
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/maximallime by cyperdark v1.002.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
@@ -394,6 +408,38 @@
 
 
 <img src="/.github/images/monokaipane by xynogen.jpg" /> <img src="/.github/gifs/monokaipane by xynogen.gif" /> 
+
+
+## OBSDecoratePack - Background by Citrusis
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/obsdecoratepack - background by citrusis v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Citrusis" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | obs-overlay |
+| Compatible with | tosu |
+| Size |  384x216 |
+
+
+> [Any ratio available] Background switcher with arbitrary width and height!
+
+<img src="/.github/gifs/obsdecoratepack - background by citrusis.gif" /> 
+
+
+## OBSDecoratePack - SnowFlakes by Citrusis
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/obsdecoratepack - snowflakes by citrusis v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Citrusis" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | obs-overlay |
+| Compatible with | tosu |
+| Size |  384x216 |
+
+
+> [Any ratio available] A snowflakes generator using the menu-snow in your current skin!
+
+<img src="/.github/gifs/obsdecoratepack - snowflakes by citrusis.gif" /> 
 
 
 ## OldClassic by Dartandr

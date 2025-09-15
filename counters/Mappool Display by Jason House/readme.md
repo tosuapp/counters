@@ -1,6 +1,6 @@
 ## Mappool Display by Jason House
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/Mappool Display by Jason House v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mas-alone" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/mappool display by jason house v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mas-alone" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
 
 |||
 | ------------- | ------------- |
@@ -8,9 +8,8 @@
 | Compatible with | tosu |
 | Size |  400x106 |
 
-> For tournament mappool showcase. Supports all rulesets.
 
-<img src="/.github/images/Mappool Display by Jason House.png" />
+<img src="/.github/images/mappool display by jason house.png" /> <img src="/.github/images/mappool display by jason house1.png" />
 
 ## How to use?
 1. Edit the settings.
