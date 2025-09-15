@@ -1,0 +1,55 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  font-size: 40px;
+  background-color: black;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 400px;
+  height: 106px;
+  border-radius: 6px;
+  z-index: 0;
+}
+
+.mod-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  padding-right: 10px;
+}
+
+.mod-block {
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: right;
+  margin-top: 0px;
+}
+
+.mod-box {
+  align-self: flex-end;
+  font-weight: bold;
+  text-align: center;
+}
+
+.skill-text {
+  font-size: 0.8em;
+  color: white;
+  font-weight: bold;
+  text-align: right;
+}
