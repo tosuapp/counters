@@ -512,6 +512,20 @@
 <img src="/.github/images/pp counter by unknown.jpg" /> <img src="/.github/gifs/pp counter by unknown.gif" /> 
 
 
+## Rank and Accuracy by Belikhun
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/rank and accuracy by belikhun v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | ingame, obs-overlay |
+| Compatible with | tosu |
+| Size |  380x152 |
+
+
+<img src="/.github/images/rank and accuracy by belikhun.png" /> <img src="/.github/gifs/rank and accuracy by belikhun.gif" /> 
+
+
 ## reComfortaa by Dartandr
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/recomfortaa by dartandr v1.002.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
@@ -610,6 +624,20 @@
 > you can create custom commands too, with usage of data from tosu
 
 <img src="/.github/images/twitch np bot by cyperdark.png" /> <img src="/.github/images/twitch np bot by cyperdark1.png" /> 
+
+
+## Unstable Rate with Hit Errors by Belikhun
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/unstable rate with hit errors by belikhun v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | ingame, obs-overlay |
+| Compatible with | tosu |
+| Size |  380x226 |
+
+
+<img src="/.github/images/unstable rate with hit errors by belikhun.png" /> <img src="/.github/gifs/unstable rate with hit errors by belikhun.gif" /> 
 
 
 ## veadotube-integration by Malteser, WhatTheHai, Bubbleman
