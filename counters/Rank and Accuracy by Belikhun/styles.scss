@@ -1,0 +1,29 @@
+
+.rank-acc-panel {
+	> .right {
+		display: flex;
+		flex-direction: row;
+		gap: 0.25rem;
+
+		> .minAcc {
+			color: rgb(131, 216, 255);
+			width: 3.5rem;
+			text-align: right;
+		}
+
+		> .currentAcc {
+			color: rgb(243, 152, 66);
+			width: 3.5rem;
+			text-align: right;
+		}
+
+		> .separator {
+			width: 0.5rem;
+			height: 0.5rem;
+			margin: auto 0.5rem;
+
+			background-color: rgba(210, 210, 210, 0.4);
+			border-radius: 0.5rem;
+		}
+	}
+}
