@@ -1,4 +1,4 @@
-Usecase: ingame / obs-overlay
+Usecase: ingame, obs-overlay
 Name: MY3 judgements
 Version: 1.0.0
 Author: qt715
