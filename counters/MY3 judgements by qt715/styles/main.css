@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@400;500;600;700&display=swap");
+
+/* :root {
+  color-scheme: dark;
+} */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+body {
+  font-family: "Roboto Flex", "Roboto", sans-serif;
+  background: transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #f3f1ff;
+}
+
+.judgement-widget {
+  --surface: #1d1b20;
+  --surface-variant: #252230;
+  --on-surface: #f7f1ff;
+  --on-surface-variant: #cbc2db;
+  --accent: #6750a4;
+  --accent-container: rgba(103, 80, 164, 0.22);
+  --container: rgba(255, 255, 255, 0.05);
+  width: 400px;
+  border-radius: 32px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--widget-gap, 24px);
+  background: linear-gradient(160deg, var(--surface), var(--surface-variant));
+  color: var(--on-surface);
+  /* box-shadow: 0 22px 42px rgba(0, 0, 0, 0.48); */
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  will-change: opacity, transform;
+  transition: opacity 220ms ease, transform 220ms ease, background 240ms ease, color 240ms ease;
+}
+
+.judgement-widget.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 220ms ease, transform 220ms ease, background 240ms ease, color 240ms ease;
+}
+
+.judgement-widget.mode-taiko {
+  --surface: #2d1a18;
+  --surface-variant: #3a2421;
+  --on-surface: #ffecea;
+  --on-surface-variant: #f9c5bd;
+  --accent: #ff8b7b;
+  --accent-container: rgba(255, 139, 123, 0.22);
+  --container: rgba(255, 139, 123, 0.18);
+}
+
+.judgement-widget.mode-fruits {
+  --surface: #172820;
+  --surface-variant: #23352d;
+  --on-surface: #e2f5eb;
+  --on-surface-variant: #b9d6c6;
+  --accent: #75d69b;
+  --accent-container: rgba(117, 214, 155, 0.22);
+  --container: rgba(117, 214, 155, 0.18);
+}
+
+.judgement-widget.mode-mania {
+  --surface: #111c2b;
+  --surface-variant: #1a2637;
+  --on-surface: #e4f2ff;
+  --on-surface-variant: #b9d5f5;
+  --accent: #55c1ff;
+  --accent-container: rgba(85, 193, 255, 0.24);
+  --container: rgba(85, 193, 255, 0.18);
+}
+
+.widget__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.widget__title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.widget__judgements {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--judgement-gap, 14px);
+}
+
+.judgement {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 20px;
+  background: var(--container);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.judgement:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.judgement-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.judgement-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: var(--tone, var(--accent));
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+}
+
+.judgement-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.judgement-label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.judgement-sub {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+}
+
+.judgement-value {
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.widget__footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat {
+  background: var(--container);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--on-surface-variant);
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

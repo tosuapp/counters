@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Judgement Overlay</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="judgement-widget mode-osu" id="judgementWidget">
+      <header class="widget__header">
+        <h1 class="widget__title" id="modeTitle">osu judgements</h1>
+      </header>
+      <section class="widget__judgements" id="judgementList"></section>
+      <footer class="widget__footer">
+        <div class="stat">
+          <span class="stat-label">Accuracy</span>
+          <span class="stat-value" id="accuracy">0.00%</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Combo</span>
+          <span class="stat-value" id="combo">0x</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">PP</span>
+          <span class="stat-value" id="pp">0</span>
+        </div>
+      </footer>
+    </div>
+    <script src="js/countUp.js"></script>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
