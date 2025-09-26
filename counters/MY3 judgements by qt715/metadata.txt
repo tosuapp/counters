@@ -3,6 +3,6 @@ Name: MY3 judgements
 Version: 1.0.0
 Author: qt715
 CompatibleWith: tosu
-Resolution: 400x640
+Resolution: 400x670
 authorLinks: https://github.com/qt715
 Notes:
