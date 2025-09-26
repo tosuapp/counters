@@ -1,8 +1,8 @@
-Usecase: ingame, obs-overlay ## Specify via comma: ingame / obs-overlay / obs-tourney etc
-Name: MY3 judgements ## pp counter name
-Version: 0.0.1 ## version name, 1.1 or 1-new
-Author: qt715 ## Author name
-CompatibleWith: tosu ## Specify via comma: gosu / tosu / streamCompanion
-Resolution: 400x640  ## Width x Height
-authorLinks: https://github.com/qt715 ## Specify links via comma
-Notes: use 300x450 if not playing mania ## some markdown text
+Usecase: ingame / obs-overlay
+Name: MY3 judgements
+Version: 1.0.0
+Author: qt715
+CompatibleWith: tosu
+Resolution: 400x640
+authorLinks: https://github.com/qt715
+Notes:
