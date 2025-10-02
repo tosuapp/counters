@@ -1,6 +1,6 @@
 Usecase: obs-overlay
 Name: Mappool Display
-Version: 1.0
+Version: 1.01
 Author: Jason House
 CompatibleWith: tosu
 Resolution: 400x106
