@@ -21,8 +21,16 @@ custom,Tech
 ```
 <img width="1353" height="786" alt="QQ20250713-141208" src="https://github.com/user-attachments/assets/af7d629d-103a-41cc-904e-21e9c8e507a7" />
 
-2. Use [http://localhost:24050/Mappool Display by Jason House](<http://localhost:24050/Mappool Display by Jason House>)
- - If the custom beatmap is HD2. Then use [http://localhost:24050/Mappool Display by Jason House/?mod=hd2](<http://localhost:24050/Mappool Display by Jason House/?mod=hd2>)
+2. Use [http://localhost:24050/Mappool Display by Jason House](<http://localhost:24050/Mappool Display by Jason House>) in OBS
+
+## Multiple custom beatmaps?
+1. If the custom beatmap is [**HD2 AND HR1**].
+ - Use [http://localhost:24050/Mappool Display by Jason House/?mod=HD2](<http://localhost:24050/Mappool Display by Jason House/?mod=HD2>) in OBS
+ - It will automatically determine the current BeatmapID of osu!. If it does not match the content in your settings.json, it will show the part of `?mod=xxx` in the url.
+ 
+2. After the HD2 ends, simply replace the ?mod=HD2 in the URL with ?mod=HR1(Next custom beatmap)
+
+------------
 
 **Settings Template should be:**
 ```

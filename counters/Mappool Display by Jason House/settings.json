@@ -6,6 +6,13 @@
 	"options": [],
 	"value": "https://github.com/tosuapp/counters/tree/master/counters/Mappool Display by Jason House#readme"
 }, {
+	"uniqueID":"email",
+	"type":"text",
+	"title":"My Email",
+	"description":"If you have any questions. \nPlease make sure read the README",
+	"options":[""],
+	"value":"mas_alone@qq.com"
+}, {
 	"uniqueID": "nmheader",
 	"type": "header",
 	"title": "NM",
