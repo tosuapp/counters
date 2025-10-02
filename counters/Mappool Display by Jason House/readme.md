@@ -1,6 +1,6 @@
 ## Mappool Display by Jason House
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/mappool display by jason house v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mas-alone" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/mappool display by jason house v1.01.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mas-alone" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
 
 |||
 | ------------- | ------------- |
@@ -27,7 +27,7 @@ custom,Tech
 1. If the custom beatmap is [**HD2 AND HR1**].
  - Use [http://localhost:24050/Mappool Display by Jason House/?mod=HD2](<http://localhost:24050/Mappool Display by Jason House/?mod=HD2>) in OBS
  - It will automatically determine the current BeatmapID of osu!. If it does not match the content in your settings.json, it will show the part of `?mod=xxx` in the url.
- 
+
 2. After the HD2 ends, simply replace the ?mod=HD2 in the URL with ?mod=HR1(Next custom beatmap)
 
 ------------
