@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name: Modern
+Version: 1.0
+Author: iSweat
+CompatibleWith: tosu
+Resolution: 880x165
+authorLinks: https://github.com/iSweat-exe
