@@ -126,28 +126,60 @@ const RankAndAccuracyPanel = {
 			this.accTrendNumber.value = trend;
 		}, 100);
 
+		app.subscribe("play.playerName", (value) => {
+			if (value && value.length > 0) {
+				this.show();
+				return;
+			}
+
+			this.hide();
+		});
+
+		if (this.transparent)
+			this.container.classList.add("do-transparent");
+
 		if (this.alwaysVisible) {
 			this.container.classList.add("display", "show");
 
 			if (this.transparent)
-				this.container.classList.add("do-transparent", "transparent");
-		} else {
-			app.subscribe("play.playerName", (value) => {
-				if (value && value.length > 0) {
-					this.show();
-					return;
-				}
-	
-				this.hide();
-			});
-
-			if (this.transparent)
-				this.container.classList.add("do-transparent");
+				this.container.classList.add("transparent");
 		}
 	},
 
+	settings({
+		label = "rank",
+		alwaysDisplay = false,
+		disableBackground = false,
+		backgroundColor = "#212121",
+		backgroundOpacity = 20,
+		borderRadius = 0.5
+	}) {
+		this.container.labelNode.innerText = label;
+		this.container.style.setProperty("--background-rgb", hexToRgb(backgroundColor).join(", "));
+
+		if (alwaysDisplay) {
+			this.show();
+			this.alwaysVisible = true;
+		} else {
+			this.alwaysVisible = false;
+
+			// Determine current state and update panel visibility accordingly.
+			const playerName = app.get("play.playerName");
+
+			if (playerName && playerName.length > 0) {
+				this.show();
+			} else {
+				this.hide();
+			}
+		}
+
+		this.container.style.setProperty("--transaprent-opacity", backgroundOpacity / 100);
+		this.container.style.setProperty("--border-radius", `${borderRadius}rem`);
+		this.container.classList.toggle("full-transparent", disableBackground);
+	},
+
 	async show() {
-		if (this.showing)
+		if (this.showing || this.alwaysVisible)
 			return;
 
 		this.showing = true;
@@ -160,7 +192,7 @@ const RankAndAccuracyPanel = {
 	},
 
 	async hide() {
-		if (!this.showing)
+		if (!this.showing || this.alwaysVisible)
 			return;
 
 		this.showing = false;

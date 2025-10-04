@@ -627,3 +627,29 @@ class TrendCalculator {
 		this._resetSums();
 	}
 }
+
+/**
+ * Converts a hex color code (long or short format) to an RGB color string.
+ * 
+ * @param	{string}								hex		The hex color code string (e.g., "#212121" or "#f0c").
+ * @returns	{?[r: number, g: number, b: number]}			The RGB values or null if the format is invalid.
+ */
+function hexToRgb(hex) {
+	if (!hex || typeof hex !== "string")
+		return null;
+
+	const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+	const fullHex = hex.replace(shorthandRegex, (m, r, g, b) => {
+		return r + r + g + g + b + b;
+	});
+
+	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+
+	if (!result)
+		return null;
+	
+	const r = parseInt(result[1], 16);
+	const g = parseInt(result[2], 16);
+	const b = parseInt(result[3], 16);
+	return [r, g, b];
+}
