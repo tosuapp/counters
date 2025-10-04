@@ -44,7 +44,12 @@ const app = {
 		precise: []
 	},
 
+	/** @type {{ [command: string]: ((message: object) => void)[] }} */
+	commandHandlers: {},
+	commandSubscribed: false,
+
 	counters: [],
+	settings: null,
 
 	init() {
 		this.root = document.getElementById("app");
@@ -220,6 +225,45 @@ const app = {
 				console.warn(`Error occured while handing subscriber`, e);
 			}
 		}
+	},
+
+	/**
+	 * Register command handler.
+	 * 
+	 * @param	{string}						command
+	 * @param	{(message: object) => void}		handler
+	 */
+	onCommand(command, handler) {
+		if (!this.commandHandlers[command])
+			this.commandHandlers[command] = [];
+
+		this.commandHandlers[command].push(handler);
+
+		if (command === "getSettings" && this.settings)
+			handler(this.settings);
+
+		if (!this.commandSubscribed) {
+			this.client.commands(({ command, message }) => {
+				if (command === "getSettings")
+					this.settings = message;
+
+				if (!this.commandHandlers[command])
+					return;
+
+				for (const handler of this.commandHandlers[command]) {
+					try {
+						handler(message);
+					} catch (e) {
+						console.warn(`Error occured while handing command ${command}`, e);
+					}
+				}
+			});
+		}
+
+		if (command === "getSettings" && !this.settings)
+			this.client.sendCommand("getSettings", encodeURI(window.COUNTER_PATH));
+
+		return this;
 	}
 }
 

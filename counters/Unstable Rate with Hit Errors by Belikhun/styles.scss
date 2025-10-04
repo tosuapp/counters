@@ -1,6 +1,14 @@
 
 .unstable-rate-panel {
 	height: 12rem;
+
+	&.declutter > .hit-error-chart {
+		> .debugs {
+			> div > span:not(.ms) {
+				display: none;
+			}
+		}
+	}
 }
 
 .hit-error-chart {
