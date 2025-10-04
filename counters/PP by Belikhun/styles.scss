@@ -1,0 +1,368 @@
+
+.pp-panel {
+	--accent-color: #ffffff;
+	--vert-space: 2px;
+
+	> .graph,
+	> .info {
+		transform: translateY(1rem);
+		opacity: 0;
+		transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+
+		&.show {
+			transform: translateY(0);
+			opacity: 1;
+		}
+
+		&.hide {
+			transform: translateY(-1rem);
+			opacity: 0;
+		}
+	}
+
+	> .info {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		left: 1rem;
+		right: 1rem;
+		bottom: 2rem;
+
+		> .item {
+			> .label {
+				width: fit-content;
+				margin-bottom: 0.5rem;
+				padding-bottom: 0.15rem;
+
+				font-size: 0.75rem;
+				font-weight: 600;
+				color: white;
+				border-bottom: 0.1rem solid var(--accent-color);
+			}
+
+			> .items {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+
+				> .item {
+					display: flex;
+					flex-direction: column;
+					flex: 1 1 0;
+					gap: 0.25rem;
+
+					> .label {
+						font-size: 0.65rem;
+						font-weight: 600;
+						color: rgb(200, 200, 200);
+					}
+
+					> .value {
+						font-size: 1rem;
+						font-weight: 700;
+						color: white;
+					}
+				}
+			}
+		}
+	}
+
+	> .graph {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+
+		margin-left: 0.2rem;
+		margin-right: 2rem;
+		margin-bottom: 1.5rem;
+
+		> .delta {
+			position: absolute;
+			top: 0;
+			left: -0.2rem;
+			bottom: calc(0px - var(--vert-space));
+			width: 0.2rem;
+			background-color: rgb(54, 54, 54);
+
+			> .up,
+			> .down {
+				position: absolute;
+				display: block;
+				top: 50%;
+				left: 0;
+				width: 100%;
+				height: 50%;
+				background-color: rgb(255, 63, 102);
+			}
+
+			> .up {
+				top: unset;
+				bottom: 50%;
+				background-color: rgb(151, 255, 91);
+			}
+		}
+
+		> .guides {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+
+			pointer-events: none;
+
+			> .guide {
+				position: absolute;
+				left: 0;
+				width: 100%;
+				height: 0.1rem;
+				background-color: rgb(114, 114, 114);
+			}
+
+			> .area {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				pointer-events: none;
+				background-color: rgba(114, 114, 114, 0.5);
+
+				box-sizing: border-box;
+				padding: 0.15rem 0.25rem;
+				font-size: 0.5rem;
+				font-weight: 600;
+				color: white;
+			}
+		}
+
+		> .chart {
+			position: absolute;
+			width: 100%;
+
+			> .area {
+				fill: rgba(255, 255, 255, 0.2);
+				transition: all 0.1s linear;
+			}
+
+			> .line {
+				stroke: var(--accent-color);
+				stroke-width: 2;
+				fill: none;
+				transition: all 0.1s linear;
+
+				&.predict {
+					stroke-dasharray: 6 4;
+					opacity: 0.5;
+				}
+			}
+
+			> .dot {
+				fill: var(--accent-color);
+				r: 3;
+				transition: all 0.1s linear;
+			}
+		}
+
+		> .values {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: -2rem;
+
+			pointer-events: none;
+
+			> .value {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 2rem;
+				padding: 0 0.25rem;
+
+				font-size: 0.5rem;
+				font-weight: 700;
+				text-align: left;
+				box-sizing: border-box;
+				transform: translateY(-50%);
+				color: rgb(216, 216, 216);
+
+				&.half {
+					top: 50%;
+					opacity: 0.5;
+				}
+			}
+
+			> .item {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 0.1rem;
+
+				transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+
+				--color: white;
+				--text-color: black;
+
+				&.fc {
+					--color: rgb(232, 167, 255);
+
+					> .line {
+						border-top-style: dashed;
+					}
+				}
+
+				&.achievable {
+					--color: var(--accent-color);
+				}
+
+				> .line {
+					position: absolute;
+					display: block;
+
+					top: 0;
+					left: 0;
+					height: 0;
+					right: 2rem;
+					border-top: 0.1rem solid var(--color);
+				}
+
+				> .value {
+					position: absolute;
+					top: 50%;
+					right: 0;
+					width: 2rem;
+					
+					padding: 0.1rem 0.25rem;
+					font-size: 0.5rem;
+					font-weight: 700;
+					text-align: left;
+					box-sizing: border-box;
+					transform: translateY(-50%);
+
+					color: var(--text-color);
+					background-color: var(--color);
+				}
+			}
+		}
+
+		> .markers {
+			position: absolute;
+			top: 0;
+			bottom: -0.5rem;
+			width: 100%;
+
+			> .hit {
+				position: absolute;
+				display: block;
+
+				bottom: 0;
+				width: 0.2rem;
+				height: 0;
+				transform: translateX(-50%);
+				border-radius: 0.1rem;
+
+				--color: gray;
+				background-color: var(--color);
+
+				opacity: 0;
+				transition: all 0.5s ease;
+
+				&.h100 {
+					--color: rgb(202, 234, 255);
+				}
+
+				&.h50 {
+					--color: rgb(255, 244, 142);
+				}
+
+				&.hmiss {
+					--color: rgb(255, 143, 160);
+					z-index: 1;
+				}
+
+				&.show {
+					opacity: 1;
+				}
+
+				&.thin-line {
+					width: 0.1rem;
+					border-radius: 0;
+					
+					&.show {
+						height: 100%;
+						opacity: 0.4;
+					}
+				}
+			}
+		}
+
+		> .legends {
+			position: absolute;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 0.5rem;
+
+			top: calc(100% + 0.5rem);
+			left: -0.2rem;
+			height: 1rem;
+
+			> .legend {
+				position: relative;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: 0.25rem;
+
+				font-size: 0.5rem;
+				--color: rgb(200, 200, 200);
+				color: var(--color);
+
+				&.l100 {
+					--color: rgb(202, 234, 255);
+				}
+
+				&.l50 {
+					--color: rgb(255, 244, 142);
+				}
+
+				&.lmiss {
+					--color: rgb(255, 143, 160);
+				}
+
+				&.ppfc {
+					--color: rgb(232, 167, 255);
+				}
+
+				&.ppacv {
+					--color: var(--accent-color);
+				}
+
+				&::before {
+					content: "";
+					display: block;
+					width: 0.5rem;
+					height: 0.5rem;
+					margin-bottom: 0.1rem;
+					border-radius: 0.5rem;
+					background-color: var(--color);
+				}
+			}
+		}
+
+		> .cursor {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: -0.05rem;
+			width: 0.1rem;
+			background-color: rgba(255, 255, 255, 0.1);
+			pointer-events: none;
+
+			transition: all 0.1s linear;
+		}
+	}
+}
