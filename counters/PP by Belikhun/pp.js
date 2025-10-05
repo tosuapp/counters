@@ -153,7 +153,7 @@ const PPPanel = {
 				markers: { tag: "div", class: "markers" },
 
 				legends: { tag: "div", class: "legends", child: {
-					// l100: { tag: "div", class: ["legend", "l100"], text: 100 },
+					l100: { tag: "div", class: ["legend", "l100"], text: 100 },
 					l50: { tag: "div", class: ["legend", "l50"], text: 50 },
 					lmiss: { tag: "div", class: ["legend", "lmiss"], text: "miss" },
 					ppfc: { tag: "div", class: ["legend", "ppfc"], text: "pp if fc" },
@@ -253,7 +253,7 @@ const PPPanel = {
 			}
 
 			if (this.current100Hits < h100) {
-				// this.addHit("100", h100 - this.current100Hits);
+				this.addHit("100", h100 - this.current100Hits);
 				this.current100Hits = h100;
 			}
 
@@ -427,7 +427,7 @@ const PPPanel = {
 					this.chartGuides[name] = area;
 				}
 
-				this.chartGuides[name].style.opacity = Easing.InSine(scaleValue(name, [90, 100], [0.3, 0.8]));
+				this.chartGuides[name].style.opacity = Easing.InSine(scaleValue(name, [90, 100], [0.4, 1]));
 			}
 
 			if (!useGuide) {
@@ -466,11 +466,13 @@ const PPPanel = {
 			hitThin.style.left = `${left}%`;
 			this.container.graph.markers.appendChild(hitThin);
 
-			requestAnimationFrame(() => {
+			requestAnimationFrame(async () => {
+				await nextFrameAsync();
 				hitThin.classList.add("show");
 			});
 		}
 
+		await nextFrameAsync();
 		await nextFrameAsync();
 		hit.style.height = `${amount * 10}%`;
 		hit.classList.add("show");
