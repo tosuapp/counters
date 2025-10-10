@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name: Souei-Overlay
+Version: 2.1
+Author: -Souei
+CompatibleWith: tosu
+Resolution: 1920x1080
+Notes: Souei's osu! overlay with customizable colors and fonts
