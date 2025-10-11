@@ -14,11 +14,10 @@
    - Open the tosu web interface
    - Select Souei-Overlay
    - Click on Settings
-   - For "Main Font" enter only the name (without file extension)
-   - Example: `MyFont` (not `MyFont.ttf`)
+   - For "Main Font" enter the complete filename (with file extension)
+   - Example: `MyFont.ttf` (include the extension)
 
-3. **Font Loads Automatically**
-   - The overlay automatically tries all supported formats
+3. **Font Loads**
    - The font is immediately used in the overlay
 
 ## Default Font
@@ -26,5 +25,5 @@
 
 ## Example
 If you copy `Arial-Bold.ttf` into this folder:
-- Enter in tosu Settings: `Arial-Bold`
+- Enter in tosu Settings: `Arial-Bold.ttf`
 - Done!

@@ -67,28 +67,21 @@ async function loadCustomFont(fontFileName) {
 		return;
 	}
 
-	const fontName = fontFileName.replace(/\.(ttf|woff|woff2|otf)$/i, '');
-	const extensions = ['woff2', 'woff', 'ttf', 'otf'];
+	const fontPath = `fonts/${fontFileName}`;
 
-	for (const ext of extensions) {
-		const fontPath = `fonts/${fontName}.${ext}`;
+	try {
+		const fontFace = new FontFace('CustomFont', `url(${fontPath})`);
+		const loadedFace = await fontFace.load();
 
-		try {
-			const fontFace = new FontFace('CustomFont', `url(${fontPath})`);
-			const loadedFace = await fontFace.load();
+		document.fonts.add(loadedFace);
+		console.log(`Font loaded successfully: ${fontFileName}`);
 
-			document.fonts.add(loadedFace);
-			console.log(`Font loaded successfully: ${fontName}.${ext}`);
-
-			const root = document.documentElement;
-			root.style.setProperty('--mainFont', `'CustomFont', Arial, sans-serif`);
-			return;
-		} catch (error) {
-			continue;
-		}
+		const root = document.documentElement;
+		root.style.setProperty('--mainFont', `'CustomFont', Arial, sans-serif`);
+	} catch (error) {
+		console.error(`Could not load font: ${fontFileName}`, error);
+		console.log('Using default font');
 	}
-
-	console.warn(`Could not load font: ${fontName}. Using default.`);
 }
 
 function initSettingsWebSocket() {

@@ -3,8 +3,8 @@
     "uniqueID": "MainFont",
     "type": "text",
     "title": "Main Font",
-    "description": "Font file name (without extension) from the fonts folder. Available: GothicRD (default). Put .ttf, .woff, .woff2, or .otf files in the fonts folder.",
-    "value": "GothicRD"
+    "description": "Font file name (with extension) from the fonts folder. Example: GothicRD.ttf. Put .ttf, .woff, .woff2, or .otf files in the fonts folder.",
+    "value": "GothicRD.ttf"
   },
   {
     "uniqueID": "URBarSpacing",
