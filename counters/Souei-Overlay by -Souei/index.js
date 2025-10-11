@@ -153,6 +153,12 @@ function initSettingsWebSocket() {
 				if (message['KeyTileColor'] != null) {
 					root.style.setProperty('--keyTileColor', message['KeyTileColor']);
 				}
+				if (message['URBarSpacing'] != null) {
+					const spacing = parseFloat(message['URBarSpacing']);
+					if (spacing >= 0.5 && spacing <= 5) {
+						root.style.setProperty('--urBarSpacing', spacing);
+					}
+				}
 
 				console.log('Settings applied successfully');
 			}

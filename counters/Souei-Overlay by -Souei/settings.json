@@ -7,6 +7,16 @@
     "value": "GothicRD"
   },
   {
+    "uniqueID": "URBarSpacing",
+    "type": "number",
+    "title": "UR Bar Spacing",
+    "description": "Spacing scale for combo/PP containers (0.5x - 5x). Default is 1x.",
+    "value": 1,
+    "min": 0.5,
+    "max": 5,
+    "step": 0.1
+  },
+  {
     "uniqueID": "AccentColor",
     "type": "color",
     "title": "Accent Color",

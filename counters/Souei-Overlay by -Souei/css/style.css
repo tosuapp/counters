@@ -16,6 +16,7 @@
 	--keyColor: #537fd6;
 	--keyPressedColor: #839fd8;
 	--keyTileColor: #537fd6;
+	--urBarSpacing: 1;
 
 	--fadeIn: linear-gradient(
 		to left,
@@ -108,7 +109,7 @@ html {
 }
 
 #combo_container {
-	right: calc(50% + 10rem);
+	right: calc(50% + (10rem * var(--urBarSpacing)));
 	transform: skew(-20deg);
 	transition: all 1.5s ease-in-out;
 }
@@ -122,7 +123,7 @@ html {
 }
 
 #pp_container {
-	left: calc(50% + 10rem);
+	left: calc(50% + (10rem * var(--urBarSpacing)));
 	transform: skew(20deg);
 	transition: all 1.5s ease-in-out;
 }
