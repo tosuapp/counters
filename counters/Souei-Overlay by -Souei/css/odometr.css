@@ -129,7 +129,7 @@
 
 .odometer.combo .odometer-inside:after {
 	content: ' x';
-	color: #5d3fd3;
+	color: var(--accentColor);
 }
 
 .odometer.URIndex .odometer-inside:after {

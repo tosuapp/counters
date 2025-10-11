@@ -174,6 +174,7 @@ let animation = {
 		useGrouping: true,
 		separator: ' ',
 		decimal: '.',
+		suffix: '',
 	}),
 	pp_current: new CountUp('pp_current', 0, 0, 0, 0.2, {
 		useEasing: true,
