@@ -190,6 +190,64 @@ function makeTree(tag, classes, child = {}, path = "") {
 }
 
 /**
+ * Compares two objects (or arrays) for equality up to a specified depth.
+ * 
+ * @param	{object}	objA			The first object to compare.
+ * @param	{object}	objB			The second object to compare.
+ * @param	{number}	[depth=1]		The maximum level of nesting to check. 
+ * Depth 1 (default) checks only top-level properties.
+ * Depth 0 forces a reference check (===).
+ * 
+ * @returns	{boolean}	True if the objects are equal up to the specified depth, false otherwise.
+ */
+function isObjectEqual(objA, objB, depth = 1) {
+	if (objA === objB)
+		return true;
+
+	const aIsObj = (objA && typeof objA == "object");
+	const bIsObj = (objB && typeof objB == "object");
+	
+	if (!aIsObj || !bIsObj)
+		return false;
+
+	const aIsArray = Array.isArray(objA);
+	const bIsArray = Array.isArray(objB);
+
+	if (aIsArray !== bIsArray)
+		return false;
+
+	if (depth <= 0)
+		return true;
+
+	const keysA = Object.keys(objA);
+	const keysB = Object.keys(objB);
+
+	if (keysA.length !== keysB.length)
+		return false;
+
+	const nextDepth = depth - 1;
+
+	for (let i = 0; i < keysA.length; i++) {
+		const key = keysA[i];
+
+		if (!Object.prototype.hasOwnProperty.call(objB, key))
+			return false;
+
+		const valA = objA[key];
+		const valB = objB[key];
+		
+		if (valA && typeof valA == "object" && valB && typeof valB == "object") {
+			if (!isObjectEqual(valA, valB, nextDepth))
+				return false;
+		} else if (valA !== valB) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
  * Implements a fixed-length queue (circular buffer) to calculate the moving average
  * of the last N numbers.
  */

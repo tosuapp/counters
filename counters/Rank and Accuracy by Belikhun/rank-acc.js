@@ -18,6 +18,7 @@ const RankAndAccuracyPanel = {
 	showing: false,
 
 	alwaysVisible: false,
+	displayOnResultScreen: false,
 	transparent: true,
 
 	init({
@@ -87,9 +88,9 @@ const RankAndAccuracyPanel = {
 
 			let color = "gray";
 
-			if (value === "XX" || value === "X")
+			if (value === "XX" || value === "XH" || value === "X")
 				color = "whitesmoke";
-			else if (value === "SS" || value === "S")
+			else if (value === "SS" || value === "SH" || value === "S")
 				color = "yellow";
 			else if (value === "A")
 				color = "green";
@@ -126,14 +127,8 @@ const RankAndAccuracyPanel = {
 			this.accTrendNumber.value = trend;
 		}, 100);
 
-		app.subscribe("play.playerName", (value) => {
-			if (value && value.length > 0) {
-				this.show();
-				return;
-			}
-
-			this.hide();
-		});
+		app.subscribe("play.playerName", () => this.updateDisplayState());
+		app.subscribe("resultsScreen.playerName", () => this.updateDisplayState());
 
 		if (this.transparent)
 			this.container.classList.add("do-transparent");
@@ -146,12 +141,31 @@ const RankAndAccuracyPanel = {
 		}
 	},
 
+	updateDisplayState() {
+		const isPlaying = app.get("play.playerName", "").length > 0;
+		const isViewingResult = app.get("resultsScreen.playerName", "").length > 0;
+
+		this.container.classList.toggle("showing-result", isViewingResult);
+		const shouldDisplay = (this.displayOnResultScreen)
+			? isPlaying
+			: (isPlaying && !isViewingResult);
+
+		if (shouldDisplay) {
+			this.show();
+			return;
+		}
+
+		this.hide();
+	},
+
 	settings({
 		label = "rank",
 		alwaysDisplay = false,
+		displayOnResultScreen = false,
 		disableBackground = false,
 		backgroundColor = "#212121",
 		backgroundOpacity = 20,
+		resultBackgroundOpacity = 60,
 		borderRadius = 0.5
 	}) {
 		this.container.labelNode.innerText = label;
@@ -162,18 +176,12 @@ const RankAndAccuracyPanel = {
 			this.alwaysVisible = true;
 		} else {
 			this.alwaysVisible = false;
-
-			// Determine current state and update panel visibility accordingly.
-			const playerName = app.get("play.playerName");
-
-			if (playerName && playerName.length > 0) {
-				this.show();
-			} else {
-				this.hide();
-			}
+			this.updateDisplayState();
 		}
 
+		this.displayOnResultScreen = displayOnResultScreen;
 		this.container.style.setProperty("--transaprent-opacity", backgroundOpacity / 100);
+		this.container.style.setProperty("--result-opacity", resultBackgroundOpacity / 100);
 		this.container.style.setProperty("--border-radius", `${borderRadius}rem`);
 		this.container.classList.toggle("full-transparent", disableBackground);
 	},

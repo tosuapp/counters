@@ -139,6 +139,14 @@ const app = {
 
 		const tokens = key.split(".");
 		let filters = this.filters[channel];
+		let path = [];
+
+		for (const token of tokens) {
+			path.push(token);
+
+			if (this.appliedFilterKeys[channel][path.join(".")])
+				return this;
+		}
 
 		for (const [level, token] of tokens.entries()) {
 			if (level == tokens.length - 1) {
@@ -203,7 +211,7 @@ const app = {
 	isChanged(value1, value2) {
 		// Can't efficiently compare objects yet.
 		if (value1 && typeof value1 == "object")
-			return true;
+			return !isObjectEqual(value1, value2, 1);
 
 		return value1 != value2;
 	},

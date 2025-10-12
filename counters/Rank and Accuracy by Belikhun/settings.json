@@ -16,6 +16,14 @@
 		"value": false
 	},
 	{
+		"uniqueID": "displayOnResultScreen",
+		"type": "checkbox",
+		"title": "Display On Result Screen",
+		"description": "Keep displaying the counter during result screen after a play has been completed.",
+		"options": [],
+		"value": false
+	},
+	{
 		"uniqueID": "disableBackground",
 		"type": "checkbox",
 		"title": "Disable Background",
@@ -35,9 +43,17 @@
 		"uniqueID": "backgroundOpacity",
 		"type": "number",
 		"title": "Background Opacity",
-		"description": "Set counter's background opacity when it's fully shown (in percentage).",
+		"description": "Set counter's background opacity when it's fully shown during gameplay (in percentage).",
 		"options": [],
 		"value": 20
+	},
+	{
+		"uniqueID": "resultBackgroundOpacity",
+		"type": "number",
+		"title": "Result Background Opacity",
+		"description": "Set counter's background opacity during result screen (in percentage).",
+		"options": [],
+		"value": 60
 	},
 	{
 		"uniqueID": "borderRadius",
