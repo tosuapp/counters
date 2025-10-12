@@ -139,6 +139,14 @@ const app = {
 
 		const tokens = key.split(".");
 		let filters = this.filters[channel];
+		let path = [];
+
+		for (const token of tokens) {
+			path.push(token);
+
+			if (this.appliedFilterKeys[channel][path.join(".")])
+				return this;
+		}
 
 		for (const [level, token] of tokens.entries()) {
 			if (level == tokens.length - 1) {

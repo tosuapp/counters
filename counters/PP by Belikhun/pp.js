@@ -58,12 +58,15 @@ const PPPanel = {
 	current50Hits: null,
 	currentMissHits: null,
 	isPlaying: false,
+	isViewingResult: false,
+	shouldDisplayGraph: false,
 
 	chartWidth: 0,
 	chartHeight: 0,
 	showing: false,
 
 	alwaysVisible: false,
+	displayOnResultScreen: false,
 	transparent: true,
 
 	init({
@@ -181,21 +184,6 @@ const PPPanel = {
 			}
 		}, { duration: 0.2 });
 
-		app.subscribe("play.playerName", (value) => {
-			if (value && value.length > 0) {
-				this.isPlaying = true;
-				this.ppValue.value = 0;
-
-				this.show();
-				this.updatePlayingState();
-				return;
-			}
-
-			this.isPlaying = false;
-			this.hide();
-			this.updatePlayingState();
-		});
-
 		app.subscribe("currentTime", (value) => {
 			this.currentTime = value;
 			this.requestRender();
@@ -209,19 +197,7 @@ const PPPanel = {
 			this.timeTo = value;
 		});
 
-		app.subscribe("play.pp", ({ current }) => {
-			if (!osuHasHit()) {
-				this.ppTrend.clear();
-			}
-
-			if (!this.isPlaying) {
-				this.ppValue.value = this.accuracy[100] || 0;
-				return;
-			}
-
-			this.ppValue.value = current;
-			this.ppTrend.addValue(current);
-		});
+		app.subscribe("play.pp", () => this.updatePPValue());
 
 		let prevTrend = 0;
 		setInterval(() => {
@@ -278,6 +254,10 @@ const PPPanel = {
 				this.container.classList.add("transparent");
 		}
 
+		app.subscribe("play.playerName", () => this.updateDisplayState());
+		app.subscribe("resultsScreen.playerName", () => this.updateDisplayState());
+		app.subscribe("resultsScreen.pp.current", () => this.updatePPValue());
+
 		this.color = "#4db8ff";
 		this.updateSize();
 		this.updatePlayingState();
@@ -294,13 +274,39 @@ const PPPanel = {
 		this.container.style.setProperty("--accent-color", color);
 	},
 
+	updateDisplayState() {
+		const isPlaying = app.get("play.playerName", "").length > 0;
+		const isViewingResult = app.get("resultsScreen.playerName", "").length > 0;
+
+		this.container.classList.toggle("showing-result", isViewingResult);
+		this.isPlaying = isPlaying;
+		this.isViewingResult = isViewingResult;
+
+		const shouldDisplay = (this.displayOnResultScreen)
+			? isPlaying
+			: (isPlaying && !isViewingResult);
+
+		this.shouldDisplayGraph = shouldDisplay;
+
+		if (shouldDisplay) {
+			this.show();
+			this.updatePlayingState();
+			return;
+		}
+
+		this.hide();
+		this.updatePlayingState();
+	},
+
 	settings({
 		label = "pp",
 		accentColor = "#4db8ff",
 		alwaysDisplay = false,
+		displayOnResultScreen = false,
 		disableBackground = false,
 		backgroundColor = "#212121",
 		backgroundOpacity = 20,
+		resultBackgroundOpacity = 60,
 		borderRadius = 0.5
 	}) {
 		this.container.labelNode.innerText = label;
@@ -312,18 +318,12 @@ const PPPanel = {
 			this.alwaysVisible = true;
 		} else {
 			this.alwaysVisible = false;
-
-			// Determine current state and update panel visibility accordingly.
-			const playerName = app.get("play.playerName");
-
-			if (playerName && playerName.length > 0) {
-				this.show();
-			} else {
-				this.hide();
-			}
+			this.updateDisplayState();
 		}
 
+		this.displayOnResultScreen = displayOnResultScreen;
 		this.container.style.setProperty("--transaprent-opacity", backgroundOpacity / 100);
+		this.container.style.setProperty("--result-opacity", resultBackgroundOpacity / 100);
 		this.container.style.setProperty("--border-radius", `${borderRadius}rem`);
 		this.container.classList.toggle("full-transparent", disableBackground);
 	},
@@ -369,7 +369,7 @@ const PPPanel = {
 	async updatePlayingState() {
 		const isGraphShowing = this.container.graph.classList.contains("show");
 
-		if (this.isPlaying != isGraphShowing) {
+		if (this.shouldDisplayGraph != isGraphShowing) {
 			if (isGraphShowing) {
 				this.container.graph.classList.add("hide");
 				this.container.info.classList.add("show");
@@ -382,6 +382,28 @@ const PPPanel = {
 				this.container.info.classList.remove("show", "hide");
 			}
 		}
+
+		this.updatePPValue();
+	},
+
+	updatePPValue() {
+		if (!osuHasHit()) {
+			this.ppTrend.clear();
+		}
+
+		if (this.isViewingResult) {
+			this.ppValue.value = app.get("resultsScreen.pp.current");
+			return;
+		}
+
+		if (!this.isPlaying) {
+			this.ppValue.value = this.accuracy[100] || 0;
+			return;
+		}
+
+		const current = app.get("play.pp.current", 0);
+		this.ppValue.value = current;
+		this.ppTrend.addValue(current);
 	},
 
 	updateAccuracyGuides() {

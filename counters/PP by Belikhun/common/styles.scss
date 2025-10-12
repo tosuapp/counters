@@ -42,6 +42,7 @@ body {
 
 .counter-panel {
 	--transaprent-opacity: 0.2;
+	--result-opacity: 0.6;
 	--border-radius: 0.5rem;
 	--background-rgb: 33, 33, 33;
 
@@ -84,6 +85,10 @@ body {
 
 		&.transparent {
 			background-color: rgba(var(--background-rgb), var(--transaprent-opacity));
+		}
+
+		&.showing-result {
+			background-color: rgba(var(--background-rgb), var(--result-opacity));
 		}
 	}
 
