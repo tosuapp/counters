@@ -1,6 +1,6 @@
 Usecase: ingame,obs-overlay
 Name: Unstable Rate with Hit Errors
-Version: 1.0
+Version: 1.1
 Author: Belikhun
 CompatibleWith: tosu
 Resolution: 380x226

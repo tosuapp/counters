@@ -498,6 +498,20 @@
 <img src="/.github/images/paradox by mofuries.jpg" /> <img src="/.github/gifs/paradox by mofuries.gif" /> 
 
 
+## PP by Belikhun
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp by belikhun v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | ingame, obs-overlay |
+| Compatible with | tosu |
+| Size |  380x270 |
+
+
+<img src="/.github/images/pp by belikhun.png" /> <img src="/.github/images/pp by belikhun1.png" /> <img src="/.github/gifs/pp by belikhun.gif" /> 
+
+
 ## PP counter by unknown
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp counter by unknown v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
@@ -514,7 +528,7 @@
 
 ## Rank and Accuracy by Belikhun
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/rank and accuracy by belikhun v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/rank and accuracy by belikhun v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -628,7 +642,7 @@
 
 ## Unstable Rate with Hit Errors by Belikhun
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/unstable rate with hit errors by belikhun v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/unstable rate with hit errors by belikhun v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
