@@ -1,0 +1,74 @@
+[
+	{
+		"uniqueID": "label",
+		"type": "text",
+		"title": "Display Name",
+		"description": "Text that will be displayed on top of the counter.",
+		"options": [],
+		"value": "pp"
+	},
+	{
+		"uniqueID": "accentColor",
+		"type": "color",
+		"title": "Primary Color",
+		"description": "Color used to draw chart and other components",
+		"options": [],
+		"value": "#4db8ff"
+	},
+	{
+		"uniqueID": "alwaysDisplay",
+		"type": "checkbox",
+		"title": "Always Display",
+		"description": "Always display the counter even when current state is not playing.",
+		"options": [],
+		"value": false
+	},
+	{
+		"uniqueID": "displayOnResultScreen",
+		"type": "checkbox",
+		"title": "Display On Result Screen",
+		"description": "Keep displaying the counter during result screen after a play has been completed.",
+		"options": [],
+		"value": false
+	},
+	{
+		"uniqueID": "disableBackground",
+		"type": "checkbox",
+		"title": "Disable Background",
+		"description": "Disable background to make the counter fully transparent.",
+		"options": [],
+		"value": false
+	},
+	{
+		"uniqueID": "backgroundColor",
+		"type": "color",
+		"title": "Background Color",
+		"description": "Counter's background color",
+		"options": [],
+		"value": "#212121"
+	},
+	{
+		"uniqueID": "backgroundOpacity",
+		"type": "number",
+		"title": "Background Opacity",
+		"description": "Set counter's background opacity when it's fully shown during gameplay (in percentage).",
+		"options": [],
+		"value": 20
+	},
+	{
+		"uniqueID": "resultBackgroundOpacity",
+		"type": "number",
+		"title": "Result Background Opacity",
+		"description": "Set counter's background opacity during result screen (in percentage).",
+		"options": [],
+		"value": 60
+	},
+	{
+		"uniqueID": "borderRadius",
+		"type": "number",
+		"title": "Border Radius",
+		"description": "Set counter's border radius (in rem).",
+		"options": [],
+		"value": 0.5
+	}
+]
