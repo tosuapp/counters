@@ -86,6 +86,7 @@ const UnstableRatePanel = {
 	showing: false,
 
 	alwaysVisible: false,
+	displayOnResultScreen: false,
 	transparent: true,
 
 	init({
@@ -170,38 +171,70 @@ const UnstableRatePanel = {
 			this.updateHits(value);
 		}, "precise");
 
-		// app.subscribe("beatmap.time.live", (value) => {
-		// 	if (value > 100 && app.get("state.name") == "play") {
-		// 		this.show();
-		// 		return;
-		// 	}
+		app.subscribe("play.playerName", () => this.updateDisplayState());
+		app.subscribe("resultsScreen.playerName", () => this.updateDisplayState());
 
-		// 	this.hide();
-		// });
+		if (this.transparent)
+			this.container.classList.add("do-transparent");
 
 		if (this.alwaysVisible) {
 			this.container.classList.add("display", "show");
 
 			if (this.transparent)
-				this.container.classList.add("do-transparent", "transparent");
-		} else {
-			app.subscribe("play.playerName", (value) => {
-				if (value && value.length > 0) {
-					this.show();
-					return;
-				}
-	
-				this.hide();
-			});
-
-			if (this.transparent)
-				this.container.classList.add("do-transparent");
+				this.container.classList.add("transparent");
 		}
 	},
 
-	async show() {
-		if (this.showing)
+	updateDisplayState() {
+		const isPlaying = app.get("play.playerName", "").length > 0;
+		const isViewingResult = app.get("resultsScreen.playerName", "").length > 0;
+
+		this.container.classList.toggle("showing-result", isViewingResult);
+		const shouldDisplay = (this.displayOnResultScreen)
+			? isPlaying
+			: (isPlaying && !isViewingResult);
+
+		if (shouldDisplay) {
+			this.show();
 			return;
+		}
+
+		this.hide();
+	},
+
+	settings({
+		label = "unstable rate",
+		alwaysDisplay = false,
+		displayOnResultScreen = false,
+		disableBackground = false,
+		backgroundColor = "#212121",
+		backgroundOpacity = 20,
+		resultBackgroundOpacity = 60,
+		borderRadius = 0.5,
+		declutter = false
+	}) {
+		this.container.labelNode.innerText = label;
+		this.container.style.setProperty("--background-rgb", hexToRgb(backgroundColor).join(", "));
+
+		if (alwaysDisplay) {
+			this.show();
+			this.alwaysVisible = true;
+		} else {
+			this.alwaysVisible = false;
+			this.updateDisplayState();
+		}
+
+		this.displayOnResultScreen = displayOnResultScreen;
+		this.container.style.setProperty("--transaprent-opacity", backgroundOpacity / 100);
+		this.container.style.setProperty("--result-opacity", resultBackgroundOpacity / 100);
+		this.container.style.setProperty("--border-radius", `${borderRadius}rem`);
+		this.container.classList.toggle("declutter", declutter);
+		this.container.classList.toggle("full-transparent", disableBackground);
+	},
+
+	async show() {
+		if (this.showing || this.alwaysVisible)
+			return this;
 
 		this.showing = true;
 		this.container.classList.add("display");
@@ -213,8 +246,8 @@ const UnstableRatePanel = {
 	},
 
 	async hide() {
-		if (!this.showing)
-			return;
+		if (!this.showing || this.alwaysVisible)
+			return this;
 
 		this.showing = false;
 		this.container.classList.remove("show");

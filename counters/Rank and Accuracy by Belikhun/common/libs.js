@@ -172,6 +172,64 @@ function makeTree(tag, classes, child = {}, path = "") {
 	return container;
 }
 
+/**
+ * Compares two objects (or arrays) for equality up to a specified depth.
+ * 
+ * @param	{object}	objA			The first object to compare.
+ * @param	{object}	objB			The second object to compare.
+ * @param	{number}	[depth=1]		The maximum level of nesting to check. 
+ * Depth 1 (default) checks only top-level properties.
+ * Depth 0 forces a reference check (===).
+ * 
+ * @returns	{boolean}	True if the objects are equal up to the specified depth, false otherwise.
+ */
+function isObjectEqual(objA, objB, depth = 1) {
+	if (objA === objB)
+		return true;
+
+	const aIsObj = (objA && typeof objA == "object");
+	const bIsObj = (objB && typeof objB == "object");
+	
+	if (!aIsObj || !bIsObj)
+		return false;
+
+	const aIsArray = Array.isArray(objA);
+	const bIsArray = Array.isArray(objB);
+
+	if (aIsArray !== bIsArray)
+		return false;
+
+	if (depth <= 0)
+		return true;
+
+	const keysA = Object.keys(objA);
+	const keysB = Object.keys(objB);
+
+	if (keysA.length !== keysB.length)
+		return false;
+
+	const nextDepth = depth - 1;
+
+	for (let i = 0; i < keysA.length; i++) {
+		const key = keysA[i];
+
+		if (!Object.prototype.hasOwnProperty.call(objB, key))
+			return false;
+
+		const valA = objA[key];
+		const valB = objB[key];
+		
+		if (valA && typeof valA == "object" && valB && typeof valB == "object") {
+			if (!isObjectEqual(valA, valB, nextDepth))
+				return false;
+		} else if (valA !== valB) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 const Easing = {
 	/**
 	 * @param	{Number}	t	Point [0, 1]
@@ -626,4 +684,30 @@ class TrendCalculator {
 		this.dataPoints = [];
 		this._resetSums();
 	}
+}
+
+/**
+ * Converts a hex color code (long or short format) to an RGB color string.
+ * 
+ * @param	{string}								hex		The hex color code string (e.g., "#212121" or "#f0c").
+ * @returns	{?[r: number, g: number, b: number]}			The RGB values or null if the format is invalid.
+ */
+function hexToRgb(hex) {
+	if (!hex || typeof hex !== "string")
+		return null;
+
+	const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+	const fullHex = hex.replace(shorthandRegex, (m, r, g, b) => {
+		return r + r + g + g + b + b;
+	});
+
+	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+
+	if (!result)
+		return null;
+	
+	const r = parseInt(result[1], 16);
+	const g = parseInt(result[2], 16);
+	const b = parseInt(result[3], 16);
+	return [r, g, b];
 }

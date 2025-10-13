@@ -41,6 +41,11 @@ body {
 }
 
 .counter-panel {
+	--transaprent-opacity: 0.2;
+	--result-opacity: 0.6;
+	--border-radius: 0.5rem;
+	--background-rgb: 33, 33, 33;
+
 	position: relative;
 	display: none;
 	flex-grow: 1;
@@ -50,12 +55,12 @@ body {
 	margin: 0;
 	padding: 0.5rem 1rem;
 	box-sizing: border-box;
-	border-radius: 0.5rem;
+	border-radius: var(--border-radius);
 
 	opacity: 0;
 	transform: scaleY(0.85);
 	transform-origin: top center;
-	background-color: #212121;
+	background-color: rgb(var(--background-rgb));
 
 	transition:
 		background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1),
@@ -75,12 +80,20 @@ body {
 		background-color: #b0b0b0;
 
 		&.show {
-			background-color: #212121;
+			background-color: rgb(var(--background-rgb));
 		}
 
 		&.transparent {
-			background-color: rgba(33, 33, 33, 0.2);
+			background-color: rgba(var(--background-rgb), var(--transaprent-opacity));
 		}
+
+		&.showing-result {
+			background-color: rgba(var(--background-rgb), var(--result-opacity));
+		}
+	}
+
+	&.full-transparent {
+		background-color: transparent!important;
 	}
 
 	&.full-size {
