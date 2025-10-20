@@ -1,0 +1,1 @@
+[{"uniqueID":"overlayPosition","type":"checkbox","title":"Show overlay at bottom","description":"When enabled, overlay is positioned at the top with bottom progress bar visible. When disabled, overlay is at the bottom with top progress bar visible.","options":"","value":false}]

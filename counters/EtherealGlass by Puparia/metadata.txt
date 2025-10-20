@@ -1,0 +1,7 @@
+Usecase: ingame,obs-overlays
+Name: EtherealGlass
+Version: 1.0
+Author: Puparia
+CompatibleWith: tosu,streamCompanion
+Resolution: 1000x600
+Description: Ultra-modern glassmorphism overlay with sophisticated transparency effects, ambient lighting, and real-time performance visualization
