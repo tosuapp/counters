@@ -143,7 +143,7 @@ class WebSocketManager {
       };
 
 
-      const request = await fetch(`${this.host}/files/beatmap/${file_path}`, {
+      const request = await fetch(`http://${this.host}/files/beatmap/${file_path}`, {
         method: "GET",
       });
 
