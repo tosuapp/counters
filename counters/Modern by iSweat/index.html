@@ -1,69 +1,57 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+<html lang="en">
+
+<head>
+    <title>Modern v1.0</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Modern V1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Styles -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/fonts.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/odometr.css" />
-    <link rel="stylesheet" href="styles/white.css" />
-    <!-- <link rel="stylesheet" href="styles/black.css" /> -->
+</head>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-
-  <body>
+<body>
     <div class="overlay-container">
-      <div class="card">
-        <div class="player-stats-game">
-          <div class="stat-group stat-group--performance">
-            <div class="stat-item stat-item--pp-realtime">
-              <span id="realtime-pp" class="pp-realtime stat-value"
-                >0</span
-              ><span class="stat-label">pp</span>
+        <div class="card">
+            <div class="player-stats-game">
+                <div class="stat-group stat-group--performance">
+                    <div class="stat-item stat-item--pp-realtime">
+                        <span id="realtime-pp" class="pp-realtime stat-value">0</span><span class="stat-label">pp</span>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <div class="hitValue">
+                <div class="hit-count hit-count--great">
+                    <span id="great-hits" class="hit-value">0</span>
+                    <div class="great-hits-color"></div>
+                </div>
+
+                <div class="hit-count hit-count--good">
+                    <span id="good-hits" class="hit-value">0</span>
+                    <div class="good-hits-color"></div>
+                </div>
+
+                <div class="hit-count hit-count--miss">
+                    <span id="miss-hits" class="hit-value">0</span>
+                    <div class="miss-hits-color"></div>
+                </div>
+            </div>
         </div>
-
-        <div class="hitValue">
-          <div class="hit-count hit-count--great">
-            <span id="great-hits" class="hit-value">0</span>
-            <div class="great-hits-color"></div>
-          </div>
-
-          <div class="hit-count hit-count--good">
-            <span id="good-hits" class="hit-value">0</span>
-            <div class="good-hits-color"></div>
-          </div>
-
-          <div class="hit-count hit-count--miss">
-            <span id="miss-hits" class="hit-value">0</span>
-            <div class="miss-hits-color"></div>
-          </div>
+        <div class="progressBar">
+            <div id="progressBarFill" class="progressBar-fill"></div>
         </div>
-      </div>
-      <div class="progressBar">
-        <div id="progressBarFill" class="progressBar-fill"></div>
-      </div>
     </div>
 
-    <script type="module" src="index.js"></script>
+    <!-- OTHER SCRIPTS -->
     <script src="js/countUp.js"></script>
     <script src="js/odometr.js"></script>
-  </body>
+
+    <!--  COUNTER LOGIC FILE -->
+    <script type="module" src="index.js"></script>
+</body>
+
 </html>
