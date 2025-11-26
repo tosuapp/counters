@@ -191,6 +191,44 @@ let animation = {
 	}),
 };
 
+// Define filters to reduce bandwidth
+const api_v2_filters = [
+	{
+		field: 'state',
+		keys: ['number']
+	},
+	{
+		field: 'play',
+		keys: [
+			{
+				field: 'combo',
+				keys: ['current']
+			},
+			{
+				field: 'pp',
+				keys: ['current', 'fc']
+			},
+			{
+				field: 'hits',
+				keys: ['0', '50', '100', 'sliderBreaks']
+			}
+		]
+	},
+	{
+		field: 'performance',
+		keys: [
+			{
+				field: 'accuracy',
+				keys: ['100']
+			}
+		]
+	}
+];
+
+const api_v2_precise_filters = [
+	'keys'
+];
+
 websocketManager.api_v2((data) => {
 	let state = data.state.number;
 	let play = data.play;
@@ -287,7 +325,7 @@ websocketManager.api_v2((data) => {
 		menu_pp_max.innerHTML = tempMenuPP;
 		animation.menu_pp_max.update(menu_pp_max.innerHTML);
 	}
-});
+}, api_v2_filters);
 
 websocketManager.api_v2_precise((data) => {
 	if (data.keys) {
@@ -296,4 +334,4 @@ websocketManager.api_v2_precise((data) => {
 		animation.m1.update(data.keys.m1);
 		animation.m2.update(data.keys.m2);
 	}
-});
+}, api_v2_precise_filters);
