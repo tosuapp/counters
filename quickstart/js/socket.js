@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.5';
+    this.version = '0.2.0';
 
     if (host) {
       this.host = host;
@@ -14,14 +14,18 @@ class WebSocketManager {
     this.sockets = {};
   }
 
-  createConnection(url, callback, filters) {
+  createConnection(url, callback, filters, apiVersion) {
     let INTERVAL = '';
 
+    apiVersion = Number(String(apiVersion).trim() || 1);
+    if (!Number.isFinite(apiVersion)) apiVersion = 1;
+    apiVersion = Math.max(1, Math.trunc(apiVersion));
+
     const that = this;
-    this.sockets[url] = new WebSocket(`ws://${this.host}${url}?l=${encodeURI(window.COUNTER_PATH)}`);
+    this.sockets[url] = new WebSocket(`ws://${this.host}${url}?l=${encodeURI(window.COUNTER_PATH)}&v=${apiVersion}`);
 
     this.sockets[url].onopen = () => {
-      console.log(`[OPEN] ${url}: Connected`);
+      console.log(`[OPEN] ${url}: Connected ${apiVersion > 1 ? `(using version ${apiVersion} of the API)` : ''}`);
 
       if (INTERVAL) clearInterval(INTERVAL);
       if (Array.isArray(filters)) {
@@ -34,7 +38,7 @@ class WebSocketManager {
 
       delete this.sockets[url];
       INTERVAL = setTimeout(() => {
-        that.createConnection(url, callback, filters);
+        that.createConnection(url, callback, filters, apiVersion);
       }, 1000);
     };
 
@@ -80,9 +84,10 @@ class WebSocketManager {
    * Connects to tosu advanced socket api.
    * @param {(data: WEBSOCKET_V2) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
+   * @param {number} [apiVersion] The version of the API to be used. Defaults to `1`
    */
-  api_v2(callback, filters) {
-    this.createConnection(`/websocket/v2`, callback, filters);
+  api_v2(callback, filters, apiVersion) {
+    this.createConnection(`/websocket/v2`, callback, filters, apiVersion);
   };
 
 
@@ -90,9 +95,10 @@ class WebSocketManager {
    * Connects to tosu precise socket api.
    * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback The function to handle received messages.
    * @param {Filters[]} filters
+   * @param {number} [apiVersion] The version of the API to be used. Defaults to `1`
    */
-  api_v2_precise(callback, filters) {
-    this.createConnection(`/websocket/v2/precise`, callback, filters);
+  api_v2_precise(callback, filters, apiVersion) {
+    this.createConnection(`/websocket/v2/precise`, callback, filters, apiVersion);
   };
 
 
