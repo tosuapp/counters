@@ -71,9 +71,9 @@ class WebSocketManager {
 
 
   /**
-   * Connects to gosu compatible socket api.
-   * @param {(data: WEBSOCKET_V1) => void} callback The function to handle received messages.
-   * @param {Filters[]} filters
+   * Connects to the gosu-compatible WebSocket API
+   * @param {(data: WEBSOCKET_V1) => void} callback The function to handle received data
+   * @param {Filters[]} filters What data should be sent through the WebSocket
    */
   api_v1(callback, filters) {
     this.createConnection(`/ws`, callback, filters);
@@ -81,9 +81,9 @@ class WebSocketManager {
 
 
   /**
-   * Connects to tosu advanced socket api.
-   * @param {(data: WEBSOCKET_V2) => void} callback The function to handle received messages.
-   * @param {Filters[]} filters
+   * Connects to tosu's WebSocket API
+   * @param {(data: WEBSOCKET_V2) => void} callback The function to handle received data
+   * @param {Filters[]} filters What data should be sent through the WebSocket
    * @param {number} [apiVersion] The version of the API to be used. Defaults to `1`
    */
   api_v2(callback, filters, apiVersion) {
@@ -92,9 +92,9 @@ class WebSocketManager {
 
 
   /**
-   * Connects to tosu precise socket api.
-   * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback The function to handle received messages.
-   * @param {Filters[]} filters
+   * Connects to tosu's WebSocket API with data that need to be updated more often
+   * @param {(data: WEBSOCKET_V2_PRECISE) => void} callback The function to handle received data
+   * @param {Filters[]} filters What data should be sent through the WebSocket
    * @param {number} [apiVersion] The version of the API to be used. Defaults to `1`
    */
   api_v2_precise(callback, filters, apiVersion) {
@@ -103,9 +103,9 @@ class WebSocketManager {
 
 
   /**
-   * Calculate custom pp for a current, or specified map
-   * @param {CALCULATE_PP} params
-   * @returns {Promise<CALCULATE_PP_RESPONSE | { error: string }>}
+   * Calculates pp with custom data for either the currently selected map, or a specified one
+   * @param {CALCULATE_PP} params Data used to calculate pp
+   * @returns {Promise<CALCULATE_PP_RESPONSE | { error: string }>} Calculated information about the map, or an error
    */
   async calculate_pp(params) {
     try {
@@ -136,9 +136,9 @@ class WebSocketManager {
 
 
   /**
-   * Get beatmap **.osu** file (local)
-   * @param {string} file_path Path to a file **beatmap_folder_name/osu_file_name.osu**
-   * @returns {string | { error: string }}
+   * Gets the contents of the local beatmap's `.osu` file
+   * @param {string} file_path Path to the file. Format: `beatmap_folder_name/osu_file_name.osu`
+   * @returns {string | { error: string }} The beatmap's file contents, or an error
    */
   async getBeatmapOsuFile(file_path) {
     try {
@@ -160,25 +160,25 @@ class WebSocketManager {
 
 
   /**
-   * Connects to message
-   * @param {(data: { command: string, message: any }) => void} callback The function to handle received messages.
+   * Listens for answers to commands sent to tosu. Primarly used to react to a user changing the overlay's settings
+   * @param {(data: { command: 'getSettings', message: any }) => void} callback The function to handle received data
    */
   commands(callback) {
     this.createConnection(`/websocket/commands`, callback);
   };
 
   /**
-   *
-   * @param {string} name
-   * @param {string|Object} payload
+   * Sends a command to tosu. Primarly used to retrieve user's overlay settings
+   * @param {'getSettings'} command The command to be sent
+   * @param {string | Object} param The parameter to be used to execute the command. In most cases, it's the overlay's name (`encodeURI(window.COUNTER_PATH)`)
    */
-  sendCommand(name, command, amountOfRetries = 1) {
+  sendCommand(command, param, amountOfRetries = 1) {
     const that = this;
 
 
     if (!this.sockets['/websocket/commands']) {
       setTimeout(() => {
-        that.sendCommand(name, command, amountOfRetries + 1);
+        that.sendCommand(command, param, amountOfRetries + 1);
       }, 100);
 
       return;
@@ -186,13 +186,13 @@ class WebSocketManager {
 
 
     try {
-      const payload = typeof command == 'object' ? JSON.stringify(command) : command;
-      this.sockets['/websocket/commands'].send(`${name}:${payload}`);
+      const payload = typeof param == 'object' ? JSON.stringify(param) : param;
+      this.sockets['/websocket/commands'].send(`${command}:${payload}`);
     } catch (error) {
       if (amountOfRetries <= 3) {
         console.log(`[COMMAND_ERROR] Attempt ${amountOfRetries}`, error);
         setTimeout(() => {
-          that.sendCommand(name, command, amountOfRetries + 1);
+          that.sendCommand(command, param, amountOfRetries + 1);
         }, 1000);
         return;
       };
@@ -228,54 +228,107 @@ export default WebSocketManager;
 
 
 /** @typedef {object} CALCULATE_PP
- * @property {string} path Path to .osu file. Example: C:/osu/Songs/beatmap/file.osu
- * @property {number} mode Osu = 0, Taiko = 1, Catch = 2, Mania = 3
- * @property {number} mods Mods id. Example: 64 - DT
- * @property {number} acc Accuracy % from 0 to 100
- * @property {number} nGeki Amount of Geki (300g / MAX)
- * @property {number} nKatu Amount of Katu (100k / 200)
- * @property {number} n300 Amount of 300
- * @property {number} n100 Amount of 100
- * @property {number} n50 Amount of 50
- * @property {number} nMisses Amount of Misses
- * @property {number} combo combo
- * @property {number} passedObjects Sum of nGeki, nKatu, n300, n100, n50, nMisses
- * @property {number} clockRate Map rate number. Example: 1.5 = DT
+ * @property {string} path Path to the `.osu` file, e.g. `C:\\osu\\Songs\\some_beatmapset\\some_beatmap.osu`
+ * @property {0 | 1 | 2 | 3} mode Override the beatmap's ruleset:
+ *                                - `0` - osu!
+ *                                - `1` - osu!taiko
+ *                                - `2` - osu!catch
+ *                                - `3` - osu!mania
+ * @property {number} ar Override the beatmap's Approach Rate. Only used in osu! and osu!catch
+ * @property {number} cs Override the beatmap's Circle Size. Only used in osu! and osu!catch
+ * @property {number} hp Override the beatmap's Health Drain
+ * @property {number} od Override the beatmap's Overall Difficulty
+ * @property {number} clockRate The speed of the map used for the calculation. If omitted, it will calculate the speed based on the mods
+ * @property {number} passedObjects The amount of passed objects for partial plays, e.g. a fail
+ * @property {number} combo The max combo used for the calculation. Unused in osu!mania
+ * @property {number} nMisses The amount of misses used for the calculation
+ * @property {number} n100 The amount of 100s used for the calculation
+ * @property {number} n300 The amount of 300s used for the calculation
+ * @property {number} n50 The amount of 50s used for the calculation. Unused in osu!taiko
+ * @property {number} nGeki The amount of gekis used for the calculation. Only used in osu!mania as the amount of `n320`
+ * @property {number} nKatu The amount of katus used for the calculation. Only used in osu!mania as the amount of `n200`
+ * @property {number} mods The mods' enum value used for the calculation. Examples:
+ *                         - `8` - HD
+ *                         - `64` - DT
+ *                         - `72` - HDDT
+ *                         See https://github.com/ppy/osu-api/wiki#mods
+ * @property {number} acc The accuracy used for the calculation
+ * @property {number} sliderEndHits The amount of slider end hits used for the calculation. Only used in the osu! ruleset in osu!(lazer)
+ * @property {number} smallTickHits The amount of "small tick" hits. These are essentially the slider end hits for osu!(lazer) scores without slider accuracy. Only used in the osu! ruleset
+ * @property {number} largeTickHits The amount of "large tick" hits. The meaning depends on the kind of score:
+ *                                  - if set on osu!(stable), this value is irrelevant and can be `0`
+ *                                  - if set on osu!(lazer) *without* `CL`, this value is the amount of hit slider ticks and repeats
+ *                                  - if set on osu!(lazer) *with* `CL`, this value is the amount of hit slider heads, ticks, and repeats
  */
 
 
 
 /** @typedef {object} CALCULATE_PP_RESPONSE
- * @property {object} difficulty
- * @property {number} difficulty.mode
- * @property {number} difficulty.stars
- * @property {boolean} difficulty.isConvert
- * @property {number} difficulty.aim
- * @property {number} difficulty.speed
- * @property {number} difficulty.flashlight
- * @property {number} difficulty.sliderFactor
- * @property {number} difficulty.speedNoteCount
- * @property {number} difficulty.od
- * @property {number} difficulty.hp
- * @property {number} difficulty.nCircles
- * @property {number} difficulty.nSliders
- * @property {number} difficulty.nSpinners
- * @property {number} difficulty.ar
- * @property {number} difficulty.maxCombo
- * @property {object} state
- * @property {number} state.maxCombo
- * @property {number} state.nGeki
- * @property {number} state.nKatu
- * @property {number} state.n300
- * @property {number} state.n100
- * @property {number} state.n50
- * @property {number} state.misses
- * @property {number} pp
- * @property {number} ppAim
- * @property {number} ppFlashlight
- * @property {number} ppSpeed
- * @property {number} ppAccuracy
- * @property {number} effectiveMissCount
+ * @property {object} difficulty The difficulty attributes
+ * @property {0 | 1 | 2 | 3} difficulty.mode The ruleset used for the calculation:
+ *                                           - `0` - osu!
+ *                                           - `1` - osu!taiko
+ *                                           - `2` - osu!catch
+ *                                           - `3` - osu!mania
+ * @property {number} difficulty.stars The final star rating
+ * @property {boolean} difficulty.isConvert Whether the map is a convert
+ * @property {number} [difficulty.aim] The difficulty of the aim skill. Only available for the osu! ruleset
+ * @property {number} [difficulty.aimDifficultSliderCount] The amount of sliders weighted by difficulty. Only available for the osu! ruleset
+ * @property {number} [difficulty.speed] The difficulty of the speed skill. Only available for the osu! ruleset
+ * @property {number} [difficulty.flashlight] The difficulty of the flashlight skill. Only available for the osu! ruleset
+ * @property {number} [difficulty.sliderFactor] The ratio of the aim strain with and without considering sliders. Only available for the osu! ruleset
+ * @property {number} [difficulty.speedNoteCount] The amount of clickable objects weighted by difficulty. Only available for the osu! ruleset
+ * @property {number} [difficulty.aimDifficultStrainCount] Weighted sum of aim strains. Only available for the osu! ruleset
+ * @property {number} [difficulty.speedDifficultStrainCount] Weighted sum of speed strains. Only available for the osu! ruleset
+ * @property {number} [difficulty.hp] The health drain rate.  Only available for the osu! ruleset
+ * @property {number} [difficulty.nCircles] The amount of circles. Only available for the osu! ruleset
+ * @property {number} [difficulty.nSliders] The amount of sliders. Only available for the osu! ruleset
+ * @property {number} [difficulty.nLargeTicks] The amount of "large tick" hits. Only available for the osu! ruleset. The meaning depends on the kind of score:
+ *                                             - if set on osu!(stable), this value is irrelevant
+ *                                             - if set on osu!(lazer) *with* slider accuracy, this value is the amount of hit slider ticks and repeats
+ *                                             - if set on osu!(lazer) *without* slider accuracy, this value is the amount of hit slider heads, ticks, and repeats
+ * @property {number} [difficulty.nSpinners] The amount of spinners. Only available for the osu! ruleset
+ * @property {number} [difficulty.stamina] The difficulty of the stamina skill. Only available for the osu!taiko ruleset
+ * @property {number} [difficulty.rhythm] The difficulty of the rhythm skill. Only available for the osu!taiko ruleset
+ * @property {number} [difficulty.color] The difficulty of the color skill. Only available for the osu!taiko ruleset
+ * @property {number} [difficulty.reading] The difficulty of the reading skill. Only available for the osu!taiko ruleset
+ * @property {number} [difficulty.nFruits] The amount of fruits. Only available for the osu!catch ruleset
+ * @property {number} [difficulty.nDroplets] The amount of droplets. Only available for the osu!catch ruleset
+ * @property {number} [difficulty.nTinyDroplets] The amount of tiny droplets. Only available for the osu!catch ruleset
+ * @property {number} [difficulty.nObjects] The amount of hitobjects in the beatmap. Only available for the osu!mania ruleset
+ * @property {number} [difficulty.nHoldNotes] The amount of hold notes in the beatmap. Only available for the osu!mania ruleset
+ * @property {number} [difficulty.ar] The Approach Rate. Only available for the osu! and osu!catch rulesets
+ * @property {number} [difficulty.od] The Overall Difficulty. Only available for the osu! ruleset
+ * @property {number} [difficulty.greatHitWindow] The hit window for the hit300s AFTER rate adjustments. Only available for the osu! and osu!taiko rulesets
+ * @property {number} [difficulty.okHitWindow] The hit window for the hit100s AFTER rate adjustments. Only available for the osu! and osu!taiko rulesets
+ * @property {number} [difficulty.mehHitWindow] The hit window for the hit50s AFTER rate adjustments. Only available for the osu! ruleset
+ * @property {number} [difficulty.monoStaminaFactor] The ratio of stamina difficulty from mono-color (single color) streams to total stamina difficulty. Only available for the osu!taiko ruleset
+ * @property {number} difficulty.maxCombo The maximum combo
+ * @property {object} state The hitresults count that was used for the calculation
+ * @property {number} state.maxCombo The maximum combo that the score had so far. Note that:
+ *                                   - This is always `0` in osu!mania
+ *                                   - In osu!catch, only fruits and droplets contribute towards combo
+ * @property {number} state.osuLargeTickHits The amount of "large tick" hits. The meaning depends on the kind of score:
+ *                                           - if set on osu!(stable), this value is irrelevant and can be `0`
+ *                                           - if set on osu!(lazer) *without* `CL`, this value is the amount of hit slider ticks and repeats
+ *                                           - if set on osu!(lazer) *with* `CL`, this value is the amount of hit slider heads, ticks, and repeats
+ * @property {number} state.smallTickHits The amount of "small tick" hits. These are essentially the slider end hits for osu!(lazer) scores without slider accuracy. Populated only in the osu! ruleset
+ * @property {number} state.osuSliderEndHits The amount of slider end hits used for the calculation. Populated only in the osu! ruleset in osu!(lazer)
+ * @property {number} state.nGeki The amount of gekis. Used as `n320` in osu!mania
+ * @property {number} state.nKatu The amount of katus. Used as `n200` in osu!mania
+ * @property {number} state.n300 The amount of 300s. Used as `nFruits` in osu!catch
+ * @property {number} state.n100 The amount of 100s. Used as `nDroplets` in osu!catch
+ * @property {number} state.n50 The amount of 50s. Used as `nTinyDroplets` in osu!catch
+ * @property {number} state.misses  The amount of misses. Used as `nFruits + nDroplets` in osu!catch
+ * @property {number} pp The final pp value
+ * @property {number} [ppAim] The aim portion of the final pp. Only available for the osu! ruleset
+ * @property {number} [ppFlashlight] The flashlight portion of the final pp. Only available for the osu! ruleset
+ * @property {number} [ppSpeed] The spped portion of the final pp. Only available for the osu! ruleset
+ * @property {number} [ppAccuracy] The accuracy portion of the final pp. Only available for the osu! and osu!taiko rulesets
+ * @property {number} [effectiveMissCount] Scaled miss count based on total hits. Only available for the osu! and osu!taiko rulesets
+ * @property {number} [estimatedUnstableRate] The upper bound of the player's unstable rate. Only available for the osu!taiko ruleset
+ * @property {number} [speedDeviation] The approximated unstable rate. Only available for the osu! ruleset
+ * @property {number} [ppDifficulty] The strain portion of the final pp. Only available for the osu!taiko and osu!mania rulesets
  */
 
 
@@ -413,9 +466,9 @@ export default WebSocketManager;
  * @property {number} gameplay.leaderboard.ourplayer.h100
  * @property {number} gameplay.leaderboard.ourplayer.h50
  * @property {number} gameplay.leaderboard.ourplayer.h0
- * @property {number} gameplay.leaderboard.ourplayer.team
+ * @property {1 | 2} gameplay.leaderboard.ourplayer.team
  * @property {number} gameplay.leaderboard.ourplayer.position
- * @property {number} gameplay.leaderboard.ourplayer.isPassing
+ * @property {0 | 1} gameplay.leaderboard.ourplayer.isPassing
  * @property {object[]} gameplay.leaderboard.slots
  * @property {string} gameplay.leaderboard.slots.name
  * @property {number} gameplay.leaderboard.slots.score
@@ -426,9 +479,9 @@ export default WebSocketManager;
  * @property {number} gameplay.leaderboard.slots.h100
  * @property {number} gameplay.leaderboard.slots.h50
  * @property {number} gameplay.leaderboard.slots.h0
- * @property {number} gameplay.leaderboard.slots.team
+ * @property {1 | 2} gameplay.leaderboard.slots.team
  * @property {number} gameplay.leaderboard.slots.position
- * @property {number} gameplay.leaderboard.slots.isPassing
+ * @property {0 | 1} gameplay.leaderboard.slots.isPassing
  * @property {boolean} gameplay._isReplayUiHidden
  * @property {object} resultsScreen
  * @property {number} resultsScreen.0
@@ -463,7 +516,11 @@ export default WebSocketManager;
  * @property {string} userProfile.backgroundColour
  * @property {object} tourney
  * @property {object} tourney.manager
- * @property {number} tourney.manager.ipcState
+ * @property {0 | 1 | 2 | 3 | 4} tourney.manager.ipcState - `0` - Initialising
+ *                                                        - `1` - Idle
+ *                                                        - `2` - Waiting for clients
+ *                                                        - `3` - Playing
+ *                                                        - `4` - Ranking
  * @property {number} tourney.manager.bestOF
  * @property {object} tourney.manager.teamName
  * @property {string} tourney.manager.teamName.left
@@ -475,7 +532,7 @@ export default WebSocketManager;
  * @property {boolean} tourney.manager.bools.scoreVisible
  * @property {boolean} tourney.manager.bools.starsVisible
  * @property {object[]} tourney.manager.chat
- * @property {string} tourney.manager.chat.team
+ * @property {'left' | 'right' | 'BanchoBot' | 'unknown'} tourney.manager.chat.team
  * @property {string} tourney.manager.chat.time
  * @property {string} tourney.manager.chat.name
  * @property {string} tourney.manager.chat.messageBody
@@ -484,7 +541,7 @@ export default WebSocketManager;
  * @property {number} tourney.manager.gameplay.score.left
  * @property {number} tourney.manager.gameplay.score.right
  * @property {object[]} tourney.ipcClients
- * @property {string} tourney.ipcClients.team
+ * @property {'left' | 'right'} tourney.ipcClients.team
  * @property {object} tourney.ipcClients.spectating
  * @property {string} tourney.ipcClients.spectating.name
  * @property {string} tourney.ipcClients.spectating.country
@@ -523,6 +580,9 @@ export default WebSocketManager;
 
 
 /** @typedef {object} WEBSOCKET_V2
+ * @property {object} game
+ * @property {boolean} game.focused
+ * @property {boolean} paused
  * @property {'stable' | 'lazer'} client
  * @property {string} server
  * @property {object} state
@@ -554,10 +614,10 @@ export default WebSocketManager;
  * @property {number} settings.resolution.heightFullscreen
  * @property {object} settings.client
  * @property {boolean} settings.client.updateAvailable
- * @property {0 | 1 | 2 | 3} settings.client.branch - 0: Cutting Edge
- *                                                  - 1: Stable
- *                                                  - 2: Beta
- *                                                  - 3: Stable (Fallback)
+ * @property {0 | 1 | 2 | 3} settings.client.branch - `0` - Cutting Edge (or Lazer in osu!(lazer))
+ *                                                  - `1` - Stable (or Tachyon in osu!(lazer))
+ *                                                  - `2` - Beta
+ *                                                  - `3` - Stable (Fallback)
  * @property {string} settings.client.version The full build version, e.g. `b20241029cuttingedge`
  * @property {object} settings.scoreMeter
  * @property {object} settings.scoreMeter.type
@@ -589,7 +649,7 @@ export default WebSocketManager;
  * @property {boolean} settings.mania.usePerBeatmapSpeedScale
  * @property {number} settings.mania.scrollSpeed
  * @property {object} settings.mania.scrollDirection
- * @property {number} settings.mania.scrollDirection.number
+ * @property {0 | 1} settings.mania.scrollDirection.number
  * @property {'up' | 'down'} settings.mania.scrollDirection.name
  * @property {object} settings.sort
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7} settings.sort.number
@@ -692,7 +752,7 @@ export default WebSocketManager;
  * @property {number} [beatmap.stats.stars.stamina] This is available only in the osu!taiko ruleset
  * @property {number} [beatmap.stats.stars.rhythm] This is available only in the osu!taiko ruleset
  * @property {number} [beatmap.stats.stars.color] This is available only in the osu!taiko ruleset
- * @property {number} [beatmap.stats.stars.peak] This is available only in the osu!taiko ruleset
+ * @property {number} [beatmap.stats.stars.reading] This is available only in the osu!taiko ruleset
  * @property {number} [beatmap.stats.stars.hitWindow] 300's hit window; this is available only in the osu!mania ruleset
  * @property {number} beatmap.stats.stars.total
  * @property {object} beatmap.stats.ar
@@ -720,6 +780,7 @@ export default WebSocketManager;
  * @property {number} beatmap.stats.objects.total
  * @property {number} beatmap.stats.maxCombo
  * @property {object} play
+ * @property {boolean} play.failed
  * @property {string} play.playerName
  * @property {object} play.mode
  * @property {0 | 1 | 2 | 3} play.mode.number
@@ -738,7 +799,8 @@ export default WebSocketManager;
  * @property {number} play.hits.katu This is also used as the 200's count in the osu!mania ruleset
  * @property {number} play.hits.sliderBreaks
  * @property {number} play.hits.sliderEndHits This is populated only when playing osu!(lazer)
- * @property {number} play.hits.sliderTickHits This is populated only when playing osu!(lazer)
+ * @property {number} play.hits.smallTickHits This is populated only when playing osu!(lazer)
+ * @property {number} play.hits.largeTickHits This is populated only when playing osu!(lazer)
  * @property {number[]} play.hitErrorArray
  * @property {object} play.combo
  * @property {number} play.combo.current
@@ -778,7 +840,7 @@ export default WebSocketManager;
  * @property {object[]} leaderboard
  * @property {boolean} leaderboard.isFailed
  * @property {number} leaderboard.position
- * @property {number} leaderboard.team
+ * @property {1 | 2} leaderboard.team
  * @property {number} leaderboard.id
  * @property {string} leaderboard.name
  * @property {number} leaderboard.score
@@ -869,7 +931,11 @@ export default WebSocketManager;
  * @property {object} tourney
  * @property {boolean} tourney.scoreVisible
  * @property {boolean} tourney.starsVisible
- * @property {number} tourney.ipcState
+ * @property {0 | 1 | 2 | 3 | 4} tourney.ipcState - `0` - Initialising
+ *                                                - `1` - Idle
+ *                                                - `2` - Waiting for clients
+ *                                                - `3` - Playing
+ *                                                - `4` - Ranking
  * @property {number} tourney.bestOF
  * @property {object} tourney.team
  * @property {string} tourney.team.left
@@ -878,7 +944,7 @@ export default WebSocketManager;
  * @property {number} tourney.points.left
  * @property {number} tourney.points.right
  * @property {object[]} tourney.chat
- * @property {string} tourney.chat.team
+ * @property {'left' | 'right' | 'BanchoBot' | 'unknown'} tourney.chat.team
  * @property {string} tourney.chat.name
  * @property {string} tourney.chat.message
  * @property {string} tourney.chat.timestamp
@@ -888,6 +954,9 @@ export default WebSocketManager;
  * @property {object[]} tourney.clients
  * @property {number} tourney.clients.ipcId
  * @property {'left' | 'right'} tourney.clients.team
+ * @property {object} tourney.clients.settings
+ * @property {object} tourney.clients.settings.mania
+ * @property {number} tourney.clients.settings.mania.scrollSpeed
  * @property {object} tourney.clients.user
  * @property {number} tourney.clients.user.id
  * @property {string} tourney.clients.user.name
