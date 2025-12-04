@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>quickstart-example</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--        YOUR STYLES HERE        -->
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    #overlay {
+      background: black;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    #cursor {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid white;
+      border-radius: 50%;
+      pointer-events: none;
+      transition: transform 16ms linear;
+      z-index: 1;
+    }
+
+    #trail {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(50%, -50%) scale(0.3);
+      transition: opacity 0.5s;
+    }
+
+    /* @keyframes fade {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+    } */
+  </style>
+</head>
+
+<body>
+  <div id="overlay">
+
+    <div id="cursor"></div>
+    <div id="trail"> </div>
+    
+  </div>
+
+
+
+  <!--        YOUR COUNTER LOGIC FILES        -->
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>

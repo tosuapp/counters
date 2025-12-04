@@ -1,0 +1,8 @@
+Usecase: ingame, obs-overlay
+Name: Ness-Mouse-Overlay
+Version: 1-Beta
+Author: ⅅᎯℛᏦ ℰℂℕℰℒℐЅ
+CompatibleWith: tosu
+Resolution:  ## Width x Height
+authorLinks: https://github.com/DARK-ECNELIS
+Notes: Just Some Test
