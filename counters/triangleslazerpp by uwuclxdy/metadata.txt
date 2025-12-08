@@ -1,0 +1,8 @@
+Usecase: ingame, obs-overlay
+Name: Triangles PP Counter
+Version: 1.0
+Author: uwuclxdy
+CompatibleWith: tosu
+Resolution: 200x35
+authorLinks: https://github.com/uwuclxdy
+Notes: PP Counter that tries to match the "Triangles" design from osu!lazer.

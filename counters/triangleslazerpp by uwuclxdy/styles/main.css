@@ -1,0 +1,52 @@
+/* use venera 700 local font from ../font/Venera-700.otf */
+@font-face {
+  font-family: "Venera";
+  src: url("../font/Venera-700.otf") format("opentype");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pp-size: 30px;
+  --label-size: 20px;
+  --spacing: 10px;
+  --pp-color: #e0ffff;
+  --label-color: #e0ffff;
+  --label-display: inline;
+}
+
+body {
+  font-family: "Venera", sans-serif;
+  color: #e0ffff;
+  background-color: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  height: 100vh;
+}
+
+.main {
+    display: flex;
+    align-items: flex-end;
+}
+
+.pp-container {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing);
+}
+
+#pp {
+  font-size: var(--pp-size);
+  line-height: 1;
+  color: var(--pp-color);
+}
+
+.label {
+  font-size: var(--label-size);
+  color: var(--label-color);
+  display: var(--label-display);
+}
+
