@@ -1,0 +1,50 @@
+[
+    {
+        "uniqueID": "ppSize",
+        "type": "number",
+        "title": "PP Value Size",
+        "description": "Font size in px",
+        "options": "",
+        "value": 30
+    },
+    {
+        "uniqueID": "labelSize",
+        "type": "number",
+        "title": "Label Size",
+        "description": "Font size in px",
+        "options": "",
+        "value": 15
+    },
+    {
+        "uniqueID": "spacing",
+        "type": "number",
+        "title": "Spacing",
+        "description": "Spacing between PP value and label in px",
+        "options": "",
+        "value": 3.5
+    },
+    {
+        "uniqueID": "ppColor",
+        "type": "color",
+        "title": "PP Value Color",
+        "description": "",
+        "options": "",
+        "value": "#e0ffff"
+    },
+    {
+        "uniqueID": "labelColor",
+        "type": "color",
+        "title": "Label Color",
+        "description": "",
+        "options": "",
+        "value": "#e0ffff"
+    },
+    {
+        "uniqueID": "showLabel",
+        "type": "checkbox",
+        "title": "Show Label",
+        "description": "Toggle PP label visibility",
+        "options": "",
+        "value": true
+    }
+]
