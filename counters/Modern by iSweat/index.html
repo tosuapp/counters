@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Modern v1.0</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/fonts.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/odometr.css" />
+</head>
+
+<body>
+    <div class="overlay-container">
+        <div class="card">
+            <div class="player-stats-game">
+                <div class="stat-group stat-group--performance">
+                    <div class="stat-item stat-item--pp-realtime">
+                        <span id="realtime-pp" class="pp-realtime stat-value">0</span><span class="stat-label">pp</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hitValue">
+                <div class="hit-count hit-count--great">
+                    <span id="great-hits" class="hit-value">0</span>
+                    <div class="great-hits-color"></div>
+                </div>
+
+                <div class="hit-count hit-count--good">
+                    <span id="good-hits" class="hit-value">0</span>
+                    <div class="good-hits-color"></div>
+                </div>
+
+                <div class="hit-count hit-count--miss">
+                    <span id="miss-hits" class="hit-value">0</span>
+                    <div class="miss-hits-color"></div>
+                </div>
+            </div>
+        </div>
+        <div class="progressBar">
+            <div id="progressBarFill" class="progressBar-fill"></div>
+        </div>
+    </div>
+
+    <!-- OTHER SCRIPTS -->
+    <script src="js/countUp.js"></script>
+    <script src="js/odometr.js"></script>
+
+    <!--  COUNTER LOGIC FILE -->
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>

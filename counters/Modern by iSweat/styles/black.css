@@ -1,0 +1,152 @@
+:root {
+    /* Colors */
+    --miss-color: #FF5252;
+    --meh-color: #EFC92F;
+    --great-color: #74FF33;
+    --primary-color: #9532FF;
+
+    /* Dark theme */
+    --dark-mode-bg-color: #2C2C2C;
+    --dark-mode-text-color: #EDEDED;
+
+    /* Light theme */
+    --bg-color: #EDEDED;
+    --text-color: #2C2C2C;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+body {
+    color: var(--dark-mode-text-color);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* .odometer {
+    font-family: "Roboto Mono", monospace;
+} */
+
+/* Container principal */
+.overlay-container {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 5px;
+}
+
+/* Carte */
+.card {
+    background-color: var(--dark-mode-bg-color);
+    width: 870px;
+    height: 150px;
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    z-index: 2;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+}
+
+/* Stats joueur */
+.player-stats-game {
+    display: flex;
+    align-items: center;
+}
+
+.stat-group--performance {
+    display: flex;
+    align-items: center;
+}
+
+.stat-item--pp-realtime {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+.stat-value {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--dark-mode-text-color);
+    letter-spacing: -2.5px;
+}
+
+.stat-label {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+/* Hit values */
+.hitValue { 
+    display: flex; 
+    flex-direction: row; 
+    gap: 40px;
+}
+
+.hit-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.hit-value {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--dark-mode-text-color);
+    line-height: 1;
+    min-width: 60px;
+    text-align: center;
+}
+
+.great-hits-color {
+    background-color: var(--great-color);
+    width: 130px;
+    height: 11px;
+    border-radius: 10px;
+}
+
+.good-hits-color {
+    background-color: var(--meh-color);
+    width: 130px;
+    height: 11px;
+    border-radius: 10px;
+}
+
+.miss-hits-color {
+    background-color: var(--miss-color);
+    width: 130px;
+    height: 11px;
+    border-radius: 10px;
+}
+
+/* Progress bar */
+.progressBar {
+    width: 870px;
+    height: 50px;
+    background-color: #656565;
+    border-radius: 10px;
+    z-index: 1;
+    position: relative;
+    margin-top: -49px;
+}
+
+.progressBar-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    position: relative;
+    transition: width 0.25s ease-in-out;
+}
