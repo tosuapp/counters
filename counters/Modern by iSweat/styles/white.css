@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('Poppins-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
 :root {
     /* Colors */
     --miss-color: #FF5252;
@@ -26,10 +41,6 @@ body {
     color: var(--text-color);
     font-family: 'Poppins', sans-serif;
 }
-
-/* .odometer {
-    font-family: "Roboto Mono", monospace;
-} */
 
 /* Container principal */
 .overlay-container {
@@ -88,9 +99,9 @@ body {
 }
 
 /* Hit values */
-.hitValue { 
-    display: flex; 
-    flex-direction: row; 
+.hitValue {
+    display: flex;
+    flex-direction: row;
     gap: 40px;
 }
 
