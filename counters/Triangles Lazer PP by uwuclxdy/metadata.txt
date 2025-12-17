@@ -1,5 +1,5 @@
 Usecase: ingame, obs-overlay
-Name: Triangles PP Counter
+Name: Triangles Lazer PP
 Version: 1.0
 Author: uwuclxdy
 CompatibleWith: tosu
