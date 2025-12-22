@@ -1,7 +1,34 @@
 const HOST = window.location.host;
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 
-socket.onopen = () => console.log("Successfully Connected");
+socket.onopen = () => {
+    console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'menu',
+            keys: [
+                'state',
+                {
+                    field: 'pp',
+                    keys: ['100']
+                }
+            ],
+        },
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'pp',
+                    keys: ['current', 'fc']
+                },
+                {
+                    field: 'hits',
+                    keys: ['0']
+                },
+            ]
+        },
+    ])}`)
+}
 socket.onclose = event => {
     console.log("Socket Closed Connection: ", event);
     socket.send("Client Closed!");
@@ -34,8 +61,8 @@ socket.onmessage = event => {
         };
     };
 
-    if(cache['misses'] != data.play.hits[0]) {
-        document.querySelector('.ifFcpp').style.opacity = data.play.hits[0] > 0;
+    if (cache['misses'] != data.gameplay.hits[0]) {
+        document.querySelector('.ifFcpp').style.opacity = data.gameplay.hits[0] > 0;
     }
 
 

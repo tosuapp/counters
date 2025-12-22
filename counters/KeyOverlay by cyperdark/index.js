@@ -359,7 +359,34 @@ socket.api_v2((data) => {
   } catch (error) {
     console.log(error);
   };
-});
+}, [
+  {
+    field: 'state',
+    keys: ['number']
+  },
+  {
+    field: 'beatmap',
+    keys: [
+      {
+        field: 'time',
+        keys: ['live']
+      }
+    ]
+  },
+  {
+    field: 'settings',
+    keys: [
+      {
+        field: 'keybinds',
+        keys: [
+          {
+            field: 'osu',
+            keys: ['k1', 'k2']
+          }]
+      }
+    ]
+  }
+]);
 
 
 socket.api_v2_precise((data) => {
@@ -406,4 +433,4 @@ socket.api_v2_precise((data) => {
   } catch (err) {
     console.log(err);
   };
-});
+}, ['keys']);

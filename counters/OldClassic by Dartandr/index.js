@@ -12,6 +12,47 @@ let progressChart = document.getElementById("progress")
 
 socket.onopen = () => {
     console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'menu',
+            keys: [
+                {
+                    field: 'bm',
+                    keys: [
+                        {
+                            field: 'time',
+                            keys: ['current', 'mp3']
+                        },
+                        {
+                            field: 'path',
+                            keys: ['full']
+                        },
+                        {
+                            field: 'metadata',
+                            keys: ['artist', 'title']
+                        },
+                    ]
+                },
+                {
+                    field: 'pp',
+                    keys: ['strains']
+                }
+            ]
+        },
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'pp',
+                    keys: ['current']
+                },
+                {
+                    field: 'hits',
+                    keys: ['100', '50', '0']
+                }
+            ]
+        }
+    ])}`)
 };
 
 socket.onclose = event => {

@@ -11,6 +11,43 @@ let time = document.getElementById("time");
 
 socket.onopen = () => {
     console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'menu',
+            keys: [
+                {
+                    field: 'bm',
+                    keys: [
+                        {
+                            field: 'path',
+                            keys: ['full']
+                        },
+                        {
+                            field: 'time',
+                            keys: ['current']
+                        },
+                        {
+                            field: 'stats',
+                            keys: ['SR']
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'pp',
+                    keys: ['current']
+                },
+                {
+                    field: 'hits',
+                    keys: ['100', '50', '0']
+                }
+            ]
+        }
+    ])}`)
 };
 
 socket.onclose = event => {

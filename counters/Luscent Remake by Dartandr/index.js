@@ -13,6 +13,49 @@ let pp = document.getElementById("pp");
 
 socket.onopen = () => {
     console.log("Successfully Connected");
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'menu',
+            keys: [
+                'state',
+                {
+                    field: 'bm',
+                    keys: [
+                        'id',
+                        {
+                            field: 'path',
+                            keys: ['full']
+                        },
+                        {
+                            field: 'metadata',
+                            keys: ['artist', 'title', 'difficulty', 'mapper']
+                        },
+                        {
+                            field: 'stats',
+                            keys: ['fullSR']
+                        },
+                        {
+                            field: 'time',
+                            keys: ['current', 'mp3']
+                        }
+                    ]
+                },
+                {
+                    field: 'pp',
+                    keys: ['strains', '100']
+                }
+            ]
+        },
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'pp',
+                    keys: ['current', 'fc']
+                },
+            ]
+        }
+    ])}`)
 };
 
 socket.onclose = event => {
