@@ -32,6 +32,10 @@ socket.onopen = () => {
                             keys: ['artist', 'title']
                         },
                     ]
+                },
+                {
+                    field: 'pp',
+                    keys: ['strains']
                 }
             ]
         },
@@ -40,7 +44,7 @@ socket.onopen = () => {
             keys: [
                 {
                     field: 'pp',
-                    keys: ['current', 'strains']
+                    keys: ['current']
                 },
                 {
                     field: 'hits',

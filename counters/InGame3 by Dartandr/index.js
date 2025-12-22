@@ -21,17 +21,12 @@ socket.onopen = () => {
                     field: 'pp',
                     keys: ['current', 'fc']
                 },
-            ]
-        },
-        {
-            field: 'play',
-            keys: [
                 {
                     field: 'hits',
                     keys: ['0']
                 },
-            ]       
-        }
+            ]
+        },
     ])}`)
 }
 socket.onclose = event => {
@@ -66,8 +61,8 @@ socket.onmessage = event => {
         };
     };
 
-    if(cache['misses'] != data.play.hits[0]) {
-        document.querySelector('.ifFcpp').style.opacity = data.play.hits[0] > 0;
+    if (cache['misses'] != data.gameplay.hits[0]) {
+        document.querySelector('.ifFcpp').style.opacity = data.gameplay.hits[0] > 0;
     }
 
 

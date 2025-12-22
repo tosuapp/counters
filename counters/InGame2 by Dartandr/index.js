@@ -17,7 +17,11 @@ socket.onopen = () => {
                             keys: ['current', 'mp3']
                         }
                     ]
-                }
+                },
+                {
+                    field: 'pp',
+                    keys: ['100']
+                },
             ],
         },
         {
@@ -25,7 +29,7 @@ socket.onopen = () => {
             keys: [
                 {
                     field: 'pp',
-                    keys: ['current', 'fc', '100']
+                    keys: ['current', 'fc']
                 },
                 {
                     field: 'hits',
@@ -64,7 +68,7 @@ socket.onmessage = event => {
             animation.pp.update(cache['pp']);
         };
 
-        if(cache['pp100']) cache['pp100'] = undefined;
+        if (cache['pp100']) cache['pp100'] = undefined;
     } else {
         if (cache['pp100'] != data.menu.pp[100]) {
             cache['pp100'] = data.menu.pp[100];

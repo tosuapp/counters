@@ -201,6 +201,16 @@ socket.api_v2(({ client, state, settings, beatmap, play, folders, files }) => {
         keys: ['name'],
     },
     {
+        field: 'beatmap',
+        keys: [
+            'isConvert',
+            {
+                field: 'stats',
+                keys: ['od', 'cs']
+            }
+        ],
+    },
+    {
         field: 'settings',
         keys: [
             {
@@ -226,7 +236,29 @@ socket.api_v2(({ client, state, settings, beatmap, play, folders, files }) => {
                 keys: ['dim'],
             }
         ],
-    }
+    },
+    {
+        field: 'play',
+        keys: [
+            {
+                field: 'mods',
+                keys: ['name', 'rate']
+            },
+            'unstableRate'
+        ],
+    },
+    {
+        field: 'folders',
+        keys: [
+            'beatmap',
+        ],
+    },
+    {
+        field: 'files',
+        keys: [
+            'background',
+        ],
+    },
 ]);
 
 socket.api_v2_precise(({ hitErrors }) => {

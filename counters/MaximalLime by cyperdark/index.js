@@ -25,13 +25,13 @@ socket.onopen = () => {
                         {
                             field: 'time',
                             keys: ['current']
+                        },
+                        {
+                            field: 'stats',
+                            keys: ['SR']
                         }
                     ]
                 },
-                {
-                    field: 'stats',
-                    keys: ['SR']
-                }
             ]
         },
         {
