@@ -176,28 +176,12 @@
         "value": 800
     },
     {
-        "uniqueID": "showSD",
-        "type": "checkbox",
-        "title": "Show UR (ms)",
-        "description": "",
-        "options": [],
-        "value": false
-    },
-    {
         "uniqueID": "isRounded",
         "type": "number",
         "title": "Rounded Elements (%)",
         "description": "",
         "options": [],
         "value": 100
-    },
-    {
-        "uniqueID": "hardwareAcceleration",
-        "type": "checkbox",
-        "title": "Disable Hardware Acceleration",
-        "description": "only check this if you are using the overlay in the ingame overlay injector",
-        "options": [],
-        "value": false
     },
     {
         "uniqueID": "useCustomTimingWindows",

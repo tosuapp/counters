@@ -1,7 +1,7 @@
 /*
  * find the original source code at https://github.com/breadles5/customhiterrorbar
  */
-true&&(function polyfill() {
+true              &&(function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
     return;
@@ -145,6 +145,134 @@ class WebSocketManager {
   }
 }
 
+const settings = {
+  TimingWindowOpacity: 0,
+  barHeight: 60,
+  barWidth: 8,
+  colorBar: "#bf0000",
+  tickWidth: 8,
+  tickHeight: 40,
+  tickDuration: 500,
+  tickOpacity: 0.75,
+  fadeOutDuration: 800,
+  arrowSize: 25,
+  perfectArrowThreshold: 5,
+  colorArrowEarly: "#0080ff",
+  colorArrowLate: "#ff0000",
+  colorArrowPerfect: "#ffffff",
+  timingWindowHeight: 40,
+  isRounded: 100,
+  color300g: "transparent",
+  color300: "transparent",
+  color200: "transparent",
+  color100: "transparent",
+  color50: "transparent",
+  color0: "transparent",
+  useCustomTimingWindows: false,
+  customTimingWindows: "16.5,64,97,127,151"
+};
+const root = typeof document !== "undefined" ? document.documentElement : { style: { setProperty: () => {
+} } };
+let lastWindowHeight = 0;
+let lastRoundedPercent = 0;
+const SETTINGS_LOG_PREFIX$1 = "[SETTINGS]";
+const updateSettings = (message) => {
+  console.log(`${SETTINGS_LOG_PREFIX$1} Applying settings update`, message);
+  ({ ...settings });
+  let hasVisualChanges = false;
+  let hasLayoutChanges = false;
+  const changedKeys = [];
+  for (const [key, value] of Object.entries(message)) {
+    const typedKey = key;
+    if (Object.prototype.hasOwnProperty.call(settings, typedKey) && settings[typedKey] !== value) {
+      settings[key] = value;
+      changedKeys.push(key);
+      if (key.startsWith("color") || key === "TimingWindowOpacity") {
+        hasVisualChanges = true;
+      } else {
+        hasLayoutChanges = true;
+      }
+    }
+  }
+  if (changedKeys.length === 0) {
+    console.log(`${SETTINGS_LOG_PREFIX$1} No changes detected in incoming update.`);
+  } else {
+    console.log(`${SETTINGS_LOG_PREFIX$1} Updated keys: ${changedKeys.join(", ")}`);
+  }
+  if (hasLayoutChanges) {
+    console.log(`${SETTINGS_LOG_PREFIX$1} Applying layout-related CSS updates.`);
+    updateCSSLayout();
+  }
+  if (hasVisualChanges) {
+    console.log(`${SETTINGS_LOG_PREFIX$1} Applying visual-related CSS updates.`);
+    updateCSSColors();
+  }
+  if (hasVisualChanges) {
+    console.log(`${SETTINGS_LOG_PREFIX$1} Applying visual-related CSS updates.`);
+    updateCSSColors();
+  }
+};
+const updateCSSLayout = () => {
+  const { barWidth, barHeight, tickWidth, tickHeight, timingWindowHeight, isRounded } = settings;
+  const windowHeight = window.innerHeight;
+  const timingWindowHeightPx = barHeight * timingWindowHeight / 100;
+  if (Math.abs(windowHeight - lastWindowHeight) > 1) {
+    root.style.setProperty("--window-height", `${windowHeight}px`);
+    lastWindowHeight = windowHeight;
+  }
+  const roundedPercent = Math.min(100, Math.max(0, isRounded));
+  if (roundedPercent !== lastRoundedPercent) {
+    root.style.setProperty("--border-radius", `${roundedPercent}%`);
+    lastRoundedPercent = roundedPercent;
+  }
+  const radiusScale = roundedPercent / 100;
+  const barRadiusPx = barWidth / 2 * radiusScale;
+  const tickRadiusPx = tickWidth / 2 * radiusScale;
+  const timingWindowRadiusPx = timingWindowHeightPx / 2 * radiusScale;
+  root.style.setProperty("--bar-radius", `${barRadiusPx}px`);
+  root.style.setProperty("--tick-radius", `${tickRadiusPx}px`);
+  root.style.setProperty("--timing-window-radius", `${timingWindowRadiusPx}px`);
+  root.style.setProperty("--bar-width", `${barWidth}px`);
+  root.style.setProperty("--bar-height", `${barHeight}px`);
+  root.style.setProperty("--tick-width", `${tickWidth}px`);
+  root.style.setProperty("--tick-height", `${tickHeight}px`);
+  root.style.setProperty("--timing-window-height", `${timingWindowHeight}%`);
+  console.log(`${SETTINGS_LOG_PREFIX$1} Calculated radii (px)`, { barRadiusPx, tickRadiusPx, timingWindowRadiusPx });
+};
+const updateCSSColors = () => {
+  const {
+    colorBar,
+    color300g,
+    color300,
+    color200,
+    color100,
+    color50,
+    color0,
+    colorArrowEarly,
+    colorArrowLate,
+    colorArrowPerfect,
+    TimingWindowOpacity
+  } = settings;
+  root.style.setProperty("--color-bar", colorBar);
+  root.style.setProperty("--bar-color", colorBar);
+  root.style.setProperty("--color-300g", color300g);
+  root.style.setProperty("--color-300", color300);
+  root.style.setProperty("--color-200", color200);
+  root.style.setProperty("--color-100", color100);
+  root.style.setProperty("--color-50", color50);
+  root.style.setProperty("--color-0", color0);
+  root.style.setProperty("--color-arrow-early", colorArrowEarly);
+  root.style.setProperty("--arrow-early", colorArrowEarly);
+  root.style.setProperty("--color-arrow-late", colorArrowLate);
+  root.style.setProperty("--arrow-late", colorArrowLate);
+  root.style.setProperty("--color-arrow-perfect", colorArrowPerfect);
+  root.style.setProperty("--arrow-perfect", colorArrowPerfect);
+  root.style.setProperty("--timing-window-opacity", TimingWindowOpacity.toString());
+  root.style.setProperty("--timing-windows-opacity", TimingWindowOpacity.toString());
+};
+updateCSSLayout();
+updateCSSColors();
+
 const elementCache = /* @__PURE__ */ new Map();
 const getElement = (selector) => {
   if (!elementCache.has(selector)) {
@@ -163,12 +291,6 @@ window.addEventListener("unload", () => {
 });
 const setHidden = () => getAllElements("div")?.forEach((div) => div.classList.add("hidden"));
 const setVisible = () => getAllElements("div")?.forEach((div) => div.classList.remove("hidden"));
-const clearSD = () => {
-  const sd = getElement(".sd");
-  if (sd) {
-    sd.textContent = "0.00";
-  }
-};
 function updateTimingWindowElements() {
   requestAnimationFrame(() => {
     const timingWindows = cache.timingWindows;
@@ -176,7 +298,11 @@ function updateTimingWindowElements() {
     if (colorsContainer) {
       colorsContainer.innerHTML = "";
     }
-    const containerWidth = Math.abs(timingWindows.get("0") ?? 0) * 4;
+    let maxWindow = 0;
+    timingWindows.forEach((width) => {
+      if (width > maxWindow) maxWindow = width;
+    });
+    const containerWidth = Math.abs(maxWindow) * 4;
     document.documentElement.style.setProperty("--container-width", `${containerWidth}px`);
     const createTimingWindow = (grade, width) => {
       const div = document.createElement("div");
@@ -191,122 +317,6 @@ function updateTimingWindowElements() {
     colorsContainer?.appendChild(fragment);
   });
 }
-
-const settings = {
-  TimingWindowOpacity: 0,
-  barHeight: 0,
-  barWidth: 0,
-  colorBar: "transparent",
-  tickWidth: 0,
-  tickHeight: 0,
-  tickDuration: 0,
-  tickOpacity: 0,
-  fadeOutDuration: 0,
-  arrowSize: 0,
-  perfectArrowThreshold: 0,
-  colorArrowEarly: "transparent",
-  colorArrowLate: "transparent",
-  colorArrowPerfect: "transparent",
-  timingWindowHeight: 0,
-  isRounded: 0,
-  color300g: "transparent",
-  color300: "transparent",
-  color200: "transparent",
-  color100: "transparent",
-  color50: "transparent",
-  color0: "transparent",
-  showSD: false,
-  disableHardwareAcceleration: false,
-  useCustomTimingWindows: false,
-  customTimingWindows: "16.5,64,97,127,151"
-};
-const root = typeof document !== "undefined" ? document.documentElement : { style: { setProperty: () => {
-} } };
-let lastWindowHeight = 0;
-let lastRoundedPercent = 0;
-const updateSettings = (message) => {
-  const oldSettings = { ...settings };
-  let hasVisualChanges = false;
-  let hasLayoutChanges = false;
-  for (const [key, value] of Object.entries(message)) {
-    const typedKey = key;
-    if (Object.prototype.hasOwnProperty.call(settings, typedKey) && settings[typedKey] !== value) {
-      settings[key] = value;
-      if (key.startsWith("color") || key === "TimingWindowOpacity") {
-        hasVisualChanges = true;
-      } else if (key !== "showSD") {
-        hasLayoutChanges = true;
-      }
-      if (typedKey === "disableHardwareAcceleration") {
-        updateHardwareAcceleration();
-      }
-    }
-  }
-  if (hasLayoutChanges) {
-    updateCSSLayout();
-  }
-  if (hasVisualChanges) {
-    updateCSSColors();
-  }
-  if (Object.prototype.hasOwnProperty.call(message, "showSD") && oldSettings.showSD !== message.showSD) {
-    updateVisibility();
-  }
-};
-const updateHardwareAcceleration = () => {
-  if (settings.disableHardwareAcceleration) {
-    root.style.setProperty("--transform-prop", "none");
-    root.style.setProperty("--will-change-prop", "auto");
-  } else {
-    root.style.setProperty("--transform-prop", "translate3d(0,0,0)");
-    root.style.setProperty("--will-change-prop", "transform, opacity");
-  }
-};
-const updateCSSLayout = () => {
-  root.style.setProperty("--fade-out-duration", `${settings.fadeOutDuration}ms`);
-  root.style.setProperty("--tick-duration", `${settings.tickDuration}ms`);
-  root.style.setProperty("--bar-height", `${settings.barHeight}px`);
-  root.style.setProperty("--bar-width", `${settings.barWidth}px`);
-  root.style.setProperty("--tick-width", `${settings.tickWidth}px`);
-  root.style.setProperty("--tick-height", `${settings.tickHeight}px`);
-  root.style.setProperty("--arrow-size", `${settings.arrowSize}px`);
-  const windowHeight = settings.barHeight * (settings.timingWindowHeight / 100);
-  if (windowHeight !== lastWindowHeight) {
-    lastWindowHeight = windowHeight;
-    const clampedHeight = Math.max(0, Math.min(100, settings.timingWindowHeight));
-    root.style.setProperty("--timing-window-height", `${clampedHeight}`);
-  }
-  const roundedPercent = Math.max(0, Math.min(100, settings.isRounded)) / 100;
-  if (roundedPercent !== lastRoundedPercent) {
-    lastRoundedPercent = roundedPercent;
-    const windowRadius = windowHeight / 2 * roundedPercent;
-    const barRadius = settings.barWidth / 2 * roundedPercent;
-    const tickRadius = settings.tickWidth / 2 * roundedPercent;
-    root.style.setProperty("--timing-window-radius", `${windowRadius}px`);
-    root.style.setProperty("--bar-radius", `${barRadius}px`);
-    root.style.setProperty("--tick-radius", `${tickRadius}px`);
-  }
-};
-const updateCSSColors = () => {
-  const sanitize = (color) => color.toLowerCase() === "#000000" ? "transparent" : color;
-  root.style.setProperty("--timing-windows-opacity", String(settings.TimingWindowOpacity));
-  root.style.setProperty("--tick-opacity", String(settings.tickOpacity));
-  root.style.setProperty("--color-300g", sanitize(settings.color300g));
-  root.style.setProperty("--color-300", sanitize(settings.color300));
-  root.style.setProperty("--color-200", sanitize(settings.color200));
-  root.style.setProperty("--color-100", sanitize(settings.color100));
-  root.style.setProperty("--color-50", sanitize(settings.color50));
-  root.style.setProperty("--color-0", sanitize(settings.color0));
-  root.style.setProperty("--arrow-early", sanitize(settings.colorArrowEarly));
-  root.style.setProperty("--arrow-late", sanitize(settings.colorArrowLate));
-  root.style.setProperty("--arrow-perfect", sanitize(settings.colorArrowPerfect));
-  root.style.setProperty("--bar-color", sanitize(settings.colorBar));
-};
-const updateVisibility = () => {
-  const sd = getElement(".sd");
-  if (sd) {
-    sd.style.display = settings.showSD ? "block" : "none";
-  }
-};
 
 const calculateOsuWindows = (od, mods) => {
   const windows = /* @__PURE__ */ new Map();
@@ -424,7 +434,6 @@ const calculateTimingWindows = (gamemode, od, mods, customTimingWindows) => {
 };
 
 let areTicksRendered = false;
-const { disableHardwareAcceleration } = settings;
 const renderTicksOnLoad = () => {
   if (areTicksRendered) return;
   const container = getElement(".tick-container");
@@ -437,20 +446,13 @@ const renderTicksOnLoad = () => {
   for (let i = 0; i < cache.tickPool.poolSize; i++) {
     const div = document.createElement("div");
     div.className = "tick inactive";
-    const initialTransform = disableHardwareAcceleration ? "translateX(0px)" : "translate3d(0px, 0px, 0px)";
-    div.style.transform = initialTransform;
+    div.style.transform = "translate3d(0px, 0px, 0px)";
     fragment.appendChild(div);
     elementsForPool.push(div);
   }
   container.appendChild(fragment);
   cache.tickPool.setElements(elementsForPool);
   areTicksRendered = true;
-  console.log(`Rendered and assigned ${elementsForPool.length} tick elements.`);
-};
-const resetTicks = () => {
-  if (!areTicksRendered) return;
-  cache.tickPool.set();
-  console.log("TickPool reset triggered by resetTicks.");
 };
 
 const arrow = getElement(".arrow");
@@ -465,31 +467,34 @@ const getArrowColor = (average) => {
   return "var(--arrow-late)";
 };
 let oldPosition = 0;
+let pendingPosition = null;
+let rAF = null;
 const updateArrow = (targetPosition) => {
-  requestAnimationFrame(() => {
-    if (targetPosition === oldPosition) {
-      return;
-    }
-    oldPosition = targetPosition;
-    if (arrow) {
-      arrow.style.borderTopColor = getArrowColor(targetPosition);
-      if (settings.disableHardwareAcceleration) {
-        arrow.style.transform = `translateX(${targetPosition * 2}px)`;
-        return;
+  pendingPosition = targetPosition;
+  if (rAF === null) {
+    rAF = requestAnimationFrame(() => {
+      if (pendingPosition !== null && pendingPosition !== oldPosition) {
+        oldPosition = pendingPosition;
+        if (arrow) {
+          arrow.style.borderTopColor = getArrowColor(oldPosition);
+          arrow.style.transform = `translate3d(${oldPosition * 2}px, 0px, 0px)`;
+        }
       }
-      arrow.style.transform = `translate3d(${targetPosition * 2}px, 0px, 0px)`;
-    }
-  });
+      rAF = null;
+      pendingPosition = null;
+    });
+  }
 };
 function resetArrow() {
+  if (rAF !== null) {
+    cancelAnimationFrame(rAF);
+    rAF = null;
+    pendingPosition = null;
+  }
   requestAnimationFrame(() => {
     oldPosition = 0;
     if (arrow) {
       arrow.style.borderTopColor = "#fff";
-      if (settings.disableHardwareAcceleration) {
-        arrow.style.transform = "translateX(0px)";
-        return;
-      }
       arrow.style.transform = "translate3d(0px, 0px, 0px)";
     }
   });
@@ -531,20 +536,14 @@ class TickImpl {
     if (this.element) {
       this.element.style.opacity = String(settings.tickOpacity);
       this.element.style.visibility = "visible";
-      this._currentAnimation = this.element.animate(
-        [
-          { opacity: settings.tickOpacity },
-          { opacity: 0 }
-        ],
-        {
-          duration: settings.fadeOutDuration,
-          delay: settings.tickDuration,
-          easing: "linear",
-          fill: "forwards"
-        }
-      );
+      this._currentAnimation = this.element.animate([{ opacity: settings.tickOpacity }, { opacity: 0 }], {
+        duration: settings.fadeOutDuration,
+        delay: settings.tickDuration,
+        easing: "linear",
+        fill: "forwards"
+      });
     }
-    this.position = hitError << 1;
+    this.position = hitError * 2;
     this.active = true;
     this.timestamp = Date.now();
     this.setClassNames();
@@ -567,27 +566,21 @@ class TickImpl {
     if (this.element) {
       this.element.style.opacity = String(settings.tickOpacity);
       this.element.style.visibility = "visible";
-      this._currentAnimation = this.element.animate(
-        [
-          { opacity: settings.tickOpacity },
-          { opacity: 0 }
-        ],
-        {
-          duration: settings.fadeOutDuration,
-          delay: settings.tickDuration,
-          easing: "linear",
-          fill: "forwards"
-        }
-      );
+      this._currentAnimation = this.element.animate([{ opacity: settings.tickOpacity }, { opacity: 0 }], {
+        duration: settings.fadeOutDuration,
+        delay: settings.tickDuration,
+        easing: "linear",
+        fill: "forwards"
+      });
     }
-    this.position = hitError << 1;
+    this.position = hitError * 2;
     this.timestamp = Date.now();
     this.setClassNames();
   }
   setClassNames() {
-    const { timingWindows } = cache;
+    const { timingWindows} = cache;
     let newClassNames = "tick";
-    const hitError = Math.abs(this.position >> 1);
+    const hitError = Math.abs(this.position / 2);
     let matched = false;
     for (const [grade, range] of timingWindows) {
       if (hitError <= range) {
@@ -614,7 +607,7 @@ class TickImpl {
     }
     const targetX = this.active ? this.position : 0;
     if (targetX !== this.lastAppliedX) {
-      const newTransform = settings.disableHardwareAcceleration ? `translateX(${targetX}px)` : `translate3d(${targetX}px, 0px, 0px)`;
+      const newTransform = `translate3d(${targetX}px, 0px, 0px)`;
       if (this.element.style.transform !== newTransform) {
         this.element.style.transform = newTransform;
       }
@@ -639,7 +632,9 @@ class TickManager {
   // New method to assign elements
   setElements(elements) {
     if (elements.length !== this.poolSize) {
-      console.error(`TickPool Error: Element count (${elements.length}) does not match PoolSize (${this.poolSize}).`);
+      console.error(
+        `TickPool Error: Element count (${elements.length}) does not match PoolSize (${this.poolSize}).`
+      );
       return;
     }
     for (let i = 0; i < this.poolSize; i++) {
@@ -709,38 +704,32 @@ class TickManager {
 const reset = () => {
   requestAnimationFrame(() => {
     cache.tickPool.set();
-    resetTicks();
-    clearSD();
     resetArrow();
     console.log("[Main] reset");
   });
 };
 
-const average = (arr) => {
-  if (!arr || arr.length === 0) return 0;
-  return arr.reduce((a, b) => a + b, 0) / arr.length;
-};
-const standardDeviation = (arr) => {
-  if (!arr || arr.length === 0) return 0;
-  const avg = average(arr);
-  const squareDiffs = arr.map((value) => {
-    const diff = value - avg;
-    const sqrDiff = diff * diff;
-    return sqrDiff;
-  });
-  const avgSquareDiff = average(squareDiffs);
-  return Math.sqrt(avgSquareDiff);
-};
+let medianBuffer = new Array(200);
 const median = (arr) => {
   if (!arr || arr.length === 0) return 0;
-  const sortedArr = [...arr].sort((a, b) => a - b);
-  const middle = Math.floor(sortedArr.length / 2);
-  if (sortedArr.length % 2 === 0) {
-    return (sortedArr[middle - 1] + sortedArr[middle]) / 2;
+  if (medianBuffer.length < arr.length) {
+    medianBuffer = new Array(arr.length * 2);
   }
-  return sortedArr[middle];
+  for (let i = 0; i < arr.length; i++) {
+    medianBuffer[i] = arr[i];
+  }
+  medianBuffer.length = arr.length;
+  medianBuffer.sort((a, b) => a - b);
+  const middle = Math.floor(medianBuffer.length / 2);
+  if (medianBuffer.length % 2 === 0) {
+    return (medianBuffer[middle - 1] + medianBuffer[middle]) / 2;
+  }
+  return medianBuffer[middle];
 };
 
+if (window.self === window.top) {
+  document.body.style.backgroundColor = "black";
+}
 window?.addEventListener("load", renderTicksOnLoad);
 const cache = {
   mode: "",
@@ -757,45 +746,52 @@ const cache = {
 };
 const DEFAULT_HOST = window.location.host;
 const wsManager = new WebSocketManager(DEFAULT_HOST);
+const SETTINGS_LOG_PREFIX = "[SETTINGS]";
+console.log(`${SETTINGS_LOG_PREFIX} Requesting settings for path`, window?.COUNTER_PATH);
 wsManager.sendCommand("getSettings", encodeURI(window.COUNTER_PATH));
 wsManager.commands((data) => {
   try {
     const { command, message } = data;
     console.log("[WEBSOCKET] Received command:", command, "with data:", message);
     if (command === "getSettings") {
+      console.log(`${SETTINGS_LOG_PREFIX} Received settings payload`);
       updateSettings(message);
     }
   } catch (error) {
     console.error("[MESSAGE_ERROR] Error processing WebSocket message:", error);
   }
 });
-if (settings.showSD) {
-  const container = getElement("#container");
-  if (container) {
-    const sd = document.createElement("div");
-    sd.classList.add("sd");
-    sd.innerText = "0.00";
-    container.prepend(sd);
-  }
-}
 const apiV2Filters = [
-  "state",
-  { field: "play", keys: ["mode", "mods"] },
-  { field: "beatmap", keys: ["mode", "stats", "time"] }
+  { field: "state", keys: ["name"] },
+  {
+    field: "play",
+    keys: [
+      { field: "mode", keys: ["name"] },
+      { field: "mods", keys: ["name", "rate"] }
+    ]
+  },
+  {
+    field: "beatmap",
+    keys: [
+      { field: "mode", keys: ["name"] },
+      { field: "stats", keys: [{ field: "od", keys: ["original"] }] },
+      { field: "time", keys: ["firstObject"] }
+    ]
+  }
 ];
 wsManager.api_v2((data) => {
   if (cache.state !== data.state.name) {
     cache.state = data.state.name;
+    const modeChanged = cache.mode !== data.play.mode.name;
+    const odChanged = cache.od !== data.beatmap.stats.od.original;
+    const modsChanged = cache.mods !== data.play.mods.name;
+    cache.rate = data.play.mods.rate;
     if (cache.state === "play") {
-      const modeChanged = cache.mode !== data.play.mode.name;
-      const odChanged = cache.od !== data.beatmap.stats.od.original;
-      const modsChanged = cache.mods !== data.play.mods.name;
       if (modeChanged || odChanged || modsChanged) {
         cache.mode = data.beatmap.mode.name;
         cache.od = data.beatmap.stats.od.original;
         cache.mods = data.play.mods.name;
       }
-      cache.rate = data.play.mods.rate;
       cache.firstObjectTime = data.beatmap.time.firstObject;
       const custom = settings.useCustomTimingWindows ? settings.customTimingWindows : void 0;
       cache.timingWindows = calculateTimingWindows(cache.mode, cache.od, cache.mods, custom);
@@ -812,6 +808,7 @@ wsManager.api_v2((data) => {
   }
 }, apiV2Filters);
 const apiV2PreciseFilter = ["hitErrors", "currentTime"];
+const nonFadeOutErrors = [];
 wsManager.api_v2_precise((data) => {
   const { hitErrors, currentTime } = data;
   if (currentTime < cache.firstObjectTime) {
@@ -821,21 +818,12 @@ wsManager.api_v2_precise((data) => {
     }
   } else {
     cache.tickPool.update(hitErrors);
-    const nonFadeOutErrors = [];
+    nonFadeOutErrors.length = 0;
     for (const idx of cache.tickPool.nonFadeOutTicks) {
       nonFadeOutErrors.push(cache.tickPool.pool[idx].position >> 1);
     }
     const medianError = median(nonFadeOutErrors);
     updateArrow(medianError);
-    if (settings.showSD) {
-      requestAnimationFrame(() => {
-        const standardDeviationError = standardDeviation(nonFadeOutErrors);
-        const sdElement = getElement(".sd");
-        if (sdElement) {
-          sdElement.innerText = standardDeviationError.toFixed(2);
-        }
-      });
-    }
     if (cache.isReset) {
       cache.isReset = false;
     }

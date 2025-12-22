@@ -28,7 +28,7 @@
     /* Theme */
     --tick-opacity: 0.75;
     --timing-windows-opacity: 0.33;
-    --timing-window-height: 100;
+    --timing-window-height: 100%;
     --timing-window-radius: 0px;
 
     /* Animation */
@@ -36,7 +36,7 @@
     --fade-out-duration: 300ms;
 
     /* Hardware Acceleration Control */
-    --transform-prop: translate3d(0,0,0);
+    --transform-prop: translate3d(0, 0, 0);
     --will-change-prop: transform, opacity;
 }
 
@@ -48,10 +48,12 @@ html {
     background: rgba(0, 0, 0, 0);
     transition: opacity 200ms linear;
 }
+
 body {
     display: flex;
     justify-content: center;
 }
+
 .main {
     display: flex;
     flex-direction: column;
@@ -61,16 +63,7 @@ body {
     height: var(--bar-height);
     justify-self: center;
 }
-.sd {
-    text-align: center;
-    font: 2.5rem "Helvetica", sans-serif, bold;
-    color: #ffffff;
-    transition: linear 200ms;
-    width: var(--container-width);
-    justify-self: center;
-    transition: opacity 200ms linear;
-    opacity: 0.8;
-}
+
 
 /*arrow*/
 .arrow-container {
@@ -108,10 +101,10 @@ body {
     opacity: var(--timing-windows-opacity);
 }
 
-.colors-container > div {
+.colors-container>div {
     opacity: 1;
     position: absolute;
-    height: calc(var(--timing-window-height) * 1%);
+    height: var(--timing-window-height);
     transition: linear 200ms;
     border-radius: var(--timing-window-radius);
 }
@@ -176,6 +169,7 @@ body {
     pointer-events: none;
     opacity: 0;
 }
+
 /* Timing window-based colors for ticks */
 .tick._300g {
     background-color: var(--color-300g);
