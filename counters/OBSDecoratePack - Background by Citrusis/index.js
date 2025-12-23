@@ -12,7 +12,7 @@ socket.sendCommand('getSettings', encodeURI(window.COUNTER_PATH));
 socket.commands((data) => {
   try {
     const { command, message } = data;
-    
+
     // Update getSettings command
     if (command === 'getSettings') {
       console.log(command, message);
@@ -60,21 +60,25 @@ socket.commands((data) => {
 
 socket.api_v2((data) => {
     // Update beatmap background
-    if (cache.beatmapBackground !== data.directPath.beatmapBackground) {
-        cache.beatmapBackground = data.directPath.beatmapBackground;
-        updateBackground(cache.beatmapBackground, cache.skinFolder);
+    if (cache.beatmapChecksum !== data.beatmap.checksum) {
+        cache.beatmapChecksum = data.beatmap.checksum;
+        updateBackground(cache.beatmapChecksum, cache.skinFolder);
     }
 
     // Update skin
     if (cache.skinFolder !== data.directPath.skinFolder) {
         cache.skinFolder = data.directPath.skinFolder;
-        updateBackground(cache.beatmapBackground, cache.skinFolder);
+        updateBackground(cache.beatmapChecksum, cache.skinFolder);
     }
 },
 [
     {
+        field: 'beatmap',
+        keys: ['checksum'],
+    },
+    {
         field: 'directPath',
-        keys: ['beatmapBackground', 'skinFolder']
+        keys: ['skinFolder']
     }
 ]);
 
@@ -260,14 +264,13 @@ function imageFade(imgElement, url) {
 }
 
 // Update background
-function updateBackground(beatmapBackground, folders) {
+function updateBackground(beatmapChecksum, skinFolder) {
     const background = document.querySelector('#bg');
-    const backgroundPath = encodeURIComponent(beatmapBackground.replace(folders.songs, ''));
 
     urlFallback([
-        `http://127.0.0.1:24050/files/beatmap/${backgroundPath}`,
-        `http://127.0.0.1:24050/files/skin/menu-background@2x.jpg?skin=${encodeURIComponent(cache.skinFolder)}`,
-        `http://127.0.0.1:24050/files/skin/menu-background.jpg?skin=${encodeURIComponent(cache.skinFolder)}`
+        `http://127.0.0.1:24050/files/beatmap/background?v=${beatmapChecksum}`,
+        `http://127.0.0.1:24050/files/skin/menu-background@2x.jpg?skin=${encodeURIComponent(skinFolder)}`,
+        `http://127.0.0.1:24050/files/skin/menu-background.jpg?skin=${encodeURIComponent(skinFolder)}`
     ])
         .then(validUrl => {
             imageFade(background, validUrl);

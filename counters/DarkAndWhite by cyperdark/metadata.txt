@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: DarkAndWhite
-Version: 1.001
+Version: 1.002
 Author: cyperdark
 CompatibleWith: gosu, tosu
 Resolution: 840x161

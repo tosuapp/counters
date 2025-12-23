@@ -71,4 +71,27 @@ socket.api_v2(({ play, beatmap }) => {
     } catch (error) {
         console.log(error);
     };
-});
+}, [
+    {
+        field: 'play',
+        keys: [
+            {
+                field: 'hits',
+                keys: ['100', '50', '0']
+            },
+            {
+                field: 'pp',
+                keys: ['current']
+            },
+        ]
+    },
+    {
+        field: 'beatmap',
+        keys: [
+            {
+                field: 'time',
+                keys: ['live', 'firstObject', 'lastObject']
+            },
+        ]
+    },
+]);

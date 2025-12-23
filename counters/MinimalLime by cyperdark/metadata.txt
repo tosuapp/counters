@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: MinimalLime
-Version: 1.002
+Version: 1.003
 Author: cyperdark
 CompatibleWith: gosu, tosu
 Resolution: 640x120

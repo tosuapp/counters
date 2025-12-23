@@ -1,7 +1,60 @@
 const HOST = window.location.host;
 const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
 
-socket.onopen = () => console.log("Successfully Connected");
+socket.onopen = () => {
+    console.log("Successfully Connected");
+
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'menu',
+            keys: [
+                'state',
+                {
+                    field: 'bm',
+                    keys: [
+                        {
+                            field: 'metadata',
+                            keys: [
+                                'title',
+                                'artist',
+                                'difficulty',
+                                'mapper',
+
+                            ]
+                        },
+                        'rankedStatus',
+                        {
+                            field: 'path',
+                            keys: ['full'],
+                        }
+                    ]
+                },
+                {
+                    field: 'mods',
+                    keys: ['str']
+                }
+            ]
+        },
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'pp',
+                    keys: ['current']
+                },
+                {
+                    field: 'hits',
+                    keys: [
+                        {
+                            field: 'grade',
+                            keys: ['current']
+                        },
+                    ]
+                },
+            ]
+        }
+    ])}`);
+};
 
 socket.onclose = event => {
     console.log("Socket Closed Connection: ", event);

@@ -66,10 +66,6 @@ const app = {
 		this.client.api_v2((data) => {
 			this.dispatch(data, "common");
 		}, this.filters.common);
-
-		this.client.api_v2_precise((data) => {
-			this.dispatch(data, "precise");
-		}, this.filters.precise);
 	},
 
 	registerCounter(counter) {
@@ -82,9 +78,9 @@ const app = {
 
 	/**
 	 * Get value by key
-	 * 
+	 *
 	 * Counter should call `app.addFilter()` before calling this to make sure data is pulled from tosu.
-	 * 
+	 *
 	 * @param	{string}					key
 	 * @param	{any}						[defaultValue]
 	 * @param	{"common" | "precise"}		[channel]
@@ -112,7 +108,7 @@ const app = {
 
 	/**
 	 * Subscribe for value change of the specified value key
-	 * 
+	 *
 	 * @param	{string}				key
 	 * @param	{(value: any) => void}	handler
 	 * @param	{"common" | "precise"}	channel
@@ -129,7 +125,7 @@ const app = {
 
 	/**
 	 * Add key path to filters
-	 * 
+	 *
 	 * @param	{string}				key
 	 * @param	{"common" | "precise"}	channel
 	 */
@@ -199,12 +195,6 @@ const app = {
 			console.debug("pushed new common filters to server");
 		}
 
-		if (this.filtersChanged.precise) {
-			this.client.sockets["/websocket/v2/precise"].send(`applyFilters:${JSON.stringify(this.filters.precise)}`);
-			this.filtersChanged.precise = false;
-			console.debug("pushed new precise filters to server");
-		}
-
 		return this;
 	},
 
@@ -237,7 +227,7 @@ const app = {
 
 	/**
 	 * Register command handler.
-	 * 
+	 *
 	 * @param	{string}						command
 	 * @param	{(message: object) => void}		handler
 	 */

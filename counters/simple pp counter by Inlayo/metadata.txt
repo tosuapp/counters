@@ -1,6 +1,6 @@
 Usecase: obs-overlay
 Name: simple pp counter
-Version: 1.2
+Version: 1.2.1
 Author: Inlayo
 CompatibleWith: tosu
 Resolution: 120x60

@@ -1,6 +1,6 @@
 Usecase: obs-overlay
 Name: osuUserStats
-Version: 1.001
+Version: 1.002
 Author: HosizoraN
 CompatibleWith: tosu
 Resolution: 1300x315

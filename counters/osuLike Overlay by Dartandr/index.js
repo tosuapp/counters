@@ -8,6 +8,28 @@ let widthBase = scoreColor.offsetWidth;
 
 socket.onopen = () => {
     console.log("Successfully Connected");
+
+    socket.send(`applyFilters:${JSON.stringify([
+        {
+            field: 'menu',
+            keys: ['state']
+        },
+        {
+            field: 'gameplay',
+            keys: [
+                {
+                    field: 'hp',
+                    keys: ['smooth']
+                },
+                'score',
+                'accuracy',
+                {
+                    field: 'combo',
+                    keys: ['current']
+                }
+            ]
+        }
+    ])}`);
 };
 
 socket.onclose = event => {

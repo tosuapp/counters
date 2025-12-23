@@ -1,6 +1,6 @@
 Usecase: ingame,obs-overlays
 Name: AccuracyPP
-Version: 1.0.1
+Version: 1.0.2
 Author: unknown
 CompatibleWith: tosu,streamCompanion
 Resolution: 170x75
