@@ -21,7 +21,7 @@ html {
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
-#ethereal-container {
+#pups-container {
     position: relative;
     width: 100vw;
     height: 100vh;
