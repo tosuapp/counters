@@ -141,21 +141,21 @@ body {
 .border-bottom-0 {
     background-image: url('../assets/freedomDive/fd-c-bot.png');
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-position: center;
 }
 
 .border-left-0 {
     background-image: url('../assets/freedomDive/fd-c-left.png');
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-position: center;
 }
 
 .border-right-0 {
     background-image: url('../assets/freedomDive/fd-c-right.png');
     background-size: cover;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-position: center;
 }
 
@@ -285,7 +285,7 @@ body {
     align-items: center;
     margin-inline: .25rem;
     line-height: .9;
-    width: 1.5rem;
+    width: 2rem;
     transform: translateY(3px);
     transition: all .5s cubic-bezier(0.165, 0.84, 0.44, 1);
     gap: 3px;
