@@ -1,9 +1,5 @@
 import WebSocketManager from './deps/socket.js';
 
-if (!window.COUNTER_PATH) {
-	window.COUNTER_PATH = window.location.pathname;
-}
-
 const websocketManager = new WebSocketManager('127.0.0.1:24050');
 
 let bottom = document.getElementById('bottom');
@@ -42,10 +38,8 @@ async function loadCustomFont(fontFileName) {
 		return;
 	}
 
-	const fontPath = `fonts/${fontFileName}`;
-
 	try {
-		const fontFace = new FontFace('CustomFont', `url(${fontPath})`);
+		const fontFace = new FontFace('CustomFont', `url(fonts/${fontFileName})`);
 		const loadedFace = await fontFace.load();
 
 		document.fonts.add(loadedFace);
