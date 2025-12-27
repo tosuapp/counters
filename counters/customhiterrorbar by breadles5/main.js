@@ -727,7 +727,7 @@ const median = (arr) => {
   return medianBuffer[middle];
 };
 
-if (window.self === window.top) {
+if (window.self === window.top && !window.obsstudio) {
   document.body.style.backgroundColor = "black";
 }
 window?.addEventListener("load", renderTicksOnLoad);
