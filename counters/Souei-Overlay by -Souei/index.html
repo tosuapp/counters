@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta
+			http-equiv="Cache-Control"
+			content="no-cache, no-store, must-revalidate"
+		/>
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>-Souei-Overlay</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/odometr.css" />
+		<script src="deps/countUp.min.js"></script>
+		<script src="deps/odometr.min.js"></script>
+		<script src="deps/KeyOverlay.min.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<div id="menu_counter">
+				<div id="menu_counter_container">
+					<span id="menu_pp_max"></span>
+					<span id="menu_pp_suffix" class="suffix">pp</span>
+				</div>
+			</div>
+			<div id="bottom">
+				<div id="URbar">
+					<div id="combo_container" class="container">
+						<div id="combo">
+							<span
+								id="combo_current"
+								class="odometer combo"
+							></span>
+						</div>
+					</div>
+					<div id="pp_container" class="container">
+						<div id="pp">
+							<span id="pp_current" class="odometer pp"></span>
+							<span id="pp_separator">/</span>
+							<span id="pp_max"></span>
+							<span id="pp_suffix" class="suffix">pp</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="hit_counter_container">
+				<div id="h100" class="hit_count_container">
+					<div id="h100_indicator" class="hit_indicator"></div>
+					<div id="h100_count" class="hit_count"></div>
+				</div>
+				<div id="h50" class="hit_count_container">
+					<div id="h50_indicator" class="hit_indicator"></div>
+					<div id="h50_count" class="hit_count"></div>
+				</div>
+				<div id="h0" class="hit_count_container">
+					<div id="h0_indicator" class="hit_indicator"></div>
+					<div id="h0_count" class="hit_count"></div>
+				</div>
+				<div id="sb" class="hit_count_container">
+					<div id="sb_indicator" class="hit_indicator"></div>
+					<div id="sb_count" class="hit_count"></div>
+				</div>
+			</div>
+			<div id="keys">
+				<div class="keyContainer">
+					<div class="tiles relative">
+						<div id="k1Tiles" class="absolute"></div>
+						<div class="keyTap" id="k1"></div>
+					</div>
+				</div>
+				<div class="keyContainer">
+					<div class="tiles relative">
+						<div id="k2Tiles" class="absolute"></div>
+						<div class="keyTap" id="k2"></div>
+					</div>
+				</div>
+				<div class="keyContainer">
+					<div class="tiles relative">
+						<div id="m1Tiles" class="absolute"></div>
+						<div class="keyTap" id="m1"></div>
+					</div>
+				</div>
+				<div class="keyContainer">
+					<div class="tiles relative">
+						<div id="m2Tiles" class="absolute"></div>
+						<div class="keyTap" id="m2"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="module" src="index.js"></script>
+	</body>
+</html>
