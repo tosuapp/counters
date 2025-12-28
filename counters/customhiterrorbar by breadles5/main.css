@@ -21,7 +21,7 @@
     /* Sizes */
     --tick-width: 10px;
     --tick-height: 50px;
-    --container-width: 800px;
+    --container-width: 920px;
     --arrow-size: 20px;
     --tick-radius: 0px;
 
@@ -137,7 +137,7 @@ body {
 
 .timing-window-0 {
     background-color: var(--color-0);
-    max-width: 800px;
+    max-width: 920px;
     z-index: 1;
 }
 

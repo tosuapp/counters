@@ -3,5 +3,5 @@ Name: Custom Hit Error Bar
 Version: 3.7.2
 Author: breadles5
 CompatibleWith: Tosu
-Resolution: 800x90
+Resolution: 920x90
 authorLinks: https://github.com/breadles5/customHitErrorBar
