@@ -828,24 +828,3 @@ wsManager.api_v2_precise((data) => {
     }
   }
 }, apiV2PreciseFilter);
-
-wsManager.api_v2_precise((data) => {
-  const { hitErrors, currentTime } = data;
-  if (currentTime < cache.firstObjectTime) {
-    if (!cache.isReset) {
-      reset();
-      cache.isReset = true;
-    }
-  } else {
-    cache.tickPool.update(hitErrors);
-    nonFadeOutErrors.length = 0;
-    for (const idx of cache.tickPool.nonFadeOutTicks) {
-      nonFadeOutErrors.push(cache.tickPool.pool[idx].position >> 1);
-    }
-    const medianError = median(nonFadeOutErrors);
-    updateArrow(medianError);
-    if (cache.isReset) {
-      cache.isReset = false;
-    }
-  }
-}, apiV2PreciseFilter);
