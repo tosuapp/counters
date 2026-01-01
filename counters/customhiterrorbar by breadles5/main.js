@@ -343,7 +343,7 @@ const calculateTaikoWindows = (od, mods) => {
     const modifiedOd = od / 2;
     windows.set("300", 50 - 3 * modifiedOd);
     if (od >= 5) {
-      windows.set("100", 120 - 8 * modifiedOd);
+      windows.set("100", 119.5 - 8 * modifiedOd);
       windows.set("50", 135 - 8 * modifiedOd);
     } else {
       windows.set("100", 110 - 6 * modifiedOd);
@@ -353,7 +353,7 @@ const calculateTaikoWindows = (od, mods) => {
     const modifiedOd = Math.min(od * 1.4, 10);
     windows.set("300", 50 - 3 * modifiedOd);
     if (modifiedOd >= 5) {
-      windows.set("100", 120 - 8 * modifiedOd);
+      windows.set("100", 119.5 - 8 * modifiedOd);
       windows.set("50", 135 - 8 * modifiedOd);
     } else {
       windows.set("100", 110 - 6 * modifiedOd);
@@ -362,7 +362,7 @@ const calculateTaikoWindows = (od, mods) => {
   } else {
     windows.set("300", 50 - 3 * od);
     if (od >= 5) {
-      windows.set("100", 120 - 8 * od);
+      windows.set("100", 119.5 - 8 * od);
       windows.set("50", 135 - 8 * od);
     } else {
       windows.set("100", 110 - 6 * od);
@@ -371,32 +371,32 @@ const calculateTaikoWindows = (od, mods) => {
   }
   return windows;
 };
-const calculateManiaWindows = (od, mods) => {
+const calculateManiaWindows = (od, mods, rate) => {
   const windows = /* @__PURE__ */ new Map();
   if (mods.includes("EZ")) {
     const modifiedOd = od * 0.5;
-    windows.set("300g", 22.5);
-    windows.set("300", 64 - 3 * modifiedOd);
-    windows.set("200", 97 - 3 * modifiedOd);
-    windows.set("100", 127 - 3 * modifiedOd);
-    windows.set("50", 151 - 3 * modifiedOd);
+    windows.set("300g", 22.5 * rate);
+    windows.set("300", (64 - 3 * modifiedOd) * rate);
+    windows.set("200", (97 - 3 * modifiedOd) * rate);
+    windows.set("100", (127 - 3 * modifiedOd) * rate);
+    windows.set("50", (151 - 3 * modifiedOd) * rate);
   } else if (mods.includes("HR")) {
-    const windowMultiplier = 1.4;
-    windows.set("300g", 11.43);
-    windows.set("300", (64 - 3 * od) / windowMultiplier);
-    windows.set("200", (97 - 3 * od) / windowMultiplier);
-    windows.set("100", (127 - 3 * od) / windowMultiplier);
-    windows.set("50", (151 - 3 * od) / windowMultiplier);
+    const hrMultiplier = 5 / 7;
+    windows.set("300g", 11.43 * rate);
+    windows.set("300", (64 - 3 * od) * hrMultiplier * rate);
+    windows.set("200", (97 - 3 * od) * hrMultiplier * rate);
+    windows.set("100", (127 - 3 * od) * hrMultiplier * rate);
+    windows.set("50", (151 - 3 * od) * hrMultiplier * rate);
   } else {
-    windows.set("300g", 16.5);
-    windows.set("300", 64 - 3 * od);
-    windows.set("200", 97 - 3 * od);
-    windows.set("100", 127 - 3 * od);
-    windows.set("50", 151 - 3 * od);
+    windows.set("300g", 16.5 * rate);
+    windows.set("300", (64 - 3 * od) * rate);
+    windows.set("200", (97 - 3 * od) * rate);
+    windows.set("100", (127 - 3 * od) * rate);
+    windows.set("50", (151 - 3 * od) * rate);
   }
   return windows;
 };
-const calculateTimingWindows = (gamemode, od, mods, customTimingWindows) => {
+const calculateTimingWindows = (gamemode, od, mods, rate, customTimingWindows) => {
   if (customTimingWindows) {
     const values = customTimingWindows.split(",").map((v) => Number.parseFloat(v.trim()));
     const windows = /* @__PURE__ */ new Map();
@@ -426,7 +426,7 @@ const calculateTimingWindows = (gamemode, od, mods, customTimingWindows) => {
     case "taiko":
       return calculateTaikoWindows(od, mods);
     case "mania":
-      return calculateManiaWindows(od, mods);
+      return calculateManiaWindows(od, mods, rate);
     default:
       console.warn("no gamemode detected, returning no windows");
       return /* @__PURE__ */ new Map();
@@ -578,7 +578,7 @@ class TickImpl {
     this.setClassNames();
   }
   setClassNames() {
-    const { timingWindows} = cache;
+    const { timingWindows } = cache;
     let newClassNames = "tick";
     const hitError = Math.abs(this.position / 2);
     let matched = false;
@@ -655,7 +655,6 @@ class TickManager {
     const now = Date.now();
     const { tickDuration, fadeOutDuration } = settings;
     const timeoutThreshold = tickDuration + fadeOutDuration;
-    const { rate } = cache;
     const poolSize = this.poolSize;
     const pool = this.pool;
     const activeTicks = this.activeTicks;
@@ -677,7 +676,7 @@ class TickManager {
     if (processedHits === hitErrors.length) return;
     for (let i = processedHits; i < hitErrors.length; i++) {
       const poolIndex = i % poolSize;
-      const error = hitErrors[i] / rate;
+      const error = hitErrors[i];
       const tick = pool[poolIndex];
       if (!tick.active) {
         tick.setActive(error);
@@ -794,7 +793,7 @@ wsManager.api_v2((data) => {
       }
       cache.firstObjectTime = data.beatmap.time.firstObject;
       const custom = settings.useCustomTimingWindows ? settings.customTimingWindows : void 0;
-      cache.timingWindows = calculateTimingWindows(cache.mode, cache.od, cache.mods, custom);
+      cache.timingWindows = calculateTimingWindows(cache.mode, cache.od, cache.mods, cache.rate, custom);
       updateTimingWindowElements();
       setVisible();
       cache.isReset = false;
