@@ -1,0 +1,250 @@
+:root {
+  --font-size: 44px;
+
+  --offset: 0%;
+  --fadeIn: linear-gradient(to left, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+}
+
+#KeyOverlayCont {
+  position: absolute;
+  right: -50px;
+  top: 40%;
+}
+
+.KeyRelative {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: 1em;
+}
+
+.test {
+  width: 100vw;
+  color: white;
+  /* background-color: black; */
+  overflow-wrap: break-word;
+}
+
+#keyOverlay {
+  color: white;
+  font-size: var(--font-size);
+  /* background-color: black; */
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  --width: 400px;
+  --height: 55px;
+
+}
+
+#keyOverlay.-right::after {
+  top: 0;
+  right: 0;
+}
+
+#keyOverlay::after {
+  display: none;
+  content: '';
+  position: fixed;
+
+  width: 1em;
+  height: 1em;
+
+  border-radius: 0.1em;
+  background: white;
+
+  animation: fade 1s 3s forwards;
+
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes moveOut {
+  100% { transform: translateX(-100%); }
+}
+
+.main {
+  flex-direction: column;
+  position: absolute;
+  display: flex;
+
+  /* &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: wheat;
+    z-index: 2;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: wheat;
+    z-index: 2;
+  } */
+}
+
+.keys {
+  --color: rgb(255, 255, 255);
+  --press: rgb(29, 29, 29);
+  --pressed: rgb(255, 255, 255);
+
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: var(--color);
+  left: 0;
+
+  transition: margin 0.4s ease, left 0.4s ease, opacity 0.4s ease;
+}
+
+.keys .count {
+  white-space: nowrap;
+  color: var(--color);
+
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  font-size: 0.45em;
+  display: flex;
+}
+
+.keys .bpmcount {
+  text-align: right;
+}
+
+.keys .bpmtext {
+  font-size: .7em;
+  top: 0;
+  position: relative;
+}
+
+
+.keys .wrapper {
+  position: absolute;
+  z-index: 1;
+}
+
+.tiles {
+  position: absolute;
+  right: 150px;
+  width: var(--width);
+  height: var(--height);
+  -webkit-mask: var(--fadeIn);
+  mask: var(--fadeIn);
+}
+
+.canvas {
+  border-radius: 7px;
+  position: absolute;
+  right: 0;
+  width: var(--width);
+  height: var(--height);
+}
+
+
+.keys .press {
+  position: absolute;
+  width: 0.2em;
+  height: var(--height);
+  top: 50%;
+  left: 50%;
+  margin: auto 0;
+  background: var(--press);
+  border-radius: 0.07em;
+  transition: background 0.05s ease, transform 0.1s ease;
+  transform: translate(-50%, -50%);
+  /* transition: background 0.05s ease, transform 0.05s ease; */
+
+  z-index: 0;
+}
+
+.keys .press.active {
+  background: var(--pressed);
+  transform: translate(-50%, -50%) scale(1, 0.6);
+}
+
+.keys .bpm {
+  filter: drop-shadow(0 0 0.2em black) drop-shadow(0 0 0.5em black);
+  /* text-shadow: 0 0 0.2em black, 0 0 0.5em black, 0 0 0.8em black; */
+  white-space: nowrap;
+  text-align: center;
+  font-size: 0.6em;
+  display: flex;
+
+  position: absolute;
+
+  z-index: 1;
+}
+
+
+.keys canvas {
+  mask-image: linear-gradient(-90deg, black, transparent);
+  position: absolute;
+  width: var(--width);
+  z-index: 0;
+}
+
+.keys.hidden {
+  left: 200px !important;
+  opacity: 0 !important;
+  margin: 0 0 !important;
+}
+
+#m1Name,
+#m2Name {
+  font-size: 0.6em;
+}
+
+#keyOverlay.-right .main {
+  top: var(--offset);
+  right: 0;
+  margin: 1em 0;
+}
+
+#keyOverlay.-right.--bottom .main {
+  top: unset;
+  right: 0;
+  bottom: var(--offset);
+}
+
+#keyOverlay.-right .main .keys {
+  margin: 0.8em 0;
+}
+
+#keyOverlay.-right .main .keys .count {
+  justify-content: flex-start;
+  width: 3.6em;
+  right: 2.6em;
+}
+
+#keyOverlay.-right .main .keys .wrapper {
+  right: 3.4em;
+}
+
+#keyOverlay.-right .main .keys .bpm {
+  top: 50%;
+  right: 1.3em;
+  transform: translateY(-50%);
+}
+
+#keyOverlay.-right .main .keys canvas {
+  right: 4.5em;
+}

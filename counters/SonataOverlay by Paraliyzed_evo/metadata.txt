@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name: SonataOverlay
+Version: 1.22
+Author: Paraliyzed_evo
+CompatibleWith: tosu
+Resolution: 2560x1440
+authorLinks: https://github.com/Paraliyzedevo

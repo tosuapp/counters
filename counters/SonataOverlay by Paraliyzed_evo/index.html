@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Sonata Overlay!</title>
+		<meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Sriracha&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/gameplay.css" />
+		<link rel="stylesheet" href="css/rankingPanel.css" />
+		<link rel="stylesheet" href="css/odometr.css" />
+		<link rel="stylesheet" href="css/all.min.css" />
+        <link rel="stylesheet" href="css/keys.css" />
+        <link rel="stylesheet" href="css/leaderboard.css" />
+        <link rel="stylesheet" href="css/debug.css" />
+		<script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="js/jquery.timeago.js"></script>
+		<script src="js/countUp.js"></script>
+		<script src="js/odometr.js"></script>
+        <script src="js/Chart.min.js"></script>
+    </head>
+    <body class="nunito-600">
+        <div id="main">
+            <div id="CrashReportDebug" class="DebugBox crashpop">
+                <div id="CrashBorder" class="DebugBorder">
+                    <div id="SadFace"></div>
+                    <div id="CrashText" class="DebugText">Oh no...</div>
+                    <div id="CrashReason"></div>
+                </div>
+            </div>
+            <img id="rankingPanelBG"></img>
+			<div id="mapBG"></div>
+            <div id="smallStats">
+                <div id="graphCont">
+                    <div id="leaderboard">
+                        <div id="lbcpLine"></div>
+                        <div id="otherplayerCont">
+                            <div id="lbopCont"></div>
+                        </div>
+                        <div id="currentplayerCont" class="lbBox">
+                            <div class="lb_Number">
+                                <div id="lbcpPosition" class="positions"></div>
+                            </div>
+                            <div id="lbcpAvatar" class="lb_Avatar">
+                                <div id="lbcpRanking" class="lb_Rank"></div>
+                            </div>
+                            <div class="lb_Stats">
+                                <div class="lb_StatsLeft">
+                                    <div id="lbcpName" class="lb_Name"></div>
+                                    <div id="lbcpScore"></div>
+                                </div>
+                                <div id="lbcpCombo" class="lb_Combo"></div>
+                                <div class="lb_StatsRight">
+                                    <div id="lbcpPP" class="lb_PP"></div>
+                                    <div id="lbcpAcc"></div>
+                                </div>
+                            </div>
+                            <div id="lbcpMods" class="lb_Mods"></div>
+                        </div>
+                    </div>
+                    <div id="strainGraph">
+                        <div id="basegraph">
+                            <canvas class="chart darker" width="380" height="160"></canvas>
+                            <canvas class="chart lighter" width="380" height="160"></canvas>
+                        </div>
+                        <div id="progress">
+                            <canvas class="chart2 darker2" width="380" height="160"></canvas>
+                            <canvas class="chart2 lighter2" width="380" height="160"></canvas>
+                        </div>
+                    </div>
+                    <div id="graph100">
+                        <div id="progress100" class="tick100p tickGraph"></div>
+                    </div>
+                    <div id="graph50">
+                        <div id="progress50" class="tick50p tickGraph"></div>
+                    </div>
+                    <div id="graph0">
+                        <div id="progress0" class="tick0p tickGraph"></div>
+                    </div>
+                    <div id="graphSB">
+                        <div id="progressSB" class="tickSBp tickGraph"></div>
+                    </div>
+                </div>
+				<div id="stars1">
+					<i class="fas fa-star"></i>
+					<span id="starsCurrent" class="odometer"></span>
+			    </div>
+				<div id="bpmd">
+					<span id="BPMlive" class="odometer"></span><span id="bpmflash" class="bpm">BPM</span>
+				</div>
+			</div>
+            <div id="judgeInfo" class="accInfo">
+                <div id="h100Cont" class="accCont">
+                    <div id="h100Text" class="accText"></div>
+                </div>
+                <div id="h50Cont" class="accCont">
+                    <div id="h50Text" class="accText"></div>
+                </div>
+                <div id="h0Cont" class="accCont">
+                    <div id="h0Text" class="accText"></div>
+                </div>
+                <div id="hsbCont" class="accCont">
+                    <div id="hSBText" class="accText"></div>
+                </div>
+            </div>
+            <div id="gameplay">
+                <div id="gptop">
+                    <div id="hpBG">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1491px" height="140px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd">
+                            <g><path class="hpColor1" d="M 41.5,16.5 C 44.9705,15.8748 47.8038,16.8748 50,19.5C 52,24.1667 54,28.8333 56,33.5C 56.6667,35.8333 56.6667,38.1667 56,40.5C 51.2451,43.1276 46.4118,45.6276 41.5,48C 38.594,49.3185 35.594,49.6518 32.5,49C 26.9602,42.0981 24.1269,34.2648 24,25.5C 29.8475,22.3274 35.6808,19.3274 41.5,16.5 Z"/></g>
+                            <g><path class="hpColor1" d="M -0.5,40.5 C -0.5,38.5 -0.5,36.5 -0.5,34.5C 5.29805,39.7971 10.9647,45.2971 16.5,51C 27.2497,59.9159 39.583,63.5825 53.5,62C 68.8333,56 84.1667,50 99.5,44C 114.076,38.7723 129.076,35.6056 144.5,34.5C 161.059,35.6142 175.726,41.4475 188.5,52C 197.749,59.2471 205.583,67.7471 212,77.5C 234.175,103.687 259.675,107.521 288.5,89C 299.792,81.3753 309.458,72.042 317.5,61C 330.414,48.2071 345.08,37.8737 361.5,30C 405.927,14.0333 441.76,25.2 469,63.5C 473.054,71.1124 477.221,78.6124 481.5,86C 495.768,93.8011 509.601,92.9678 523,83.5C 522.466,76.0944 519.466,69.7611 514,64.5C 508.936,46.4614 515.436,34.9614 533.5,30C 542.227,28.0711 550.894,28.4045 559.5,31C 566.5,31.6667 573.5,31.6667 580.5,31C 588.459,27.3555 596.459,23.6888 604.5,20C 629.048,13.6888 648.214,21.1888 662,42.5C 668.03,54.498 669.197,66.998 665.5,80C 665.482,89.9678 670.148,96.6345 679.5,100C 691.224,100.087 702.89,100.754 714.5,102C 725.14,106.779 729.307,114.946 727,126.5C 725.114,130.44 722.614,133.94 719.5,137C 707.613,140.924 701.946,136.758 702.5,124.5C 706.044,127.448 710.044,128.948 714.5,129C 717.981,125.603 718.314,121.936 715.5,118C 712.833,116.667 710.167,115.333 707.5,114C 697.432,113.659 687.432,112.659 677.5,111C 672.193,109.569 667.193,107.569 662.5,105C 658.426,101.457 656.259,96.9574 656,91.5C 655.181,80.9231 655.348,70.4231 656.5,60C 652.135,49.5982 645.801,40.5982 637.5,33C 628.937,27.5143 619.937,26.5143 610.5,30C 601.474,34.3799 592.474,38.7132 583.5,43C 570.047,44.0506 556.714,43.2173 543.5,40.5C 536.089,40.9444 530.589,44.2777 527,50.5C 526.177,54.7384 526.844,58.7384 529,62.5C 531.615,66.7829 534.615,70.7829 538,74.5C 540.113,85.1034 536.613,93.27 527.5,99C 511.634,107.618 495.301,108.951 478.5,103C 475.035,100.537 471.869,97.7041 469,94.5C 462.749,85.0011 456.749,75.3344 451,65.5C 434.083,40.6359 410.916,31.8026 381.5,39C 354.937,49.7894 331.937,65.7894 312.5,87C 301.535,95.9523 289.535,103.286 276.5,109C 263.266,114.438 249.932,114.771 236.5,110C 218.018,102.513 203.518,90.3459 193,73.5C 182.954,61.1089 170.454,52.2755 155.5,47C 132.157,44.2003 109.823,47.867 88.5,58C 80.0806,61.8072 71.7472,65.8072 63.5,70C 40.6893,76.5101 21.5226,70.6767 6,52.5C 3.53607,48.5661 1.36941,44.5661 -0.5,40.5 Z"/></g>                            <g><path class="hpColor1" d="M 243.5,46.5 C 251.507,46.3336 259.507,46.5003 267.5,47C 268,47.5 268.5,48 269,48.5C 269.667,56.1667 269.667,63.8333 269,71.5C 268.5,72 268,72.5 267.5,73C 259.5,73.6667 251.5,73.6667 243.5,73C 243,72.5 242.5,72 242,71.5C 241.333,63.8333 241.333,56.1667 242,48.5C 242.717,47.9558 243.217,47.2891 243.5,46.5 Z"/></g>
+                            <g><path class="hpColor1" d="M 613.5,48.5 C 614.473,48.9867 615.473,49.4867 616.5,50C 604.255,59.7847 602.421,71.2847 611,84.5C 618.44,91.7323 626.607,93.899 635.5,91C 639.01,89.245 642.343,87.5784 645.5,86C 637.748,102.694 625.414,109.361 608.5,106C 595.043,101.539 588.043,92.2057 587.5,78C 589.383,62.0021 598.05,52.1687 613.5,48.5 Z"/></g>
+                            <g><path class="hpColor1" d="M 390.5,63.5 C 399.191,64.4523 407.357,67.1189 415,71.5C 414.725,79.9937 412.225,87.8271 407.5,95C 398.79,94.5432 390.623,92.0432 383,87.5C 383.376,78.8702 385.876,70.8702 390.5,63.5 Z"/></g>
+                            <g><path class="hpColor1" d="M 243.5,46.5 C 251.507,46.3336 259.507,46.5003 267.5,47C 268,47.5 268.5,48 269,48.5C 269.667,56.1667 269.667,63.8333 269,71.5C 268.5,72 268,72.5 267.5,73C 259.5,73.6667 251.5,73.6667 243.5,73C 243,72.5 242.5,72 242,71.5C 241.333,63.8333 241.333,56.1667 242,48.5C 242.717,47.9558 243.217,47.2891 243.5,46.5 Z"/></g>
+                            <!-- // -->
+                            <g><path class="hpColor2" d="M 1222.5,46.5 C 1230.51,46.3336 1238.51,46.5003 1246.5,47C 1247,47.5 1247.5,48 1248,48.5C 1248.67,56.1667 1248.67,63.8333 1248,71.5C 1247.5,72 1247,72.5 1246.5,73C 1238.5,73.6667 1230.5,73.6667 1222.5,73C 1222,72.5 1221.5,72 1221,71.5C 1220.33,63.8333 1220.33,56.1667 1221,48.5C 1221.72,47.9558 1222.22,47.2891 1222.5,46.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 873.5,47.5 C 890.407,50.7804 899.407,60.7804 900.5,77.5C 897.949,96.2316 887.449,105.898 869,106.5C 856.417,104.414 847.917,97.4142 843.5,85.5C 843.667,84.8333 843.833,84.1667 844,83.5C 847.455,87.8153 851.955,90.482 857.5,91.5C 874.937,90.5507 883.104,81.2173 882,63.5C 880.583,57.168 877.083,52.3347 871.5,49C 872.416,48.7216 873.082,48.2216 873.5,47.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 1094.5,64.5 C 1097.78,64.2161 1100.94,64.5495 1104,65.5C 1107.14,73.2165 1108.48,81.2165 1108,89.5C 1099.79,92.6791 1091.29,94.1791 1082.5,94C 1078.94,86.2199 1077.44,78.0533 1078,69.5C 1083.54,67.6348 1089.04,65.9682 1094.5,64.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 859.5,16.5 C 867.983,15.9886 876.316,16.8219 884.5,19C 892.541,22.6888 900.541,26.3555 908.5,30C 920.966,31.0396 933.299,30.2062 945.5,27.5C 953.817,27.9961 961.484,30.4961 968.5,35C 976.506,43.0529 978.673,52.5529 975,63.5C 969.534,68.7611 966.534,75.0944 966,82.5C 979.399,91.9678 993.232,92.8011 1007.5,85C 1015.08,68.4146 1025.41,53.748 1038.5,41C 1065.8,20.0999 1095.47,16.0999 1127.5,29C 1151.33,40.59 1171.33,56.9233 1187.5,78C 1196.7,86.1026 1207.03,92.4359 1218.5,97C 1236.29,102.22 1252.29,98.8868 1266.5,87C 1274.16,79.8216 1280.99,71.9883 1287,63.5C 1300.49,48.6688 1316.99,38.8354 1336.5,34C 1350.13,33.1376 1363.47,34.8043 1376.5,39C 1396.39,45.7403 1416.05,53.0736 1435.5,61C 1449.42,62.5825 1461.75,58.9159 1472.5,50C 1478.14,44.6054 1483.64,39.1054 1489,33.5C 1489.33,40.1953 1487.33,46.1953 1483,51.5C 1467.48,69.6767 1448.31,75.5101 1425.5,69C 1409.29,60.0602 1392.29,53.0602 1374.5,48C 1360.96,44.4274 1347.29,43.7607 1333.5,46C 1313.78,53.3829 1298.61,66.2163 1288,84.5C 1273.53,100.316 1255.7,109.65 1234.5,112.5C 1219.98,111.493 1206.64,106.993 1194.5,99C 1188.22,95.054 1182.22,90.7206 1176.5,86C 1157.06,64.7894 1134.06,48.7894 1107.5,38C 1078.11,30.7853 1054.95,39.6187 1038,64.5C 1032.25,74.3344 1026.25,84.0011 1020,93.5C 1012.59,101.863 1003.26,106.197 992,106.5C 981.327,105.622 971.16,102.789 961.5,98C 951.989,92.4798 948.489,84.3132 951,73.5C 955.485,68.351 959.152,62.6843 962,56.5C 963.013,52.2562 962.18,48.4229 959.5,45C 950.125,38.7611 940.125,37.7611 929.5,42C 921.5,42.6667 913.5,42.6667 905.5,42C 897.929,38.8813 890.596,35.2147 883.5,31C 864.262,22.8459 849.429,28.0126 839,46.5C 836.833,50.8333 834.667,55.1667 832.5,59.5C 833.641,69.4527 833.808,79.4527 833,89.5C 832.95,95.3289 830.783,100.162 826.5,104C 821.653,106.253 816.653,108.253 811.5,110C 801.568,111.659 791.568,112.659 781.5,113C 778.833,114.333 776.167,115.667 773.5,117C 770.686,120.936 771.019,124.603 774.5,128C 778.956,127.948 782.956,126.448 786.5,123.5C 787.054,135.758 781.387,139.924 769.5,136C 759.245,125.621 758.912,114.955 768.5,104C 771.618,102.107 774.951,100.774 778.5,100C 788.833,99.6667 799.167,99.3333 809.5,99C 818.852,95.6345 823.518,88.9678 823.5,79C 817.787,47.9227 829.787,27.0894 859.5,16.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 1442.5,18.5 C 1451.19,19.4523 1459.36,22.1189 1467,26.5C 1467.67,29.1667 1467.67,31.8333 1467,34.5C 1464.88,39.8964 1462.38,45.063 1459.5,50C 1457.17,50.6667 1454.83,50.6667 1452.5,50C 1446.57,47.6906 1440.73,45.1906 1435,42.5C 1435.37,33.891 1437.87,25.891 1442.5,18.5 Z"/></g>
+                        </svg>
+                    </div>
+                    <div id="hpBar">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1491px" height="140px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd">
+                            <g><path class="hpColor1" d="M 41.5,16.5 C 44.9705,15.8748 47.8038,16.8748 50,19.5C 52,24.1667 54,28.8333 56,33.5C 56.6667,35.8333 56.6667,38.1667 56,40.5C 51.2451,43.1276 46.4118,45.6276 41.5,48C 38.594,49.3185 35.594,49.6518 32.5,49C 26.9602,42.0981 24.1269,34.2648 24,25.5C 29.8475,22.3274 35.6808,19.3274 41.5,16.5 Z"/></g>
+                            <g><path class="hpColor1" d="M -0.5,40.5 C -0.5,38.5 -0.5,36.5 -0.5,34.5C 5.29805,39.7971 10.9647,45.2971 16.5,51C 27.2497,59.9159 39.583,63.5825 53.5,62C 68.8333,56 84.1667,50 99.5,44C 114.076,38.7723 129.076,35.6056 144.5,34.5C 161.059,35.6142 175.726,41.4475 188.5,52C 197.749,59.2471 205.583,67.7471 212,77.5C 234.175,103.687 259.675,107.521 288.5,89C 299.792,81.3753 309.458,72.042 317.5,61C 330.414,48.2071 345.08,37.8737 361.5,30C 405.927,14.0333 441.76,25.2 469,63.5C 473.054,71.1124 477.221,78.6124 481.5,86C 495.768,93.8011 509.601,92.9678 523,83.5C 522.466,76.0944 519.466,69.7611 514,64.5C 508.936,46.4614 515.436,34.9614 533.5,30C 542.227,28.0711 550.894,28.4045 559.5,31C 566.5,31.6667 573.5,31.6667 580.5,31C 588.459,27.3555 596.459,23.6888 604.5,20C 629.048,13.6888 648.214,21.1888 662,42.5C 668.03,54.498 669.197,66.998 665.5,80C 665.482,89.9678 670.148,96.6345 679.5,100C 691.224,100.087 702.89,100.754 714.5,102C 725.14,106.779 729.307,114.946 727,126.5C 725.114,130.44 722.614,133.94 719.5,137C 707.613,140.924 701.946,136.758 702.5,124.5C 706.044,127.448 710.044,128.948 714.5,129C 717.981,125.603 718.314,121.936 715.5,118C 712.833,116.667 710.167,115.333 707.5,114C 697.432,113.659 687.432,112.659 677.5,111C 672.193,109.569 667.193,107.569 662.5,105C 658.426,101.457 656.259,96.9574 656,91.5C 655.181,80.9231 655.348,70.4231 656.5,60C 652.135,49.5982 645.801,40.5982 637.5,33C 628.937,27.5143 619.937,26.5143 610.5,30C 601.474,34.3799 592.474,38.7132 583.5,43C 570.047,44.0506 556.714,43.2173 543.5,40.5C 536.089,40.9444 530.589,44.2777 527,50.5C 526.177,54.7384 526.844,58.7384 529,62.5C 531.615,66.7829 534.615,70.7829 538,74.5C 540.113,85.1034 536.613,93.27 527.5,99C 511.634,107.618 495.301,108.951 478.5,103C 475.035,100.537 471.869,97.7041 469,94.5C 462.749,85.0011 456.749,75.3344 451,65.5C 434.083,40.6359 410.916,31.8026 381.5,39C 354.937,49.7894 331.937,65.7894 312.5,87C 301.535,95.9523 289.535,103.286 276.5,109C 263.266,114.438 249.932,114.771 236.5,110C 218.018,102.513 203.518,90.3459 193,73.5C 182.954,61.1089 170.454,52.2755 155.5,47C 132.157,44.2003 109.823,47.867 88.5,58C 80.0806,61.8072 71.7472,65.8072 63.5,70C 40.6893,76.5101 21.5226,70.6767 6,52.5C 3.53607,48.5661 1.36941,44.5661 -0.5,40.5 Z"/></g>                            <g><path class="hpColor1" d="M 243.5,46.5 C 251.507,46.3336 259.507,46.5003 267.5,47C 268,47.5 268.5,48 269,48.5C 269.667,56.1667 269.667,63.8333 269,71.5C 268.5,72 268,72.5 267.5,73C 259.5,73.6667 251.5,73.6667 243.5,73C 243,72.5 242.5,72 242,71.5C 241.333,63.8333 241.333,56.1667 242,48.5C 242.717,47.9558 243.217,47.2891 243.5,46.5 Z"/></g>
+                            <g><path class="hpColor1" d="M 613.5,48.5 C 614.473,48.9867 615.473,49.4867 616.5,50C 604.255,59.7847 602.421,71.2847 611,84.5C 618.44,91.7323 626.607,93.899 635.5,91C 639.01,89.245 642.343,87.5784 645.5,86C 637.748,102.694 625.414,109.361 608.5,106C 595.043,101.539 588.043,92.2057 587.5,78C 589.383,62.0021 598.05,52.1687 613.5,48.5 Z"/></g>
+                            <g><path class="hpColor1" d="M 390.5,63.5 C 399.191,64.4523 407.357,67.1189 415,71.5C 414.725,79.9937 412.225,87.8271 407.5,95C 398.79,94.5432 390.623,92.0432 383,87.5C 383.376,78.8702 385.876,70.8702 390.5,63.5 Z"/></g>
+                            <g><path class="hpColor1" d="M 243.5,46.5 C 251.507,46.3336 259.507,46.5003 267.5,47C 268,47.5 268.5,48 269,48.5C 269.667,56.1667 269.667,63.8333 269,71.5C 268.5,72 268,72.5 267.5,73C 259.5,73.6667 251.5,73.6667 243.5,73C 243,72.5 242.5,72 242,71.5C 241.333,63.8333 241.333,56.1667 242,48.5C 242.717,47.9558 243.217,47.2891 243.5,46.5 Z"/></g>
+                            <!-- // -->
+                            <g><path class="hpColor2" d="M 1222.5,46.5 C 1230.51,46.3336 1238.51,46.5003 1246.5,47C 1247,47.5 1247.5,48 1248,48.5C 1248.67,56.1667 1248.67,63.8333 1248,71.5C 1247.5,72 1247,72.5 1246.5,73C 1238.5,73.6667 1230.5,73.6667 1222.5,73C 1222,72.5 1221.5,72 1221,71.5C 1220.33,63.8333 1220.33,56.1667 1221,48.5C 1221.72,47.9558 1222.22,47.2891 1222.5,46.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 873.5,47.5 C 890.407,50.7804 899.407,60.7804 900.5,77.5C 897.949,96.2316 887.449,105.898 869,106.5C 856.417,104.414 847.917,97.4142 843.5,85.5C 843.667,84.8333 843.833,84.1667 844,83.5C 847.455,87.8153 851.955,90.482 857.5,91.5C 874.937,90.5507 883.104,81.2173 882,63.5C 880.583,57.168 877.083,52.3347 871.5,49C 872.416,48.7216 873.082,48.2216 873.5,47.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 1094.5,64.5 C 1097.78,64.2161 1100.94,64.5495 1104,65.5C 1107.14,73.2165 1108.48,81.2165 1108,89.5C 1099.79,92.6791 1091.29,94.1791 1082.5,94C 1078.94,86.2199 1077.44,78.0533 1078,69.5C 1083.54,67.6348 1089.04,65.9682 1094.5,64.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 859.5,16.5 C 867.983,15.9886 876.316,16.8219 884.5,19C 892.541,22.6888 900.541,26.3555 908.5,30C 920.966,31.0396 933.299,30.2062 945.5,27.5C 953.817,27.9961 961.484,30.4961 968.5,35C 976.506,43.0529 978.673,52.5529 975,63.5C 969.534,68.7611 966.534,75.0944 966,82.5C 979.399,91.9678 993.232,92.8011 1007.5,85C 1015.08,68.4146 1025.41,53.748 1038.5,41C 1065.8,20.0999 1095.47,16.0999 1127.5,29C 1151.33,40.59 1171.33,56.9233 1187.5,78C 1196.7,86.1026 1207.03,92.4359 1218.5,97C 1236.29,102.22 1252.29,98.8868 1266.5,87C 1274.16,79.8216 1280.99,71.9883 1287,63.5C 1300.49,48.6688 1316.99,38.8354 1336.5,34C 1350.13,33.1376 1363.47,34.8043 1376.5,39C 1396.39,45.7403 1416.05,53.0736 1435.5,61C 1449.42,62.5825 1461.75,58.9159 1472.5,50C 1478.14,44.6054 1483.64,39.1054 1489,33.5C 1489.33,40.1953 1487.33,46.1953 1483,51.5C 1467.48,69.6767 1448.31,75.5101 1425.5,69C 1409.29,60.0602 1392.29,53.0602 1374.5,48C 1360.96,44.4274 1347.29,43.7607 1333.5,46C 1313.78,53.3829 1298.61,66.2163 1288,84.5C 1273.53,100.316 1255.7,109.65 1234.5,112.5C 1219.98,111.493 1206.64,106.993 1194.5,99C 1188.22,95.054 1182.22,90.7206 1176.5,86C 1157.06,64.7894 1134.06,48.7894 1107.5,38C 1078.11,30.7853 1054.95,39.6187 1038,64.5C 1032.25,74.3344 1026.25,84.0011 1020,93.5C 1012.59,101.863 1003.26,106.197 992,106.5C 981.327,105.622 971.16,102.789 961.5,98C 951.989,92.4798 948.489,84.3132 951,73.5C 955.485,68.351 959.152,62.6843 962,56.5C 963.013,52.2562 962.18,48.4229 959.5,45C 950.125,38.7611 940.125,37.7611 929.5,42C 921.5,42.6667 913.5,42.6667 905.5,42C 897.929,38.8813 890.596,35.2147 883.5,31C 864.262,22.8459 849.429,28.0126 839,46.5C 836.833,50.8333 834.667,55.1667 832.5,59.5C 833.641,69.4527 833.808,79.4527 833,89.5C 832.95,95.3289 830.783,100.162 826.5,104C 821.653,106.253 816.653,108.253 811.5,110C 801.568,111.659 791.568,112.659 781.5,113C 778.833,114.333 776.167,115.667 773.5,117C 770.686,120.936 771.019,124.603 774.5,128C 778.956,127.948 782.956,126.448 786.5,123.5C 787.054,135.758 781.387,139.924 769.5,136C 759.245,125.621 758.912,114.955 768.5,104C 771.618,102.107 774.951,100.774 778.5,100C 788.833,99.6667 799.167,99.3333 809.5,99C 818.852,95.6345 823.518,88.9678 823.5,79C 817.787,47.9227 829.787,27.0894 859.5,16.5 Z"/></g>
+                            <g><path class="hpColor2" d="M 1442.5,18.5 C 1451.19,19.4523 1459.36,22.1189 1467,26.5C 1467.67,29.1667 1467.67,31.8333 1467,34.5C 1464.88,39.8964 1462.38,45.063 1459.5,50C 1457.17,50.6667 1454.83,50.6667 1452.5,50C 1446.57,47.6906 1440.73,45.1906 1435,42.5C 1435.37,33.891 1437.87,25.891 1442.5,18.5 Z"/></g>
+                        </svg>
+                    </div>
+                    <div id="score" class="statContainer" style="left: 680px"></div>
+                    <div id="acc" class="statContainer" style="right: 680px"></div>
+                    <div id="ava"></div>
+                    <div id="globalContainer" class="xContainer">
+                        <div id="ranks" class="rankContainer"></div>
+                        <div id="global" class="flag"></div>
+                    </div>
+                    <div id="countryContainer" class="xContainer">
+                        <div id="countryRank" class="rankContainer"></div>
+                        <div id="country" class="flag"></div>
+                    </div>
+                    <div id="username" class="otherContainer"></div>
+                    <div id="playerPP" class="otherContainer"></div>
+                    <div id="SonataText"></div>
+                    <div id="BrandLogo"></div>
+                </div>
+                <div id="gpbottom">
+                    <div class="wrapper_1" id="pp_wrapper">
+                        <div class="pp" id="pp_box">
+                            <span class="text_1" id="pp_text" style="width: 500px;">
+                                <span class="odometer" id="pp_txt" style="transition-duration: 500ms; white-space: nowrap; overflow: hidden; text-overflow: clip;"></span> / 
+                                <span id="ppfc_txt"></span>pp
+                            </span>
+                        </div>
+                    </div>
+                    <div class="wrapper_2" id="combo_wrapper">
+                        <div class="combo_wrapper">
+                            <div class="combo" id="combo_box"></div>
+                            <div class="combo_handler" id="combo_text">
+                              <span class="text_2" id="combo_text2">
+                                <span class="odometer" id="combo_count"></span>
+                                <span id="combo_x" style="position: relative; right: 7px;">x</span>
+                              </span>
+                              <span class="text_2">
+                                <span id="combo_max" style="transition-duration: 500ms;"></span>
+                              </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="recorderContainer" class="Sriracha">
+                        <div class="DebugBorder">
+                            <div id="recorder"> </div>
+                            <div id="recorderName"></div>
+                        </div>
+                    </div>
+                    <div id="URIndex" class="odometer unstableRate"><b></b></div>
+					<div id="URText"><span style="font-weight: 800;">U</span>nstable <span style="font-weight: 800;">R</span>ate</div>
+					<div id="URCont">
+						<div id="URbar">
+							<div id="avgHitError"></div>
+							<div id="URmidbar"></div>
+							<div id="l50"></div>
+							<div id="l100"></div>
+							<div id="l300"></div>
+                            <div id="URTCont">
+                                <div id="tick0" class="tick"></div>
+                                <div id="tick1" class="tick"></div>
+                                <div id="tick2" class="tick"></div>
+                                <div id="tick3" class="tick"></div>
+                                <div id="tick4" class="tick"></div>
+                                <div id="tick5" class="tick"></div>
+                                <div id="tick6" class="tick"></div>
+                                <div id="tick7" class="tick"></div>
+                                <div id="tick8" class="tick"></div>
+                                <div id="tick9" class="tick"></div>
+                                <div id="tick10" class="tick"></div>
+                                <div id="tick11" class="tick"></div>
+                                <div id="tick12" class="tick"></div>
+                                <div id="tick13" class="tick"></div>
+                                <div id="tick14" class="tick"></div>
+                                <div id="tick15" class="tick"></div>
+                                <div id="tick16" class="tick"></div>
+                                <div id="tick17" class="tick"></div>
+                                <div id="tick18" class="tick"></div>
+                                <div id="tick19" class="tick"></div>
+                                <div id="tick20" class="tick"></div>
+                                <div id="tick21" class="tick"></div>
+                                <div id="tick22" class="tick"></div>
+                                <div id="tick23" class="tick"></div>
+                                <div id="tick24" class="tick"></div>
+                                <div id="tick25" class="tick"></div>
+                                <div id="tick26" class="tick"></div>
+                                <div id="tick27" class="tick"></div>
+                                <div id="tick28" class="tick"></div>
+                                <div id="tick29" class="tick"></div>
+                                <div id="tick30" class="tick"></div>
+                                <div id="tick31" class="tick"></div>
+                                <div id="tick32" class="tick"></div>
+                                <div id="tick33" class="tick"></div>
+                                <div id="tick34" class="tick"></div>
+                                <div id="tick35" class="tick"></div>
+                                <div id="tick36" class="tick"></div>
+                                <div id="tick37" class="tick"></div>
+                                <div id="tick38" class="tick"></div>
+                                <div id="tick39" class="tick"></div>
+                                <div id="tick40" class="tick"></div>
+                                <div id="tick41" class="tick"></div>
+                                <div id="tick42" class="tick"></div>
+                                <div id="tick43" class="tick"></div>
+                                <div id="tick44" class="tick"></div>
+                                <div id="tick45" class="tick"></div>
+                                <div id="tick46" class="tick"></div>
+                                <div id="tick47" class="tick"></div>
+                                <div id="tick48" class="tick"></div>
+                                <div id="tick49" class="tick"></div>
+                                <div id="tick50" class="tick"></div>
+                                <div id="tick51" class="tick"></div>
+                                <div id="tick52" class="tick"></div>
+                                <div id="tick53" class="tick"></div>
+                                <div id="tick54" class="tick"></div>
+                                <div id="tick55" class="tick"></div>
+                                <div id="tick56" class="tick"></div>
+                                <div id="tick57" class="tick"></div>
+                                <div id="tick58" class="tick"></div>
+                                <div id="tick59" class="tick"></div>
+                                <div id="tick60" class="tick"></div>
+                                <div id="tick61" class="tick"></div>
+                                <div id="tick62" class="tick"></div>
+                                <div id="tick63" class="tick"></div>
+                                <div id="tick64" class="tick"></div>
+                                <div id="tick65" class="tick"></div>
+                                <div id="tick66" class="tick"></div>
+                                <div id="tick67" class="tick"></div>
+                                <div id="tick68" class="tick"></div>
+                                <div id="tick69" class="tick"></div>
+                                <div id="tick70" class="tick"></div>
+                                <div id="tick71" class="tick"></div>
+                                <div id="tick72" class="tick"></div>
+                                <div id="tick73" class="tick"></div>
+                                <div id="tick74" class="tick"></div>
+                                <div id="tick75" class="tick"></div>
+                                <div id="tick76" class="tick"></div>
+                                <div id="tick77" class="tick"></div>
+                                <div id="tick78" class="tick"></div>
+                                <div id="tick79" class="tick"></div>
+                                <div id="tick80" class="tick"></div>
+                                <div id="tick81" class="tick"></div>
+                                <div id="tick82" class="tick"></div>
+                                <div id="tick83" class="tick"></div>
+                                <div id="tick84" class="tick"></div>
+                                <div id="tick85" class="tick"></div>
+                                <div id="tick86" class="tick"></div>
+                                <div id="tick87" class="tick"></div>
+                                <div id="tick88" class="tick"></div>
+                                <div id="tick89" class="tick"></div>
+                                <div id="tick90" class="tick"></div>
+                                <div id="tick91" class="tick"></div>
+                                <div id="tick92" class="tick"></div>
+                                <div id="tick93" class="tick"></div>
+                                <div id="tick94" class="tick"></div>
+                                <div id="tick95" class="tick"></div>
+                                <div id="tick96" class="tick"></div>
+                                <div id="tick97" class="tick"></div>
+                                <div id="tick98" class="tick"></div>
+                                <div id="tick99" class="tick"></div>
+                                <div id="tick100" class="tick"></div>
+                                <div id="tick101" class="tick"></div>
+                                <div id="tick102" class="tick"></div>
+                                <div id="tick103" class="tick"></div>
+                                <div id="tick104" class="tick"></div>
+                                <div id="tick105" class="tick"></div>
+                                <div id="tick106" class="tick"></div>
+                                <div id="tick107" class="tick"></div>
+                                <div id="tick108" class="tick"></div>
+                                <div id="tick109" class="tick"></div>
+                                <div id="tick110" class="tick"></div>
+                                <div id="tick111" class="tick"></div>
+                                <div id="tick112" class="tick"></div>
+                                <div id="tick113" class="tick"></div>
+                                <div id="tick114" class="tick"></div>
+                                <div id="tick115" class="tick"></div>
+                                <div id="tick116" class="tick"></div>
+                                <div id="tick117" class="tick"></div>
+                                <div id="tick118" class="tick"></div>
+                                <div id="tick119" class="tick"></div>
+                                <div id="tick120" class="tick"></div>
+                                <div id="tick121" class="tick"></div>
+                                <div id="tick122" class="tick"></div>
+                                <div id="tick123" class="tick"></div>
+                                <div id="tick124" class="tick"></div>
+                                <div id="tick125" class="tick"></div>
+                                <div id="tick126" class="tick"></div>
+                                <div id="tick127" class="tick"></div>
+                                <div id="tick128" class="tick"></div>
+                                <div id="tick129" class="tick"></div>
+                                <div id="tick130" class="tick"></div>
+                                <div id="tick131" class="tick"></div>
+                                <div id="tick132" class="tick"></div>
+                                <div id="tick133" class="tick"></div>
+                                <div id="tick134" class="tick"></div>
+                                <div id="tick135" class="tick"></div>
+                                <div id="tick136" class="tick"></div>
+                                <div id="tick137" class="tick"></div>
+                                <div id="tick138" class="tick"></div>
+                                <div id="tick139" class="tick"></div>
+                                <div id="tick140" class="tick"></div>
+                                <div id="tick141" class="tick"></div>
+                                <div id="tick142" class="tick"></div>
+                                <div id="tick143" class="tick"></div>
+                                <div id="tick144" class="tick"></div>
+                                <div id="tick145" class="tick"></div>
+                                <div id="tick146" class="tick"></div>
+                                <div id="tick147" class="tick"></div>
+                                <div id="tick148" class="tick"></div>
+                                <div id="tick149" class="tick"></div>
+                                <div id="tick150" class="tick"></div>
+                                <div id="tick151" class="tick"></div>
+                                <div id="tick152" class="tick"></div>
+                                <div id="tick153" class="tick"></div>
+                                <div id="tick154" class="tick"></div>
+                                <div id="tick155" class="tick"></div>
+                                <div id="tick156" class="tick"></div>
+                                <div id="tick157" class="tick"></div>
+                                <div id="tick158" class="tick"></div>
+                                <div id="tick159" class="tick"></div>
+                                <div id="tick160" class="tick"></div>
+                                <div id="tick161" class="tick"></div>
+                                <div id="tick162" class="tick"></div>
+                                <div id="tick163" class="tick"></div>
+                                <div id="tick164" class="tick"></div>
+                                <div id="tick165" class="tick"></div>
+                                <div id="tick166" class="tick"></div>
+                                <div id="tick167" class="tick"></div>
+                                <div id="tick168" class="tick"></div>
+                                <div id="tick169" class="tick"></div>
+                                <div id="tick170" class="tick"></div>
+                                <div id="tick171" class="tick"></div>
+                                <div id="tick172" class="tick"></div>
+                                <div id="tick173" class="tick"></div>
+                                <div id="tick174" class="tick"></div>
+                                <div id="tick175" class="tick"></div>
+                                <div id="tick176" class="tick"></div>
+                                <div id="tick177" class="tick"></div>
+                                <div id="tick178" class="tick"></div>
+                                <div id="tick179" class="tick"></div>
+                                <div id="tick180" class="tick"></div>
+                                <div id="tick181" class="tick"></div>
+                                <div id="tick182" class="tick"></div>
+                                <div id="tick183" class="tick"></div>
+                                <div id="tick184" class="tick"></div>
+                                <div id="tick185" class="tick"></div>
+                                <div id="tick186" class="tick"></div>
+                                <div id="tick187" class="tick"></div>
+                                <div id="tick188" class="tick"></div>
+                                <div id="tick189" class="tick"></div>
+                                <div id="tick190" class="tick"></div>
+                                <div id="tick191" class="tick"></div>
+                                <div id="tick192" class="tick"></div>
+                                <div id="tick193" class="tick"></div>
+                                <div id="tick194" class="tick"></div>
+                                <div id="tick195" class="tick"></div>
+                                <div id="tick196" class="tick"></div>
+                                <div id="tick197" class="tick"></div>
+                                <div id="tick198" class="tick"></div>
+                                <div id="tick199" class="tick"></div>
+                                <div id="tick200" class="tick"></div>
+                            </div>
+						</div>
+					</div>
+                </div>
+            </div>
+            <div id="KeyOverlayCont">
+                <!-- KeyOverlay by ck. (Modified) -->
+                <div id="keyOverlay" class="--top -right KeyRelative">
+                    <div class="main">
+                      <div class="keys k1 hidden">
+                        <div class="count">
+                            <div id="k1Count" class="odometer"></div>
+                        </div>
+                        <div class="wrapper">
+                          <div id="k1Press" class="press"></div>
+                  
+                          <div class="bpm">
+                            <div id="k1Bpm" class="bpmcount">0</div>
+                            <div class="bpmtext">bpm</div>
+                          </div>
+                        </div>
+                        <div class="tiles">
+                            <div id="k1_canvas" class="canvas"></div>
+                        </div>
+                      </div>
+                      <div class="keys k2 hidden">
+                        <div class="count">
+                            <div id="k2Count" class="odometer"></div>
+                        </div>
+                        <div class="wrapper">
+                          <div id="k2Press" class="press"></div>
+                  
+                          <div class="bpm">
+                            <div id="k2Bpm" class="bpmcount">0</div>
+                            <div class="bpmtext">bpm</div>
+                          </div>
+                        </div>
+                        <div class="tiles">
+                            <div id="k2_canvas" class="canvas"></div>
+                        </div>
+                      </div>
+                      <div class="keys m1 hidden">
+                        <div class="count">
+                            <div id="m1Count" class="odometer"></div>
+                        </div>
+                        <div class="wrapper">
+                          <div id="m1Press" class="press"></div>
+                  
+                          <div class="bpm">
+                            <div id="m1Bpm" class="bpmcount">0</div>
+                            <div class="bpmtext">bpm</div>
+                          </div>
+                        </div>
+                        <div class="tiles">
+                            <div id="m1_canvas" class="canvas"></div>
+                        </div>
+                      </div>
+                      <div class="keys m2 hidden">
+                        <div class="count">
+                            <div id="m2Count" class="odometer"></div>
+                        </div>
+                        <div class="wrapper">
+                          <div id="m2Press" class="press"></div>
+                  
+                          <div class="bpm">
+                            <div id="m2Bpm" class="bpmcount">0</div>
+                            <div class="bpmtext">bpm</div>
+                          </div>
+                        </div>
+                        <div class="tiles">
+                            <div id="m2_canvas" class="canvas"></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div id="RankingPanel">
+                <div id="bgborder"></div>
+                <div id="ResultTop">
+                    <div id="MapStats">
+                        <div id="StatsBG">
+                            <div id="rankStatus"></div>
+                            <div id="starRating"></div>
+                            <img id="RBG"></img>
+                        </div>
+                        <div id="StatsText">
+                            <div id="Song" style="font-size: 50px; font-weight: 800; height: 55px;"></div>
+                            <div id="Artist" style="font-size: 30px; height: 35px;"></div>
+                            <div id="Mapper" style="font-size: 25px; font-weight: 200; height: 35px;"></div>
+                        </div>
+                    </div>
+                    <div id="StatsBPM"></div>
+                    <div id="StatsBar">
+                        <div id="CS" class="StatsBL">
+                            <div id="PHCS" style="width: 70px;">CS</div>
+                            <div id="CSLine" class="LineBar">
+                                <div id="CSGlow" class="GlowBar">
+                                    <div id="CSText" class="TextBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="AR" class="StatsBL">
+                            <div id="PHAR" style="width: 70px;">AR</div>
+                            <div id="ARLine" class="LineBar">
+                                <div id="ARGlow" class="GlowBar">
+                                    <div id="ARText" class="TextBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="OD" class="StatsBL">
+                            <div id="PHOD" style="width: 70px;">OD</div>
+                            <div id="ODLine" class="LineBar">
+                                <div id="ODGlow" class="GlowBar">
+                                    <div id="ODText" class="TextBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="HP" class="StatsBL">
+                            <div id="PHHP" style="width: 70px;">HP</div>
+                            <div id="HPLine" class="LineBar">
+                                <div id="HPGlow" class="GlowBar">
+                                    <div id="HPText" class="TextBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ResultMiddle">
+                    <div id="PlayerContainer" style="width: 700px;">
+                        <div id="TContainer">
+                            <div id="PlayerData">
+                                <div id="PlayerAvatar"></div>
+                                <div id="NameFlag">
+                                    <div id="PlayerName"></div>
+                                    <div id="PlayerFlag"></div>
+                                </div>
+                            </div>
+                            <div id="PlayerGR"></div>
+                            <div id="PlayerCR"></div>
+                            <div id="PlayerTotalPP"></div>
+                        </div>
+                    </div>
+                    <div id="MiddleBar"></div>
+                    <div id="ScoreResultContainer" style="width: 700px;">
+                        <div id="PContainer">
+                            <div style="font-size: 25px; height: 20px;">Score</div>
+                            <div id="PlayerScore"></div>
+                            <div id="JudgementTotal">
+                                <div id="Judge100" class="JudgeBar"></div>
+                                <div id="r100"></div>
+                                <div id="Judge50" class="JudgeBar"></div>
+                                <div id="r50"></div>
+                                <div id="Judge0" class="JudgeBar"></div>
+                                <div id="r0"></div>
+                                <div id="JudgeSB" class="JudgeBar"></div>
+                                <div id="rSB"></div>
+                            </div>
+                            <div id="PlayerAcc"></div>
+                            <div id="PlayerMaxCombo"></div>
+                            <div id="PlayerPPResult">
+                                <div id="PPResult"></div>
+                                <div id="PPResultIfFC"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ResultBottom">
+                    <div id="resultRecorder"></div>
+                    <div id="SonataTextResult">Alayna, My Love...</div>
+                    <div id="createdAt"></div>
+                    <div id="SongRanking">
+                        <div id="rankingResult"></div>
+                        <div id="modContainer"></div>
+                    </div>
+                </div>
+                <div id="ResultPerformance">
+                    <div id="UserTopPlay">
+                        <div id="Top1" class="TopPlay">
+                            <div id="TopDate1" class="topDate"></div>
+                            <div class="topStat">
+                                <div id="TopRanking1" class="topRanking"></div>
+                                <div id="TopMods1" class="topMods"></div>
+                                <div id="topPP1" class="topPP"></div>
+                            </div>
+                        </div>
+                        <div id="Top2" class="TopPlay">
+                            <div id="TopDate2" class="topDate"></div>
+                            <div class="topStat">
+                                <div id="TopRanking2" class="topRanking"></div>
+                                <div id="TopMods2" class="topMods"></div>
+                                <div id="topPP2" class="topPP"></div>
+                            </div>
+                        </div>
+                        <div id="Top3" class="TopPlay">
+                            <div id="TopDate3" class="topDate"></div>
+                            <div class="topStat">
+                                <div id="TopRanking3" class="topRanking"></div>
+                                <div id="TopMods3" class="topMods"></div>
+                                <div id="topPP3" class="topPP"></div>
+                            </div>
+                        </div>
+                        <div id="Top4" class="TopPlay">
+                            <div id="TopDate4" class="topDate"></div>
+                            <div class="topStat">
+                                <div id="TopRanking4" class="topRanking"></div>
+                                <div id="TopMods4" class="topMods"></div>
+                                <div id="topPP4" class="topPP"></div>
+                            </div>
+                        </div>
+                        <div id="Top5" class="TopPlay">
+                            <div id="TopDate5" class="topDate"></div>
+                            <div class="topStat">
+                                <div id="TopRanking5" class="topRanking"></div>
+                                <div id="TopMods5" class="topMods"></div>
+                                <div id="topPP5" class="topPP"></div>
+                            </div>
+                        </div>
+                        <div id="Top6" class="TopPlay">
+                            <div id="TopDate6" class="topDate"></div>
+                            <div class="topStat">
+                                <div id="TopRanking6" class="topRanking"></div>
+                                <div id="TopMods6" class="topMods"></div>
+                                <div id="topPP6" class="topPP"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg width="0" height="0">
+			<defs>
+			  <clipPath id="myClip">
+				<polygon points="2200,1380 2560,1380 2560,1440 2200,1440"/>
+				<polygon points="2460,600 2560,600 2560,1000 2460,1000"/>
+			  </clipPath>
+			</defs>
+		  </svg>
+		    <script defer>
+			    {
+			    	let el = document.getElementById('starsCurrent');
+			    	od = new Odometer({
+			    		el: el,
+			    		format: '(dd).dd',
+			    	});
+			    }
+            </script>
+		<script type="module" src="index.js"></script>
+    </body>
+</html>
