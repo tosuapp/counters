@@ -2,9 +2,10 @@ import WebSocketManager from './js/socket.js';
 import CanvasKeys from './js/canvas.js';
 import {createChartConfig, createChartConfig2, toChartData, FAST_SMOOTH_TYPE_MULTIPLE_WIDTH, FAST_SMOOTH_TYPE_NO_SMOOTHING, fastSmooth, max} from "./js/graph.js";
 import {hitJudgementsAdd, hitJudgementsClear, tapJudgement} from "./js/setups_functions.js";
-import {getMapDataSet, getMapScores, getUserDataSet, getUserTop, postUserID} from "./js/api_functions.js";
+import {initApiSocket, getMapDataSet, getMapScores, getUserDataSet, getUserTop, postUserID, setOsuCredentials} from "./js/api_functions.js";
 
-const socket = new WebSocketManager('127.0.0.1:24050');
+window.socket = new WebSocketManager('127.0.0.1:24050');
+initApiSocket(window.socket);
 
 const cache = {};
 
@@ -201,8 +202,20 @@ socket.commands((data) => {
     try {
       const { command, message } = data;
       // get updates for "getSettings" command
-      if (command === 'getSettings') {
-        console.log(command, message); // print out settings for debug
+      if (command !== 'getSettings' || !message) return;
+
+      console.log(command, message);
+
+      if (cache['Client'] !== message['Client']) {
+        cache['Client'] = message['Client'];
+      }
+
+      if (cache['Secret'] !== message['Secret']) {
+        cache['Secret'] = message['Secret'];
+      }
+
+      if (cache['Client'] && cache['Secret']) {
+        setOsuCredentials(cache['Client'], cache['Secret']);
       }
 
       if (cache['LocalNameData'] !== message['LocalNameData']) {
@@ -1289,7 +1302,7 @@ socket.commands((data) => {
     let ColorResultDark;
     let avatarColor;
 
-    if (userData.error === null || LocalNameData === cache['LocalNameData'] || LocalNameData === `Alayna`) {
+    if (!userData || LocalNameData === cache['LocalNameData'] || LocalNameData === `Alayna`) {
         userData = {
             "id": `Alayna`,
             "statistics": {

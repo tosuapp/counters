@@ -1,5 +1,21 @@
 [
     {
+        "uniqueID": "Client",
+        "type": "password",
+        "title": "osu! Client Key",
+        "description": "Put your osu! Client Key here for extra features! (V1)",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "Secret",
+        "type": "password",
+        "title": "osu! Secret",
+        "description": "Put your osu! Secret here for extra features! (V1)",
+        "options": "",
+        "value": ""
+    },
+    {
         "uniqueID": "Bar",
         "type": "color",
         "title": "Setup",
