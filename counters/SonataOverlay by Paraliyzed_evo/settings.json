@@ -1,0 +1,464 @@
+[
+    {
+        "uniqueID": "Bar",
+        "type": "color",
+        "title": "Setup",
+        "description": "===========================================",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "Recorder",
+        "type": "text",
+        "title": "Recorder Name!",
+        "description": "",
+        "options": "",
+        "value": "Đỗ Nguyễn Thu Trang ❤"
+    },
+    {
+        "uniqueID": "HidePanel",
+        "type": "checkbox",
+        "title": "Hide Ranking Panel?",
+        "description": "",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "HideKeys",
+        "type": "checkbox",
+        "title": "Hide KeysOverlay?",
+        "description": "",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "HideGraphStats",
+        "type": "checkbox",
+        "title": "Hide GraphStats?",
+        "description": "",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "HideBottom",
+        "type": "checkbox",
+        "title": "Hide Bottom?",
+        "description": "",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "Bar1",
+        "type": "color",
+        "title": "Leaderboard",
+        "description": "===========================================",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "LBEnabled",
+        "type": "checkbox",
+        "title": "Leaderboard Enabled?",
+        "description": "showing leaderboard ranking owo",
+        "options": "",
+        "value": false
+    },
+    {
+        "uniqueID": "LBOptions",
+        "type": "options",
+        "title": "Leaderboard Type",
+        "description": "",
+        "options": [
+            "Global",
+            "Selected Mods"
+        ],
+        "value": "Global"
+    },
+    {
+        "uniqueID": "Bar2",
+        "type": "color",
+        "title": "Color Settings",
+        "description": "===========================================",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "ColorSet",
+        "type": "options",
+        "title": "Color Selection",
+        "description": "Overlay Color Method (Refresh needed after switched back to API)",
+        "options": [
+            "API",
+            "Manual"
+        ],
+        "value": "API"
+    },
+    {
+        "uniqueID": "HueID",
+        "type": "number",
+        "title": "(Color Selection Manual) Hue Color",
+        "description": "from 0 to 360",
+        "options": "API,Manual",
+        "value": 0
+    },
+    {
+        "uniqueID": "SaturationID",
+        "type": "number",
+        "title": "(Color Selection Manual) Saturation Color",
+        "description": "from 0 to 100",
+        "options": "",
+        "value": 0
+    },
+    {
+        "uniqueID": "HueID2",
+        "type": "number",
+        "title": "(Color Selection Manual) Hue Color 2",
+        "description": "from 0 to 360",
+        "options": "",
+        "value": 0
+    },
+    {
+        "uniqueID": "SaturationID2",
+        "type": "number",
+        "title": "(Color Selection Manual) Saturation Color 2",
+        "description": "from 0 to 100",
+        "options": "",
+        "value": 0
+    },
+    {
+        "uniqueID": "Bar3",
+        "type": "color",
+        "title": "Local Player Data",
+        "description": "=== Used for empty name or not in bancho replays ===",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "LocalNameData",
+        "type": "text",
+        "title": "Local Name?",
+        "description": "",
+        "options": "",
+        "value": "Kiana"
+    },
+    {
+        "uniqueID": "GBrank",
+        "type": "text",
+        "title": "Local Global Rank?",
+        "description": "",
+        "options": "",
+        "value": "0"
+    },
+    {
+        "uniqueID": "ppGB",
+        "type": "text",
+        "title": "Local PP?",
+        "description": "",
+        "options": "",
+        "value": "0"
+    },
+    {
+        "uniqueID": "CTrank",
+        "type": "text",
+        "title": "Local Country Rank?",
+        "description": "",
+        "options": "",
+        "value": "0"
+    },
+    {
+        "uniqueID": "CTcode",
+        "type": "text",
+        "title": "Local Country Code",
+        "description": "Example: VN, US",
+        "options": "",
+        "value": "__"
+    },
+    {
+        "uniqueID": "Bar4",
+        "type": "color",
+        "title": "Local Top Play Data 1",
+        "description": "======== plz fill all ========",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "mapid0",
+        "type": "number",
+        "title": "Beatmap ID?",
+        "description": "Example: 4409628",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "date0",
+        "type": "text",
+        "title": "Date Set?",
+        "description": "Example: 2024-07-27 07:27:27",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "rankResult0",
+        "type": "text",
+        "title": "Rank?",
+        "description": "Example: XH, S",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "ppResult0",
+        "type": "number",
+        "title": "PP Total?",
+        "description": "",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "modsid0",
+        "type": "number",
+        "title": "Mods?",
+        "description": "Example: HDHR",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "Bar5",
+        "type": "color",
+        "title": "Local Top Play Data 2",
+        "description": "======== plz fill all ========",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "mapid1",
+        "type": "number",
+        "title": "Beatmap ID?",
+        "description": "Example: 4409628",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "date1",
+        "type": "text",
+        "title": "Date Set?",
+        "description": "Example: 2024-07-27 07:27:27",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "rankResult1",
+        "type": "text",
+        "title": "Rank?",
+        "description": "Example: XH, S",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "ppResult1",
+        "type": "number",
+        "title": "PP Total?",
+        "description": "",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "modsid1",
+        "type": "number",
+        "title": "Mods?",
+        "description": "Example: HDHR",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "Bar6",
+        "type": "color",
+        "title": "Local Top Play Data 3",
+        "description": "======== plz fill all ========",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "mapid2",
+        "type": "number",
+        "title": "Beatmap ID?",
+        "description": "Example: 4409628",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "date2",
+        "type": "text",
+        "title": "Date Set?",
+        "description": "Example: 2024-07-27 07:27:27",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "rankResult2",
+        "type": "text",
+        "title": "Rank?",
+        "description": "Example: XH, S",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "ppResult2",
+        "type": "number",
+        "title": "PP Total?",
+        "description": "",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "modsid2",
+        "type": "number",
+        "title": "Mods?",
+        "description": "Example: HDHR",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "Bar7",
+        "type": "color",
+        "title": "Local Top Play Data 4",
+        "description": "======== plz fill all ========",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "mapid3",
+        "type": "number",
+        "title": "Beatmap ID?",
+        "description": "Example: 4409628",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "date3",
+        "type": "text",
+        "title": "Date Set?",
+        "description": "Example: 2024-07-27 07:27:27",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "rankResult3",
+        "type": "text",
+        "title": "Rank?",
+        "description": "Example: XH, S",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "ppResult3",
+        "type": "number",
+        "title": "PP Total?",
+        "description": "",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "modsid3",
+        "type": "number",
+        "title": "Mods?",
+        "description": "Example: HDHR",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "Bar8",
+        "type": "color",
+        "title": "Local Top Play Data 5",
+        "description": "======== plz fill all ========",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "mapid4",
+        "type": "number",
+        "title": "Beatmap ID?",
+        "description": "Example: 4409628",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "date4",
+        "type": "text",
+        "title": "Date Set?",
+        "description": "Example: 2024-07-27 07:27:27",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "rankResult4",
+        "type": "text",
+        "title": "Rank?",
+        "description": "Example: XH, S",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "ppResult4",
+        "type": "number",
+        "title": "PP Total?",
+        "description": "",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "modsid4",
+        "type": "number",
+        "title": "Mods?",
+        "description": "Example: HDHR",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "Bar9",
+        "type": "color",
+        "title": "Local Top Play Data 6",
+        "description": "======== plz fill all ========",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "mapid5",
+        "type": "number",
+        "title": "Beatmap ID?",
+        "description": "Example: 4409628",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "date5",
+        "type": "text",
+        "title": "Date Set?",
+        "description": "Example: 2024-07-27 07:27:27",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "rankResult5",
+        "type": "text",
+        "title": "Rank?",
+        "description": "Example: XH, S",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "ppResult5",
+        "type": "number",
+        "title": "PP Total?",
+        "description": "",
+        "options": "",
+        "value": ""
+    },
+    {
+        "uniqueID": "modsid5",
+        "type": "number",
+        "title": "Mods?",
+        "description": "Example: HDHR",
+        "options": "",
+        "value": ""
+    }
+]

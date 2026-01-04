@@ -1,0 +1,74 @@
+.DebugBox {
+    margin: 15px;
+    padding: 15px 35px 15px 20px;
+    width: fit-content;
+    height: fit-content;
+    background-color: #050819;
+}
+.DebugBorder {
+    width: 97%;
+    height: 95%;
+    border: 3px solid #a1c9ff;
+    padding: 10px;
+}
+.DebugText {
+    font-family: 'Stanley Moon';
+    font-size: 25px;
+    font-weight: 200;
+}
+#DevInformation {
+    background-color: #050819;
+    color: #a1c9ff;
+    transition: ease 1s;
+}
+#CrashReportDebug {
+    background-color: #190505;
+    color: #ffa1a1;
+    transition: ease 1s 1s;
+}
+#CrashReportDebug, #DevInformation {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 100px;
+    padding: 15px 20px 15px 20px;
+    font-size: 30px;
+    z-index: 3;
+}
+#SadFace,#DevPics {
+    width: 200px;
+    height: 200px;
+    background-size: 100%;
+}
+#SadFace {
+    background-image: url('../static/hosisad.png');
+}
+#DevPics {
+    background-image: url('../static/devnotice.png');
+}
+#CrashText,#DevVersion {
+    font-size: 45px;
+}
+#CrashBorder, #DevInformationBorder {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 1300px;
+    line-height: 30px;
+}
+#CrashBorder {
+    border: 3px solid #ffa1a1;
+}
+#DevInformationBorder {
+    border: 3px solid #a1c9ff;
+}
+.crashpop {
+    transform: translateY(700px); opacity: 0;
+}

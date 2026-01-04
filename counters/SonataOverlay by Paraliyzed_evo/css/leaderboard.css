@@ -1,0 +1,149 @@
+#leaderboard {
+    position: relative;
+    bottom: 350px;
+    z-index: 1;
+    transition: ease 500ms;
+}
+#otherplayerCont {
+    position: absolute;
+    bottom: -65px;
+    opacity: 50%;
+    height: 3315px;
+    width: 600px;
+    clip-path: polygon(0 84.35%, 200% 84.35%, 150% 100%, 0% 100%);
+}
+#lbopCont {
+    position: absolute;
+    top: 3315px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 5px;
+    transition: ease 500ms;
+}
+.lbBox {
+    position: absolute;
+    width: 358px;
+    height: 68px;
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    transition: ease 500ms;
+}
+.lb_Number {
+    width: 40px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.positions {
+    font-size: 20px;
+}
+.lb_Avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.lb_Rank {
+    position: relative;
+    font-size: 20px;
+    text-align: right;
+    top: 30px;
+}
+.lb_Stats {
+    position: relative;
+    left: 8px;
+    width: 270px;
+    height: 55px;
+    line-height: 25px;
+    font-size: 18px;
+    color: #9e9e9e;
+}
+.lb_Acc {
+    font-size: 17px;
+}
+.lb_PP {
+    font-size: 22px;
+    font-weight: 600;
+}
+.lb_StatsRight {
+    text-align: right;
+}
+.lb_Combo {
+    position: absolute;
+    bottom: 0;
+    right: 115px;
+    text-align: right;
+}
+.lb_StatsLeft,
+.lb_StatsRight {
+    position: absolute;
+    bottom: 0;
+    width: 250px;
+}
+.lb_Name {
+    color: white;
+    font-size: 22px;
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.bluelight {
+    color: #71cdff;
+}
+#lbcpLine {
+    position: absolute;
+    top: 20px;
+    left: -12px;
+    width: 7px;
+    height: 35px;
+	border-radius: 10px;
+    background-color: #363636;
+    transition: ease 500ms;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+}
+.lb_Mods {
+    position: absolute;
+    height: 27px;
+    width: 150px;
+    right: -160px;
+    display: flex;
+    justify-content: flex-start;
+}
+.modslb {
+	width: 40px;
+	height: 27px;
+    border-radius: 6px;
+    object-fit: cover;
+	background-size: 105%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    margin-right: -15px;
+}
+
+.N3,
+.N2,
+.N1 {
+    font-weight: 800;
+}
+
+.N3 {
+    color: #ff953e;
+    filter: drop-shadow(0 0 10px #ff953e);
+}
+.N2 {
+    color: #ffffff;
+    filter: drop-shadow(0 0 10px #ffffff);
+}
+.N1 {
+    color: #ffdc3e;
+    filter: drop-shadow(0 0 10px #ffdc3e);
+}

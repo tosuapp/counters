@@ -1,0 +1,576 @@
+.nunito-600 {
+	font-family: "Nunito", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 600;
+  }
+.Sriracha {
+	font-family: "Sriracha", sans-serif;
+}
+
+#main {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2560px;
+    height: 1440px;
+    /* background-color: rgb(77, 77, 77); */
+    color: white;
+    overflow: hidden;
+    /* background-image: url('../static/Background.jpg');
+    background-size: 100%; */
+    z-index: -1;
+}
+
+#gameplay {
+    width: 2560px;
+    height: 1440px;
+    color: white;
+    z-index: 0;
+}
+/* -- BG -- */
+#mapBG {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	background-size: cover;
+	background-position: 50% 50%;
+	z-index: -2;
+    transition: ease 500ms;
+	clip-path: url('#myClip');
+}
+
+#rankingPanelBG {
+	position: absolute;
+	width: 2560px;
+	height: 1440px;
+	object-fit: cover;
+	background-color: black;
+    transition: ease 500ms;
+	z-index: 2;
+}
+/* -- TOP -- */
+#gptop {
+	position: absolute;
+	width: 100%;
+	top: 10px;
+	height: 125px;
+	transition: ease 500ms;
+	font-size: 34px;
+	text-shadow: 0 0 5px #161616;
+	font-weight: 300;
+}
+
+#hpBar {
+	position: absolute;
+	width: 1491px;
+	height: 140px;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	transition: ease 300ms;
+}
+
+#hpBG {
+	position: absolute;
+	width: 1491px;
+	height: 140px;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: -1;
+	opacity: 50%;
+}
+
+#ava {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: 122px;
+	height: 122px;
+	transition: ease-in-out 500ms;
+	background-size: 100%;
+	background-position: 50% 50%;
+	border-radius: 22px;
+	background-repeat: no-repeat;
+}
+
+.otherContainer {
+	position: absolute;
+	width: 400px;
+	top: 120px;
+	transition: ease-in-out 500ms;
+}
+
+#username {
+	left: 800px;
+	text-align: right;
+}
+
+#playerPP {
+	right: 800px;
+	text-align: left;
+}
+
+.xContainer {
+	position: absolute;
+	top: 35px;
+	width: 120px;
+	height: 30px;
+	transition: ease-in-out 500ms;
+}
+
+#globalContainer {
+	right: 430px;
+}
+
+#countryContainer {
+	left: 430px;
+}
+
+.rankContainer {
+	position: absolute;
+	width: 120px;
+	top: -4px;
+	height: 30px;
+	font-size: 30px;
+	color: white;
+	transition: ease-in-out 500ms;
+	align-items: center;
+}
+
+#ranks {
+	left: 100px;
+	text-align: left;
+}
+
+#countryRank {
+	right: 100px;
+	text-align: right;
+}
+
+.flag {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	background-size: 100%;
+    background-position: 50% 50%;
+	background-repeat: no-repeat;
+	color: white;
+	border-radius: 5px;
+	transition: ease-in-out 500ms;
+	width: 55px;
+	height: 35px;
+}
+#global {
+	overflow: visible;
+	height: 55px;
+	top: -10px;
+}
+
+.statContainer {
+	position: absolute;
+	text-align: center;
+	border-radius: 10px;
+	top: 120px;
+	width: 220px;
+	/* box-shadow: 0 5px 9px black; */
+	transition: ease-in-out 500ms;
+	/* background-color: #161616; */
+	color: white;
+}
+
+#SonataText {
+	position: absolute;
+	top: 160px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 24px;
+	font-weight: 600;
+	overflow: hidden;
+}
+
+#BrandLogo {
+	background-image: url("../static/logo.jpg");
+	background-size: 100%;
+	border-radius: 10px;
+	background-color: #14213a;
+	position: absolute;
+	top: 100px;
+	width: 50px;
+	height: 50px;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+/* -- ELEMENT OUTSIDE MAIN -- */
+#smallStats {
+    position: absolute;
+    width: 380px;
+    height: 55px;
+    background-color: #161616;
+    border-radius: 8px;
+    left: 15px;
+	bottom: 155px;
+    font-size: 28px;
+	z-index: 1;
+	transition: ease 500ms;
+}
+#stars1 {
+	position: absolute;
+	left: 17px;
+	top: 10px;
+}
+#bpmd{
+	position: absolute;
+	text-align: right;
+	right: 18px;
+	top: 10px;
+}
+#bpmflash {
+	position: relative;
+	top: 1px;
+	transition-duration: 150ms;
+}
+#starsCurrent {
+	position: relative;
+	top: 0;
+}
+.accInfo {
+	position: absolute;
+    bottom: 135px;
+	left: 15px;
+	display: flex;
+	width: 380px;
+	height: 10px;
+	justify-content: space-between;
+	border-radius: 10px;
+	font-size: 38px;
+	transition: ease-in-out 500ms;
+	z-index: 1;
+	font-weight: 600;
+	text-shadow: 0 0 5px #161616;
+}
+.accCont {
+    position: relative;
+	width: 100px;
+	height: 7px;
+	transition: ease 300ms;
+}
+#h100Cont {
+	background-color: #27b641;
+	box-shadow: 0 0 30px rgba(39, 182, 65);
+	border-radius: 10px 0 0 10px;
+}
+#h50Cont {
+	background-color: #b87f34;
+	box-shadow: 0 0 30px rgba(184, 127, 52);
+}
+#h0Cont {
+	background-color: #b83133;
+	box-shadow: 0 0 30px rgba(184, 49, 51);
+}
+#hsbCont {
+	background-color: #b8b8b8;
+	box-shadow: 0 0 30px rgba(184, 184, 184);
+	border-radius: 0 10px 10px 0;
+}
+.accText {
+	position: relative;
+	text-align: center;
+	top: 30px;
+	width: 100%;
+	transition: ease 200ms;
+}
+#graphCont {
+	position: absolute;
+	bottom: 65px;
+	z-index: 2;
+}
+
+#graph100,
+#graph50,
+#graph0,
+#graphSB {
+	position: relative;
+	width: 380px;
+	height: 8px;
+	transition: ease 300ms;
+	overflow: hidden;
+}
+#graph100 {
+	background-color: rgba(0, 30, 0, 0.8);
+}
+#graph50 {
+	background-color: rgba(30, 15, 0, 0.8);
+}
+#graph0 {
+	background-color: rgba(30, 0, 0, 0.8);
+}
+#graphSB {
+	background-color: rgba(39, 39, 39, 0.8);
+}
+.tickGraph {
+	position: absolute;
+	width: 1px;
+	height: 8px;
+}
+.tick100 {
+	background-color: #aaff81;
+}
+.tick50 {
+	background-color: #ffe97f;
+}
+.tick0 {
+	background-color: #fd7e7e;
+}
+.tickSB {
+	background-color: #fff;
+}
+.tick100p {
+	background-color: #aaff81;
+}
+.tick50p {
+	background-color: #ffe97f;
+}
+.tick0p {
+	background-color: #fd7e7e;
+}
+.tickSBp {
+	background-color: #fff;
+}
+#strainGraph {
+	position: relative;
+	bottom: 0;
+	z-index: -1;
+	transition: ease 300ms;
+}
+#basegraph {
+	opacity: 50%;
+}
+#progress {
+	position: absolute;
+	bottom: 0;
+	overflow: hidden;
+	opacity: 80%;
+	width: 380px;
+	height: 250px;
+	transition: ease 300ms;
+}
+.chart, .chart2 {
+	position: absolute;
+	bottom: 0;
+}
+
+/* -- BOTTOM -- */
+#gpbottom {
+	position: absolute;
+	width: 2560px;
+	height: 300px;
+	bottom: 0;
+	transition: ease-in-out 500ms;
+    display: flex;
+    justify-content: center;
+}
+#URmidbar{
+	position: absolute;
+	bottom: 10px;
+	background-color: white;
+	width: 7px;
+    box-shadow: 0 0 5px black;
+	height: 35px;
+	border-radius: 5px;
+	transition: ease-out 500ms;
+}
+
+#avgHitError {
+	position: absolute;
+	bottom: 0;
+	width: 15px;
+	height: 15px;
+	background-image: url("../static/arrowtick.png");
+	background-size: 100%;
+	transition: ease 200ms;
+	transform-origin: 50% 50%;
+}
+#URCont{
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+#URbar {
+	display: flex;
+	width: 100%;
+	bottom: 0;
+	transition: ease-in-out 300ms;
+	z-index: -1;
+	justify-content: center;
+}
+#l50,
+#l100,
+#l300 {
+	position: absolute;
+	bottom: 20px;
+	height: 15px;
+	transition: ease-in-out 300ms;
+	z-index: -1;
+}
+
+#l50 {
+	background-color: #daae46;
+	border-radius: 15px;
+}
+
+#l100 {
+	background-color: #57e313;
+}
+
+#l300 {
+	background-color: #32bce9;
+}
+
+.tick {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	bottom: 8px;
+	height: 40px;
+	width: 7px;
+	background-color: rgba(255 255 255 / .3);
+	border-radius: 5px;
+	opacity: 0;
+	z-index: -1;
+}
+
+#URIndex {
+	position: absolute;
+	bottom: 75px;
+	left: 0;
+	right: 0;
+	font-size: 40px;
+	display: block;
+	text-align: center;
+	padding: 5px 0 5px 0;
+	text-shadow: 0 0 5px #161616;
+	transition: ease-in-out 500ms;
+}
+#URText{
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	right: 0;
+	font-size: 24px;
+	display: block;
+	font-weight: lighter;
+	text-align: center;
+	padding: 5px 0 5px 0;
+	transition: ease-in-out 500ms;
+	color: #9c9c9c;
+}
+.wrapper_1 {
+    display: flex;
+    position: absolute;
+    font-size: 35px;
+    bottom: 15px;
+	left: 1600px;
+    
+    transition-duration: 500ms;
+  }
+  .pp {
+    display: inline-block;
+      background: #161616;
+  
+	padding-left: 20px;
+  
+    width: 74px;
+    height: 65px;
+    transition: 400ms;
+  
+    border-radius: 12px;
+  }
+  
+  .pp .text_1 {
+	position: relative;
+	top: 6px;
+    display: inline-block;
+    
+    font-size: 39px;
+	text-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+  }
+.wrapper_2 {
+    display: flex;
+    position: absolute;
+    font-size: 35px;
+    bottom: 78px;
+	left: 760px;
+  
+    transition-duration: 500ms;
+  }
+  .combo_wrapper {
+    position: relative;
+    width: 200px;
+  }
+  
+  .combo {
+    position: absolute;
+    right: 0;
+    background: #161616;
+  
+    /* width: 26px; */
+    height: 65px;
+    transition-duration: 400ms;
+  
+    border-radius: 12px;
+  }
+  
+  .combo_handler {
+    width: 300px; 
+    position: absolute;
+  
+    transition-duration: 300ms;
+  
+    top: 5px;
+	left: 152px;
+  }
+  #combo_text2 {
+	position: absolute;
+	width: 300px;
+    transition-duration: 400ms;
+  }
+  .combo_handler .text_2 {
+    display: inline-block;
+    
+    font-size: 39px;
+	text-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+  }
+#recorderContainer {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	text-align: right;
+	width: fit-content;
+	font-size: 30px;
+	line-height: 35px;
+	color: #a1c9ff;
+	padding: 15px 35px 15px 20px;
+    background-color: #050819;
+	transition: 500ms ease;
+}
+
+#recorderName {
+	font-size: 35px;
+}
