@@ -1,5 +1,5 @@
 const OSU_CLIENT_ID = '36882';
-const OSU_CLIENT_SECRET = 'CDzHH0R5xHpc4OQUvnPT4ivalVvZtvU4zPHNSYNC';
+const OSU_CLIENT_SECRET = ':P';
 const PROXY_URL = 'https://yes.paraliyzedevo.workers.dev/';
 
 let osuAccessToken = null;
