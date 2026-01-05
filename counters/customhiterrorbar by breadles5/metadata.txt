@@ -1,7 +1,7 @@
 Usecase: Ingame Overlay, OBS Overlay
 Name: Custom Hit Error Bar
 Version: 3.7.2
-Author: breadles5
+Author: breadles
 CompatibleWith: Tosu
 Resolution: 920x90
 authorLinks: https://github.com/breadles5/customHitErrorBar
