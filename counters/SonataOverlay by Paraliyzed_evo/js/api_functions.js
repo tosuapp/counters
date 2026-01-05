@@ -1,81 +1,117 @@
 let socket = null;
-let osuAccessToken = null;
-let tokenExpiresAt = 0;
 let clientId = null;
 let clientSecret = null;
+let proxyCheckInterval = null;
+let isProxyRunning = false;
+
+const PROXY_URL = 'http://127.0.0.1:24051/api';
+
+const CrashReportDebug = document.getElementById('CrashReportDebug');
+const CrashReason = document.getElementById('CrashReason');
 
 export function initApiSocket(ws) {
   socket = ws;
+  startProxyCheck();
 }
 
 export function setOsuCredentials(id, secret) {
   clientId = id;
   clientSecret = secret;
-  osuAccessToken = null;
-  tokenExpiresAt = 0;
+  console.log('osu! API credentials set');
+  startProxyCheck();
 }
 
-async function getAccessToken() {
-  if (osuAccessToken && Date.now() < tokenExpiresAt) {
-    return osuAccessToken;
+async function checkProxyStatus() {
+  try {
+    const response = await fetch(`${PROXY_URL}/health`, {
+      method: 'GET',
+      signal: AbortSignal.timeout(2000)
+    });
+    
+    if (response.ok) {
+      if (!isProxyRunning) {
+        console.log('[PROXY] Connected');
+        isProxyRunning = true;
+        hideProxyWarning();
+      }
+      return true;
+    }
+  } catch (error) {
+    if (isProxyRunning || isProxyRunning === null) {
+      console.log('[PROXY] Disconnected');
+      isProxyRunning = false;
+      showProxyWarning();
+    }
+    return false;
+  }
+}
+
+function showProxyWarning() {
+  CrashReportDebug.classList.remove('crashpop');
+  CrashReason.innerHTML = 
+    `The local proxy server is not running. API features (user top scores, leaderboards) will not work.<br><br>
+    To enable these features, run: <code style="background: rgba(255,255,255,0.1); padding: 5px; border-radius: 3px;">proxy.bat or proxy.sh from the overlay folder</code><br><br>
+    Then add your osu! OAuth Client ID and Secret in the overlay settings if you haven't already.`;
+}
+
+function hideProxyWarning() {
+  CrashReportDebug.classList.add('crashpop');
+}
+
+function startProxyCheck() {
+  checkProxyStatus();
+
+  if (!clientId || !clientSecret) {
+    console.log('[PROXY] Credentials not set, skipping interval polling');
+    return;
   }
 
+  if (proxyCheckInterval) {
+    clearInterval(proxyCheckInterval);
+  }
+
+  proxyCheckInterval = setInterval(() => {
+    checkProxyStatus();
+  }, 5000);
+}
+
+export function stopProxyCheck() {
+  if (proxyCheckInterval) {
+    clearInterval(proxyCheckInterval);
+    proxyCheckInterval = null;
+  }
+  hideProxyWarning();
+}
+
+async function makeRequest(endpoint) {
   if (!clientId || !clientSecret) {
     console.warn('osu! API credentials not configured');
     return null;
   }
-
-  try {
-    const response = await fetch('https://osu.ppy.sh/oauth/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        client_id: clientId,
-        client_secret: clientSecret,
-        grant_type: 'client_credentials',
-        scope: 'public'
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to get token: ${response.status}`);
-    }
-
-    const data = await response.json();
-    osuAccessToken = data.access_token;
-    tokenExpiresAt = Date.now() + (data.expires_in - 300) * 1000;
-    
-    return osuAccessToken;
-  } catch (error) {
-    console.error('Error getting osu! API token:', error);
+  
+  if (!isProxyRunning) {
+    showProxyWarning();
     return null;
   }
-}
-
-async function makeRequest(endpoint) {
-  const token = await getAccessToken();
-  if (!token) return null;
   
   try {
-    const response = await fetch(`https://osu.ppy.sh/api/v2${endpoint}`, {
+    const response = await fetch(`${PROXY_URL}?endpoint=${encodeURIComponent(endpoint)}`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'X-Client-ID': clientId,
+        'X-Client-Secret': clientSecret
       }
     });
 
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      console.error(`API request failed: ${response.status}`);
+      return null;
     }
 
     return await response.json();
   } catch (error) {
     console.error('API request error:', error);
+    checkProxyStatus();
     return null;
   }
 }
