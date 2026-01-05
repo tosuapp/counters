@@ -11,3 +11,5 @@
 .github/api1.json
 
 .cache
+
+!proxy-win.exe
