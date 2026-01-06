@@ -6,9 +6,6 @@
 Basically this repo is a fork (and maintained version) of the original [SonotaOverlay](https://web.archive.org/web/20250325212754/https://github.com/HosizoraN/SonataOverlay) made by [HosizoraN](https://web.archive.org/web/20250325212754/https://github.com/HosizoraN) (using archive.org links due to them deleting the accounts). Only reason I have this is me having this overlay for a few years and using it (via [tosu](https://github.com/tosuapp/tosu)) for videos and streams and problems arose with it and I fixed them. This code has my patches and extras included with this, but if you want to revert them, you can go look in the [source code](https://github.com/ParaliyzedEvo/SonotaOverlay/tree/source) and edit the overlay yourself.
 
 ## Instructions
-OPTIONAL: 
-Some features require additional osu!api data. To enable these, provide your own osu!api v2 client id and secret in the settings and run the local helper (`proxy.bat` / `proxy.sh`). This is optional and not required for the core overlay.
-
 Settings for replays (ingame):
 - Go to skin file make sure empty the keyoverlay ingame like this:
 
