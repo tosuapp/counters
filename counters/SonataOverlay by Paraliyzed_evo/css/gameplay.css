@@ -18,6 +18,8 @@
 	font-family: "Nunito", sans-serif;
 	font-optical-sizing: auto;
 	font-weight: 600;
+	height: 0px;
+	width: auto;
   }
 .Sriracha {
 	font-family: "Sriracha", sans-serif;
