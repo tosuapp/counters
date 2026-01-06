@@ -1,6 +1,6 @@
 class WebSocketManager {
   constructor(host) {
-    this.version = '0.1.31'; //unofficial socket.js
+    this.version = '0.1.5';
 
     if (host) {
       this.host = host;
@@ -9,7 +9,7 @@ class WebSocketManager {
     this.createConnection = this.createConnection.bind(this);
 
     /**
-     * @type {{ [key: string]: WebSocket }} - asd;
+     * @type {{ [key: string]: WebSocket }} asd;
      */
     this.sockets = {};
   }
@@ -22,7 +22,6 @@ class WebSocketManager {
 
     this.sockets[url].onopen = () => {
       console.log(`[OPEN] ${url}: Connected`);
-      CrashReportDebug.classList.add('crashpop');
 
       if (INTERVAL) clearInterval(INTERVAL);
       if (Array.isArray(filters)) {
@@ -32,10 +31,6 @@ class WebSocketManager {
 
     this.sockets[url].onclose = (event) => {
       console.log(`[CLOSED] ${url}: ${event.reason}`);
-      CrashReportDebug.classList.remove('crashpop');
-      CrashReason.innerHTML = 
-      `The tosu server socket is currently closed (or the program has been crashed) please relaunch the tosu!
-      If this error still exist please contact to overlay developer or tosu developer owo!`;
 
       delete this.sockets[url];
       INTERVAL = setTimeout(() => {
@@ -141,14 +136,7 @@ class WebSocketManager {
    */
   async getBeatmapOsuFile(file_path) {
     try {
-      if (typeof file_path != 'object') {
-        return {
-          error: 'Wrong argument type, should be object with params'
-        };
-      };
-
-
-      const request = await fetch(`${this.host}/files/beatmap/${file_path}`, {
+      const request = await fetch(`http://${this.host}/files/beatmap/${file_path}`, {
         method: "GET",
       });
 
@@ -174,9 +162,9 @@ class WebSocketManager {
   };
 
   /**
-   * 
-   * @param {string} name 
-   * @param {string|Object} payload 
+   *
+   * @param {string} name
+   * @param {string|Object} payload
    */
   sendCommand(name, command, amountOfRetries = 1) {
     const that = this;
@@ -228,7 +216,7 @@ export default WebSocketManager;
 
 
 
-/** 
+/**
  * @typedef {string | { field: string; keys: Filters[] }} Filters
  */
 
@@ -530,6 +518,7 @@ export default WebSocketManager;
 
 /** @typedef {object} WEBSOCKET_V2
  * @property {'stable' | 'lazer'} client
+ * @property {string} server
  * @property {object} state
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23} state.number
  * @property {'menu' | 'edit' | 'play' | 'exit' | 'selectEdit' | 'selectPlay' | 'selectDrawings' | 'resultScreen' | 'update' | 'busy' | 'unknown' | 'lobby' | 'matchSetup' | 'selectMulti' | 'rankingVs' | 'onlineSelection' | 'optionsOffsetWizard' | 'rankingTagCoop' | 'rankingTeam' | 'beatmapImport' | 'packageUpdater' | 'benchmark' | 'tourney' | 'charts'} state.name
@@ -573,14 +562,29 @@ export default WebSocketManager;
  * @property {boolean} settings.cursor.useSkinCursor
  * @property {boolean} settings.cursor.autoSize
  * @property {number} settings.cursor.size
+ * @property {number} settings.cursor.menuSize
  * @property {object} settings.mouse
+ * @property {boolean} settings.mouse.highPrecision
  * @property {boolean} settings.mouse.rawInput
  * @property {boolean} settings.mouse.disableButtons
  * @property {boolean} settings.mouse.disableWheel
  * @property {number} settings.mouse.sensitivity
+ * @property {object} settings.tablet
+ * @property {boolean} settings.tablet.enabled
+ * @property {number} settings.tablet.x
+ * @property {number} settings.tablet.y
+ * @property {number} settings.tablet.width
+ * @property {number} settings.tablet.height
+ * @property {number} settings.tablet.ratation
+ * @property {number} settings.tablet.pressureThreshold
  * @property {object} settings.mania
  * @property {boolean} settings.mania.speedBPMScale
  * @property {boolean} settings.mania.usePerBeatmapSpeedScale
+ * @property {boolean} settings.mania.usePerBeatmapSpeedScale
+ * @property {number} settings.mania.scrollSpeed
+ * @property {object} settings.mania.scrollDirection
+ * @property {number} settings.mania.scrollDirection.number
+ * @property {'up' | 'down'} settings.mania.scrollDirection.name
  * @property {object} settings.sort
  * @property {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7} settings.sort.number
  * @property {'artist' | 'bpm' | 'creator' | 'date' | 'difficulty' | 'length' | 'rank' | 'title'} settings.sort.name
@@ -600,6 +604,7 @@ export default WebSocketManager;
  * @property {boolean} settings.audio.ignoreBeatmapSounds
  * @property {boolean} settings.audio.useSkinSamples
  * @property {object} settings.audio.volume
+ * @property {number} settings.audio.volume.masterInactive
  * @property {number} settings.audio.volume.master
  * @property {number} settings.audio.volume.music
  * @property {number} settings.audio.volume.effect
@@ -607,6 +612,7 @@ export default WebSocketManager;
  * @property {number} settings.audio.offset.universal
  * @property {object} settings.background
  * @property {number} settings.background.dim
+ * @property {number} settings.background.blur
  * @property {boolean} settings.background.video
  * @property {boolean} settings.background.storyboard
  * @property {object} settings.keybinds
@@ -647,6 +653,8 @@ export default WebSocketManager;
  * @property {string} profile.countryCode.name
  * @property {string} profile.backgroundColour
  * @property {object} beatmap
+ * @property {boolean} beatmap.isKiai
+ * @property {boolean} beatmap.isBreak
  * @property {boolean} beatmap.isConvert
  * @property {object} beatmap.time
  * @property {number} beatmap.time.live
@@ -743,7 +751,8 @@ export default WebSocketManager;
  * @property {object} play.pp
  * @property {number} play.pp.current
  * @property {number} play.pp.fc
- * @property {number} play.pp.maxAchievedThisPlay
+ * @property {number} play.pp.maxAchieved
+ * @property {number} play.pp.maxAchievable
  * @property {object} play.pp.detailed
  * @property {object} play.pp.detailed.current
  * @property {number} play.pp.detailed.current.aim
@@ -764,6 +773,7 @@ export default WebSocketManager;
  * @property {boolean} leaderboard.isFailed
  * @property {number} leaderboard.position
  * @property {number} leaderboard.team
+ * @property {number} leaderboard.id
  * @property {string} leaderboard.name
  * @property {number} leaderboard.score
  * @property {number} leaderboard.accuracy
@@ -957,7 +967,7 @@ export default WebSocketManager;
  * @property {object} tourney.clients.play.pp
  * @property {number} tourney.clients.play.pp.current
  * @property {number} tourney.clients.play.pp.fc
- * @property {number} tourney.clients.play.pp.maxAchievedThisPlay
+ * @property {number} tourney.clients.play.pp.maxAchieved
  * @property {object} tourney.clients.play.pp.detailed
  * @property {object} tourney.clients.play.pp.detailed.current
  * @property {number} tourney.clients.play.pp.detailed.current.aim
