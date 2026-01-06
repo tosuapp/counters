@@ -889,87 +889,110 @@ socket.commands(async (data) => {
         }
 
         if (cache['data.menu.state'] === 7) {
+            gptop.style.opacity = 0;
+            URCont.style.opacity = 0;
+            avgHitError.style.transform = "translateX(0)";
+            gpbottom.style.opacity = 0;
+
             if (cache[`key-k1-r`]) document.querySelector(`.keys.k1`).classList.remove('hidden');
             if (cache[`key-k2-r`]) document.querySelector(`.keys.k2`).classList.remove('hidden');
             if (cache[`key-m1-r`]) document.querySelector(`.keys.m1`).classList.remove('hidden');
             if (cache[`key-m2-r`]) document.querySelector(`.keys.m2`).classList.remove('hidden');
-          }
-      
+        }
       
           if (cache['data.menu.state'] !== 2 && cache['data.menu.state'] !== 7) {
             leaderboardFetch = false;
             leaderboard.style.opacity = 0;
             lbopCont.innerHTML = "";
             lbcpPosition.innerHTML = "";
-            document.getElementById("currentplayerCont").style.transform = `none`;
-            document.getElementById("lbcpLine").style.transform = `none`;
+            if (document.getElementById("currentplayerCont")) {
+                document.getElementById("currentplayerCont").style.transform = `none`;
+            }
+            if (document.getElementById("lbcpLine")) {
+                document.getElementById("lbcpLine").style.transform = `none`;
+            }
+
+            gptop.style.opacity = 0;
+            URCont.style.opacity = 0;
+            avgHitError.style.transform = "translateX(0)";
+            gpbottom.style.opacity = 0;
 
             delete cache[`key-k1-active`];
             delete cache[`key-k2-active`];
             delete cache[`key-m1-active`];
             delete cache[`key-m2-active`];
-      
+
             document.querySelector(`.keys.k1`).classList.add('hidden');
             document.querySelector(`.keys.k2`).classList.add('hidden');
             document.querySelector(`.keys.m1`).classList.add('hidden');
             document.querySelector(`.keys.m2`).classList.add('hidden');
-          }
+        }
         
         if (cache['data.menu.state'] === 2) {
-    
-            if (cache['showInterface'] === true && cache['data.menu.state'] === 2) {
+            deRankingPanel();
+
+            if (cache['showInterface'] === true) {
                 gptop.style.opacity = 0;
             } else {
                 gptop.style.opacity = 1;
             }
 
-            if (cache['beatmap_rankedStatus'] === 4 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 7 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 6 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 5 && cache['LBEnabled'] === true ) {
+            gpbottom.style.opacity = 1;
+            URCont.style.opacity = 1;
 
-            setupMapScores(cache['beatmap.id']);
+            if ((cache['beatmap_rankedStatus'] === 4 || 
+                 cache['beatmap_rankedStatus'] === 7 || 
+                 cache['beatmap_rankedStatus'] === 6 || 
+                 cache['beatmap_rankedStatus'] === 5) && 
+                 cache['LBEnabled'] === true) {
+                
+                setupMapScores(cache['beatmap.id']);
+                lbcpPosition.innerHTML = `${playerPosition}`;
+                leaderboard.style.opacity = 1;
 
-            if (document.getElementById("currentplayerCont"))
-                lbcpPosition.setAttribute('class', `positions N${playerPosition}`);
-            
-                if (playerPosition > 8) {
-                    lbopCont.style.transform = `translateY(${-(playerPosition * 65)}px)`;
-                    document.getElementById("currentplayerCont").style.transform = `none`;
-                    document.getElementById("lbcpLine").style.transform = `none`;
-                }
-                else {
-                    lbopCont.style.transform = `translateY(-520px)`;
-                    document.getElementById("currentplayerCont").style.transform = `translateY(${(playerPosition - 8) * 65}px)`;
-                    document.getElementById("lbcpLine").style.transform = `translateY(${(playerPosition - 8) * 65}px)`;
-                }
+                if (document.getElementById("currentplayerCont")) {
+                    lbcpPosition.setAttribute('class', `positions N${playerPosition}`);
+                    
+                    if (playerPosition > 8) {
+                        lbopCont.style.transform = `translateY(${-(playerPosition * 65)}px)`;
+                        document.getElementById("currentplayerCont").style.transform = `none`;
+                        document.getElementById("lbcpLine").style.transform = `none`;
+                    } else {
+                        lbopCont.style.transform = `translateY(-520px)`;
+                        document.getElementById("currentplayerCont").style.transform = `translateY(${(playerPosition - 8) * 65}px)`;
+                        document.getElementById("lbcpLine").style.transform = `translateY(${(playerPosition - 8) * 65}px)`;
+                    }
 
-            if (tempSlotLength > 0)
-                for (let i = 8; i <= tempSlotLength; i++) {
-                    if (i >= playerPosition && playerPosition !== 0 && document.getElementById(`playerslot${i}`)) {
-                        document.getElementById(`playerslot${i}`).style.transform = `translateY(65px)`;
-                        document.getElementById(`playerslot${i}`).style.opacity = `0`;
-                    }
-                    else if (cache['play.score'] === 0) {
-                        document.getElementById(`playerslot${i}`).style.transform = `translateY(0)`;
-                        document.getElementById(`playerslot${i}`).style.opacity = `1`;
-                        document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i}`;
-                        document.getElementById(`lb_Positions_slot${i}`).setAttribute('class', `positions N${i}`);
+                    if (tempSlotLength > 0) {
+                        for (let i = 8; i <= tempSlotLength; i++) {
+                            if (i >= playerPosition && playerPosition !== 0 && document.getElementById(`playerslot${i}`)) {
+                                document.getElementById(`playerslot${i}`).style.transform = `translateY(65px)`;
+                                document.getElementById(`playerslot${i}`).style.opacity = `0`;
+                            } else if (cache['play.score'] === 0) {
+                                document.getElementById(`playerslot${i}`).style.transform = `translateY(0)`;
+                                document.getElementById(`playerslot${i}`).style.opacity = `1`;
+                                document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i}`;
+                                document.getElementById(`lb_Positions_slot${i}`).setAttribute('class', `positions N${i}`);
+                            }
+                        }
+                        for (let i = 1; i <= tempSlotLength; i++) {
+                            if (i >= playerPosition && playerPosition !== 0 && document.getElementById(`playerslot${i}`)) {
+                                document.getElementById(`playerslot${i}`).style.transform = `translateY(65px)`;
+                                document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i + 1}`;
+                                document.getElementById(`lb_Positions_slot${i}`).setAttribute('class', `positions N${i + 1}`);
+                            } else if (cache['play.score'] === 0) {
+                                document.getElementById(`playerslot${i}`).style.transform = `translateY(0)`;
+                                document.getElementById(`playerslot${i}`).style.opacity = `1`;
+                                document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i}`;
+                                document.getElementById(`lb_Positions_slot${i}`).setAttribute('class', `positions N${i}`);
+                            }
+                        }
                     }
                 }
-                for (let i = 1; i <= tempSlotLength; i++) {
-                    if (i >= playerPosition && playerPosition !== 0 && document.getElementById(`playerslot${i}`)) {
-                        document.getElementById(`playerslot${i}`).style.transform = `translateY(65px)`;
-                        document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i + 1}`;
-                        document.getElementById(`lb_Positions_slot${i}`).setAttribute('class', `positions N${i + 1}`);
-                    }
-                    else if (cache['play.score'] === 0) {
-                        document.getElementById(`playerslot${i}`).style.transform = `translateY(0)`;
-                        document.getElementById(`playerslot${i}`).style.opacity = `1`;
-                        document.getElementById(`lb_Positions_slot${i}`).innerHTML = `${i}`;
-                        document.getElementById(`lb_Positions_slot${i}`).setAttribute('class', `positions N${i}`);
-                    }
-                }
-            }
-            else {
+            } else {
                 lbopCont.innerHTML = " ";
+                lbcpPosition.innerHTML = `0`;
+                leaderboard.style.opacity = 0;
                 leaderboardFetch = false;
             }
         }
@@ -1220,6 +1243,13 @@ socket.commands(async (data) => {
             Top4.style.transform = `translateY(-100px)`;
             Top5.style.transform = `translateY(-100px)`;
             Top6.style.transform = `translateY(-100px)`;
+        }
+        if ((cache['data.menu.state'] === 2 && 
+             cache['beatmap.time.live'] >= cache['beatmap.time.lastObject'] + 1000) || 
+            cache['data.menu.state'] === 7) {
+            if (!rankingPanelSet) setupRankingPanel();
+        } else if (cache['data.menu.state'] !== 7) {
+            deRankingPanel();
         }
     } catch (error) {
         console.log(error);
