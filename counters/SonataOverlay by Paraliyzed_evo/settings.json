@@ -1,9 +1,9 @@
 [
     {
-        "uniqueID": "Client",
+        "uniqueID": "apikey",
         "type": "password",
-        "title": "osu! Client Key",
-        "description": "Put your osu! Client Key here for extra features! (V1)",
+        "title": "osu!api Key",
+        "description": "Put your osu!api key here for extra features! (V1)",
         "options": "",
         "value": ""
     },

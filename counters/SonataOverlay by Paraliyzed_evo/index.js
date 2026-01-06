@@ -2,7 +2,7 @@ import WebSocketManager from './js/socket.js';
 import CanvasKeys from './js/canvas.js';
 import {createChartConfig, createChartConfig2, toChartData, FAST_SMOOTH_TYPE_MULTIPLE_WIDTH, FAST_SMOOTH_TYPE_NO_SMOOTHING, fastSmooth, max} from "./js/graph.js";
 import {hitJudgementsAdd, hitJudgementsClear, tapJudgement} from "./js/setups_functions.js";
-import {initApiSocket, getMapDataSet, getMapScores, getUserDataSet, getUserTop, postUserID, setOsuCredentials} from "./js/api_functions.js";
+import {initApiSocket, getMapDataSet, getMapScores, getUserDataSet, getUserTop, postUserID, setOsuCredentials, setprofileColor} from "./js/api_functions.js";
 
 window.socket = new WebSocketManager('127.0.0.1:24050');
 initApiSocket(window.socket);
@@ -198,7 +198,7 @@ window.onload = () => {
   };
 
 socket.sendCommand('getSettings', encodeURI(window.COUNTER_PATH));
-socket.commands((data) => {
+socket.commands(async (data) => {
     try {
       const { command, message } = data;
       // get updates for "getSettings" command
@@ -206,16 +206,13 @@ socket.commands((data) => {
 
       console.log(command, message);
 
-      if (cache['Client'] !== message['Client']) {
-        cache['Client'] = message['Client'];
-      }
-
-      if (cache['Secret'] !== message['Secret']) {
-        cache['Secret'] = message['Secret'];
+      if (cache['apikey'] !== message['apikey']) {
+        cache['apikey'] = message['apikey'];
+        await setOsuCredentials(cache['apikey']);
       }
 
       if (cache['Client'] && cache['Secret']) {
-        setOsuCredentials(cache['Client'], cache['Secret']);
+        await setOsuCredentials(cache['Client'], cache['Secret']);
       }
 
       if (cache['LocalNameData'] !== message['LocalNameData']) {
@@ -465,8 +462,21 @@ socket.commands((data) => {
     }
   });
   
-  socket.api_v2(({ state, settings, performance, resultsScreen, play, beatmap, folders, files, directPath, client }) => {
-    try {      
+  socket.api_v2(({ state, settings, performance, resultsScreen, play, beatmap, folders, files, directPath, client, userProfile}) => {
+    try {
+        const requiredElements = [
+            'gptop', 'gpbottom', 'URCont', 'avgHitError', 'leaderboard',
+            'lbcpPosition', 'lbopCont', 'currentplayerCont', 'lbcpLine',
+            'strainGraph', 'progress', 'progress100', 'progress50', 'progress0', 'progressSB',
+            'recorderContainer', 'combo_text2', 'combo_text', 'combo_max', 'combo_x',
+            'combo_box', 'pp_box', 'pp_txt', 'hpBar'
+        ];
+        
+        const allExist = requiredElements.every(id => document.getElementById(id) !== null);
+        if (!allExist) {
+            console.log('Waiting for DOM elements to load...');
+            return;
+        }     
 
         if (cache['client'] !== client) {
             cache['client'] = client;
@@ -477,7 +487,11 @@ socket.commands((data) => {
               mapBG.style.display = `block`;
             }
           }
-
+        
+        if (cache['profileColor'] !== userProfile.backgroundColour) {
+            cache['profileColor'] = userProfile.backgroundColour;
+            setprofileColor(cache['profileColor']);
+        }
         if (cache['showInterface'] !== settings.interfaceVisible) {
             cache['showInterface'] = settings.interfaceVisible;
         }
@@ -845,30 +859,33 @@ socket.commands((data) => {
         pp_wrapper.style.transform = `translateX(-${cache['beatmap.stats.od.converted'] * 12.5}px)`;
         l50.style.width = `${600 - (24 * cache['beatmap.stats.od.converted'])}px`;
 
-        if (cache['data.menu.state'] !== 2) {
-            if (cache['data.menu.state'] !== 7) deRankingPanel()
-  
-            gptop.style.opacity = 0;
+        if (cache['data.menu.state'] === 2 || cache['data.menu.state'] === 7) {
+            if (!gptop || !gpbottom || !URCont || !leaderboard) return;
+            if (cache['data.menu.state'] !== 2) {
+                if (cache['data.menu.state'] !== 7) deRankingPanel()
     
-            URCont.style.opacity = 0;
-            avgHitError.style.transform = "translateX(0)";
-    
-            gpbottom.style.opacity = 0;
-        } else {
-            deRankingPanel();
+                gptop.style.opacity = 0;
+        
+                URCont.style.opacity = 0;
+                avgHitError.style.transform = "translateX(0)";
+        
+                gpbottom.style.opacity = 0;
+            } else {
+                deRankingPanel();
 
-            if (cache['beatmap_rankedStatus'] === 4 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 7 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 6 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 5 && cache['LBEnabled'] === true ) {
-                lbcpPosition.innerHTML = `${playerPosition}`;
-                leaderboard.style.opacity = 1;
+                if (cache['beatmap_rankedStatus'] === 4 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 7 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 6 && cache['LBEnabled'] === true || cache['beatmap_rankedStatus'] === 5 && cache['LBEnabled'] === true ) {
+                    lbcpPosition.innerHTML = `${playerPosition}`;
+                    leaderboard.style.opacity = 1;
+                }
+                else {
+                    lbcpPosition.innerHTML = `0`;
+                    leaderboard.style.opacity = 0;
+                }
+                
+                gptop.style.opacity = 1;
+                gpbottom.style.opacity = 1;
+                URCont.style.opacity = 1;
             }
-            else {
-                lbcpPosition.innerHTML = `0`;
-                leaderboard.style.opacity = 0;
-            }
-            
-            gptop.style.opacity = 1;
-            gpbottom.style.opacity = 1;
-            URCont.style.opacity = 1;
         }
 
         if (cache['data.menu.state'] === 7) {
@@ -986,7 +1003,6 @@ socket.commands((data) => {
             recorderContainer.style.transform = 'scale(80%)';
             recorderContainer.style.opacity = '0';
         }
-        
 
         let isBreak = cache['play.combo.current'] < cache['play.combo.max'];
 
