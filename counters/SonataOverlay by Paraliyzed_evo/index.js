@@ -1208,7 +1208,152 @@ socket.commands((data) => {
     } catch (error) {
         console.log(error);
     }
-  });
+  }, [
+      'client',
+      {
+          field: 'state',
+          keys: ['number', 'name']
+      },
+      {
+          field: 'settings',
+          keys: [
+              'interfaceVisible',
+              {
+                  field: 'background',
+                  keys: ['dim']
+              }
+          ]
+      },
+      {
+          field: 'performance',
+          keys: ['graph']
+      },
+      {
+          field: 'resultsScreen',
+          keys: [
+              'name',
+              'scoreId',
+              'score',
+              'accuracy',
+              'maxCombo',
+              'rank',
+              'createdAt',
+              {
+                  field: 'hits',
+                  keys: ['0', '50', '100', '300']
+              },
+              {
+                  field: 'mods',
+                  keys: ['name', 'number']
+              },
+              {
+                  field: 'pp',
+                  keys: ['current', 'fc']
+              }
+          ]
+      },
+      {
+          field: 'play',
+          keys: [
+              'playerName',
+              'score',
+              'accuracy',
+              'unstableRate',
+              {
+                  field: 'mode',
+                  keys: ['name']
+              },
+              {
+                  field: 'healthBar',
+                  keys: ['normal']
+              },
+              {
+                  field: 'hits',
+                  keys: ['0', '50', '100', 'sliderBreaks']
+              },
+              {
+                  field: 'combo',
+                  keys: ['current', 'max']
+              },
+              {
+                  field: 'mods',
+                  keys: ['name', 'number']
+              },
+              {
+                  field: 'rank',
+                  keys: ['current']
+              },
+              {
+                  field: 'pp',
+                  keys: ['current', 'fc']
+              }
+          ]
+      },
+      {
+          field: 'beatmap',
+          keys: [
+              'id',
+              'artist',
+              'title',
+              'mapper',
+              'version',
+              {
+                  field: 'status',
+                  keys: ['number']
+              },
+              {
+                  field: 'time',
+                  keys: ['live', 'firstObject', 'lastObject', 'mp3Length']
+              },
+              {
+                  field: 'stats',
+                  keys: [
+                      'maxCombo',
+                      {
+                          field: 'stars',
+                          keys: ['live', 'total']
+                      },
+                      {
+                          field: 'ar',
+                          keys: ['converted']
+                      },
+                      {
+                          field: 'cs',
+                          keys: ['converted']
+                      },
+                      {
+                          field: 'od',
+                          keys: ['converted']
+                      },
+                      {
+                          field: 'hp',
+                          keys: ['converted']
+                      },
+                      {
+                          field: 'bpm',
+                          keys: ['common', 'realtime']
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          field: 'folders',
+          keys: ['beatmap', 'songs']
+      },
+      {
+          field: 'files',
+          keys: ['beatmap', 'background']
+      },
+      {
+          field: 'directPath',
+          keys: ['beatmapBackground']
+      },
+      {
+          field: 'userProfile',
+          keys: ['backgroundColour']
+      }
+  ]);
   socket.api_v2_precise((data) => {
     try {
       if (cache['data.menu.state'] !== 2) return;
@@ -1291,7 +1436,30 @@ socket.commands((data) => {
     } catch (err) {
       console.log(err);
     }
-  });
+  }, [
+      'hitErrors',
+      {
+          field: 'keys',
+          keys: [
+              {
+                  field: 'k1',
+                  keys: ['isPressed', 'count']
+              },
+              {
+                  field: 'k2',
+                  keys: ['isPressed', 'count']
+              },
+              {
+                  field: 'm1',
+                  keys: ['isPressed', 'count']
+              },
+              {
+                  field: 'm2',
+                  keys: ['isPressed', 'count']
+              }
+          ]
+      }
+  ]);
 
   async function setupUser(name) {
     let userData = await getUserDataSet(name);
