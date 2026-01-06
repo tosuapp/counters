@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 const tileWrapperNode = document.createElement('div'),
     tileNode = document.createElement('div')
 tileWrapperNode.classList.add('canvas')
@@ -16,7 +15,6 @@ class CanvasKeys {
     this.countUP = new CountUp(`${this.id}Bpm`, 0, 0, 0, 0.01, { useEasing: true, useGrouping: true, separator: "", decimal: "" });
 
     this.index = 0;
-    // this.cornerRadius = cornerRadius || 7;
 
     this.speed = speed || 0.4;
     this.interval = interval || 10;

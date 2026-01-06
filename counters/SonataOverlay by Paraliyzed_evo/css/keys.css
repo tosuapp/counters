@@ -22,14 +22,12 @@
 .test {
   width: 100vw;
   color: white;
-  /* background-color: black; */
   overflow-wrap: break-word;
 }
 
 #keyOverlay {
   color: white;
   font-size: var(--font-size);
-  /* background-color: black; */
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -76,28 +74,6 @@
   flex-direction: column;
   position: absolute;
   display: flex;
-
-  /* &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    background: wheat;
-    z-index: 2;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    background: wheat;
-    z-index: 2;
-  } */
 }
 
 .keys {
@@ -171,8 +147,6 @@
   border-radius: 0.07em;
   transition: background 0.05s ease, transform 0.1s ease;
   transform: translate(-50%, -50%);
-  /* transition: background 0.05s ease, transform 0.05s ease; */
-
   z-index: 0;
 }
 
@@ -183,7 +157,6 @@
 
 .keys .bpm {
   filter: drop-shadow(0 0 0.2em black) drop-shadow(0 0 0.5em black);
-  /* text-shadow: 0 0 0.2em black, 0 0 0.5em black, 0 0 0.8em black; */
   white-space: nowrap;
   text-align: center;
   font-size: 0.6em;
