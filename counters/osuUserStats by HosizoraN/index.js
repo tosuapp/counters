@@ -8,18 +8,9 @@ socket.onopen = () => {
         {
             field: 'beatmap',
             keys: [
-                {
-                    field: 'bm',
-                    keys: [
-                        'artist',
-                        'title',
-                        'version',
-                    ]
-                },
-                {
-                    field: 'pp',
-                    keys: ['strains']
-                }
+                'artist',
+                'title',
+                'version',
             ]
         },
         {
