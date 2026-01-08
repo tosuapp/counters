@@ -211,10 +211,6 @@ socket.commands(async (data) => {
         await setOsuCredentials(cache['apikey']);
       }
 
-      if (cache['Client'] && cache['Secret']) {
-        await setOsuCredentials(cache['Client'], cache['Secret']);
-      }
-
       if (cache['LocalNameData'] !== message['LocalNameData']) {
         cache['LocalNameData'] = message['LocalNameData'];
       }
