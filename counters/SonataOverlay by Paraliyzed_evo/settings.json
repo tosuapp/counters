@@ -8,14 +8,6 @@
         "value": ""
     },
     {
-        "uniqueID": "Secret",
-        "type": "password",
-        "title": "osu! Secret",
-        "description": "Put your osu! Secret here for extra features! (V1)",
-        "options": "",
-        "value": ""
-    },
-    {
         "uniqueID": "Bar",
         "type": "color",
         "title": "Setup",
