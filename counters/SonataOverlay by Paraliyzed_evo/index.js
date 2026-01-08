@@ -836,20 +836,20 @@ socket.commands(async (data) => {
             const background2 = document.getElementById('RBG')
   
             setTimeout(() => {
-              background.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
-              background2.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
+            background.src = `http://${window.socket.host}/files/beatmap/${background_path}`;
+            background2.src = `http://${window.socket.host}/files/beatmap/${background_path}`;
             }, 200);
         
             const image = new Image();
-            image.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
-          }
+            image.src = `http://${window.socket.host}/files/beatmap/${background_path}`;
+        }
 
         const cachedim = settings.background.dim / 100;
         const normalizedFolder = cache['folders.beatmap'].replace(/\\/g, "/");
         const Folder = normalizedFolder.split("/").map(encodeURIComponent).join("/");
         const Img = cache['files.background'];
 
-        mapBG.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, ${cachedim}), rgba(0, 0, 0, ${cachedim})), url("http://127.0.0.1:24050/files/beatmap/${Folder}/${Img}")`;
+        mapBG.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, ${cachedim}), rgba(0, 0, 0, ${cachedim})), url("http://${window.socket.host}/files/beatmap/${Folder}/${Img}")`;
 
         combo_wrapper.style.transform = `translateX(${cache['beatmap.stats.od.converted'] * 12.5}px)`;
         pp_wrapper.style.transform = `translateX(-${cache['beatmap.stats.od.converted'] * 12.5}px)`;
