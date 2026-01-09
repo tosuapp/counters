@@ -2,7 +2,7 @@ import WebSocketManager from './js/socket.js';
 import CanvasKeys from './js/canvas.js';
 import {createChartConfig, createChartConfig2, toChartData, FAST_SMOOTH_TYPE_MULTIPLE_WIDTH, FAST_SMOOTH_TYPE_NO_SMOOTHING, fastSmooth, max} from "./js/graph.js";
 import {hitJudgementsAdd, hitJudgementsClear, tapJudgement} from "./js/setups_functions.js";
-import {initApiSocket, getMapDataSet, getMapScores, getUserDataSet, getUserTop, postUserID, setOsuCredentials, setprofileColor} from "./js/api_functions.js";
+import {initApiSocket, getMapDataSet, getMapScores, getUserDataSet, getUserTop, postUserID, setOsuCredentials, setprofileColor, getModsScores} from "./js/api_functions.js";
 
 window.socket = new WebSocketManager('127.0.0.1:24050');
 initApiSocket(window.socket);
