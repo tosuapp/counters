@@ -12,19 +12,31 @@ export function initApiSocket(ws) {
 }
 
 function setupTosuConnectionHandlers() {
-  if (socket.sockets?.['/websocket/v2']) {
-    const originalOnOpen = socket.sockets['/websocket/v2'].onopen;
-    socket.sockets['/websocket/v2'].onopen = function(event) {
-      if (originalOnOpen) originalOnOpen.call(this, event);
-      hideTosuWarning();
-    };
+  const attachHandlers = () => {
+    if (socket.sockets?.['/websocket/v2']) {
+      const ws = socket.sockets['/websocket/v2'];
+      
+      const originalOnOpen = ws.onopen;
+      ws.onopen = function(event) {
+        if (originalOnOpen) originalOnOpen.call(this, event);
+        hideTosuWarning();
+      };
 
-    const originalOnClose = socket.sockets['/websocket/v2'].onclose;
-    socket.sockets['/websocket/v2'].onclose = function(event) {
-      showTosuWarning();
-      if (originalOnClose) originalOnClose.call(this, event);
-    };
-  }
+      const originalOnClose = ws.onclose;
+      ws.onclose = function(event) {
+        showTosuWarning();
+        if (originalOnClose) originalOnClose.call(this, event);
+      };
+
+      if (ws.readyState === WebSocket.OPEN) {
+        hideTosuWarning();
+      }
+    } else {
+      setTimeout(attachHandlers, 100);
+    }
+  };
+  
+  attachHandlers();
 }
 
 function showTosuWarning() {
@@ -159,7 +171,7 @@ export async function getMapDataSet(beatmapID) {
   }
 }
 
-export async function getMapScores(beatmapID) {
+export async function getMapScores(beatmapID, gameMode = 0) {
   if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') {
     return null;
   }
@@ -176,10 +188,39 @@ export async function getMapScores(beatmapID) {
       const count_100 = parseInt(score.count100);
       const count_50 = parseInt(score.count50);
       const count_miss = parseInt(score.countmiss);
-      const totalHits = count_300 + count_100 + count_50 + count_miss;
-      const accuracy = totalHits > 0 
-        ? ((count_300 * 300 + count_100 * 100 + count_50 * 50) / (totalHits * 300)) * 100
-        : 0;
+      const count_geki = parseInt(score.countgeki);
+      const count_katu = parseInt(score.countkatu);
+      let accuracy = 0;
+
+      switch (gameMode) {
+        case 0: // osu!standard
+          const totalHitsStd = count_300 + count_100 + count_50 + count_miss;
+          accuracy = totalHitsStd > 0 
+            ? ((count_300 * 300 + count_100 * 100 + count_50 * 50) / (totalHitsStd * 300)) * 100
+            : 0;
+          break;
+          
+        case 1: // taiko
+          const totalHitsTaiko = count_300 + count_100 + count_miss;
+          accuracy = totalHitsTaiko > 0
+            ? ((count_300 + count_100 * 0.5) / totalHitsTaiko) * 100
+            : 0;
+          break;
+          
+        case 2: // catch
+          const totalHitsCatch = count_300 + count_100 + count_50 + count_katu + count_miss;
+          accuracy = totalHitsCatch > 0
+            ? ((count_300 + count_100 + count_50) / totalHitsCatch) * 100
+            : 0;
+          break;
+          
+        case 3: // mania
+          const totalHitsMania = count_geki + count_300 + count_katu + count_100 + count_50 + count_miss;
+          accuracy = totalHitsMania > 0
+            ? ((count_geki * 300 + count_300 * 300 + count_katu * 200 + count_100 * 100 + count_50 * 50) / (totalHitsMania * 300)) * 100
+            : 0;
+          break;
+      }
       
       return {
         user_id: parseInt(score.user_id),
@@ -190,6 +231,8 @@ export async function getMapScores(beatmapID) {
         count_100,
         count_50,
         count_miss,
+        count_geki,
+        count_katu,
         rank: score.rank,
         pp: parseFloat(score.pp),
         mods: convertModsNumberToString(parseInt(score.enabled_mods)),
@@ -203,13 +246,13 @@ export async function getMapScores(beatmapID) {
   }
 }
 
-export async function getModsScores(beatmapID, modsString) {
+export async function getModsScores(beatmapID, modsString, gameMode = 0) {
   if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') {
     return null;
   }
   
   try {
-    const allScores = await getMapScores(beatmapID);
+    const allScores = await getMapScores(beatmapID, gameMode);
     if (!allScores) return null;
 
     const modsArray = [];

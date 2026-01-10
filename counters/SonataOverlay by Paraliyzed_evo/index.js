@@ -1780,10 +1780,16 @@ async function setupMapScores(beatmapID) {
         leaderboardFetch = true;
         let data;
         if (cache['LBOptions'] === "Selected Mods") {
-            data = await getModsScores(beatmapID, cache['resultsScreen.mods.name']);
+            data = await getModsScores(beatmapID, cache['resultsScreen.mods.name'], cache['mode']);
         }
         else {
-            data = await getMapScores(beatmapID);
+            const modeNumber = {
+                'osu': 0,
+                'taiko': 1,
+                'fruits': 2,
+                'mania': 3
+            }[cache['mode']] || 0;
+            data = await getMapScores(beatmapID, modeNumber);
         }
         if (data) {
             tempSlotLength = data.length;
