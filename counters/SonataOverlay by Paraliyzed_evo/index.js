@@ -386,7 +386,7 @@ socket.commands(async (data) => {
 
       if (message['Recorder'] != null) {
           document.getElementById("recorderName").innerHTML = `${message['Recorder']}`;
-          document.getElementById("resultRecorder").innerHTML = `` + `${message['Recorder']}`;
+          document.getElementById("resultRecorder").innerHTML = `Recorder: ` + `${message['Recorder']}`;
       }
 
       if (cache['ColorSet'] !== message['ColorSet']) {
