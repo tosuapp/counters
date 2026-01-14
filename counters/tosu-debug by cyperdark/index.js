@@ -1,8 +1,8 @@
 // connecting to websocket
 import WebSocketManager from './js/socket.js';
 
-const host = '127.0.0.1:24050';
-const socket = new WebSocketManager(host);
+
+const socket = new WebSocketManager(window.location.host);
 
 
 
@@ -315,8 +315,8 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
 
     // Fade in the new image
     setTimeout(() => {
-      background.src = `http://${host}/files/beatmap/background?checksum=${beatmap.checksum}`;
-      background_mini.src = `http://${host}/files/beatmap/background?checksum=${beatmap.checksum}`;
+      background.src = `http://${window.location.host}/files/beatmap/background?checksum=${beatmap.checksum}`;
+      background_mini.src = `http://${window.location.host}/files/beatmap/background?checksum=${beatmap.checksum}`;
 
       setTimeout(() => {
         background.style.opacity = 0.1;
@@ -327,7 +327,7 @@ socket.api_v2(({ state, settings, session, profile, performance, resultsScreen, 
 
 
     const image = new Image();
-    image.src = `http://${host}/files/beatmap/background?checksum=${beatmap.checksum}`;
+    image.src = `http://${window.location.host}/files/beatmap/background?checksum=${beatmap.checksum}`;
     image.onerror = () => document.querySelector('.backgroundLoadError').classList.add('active');
     image.onload = () => document.querySelector('.backgroundLoadError').classList.remove('active');
   };

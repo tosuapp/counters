@@ -13,7 +13,7 @@ socket.sendCommand('getSettings', encodeURI(window.COUNTER_PATH));
 socket.commands((data) => {
   try {
     const { command, message } = data;
-    
+
     // Handle getSettings command
     if (command === 'getSettings') {
       console.log(command, message);
@@ -40,7 +40,7 @@ socket.commands((data) => {
         refreshSnowflake();
     }
 
-    // Snowflake falling speed multiplier    
+    // Snowflake falling speed multiplier
     if (cache.FlakesFallingSpeed !== message.FlakesFallingSpeed) {
         cache.FlakesFallingSpeed = message.FlakesFallingSpeed;
     }
@@ -65,7 +65,7 @@ socket.commands((data) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 socket.api_v2((data) => {
-    
+
     // Game mode update
     if (cache.beatmapMode !== data.settings.mode.number) {
         cache.beatmapMode = data.settings.mode.number;
@@ -131,8 +131,8 @@ function updateSkinImage(elementName, skinFolder) {
     if (!extMatch) return Promise.resolve('');
     let ext = extMatch[0];
     const urls = [
-        `http://127.0.0.1:24050/files/skin/${baseName}@2x${ext}?skin=${encodeURIComponent(skinFolder)}`,
-        `http://127.0.0.1:24050/files/skin/${baseName}${ext}?skin=${encodeURIComponent(skinFolder)}`
+        `http://${window.location.host}/files/skin/${baseName}@2x${ext}?skin=${encodeURIComponent(skinFolder)}`,
+        `http://${window.location.host}/files/skin/${baseName}${ext}?skin=${encodeURIComponent(skinFolder)}`
     ];
     return urlFallback(urls);
 }

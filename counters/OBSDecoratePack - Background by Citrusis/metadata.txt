@@ -1,6 +1,6 @@
 Usecase: obs-overlay
 Name: OBSDecoratePack - Background
-Version: 1.0.1
+Version: 1.0.2
 Author: Citrusis
 CompatibleWith: tosu
 Resolution: 384x216

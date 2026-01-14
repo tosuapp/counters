@@ -268,9 +268,9 @@ function updateBackground(beatmapChecksum, skinFolder) {
     const background = document.querySelector('#bg');
 
     urlFallback([
-        `http://127.0.0.1:24050/files/beatmap/background?v=${beatmapChecksum}`,
-        `http://127.0.0.1:24050/files/skin/menu-background@2x.jpg?skin=${encodeURIComponent(skinFolder)}`,
-        `http://127.0.0.1:24050/files/skin/menu-background.jpg?skin=${encodeURIComponent(skinFolder)}`
+        `http://${window.location.host}/files/beatmap/background?v=${beatmapChecksum}`,
+        `http://${window.location.host}/files/skin/menu-background@2x.jpg?skin=${encodeURIComponent(skinFolder)}`,
+        `http://${window.location.host}/files/skin/menu-background.jpg?skin=${encodeURIComponent(skinFolder)}`
     ])
         .then(validUrl => {
             imageFade(background, validUrl);

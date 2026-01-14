@@ -72,7 +72,7 @@
 
 ## BTMC-Overlay by Happy_24
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/btmc-overlay by happy_24 v3.1.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://twitter.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/btmc-overlay by happy_24 v3.1.3.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://twitter.com/happpy24" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -88,7 +88,7 @@
 
 ## classic by Dartandr
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/classic by dartandr v1.002.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/classic by dartandr v1.003.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Dartandr" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -144,7 +144,7 @@
 
 ## Fullcombo by hizak
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/fullcombo by hizak v1.1.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/fullcombo by hizak v1.1.3.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -156,7 +156,7 @@
 
 ## grind-timer by kiwec
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/grind-timer by kiwec v1.4.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/grind-timer by kiwec v1.4.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -398,7 +398,7 @@
 
 ## Modern by iSweat
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/modern by isweat v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/iSweat-exe" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/modern by isweat v1.0.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/iSweat-exe" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -426,7 +426,7 @@
 
 ## OBSDecoratePack - Background by Citrusis
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/obsdecoratepack - background by citrusis v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Citrusis" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/obsdecoratepack - background by citrusis v1.0.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Citrusis" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -442,7 +442,7 @@
 
 ## OBSDecoratePack - SnowFlakes by Citrusis
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/obsdecoratepack - snowflakes by citrusis v1.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Citrusis" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/obsdecoratepack - snowflakes by citrusis v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Citrusis" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -486,7 +486,7 @@
 
 ## osuUserStats by HosizoraN
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/osuuserstats by hosizoran v1.003.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/osuuserstats by hosizoran v1.004.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -584,7 +584,7 @@
 
 ## SimpleOverlay by HosizoraN
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/simpleoverlay by hosizoran v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/simpleoverlay by hosizoran v1.1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -612,7 +612,7 @@
 
 ## tosu-debug by cyperdark
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/tosu-debug by cyperdark v1.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/tosu-debug by cyperdark v1.2.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/cyperdark" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href="https://twitter.com/cpol_owo" target="_blank"><img height="35" src="https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>  <a href="https://discord.gg/rYHNggbhyY" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -686,7 +686,7 @@
 
 ## veadotube-integration by Malteser, WhatTheHai, Bubbleman
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/veadotube-integration by malteser, whatthehai, bubbleman v1.0.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/aMalteser" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://github.com/WhatTheHai" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://github.com/bubbleman532" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/veadotube-integration by malteser, whatthehai, bubbleman v1.0.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/aMalteser" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://github.com/WhatTheHai" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  <a href=" https://github.com/bubbleman532" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |

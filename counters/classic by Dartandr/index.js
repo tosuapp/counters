@@ -1,5 +1,4 @@
-const HOST = '127.0.0.1:24050';
-const socket = new ReconnectingWebSocket(`ws://${HOST}/ws`);
+const socket = new ReconnectingWebSocket(`ws://${window.location.host}/ws`);
 
 let bg = document.getElementById("bg");
 let titleArtist = document.getElementById("title");
@@ -93,7 +92,7 @@ socket.onmessage = event => {
 
 
         let img = data.menu.bm.path.full.replace(/#/g, '%23').replace(/%/g, '%25');
-        bg.setAttribute('src', `http://${HOST}/Songs/${img}?a=${Math.random(10000)}`);
+        bg.setAttribute('src', `http://${window.location.host}/Songs/${img}?a=${Math.random(10000)}`);
     };
 
 

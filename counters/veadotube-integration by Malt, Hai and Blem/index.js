@@ -17,7 +17,7 @@ const cache = {
   celebrationState: "BLEM-PRIME",
 };
 
-const socket = new WebSocketManager("127.0.0.1:24050");
+const socket = new WebSocketManager(window.location.host);
 socket.onopen = onSocketOpen();
 
 function connectVeadoSocket() {

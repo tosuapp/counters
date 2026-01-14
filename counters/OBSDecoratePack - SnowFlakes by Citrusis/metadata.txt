@@ -1,6 +1,6 @@
 Usecase: obs-overlay
 Name: OBSDecoratePack - SnowFlakes
-Version: 1.0
+Version: 1.0.1
 Author: Citrusis
 CompatibleWith: tosu
 Resolution: 384x216

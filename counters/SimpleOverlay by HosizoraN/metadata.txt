@@ -1,6 +1,6 @@
 Usecase: ingame,obs-overlay
 Name: SimpleOverlay
-Version: 1.1
+Version: 1.1.1
 Author: HosizoraN
 CompatibleWith: tosu
 Resolution: 1920x1080

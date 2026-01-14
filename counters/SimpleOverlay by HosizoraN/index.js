@@ -67,7 +67,7 @@ socket.commands((data) => {
           document.body.style.setProperty('--keyText', message['keyTextColor']);
        };
 
-       
+
       if (message['TextColor'] != null) {
           document.body.style.setProperty('--TextColor', message['TextColor']);
        };
@@ -192,49 +192,49 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, settings})
           score.innerHTML = play.score;
           score.update(score.innerHTML);
         };
-      
+
         if (cache.acc !== play.accuracy) {
             cache.acc = play.accuracy;
             acc.innerHTML = play.accuracy;
             acc.update(play.accuracy);
         };
-      
+
         if (cache.combo != play.combo.current) {
             cache.combo = play.combo.current;
             combo.update(play.combo.current);
             combo.innerHTML = play.combo.current;
         };
-  
+
         if (cache.katu !== play.hits.katu) {
             cache.katu = play.hits.katu;
             katu.update(play.hits.katu);
             katu.innerHTML = play.hits.katu;
         };
-  
+
         if (cache.h100 !== play.hits['100']) {
             cache.h100 = play.hits['100'];
             h100.update(play.hits['100']);
             h100.innerHTML = play.hits['100'];
         };
-  
+
         if (cache.h50 !== play.hits['50']) {
             cache.h50 = play.hits['50'];
             h50.update(play.hits['50']);
             h50.innerHTML = play.hits['50'];
         };
-    
+
         if (cache.h0 !== play.hits['0']) {
             cache.h0 = play.hits['0'];
             h0.update(play.hits['0']);
             h0.innerHTML = play.hits['0'];
         };
-  
+
         if (cache.hSB !== play.hits.sliderBreaks) {
             cache.hSB = play.hits.sliderBreaks;
             hSB.update(play.hits.sliderBreaks);
             hSB.innerHTML = play.hits.sliderBreaks;
         };
-    
+
         if (cache.pp !== Math.round(play.pp.current)) {
             cache.pp = Math.round(play.pp.current);
             pp.innerHTML = Math.round(play.pp.current) + "pp";
@@ -394,7 +394,7 @@ socket.api_v2(({ state, folders, files, resultsScreen, beatmap, play, settings})
         const Folder = folders.beatmap.replace(/#/g, "%23").replace(/%/g, "%25").replace(/\\/g, "/").replace(/'/g, "%27").replace(/ /g, "%20");
         const Img = files.background;
 
-        rankingPanel.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('http://127.0.0.1:24050/files/beatmap/${Folder}/${Img}')`;
+        rankingPanel.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('http://${window.location.host}/files/beatmap/${Folder}/${Img}')`;
 
     } catch (error) {
         console.log(error);

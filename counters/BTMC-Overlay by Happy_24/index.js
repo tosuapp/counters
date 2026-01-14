@@ -273,7 +273,7 @@ socket.commands((data) => {
         if (message['Skin'] != null || message['Skin'] != cache['skin']) {
             cache['skin'] = message['Skin'];
             const cssfile = document.getElementById('cssfile');
-            if (cssfile) { 
+            if (cssfile) {
                 if (cache['skin'] === 'FREEDOM DiVE REiMAGINED') {
                     cssfile.href = 'styles/freedomdive.css';
                     document.querySelector('.sr-star').style.backgroundColor = '';
@@ -285,8 +285,8 @@ socket.commands((data) => {
                 console.error('CSS file element not found');
             }
         }
-        
-        
+
+
 
         if (message['GradientColor1'] != null) {
             document.body.style.setProperty('--gradientColor1', message['GradientColor1']);
@@ -557,10 +557,10 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
                 ppContainer.style.height = '100%';
 
             }
-            
+
             ppValueContainer.style.transform =
                 `translateX(-50%) scale(1.5)`
-            
+
             ppValueContainer.style.left = '50%'
 
             ppCurrent.style.opacity = 0;
@@ -573,7 +573,7 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
 
             hitErrorsContainer.style.height = '60%';
             hitErrorsContainer.style.opacity = 1;
-        
+
             if (cache.skin === 'FREEDOM DiVE REiMAGINED') {
                 ppContainer.style.height = '80%';
             } else {
@@ -616,7 +616,7 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
             background.style.opacity = 0;
 
             setTimeout(() => {
-                background.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
+                background.src = `http://${window.location.host}/files/beatmap/${background_path}`;
             }, 250)
 
             setTimeout(() => {
@@ -624,7 +624,7 @@ socket.api_v2(({ play, beatmap, directPath, folders, performance, state, results
             }, 300);
 
             const image = new Image();
-            image.src = `http://127.0.0.1:24050/files/beatmap/${background_path}`;
+            image.src = `http://${window.location.host}/files/beatmap/${background_path}`;
             image.onerror = () => document.getElementById('bg').classList.add('active');
             image.onload = () => document.getElementById('bg').classList.remove('active');
         };

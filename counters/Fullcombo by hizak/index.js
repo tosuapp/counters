@@ -33,7 +33,7 @@ function createAnimationplayer(imgElement, path) {
 
 function update_animation() {
     if (Boolean(cache.enableSkinFolderAnimation) == true) {
-        createAnimationplayer(FullcomboImageElement, `http://127.0.0.1:24050/files/skin`)
+        createAnimationplayer(FullcomboImageElement, `http://${window.location.host}/files/skin`)
     } else {
         createAnimationplayer(FullcomboImageElement, DEFAULT_PATH)
     }

@@ -42,7 +42,7 @@
       .paused {
         background: linear-gradient(0, var(--paused-start), var(--paused-end)) !important;
         background-clip: text !important;
-        
+
         /* OBS support */
         -webkit-background-clip: text !important;
       }
@@ -151,7 +151,7 @@
             return;
         }
 
-        const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/commands?l=${encodeURI(window.COUNTER_PATH)}`);
+        const socket = new WebSocket(`ws://${window.location.host}/websocket/commands?l=${encodeURI(window.COUNTER_PATH)}`);
         socket.addEventListener("open", () => socket.send('getSettings:' + encodeURI(window.COUNTER_PATH)));
         socket.addEventListener("close", evt => setTimeout(init_commands_ws, 1000));
         socket.addEventListener("message", evt => {
@@ -169,7 +169,7 @@
       }
 
       function init_ws() {
-        const socket = new WebSocket(`ws://127.0.0.1:24050/websocket/v2`);
+        const socket = new WebSocket(`ws://${window.location.host}/websocket/v2`);
         socket.addEventListener("open", () => {
           socket.send(`applyFilters:${JSON.stringify([
             {

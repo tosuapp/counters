@@ -1,6 +1,6 @@
 // connecting to websocket
 import WebSocketManager from './js/socket.js';
-const socket = new WebSocketManager('127.0.0.1:24050');
+const socket = new WebSocketManager(window.location.host);
 
 // cache
 const cache = {
