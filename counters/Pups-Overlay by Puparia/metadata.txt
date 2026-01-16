@@ -1,0 +1,7 @@
+Usecase: ingame,obs-overlays
+Name: Pups-Overlay
+Version: 1.0
+Author: Puparia
+CompatibleWith: tosu,streamCompanion
+Resolution: 1920x105
+Description: Hyper-modern overlay featuring elegant transparency, subtlety, and high-end aesthetics with integrated difficulty spectrogram
