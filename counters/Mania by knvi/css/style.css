@@ -31,10 +31,6 @@ body {
     transition: all 0.1s ease;
 }
 
-.hit-row .updated {
-    transform: scale(1.05);
-}
-
 .label {
     font-weight: bold;
     font-size: 18px;
