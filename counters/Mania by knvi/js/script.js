@@ -127,13 +127,6 @@ function updateValue(key, value) {
     const oldValue = parseInt(element.textContent) || 0;
 
     element.textContent = value.toString();
-
-    if (value !== oldValue && value > 0) {
-        element.parentElement.classList.add('updated');
-        setTimeout(() => {
-            element.parentElement.classList.remove('updated');
-        }, 300);
-    }
 }
 
 function showCounter() {
