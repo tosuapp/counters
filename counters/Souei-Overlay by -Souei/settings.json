@@ -1,0 +1,89 @@
+[
+  {
+    "uniqueID": "MainFont",
+    "type": "text",
+    "title": "Main Font",
+    "description": "Font file name (with extension) from the fonts folder. Example: GothicRD.ttf. Put .ttf, .woff, .woff2, or .otf files in the fonts folder.",
+    "value": "GothicRD.ttf"
+  },
+  {
+    "uniqueID": "URBarSpacing",
+    "type": "number",
+    "title": "UR Bar Spacing",
+    "description": "Spacing scale for combo/PP containers (0.5x - 5x). Default is 1x.",
+    "value": 1,
+    "min": 0.5,
+    "max": 5,
+    "step": 0.1
+  },
+  {
+    "uniqueID": "AccentColor",
+    "type": "color",
+    "title": "Accent Color",
+    "description": "Main accent color for PP suffix and highlights",
+    "value": "#4A86FF"
+  },
+  {
+    "uniqueID": "BackgroundColor",
+    "type": "color",
+    "title": "Background Color",
+    "description": "Background color for containers",
+    "value": "#161616"
+  },
+  {
+    "uniqueID": "TextColor",
+    "type": "color",
+    "title": "Text Color",
+    "description": "Main text color",
+    "value": "#FFFFFF"
+  },
+  {
+    "uniqueID": "Hit100Color",
+    "type": "color",
+    "title": "100 Hit Indicator",
+    "description": "Color for 100 hit indicator",
+    "value": "#0fff50"
+  },
+  {
+    "uniqueID": "Hit50Color",
+    "type": "color",
+    "title": "50 Hit Indicator",
+    "description": "Color for 50 hit indicator",
+    "value": "#fff01f"
+  },
+  {
+    "uniqueID": "Hit0Color",
+    "type": "color",
+    "title": "Miss Indicator",
+    "description": "Color for miss indicator",
+    "value": "#f72119"
+  },
+  {
+    "uniqueID": "SliderBreakColor",
+    "type": "color",
+    "title": "Slider Break Indicator",
+    "description": "Color for slider break indicator",
+    "value": "#808080"
+  },
+  {
+    "uniqueID": "KeyColor",
+    "type": "color",
+    "title": "Key Color",
+    "description": "Color for key overlay keys",
+    "value": "#537fd6"
+  },
+  {
+    "uniqueID": "KeyPressedColor",
+    "type": "color",
+    "title": "Key Pressed Color",
+    "description": "Color when key is pressed",
+    "value": "#839fd8"
+  },
+  {
+    "uniqueID": "KeyTileColor",
+    "type": "color",
+    "title": "Key Tile Color",
+    "description": "Color for key press tiles",
+    "value": "#537fd6"
+  }
+]
