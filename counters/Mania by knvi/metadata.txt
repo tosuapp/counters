@@ -1,0 +1,8 @@
+Usecase: in-game, obs-overlay
+Name: Mania 
+Version: 1.0.0
+Author: knvi
+CompatibleWith: tosu
+Resolution: 169x224
+authorLinks: https://github.com/knvi
+Notes: just a simple mania judgement counter (inspired by etterna)
