@@ -1,5 +1,3 @@
-/* minified socket.js */
-
 class WebSocketManager {
   constructor(host) {
     this.version = '0.1.5';
@@ -11,12 +9,12 @@ class WebSocketManager {
     this.createConnection = this.createConnection.bind(this);
 
     /**
-     * @type {{ [key: string]: WebSocket }}
+     * @type {{ [key: string]: WebSocket }} asd;
      */
     this.sockets = {};
   }
 
-  createConnection(url, callback) {
+  createConnection(url, callback, filters) {
     let INTERVAL = '';
 
     const that = this;
@@ -26,6 +24,9 @@ class WebSocketManager {
       console.log(`[OPEN] ${url}: Connected`);
 
       if (INTERVAL) clearInterval(INTERVAL);
+      if (Array.isArray(filters)) {
+        this.sockets[url].send(`applyFilters:${JSON.stringify(filters)}`);
+      }
     };
 
     this.sockets[url].onclose = (event) => {
@@ -33,7 +34,7 @@ class WebSocketManager {
 
       delete this.sockets[url];
       INTERVAL = setTimeout(() => {
-        that.createConnection(url, callback);
+        that.createConnection(url, callback, filters);
       }, 1000);
     };
 
@@ -67,9 +68,10 @@ class WebSocketManager {
   /**
    * Connects to tosu advanced socket api.
    * @param {(data: WEBSOCKET_V2) => void} callback The function to handle received messages.
+   * @param {Filters[]} filters
    */
-  api_v2(callback) {
-    this.createConnection(`/websocket/v2`, callback);
+  api_v2(callback, filters) {
+    this.createConnection(`/websocket/v2`, callback, filters);
   };
 
   /**

@@ -21,22 +21,22 @@ socket.commands((data) => {
     const { command, message } = data;
 
     if (message['ppSize'] != null) {
-        document.documentElement.style.setProperty('--pp-size', `${message['ppSize']}px`);
+      document.documentElement.style.setProperty('--pp-size', `${message['ppSize']}px`);
     }
     if (message['labelSize'] != null) {
-        document.documentElement.style.setProperty('--label-size', `${message['labelSize']}px`);
+      document.documentElement.style.setProperty('--label-size', `${message['labelSize']}px`);
     }
     if (message['spacing'] != null) {
-        document.documentElement.style.setProperty('--spacing', `${message['spacing']}px`);
+      document.documentElement.style.setProperty('--spacing', `${message['spacing']}px`);
     }
     if (message['ppColor'] != null) {
-        document.documentElement.style.setProperty('--pp-color', message['ppColor']);
+      document.documentElement.style.setProperty('--pp-color', message['ppColor']);
     }
     if (message['labelColor'] != null) {
-        document.documentElement.style.setProperty('--label-color', message['labelColor']);
+      document.documentElement.style.setProperty('--label-color', message['labelColor']);
     }
     if (message['showLabel'] != null) {
-        document.documentElement.style.setProperty('--label-display', message['showLabel'] ? 'inline' : 'none');
+      document.documentElement.style.setProperty('--label-display', message['showLabel'] ? 'inline' : 'none');
     }
 
   } catch (error) {
@@ -63,4 +63,20 @@ socket.api_v2(data => {
   } catch (error) {
     console.log(error);
   };
-});
+}, [
+  'state',
+  {
+    field: 'play',
+    keys: [{
+      field: 'pp',
+      keys: 'current'
+    }]
+  },
+  {
+    field: 'performance',
+    keys: [{
+      field: 'accuracy',
+      keys: ['100']
+    }]
+  },
+]);

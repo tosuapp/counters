@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
 Name: Triangles Lazer PP
-Version: 1.0
+Version: 1.0.1
 Author: uwuclxdy
 CompatibleWith: tosu
 Resolution: 200x35
