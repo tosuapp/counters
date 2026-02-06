@@ -53,7 +53,7 @@ socket.api_v2(data => {
     if (state === 'play' || state === 'resultScreen') {
       ppValue = data.play.pp.current;
     } else {
-      ppValue = data.performance.accuracy[100];
+      ppValue = data.performance.accuracy['100'];
     }
 
     if (cache.pp !== ppValue) {
@@ -64,19 +64,26 @@ socket.api_v2(data => {
     console.log(error);
   };
 }, [
-  'state',
+  {
+    field: 'state',
+    keys: ['name']
+  },
   {
     field: 'play',
-    keys: [{
-      field: 'pp',
-      keys: 'current'
-    }]
+    keys: [
+      {
+        field: 'pp',
+        keys: ['current']
+      }
+    ]
   },
   {
     field: 'performance',
-    keys: [{
-      field: 'accuracy',
-      keys: ['100']
-    }]
-  },
+    keys: [
+      {
+        field: 'accuracy',
+        keys: ['100']
+      }
+    ]
+  }
 ]);
