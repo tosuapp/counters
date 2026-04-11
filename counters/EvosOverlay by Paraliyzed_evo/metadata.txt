@@ -1,6 +1,6 @@
 Usecase: ingame, obs-overlay
-Name: SonataOverlay
-Version: 1.22
+Name: EvosOverlay
+Version: 1.23
 Author: Paraliyzed_evo
 CompatibleWith: tosu
 Resolution: 2560x1440

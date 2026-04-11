@@ -26,6 +26,7 @@ function setupTosuConnectionHandlers() {
       ws.onclose = function(event) {
         showTosuWarning();
         if (originalOnClose) originalOnClose.call(this, event);
+        setTimeout(attachHandlers, 100);
       };
 
       if (ws.readyState === WebSocket.OPEN) {
@@ -171,111 +172,64 @@ export async function getMapDataSet(beatmapID) {
   }
 }
 
-export async function getMapScores(beatmapID, gameMode = 0) {
-  if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') {
-    return null;
+function mapScore(score, gameMode) {
+  const count_300 = parseInt(score.count300);
+  const count_100 = parseInt(score.count100);
+  const count_50 = parseInt(score.count50);
+  const count_miss = parseInt(score.countmiss);
+  const count_geki = parseInt(score.countgeki);
+  const count_katu = parseInt(score.countkatu);
+  let accuracy = 0;
+
+  switch (gameMode) {
+    case 0:
+      const t = count_300 + count_100 + count_50 + count_miss;
+      accuracy = t > 0 ? ((count_300*300 + count_100*100 + count_50*50) / (t*300)) * 100 : 0;
+      break;
+    case 1:
+      const tt = count_300 + count_100 + count_miss;
+      accuracy = tt > 0 ? ((count_300 + count_100*0.5) / tt) * 100 : 0;
+      break;
+    case 2:
+      const tc = count_300 + count_100 + count_50 + count_katu + count_miss;
+      accuracy = tc > 0 ? ((count_300 + count_100 + count_50) / tc) * 100 : 0;
+      break;
+    case 3:
+      const tm = count_geki + count_300 + count_katu + count_100 + count_50 + count_miss;
+      accuracy = tm > 0 ? ((count_geki*300 + count_300*300 + count_katu*200 + count_100*100 + count_50*50) / (tm*300)) * 100 : 0;
+      break;
   }
-  
+
+  return {
+    user_id: parseInt(score.user_id), username: score.username,
+    score: parseInt(score.score), max_combo: parseInt(score.maxcombo),
+    count_300, count_100, count_50, count_miss, count_geki, count_katu,
+    rank: score.rank, pp: parseFloat(score.pp),
+    mods: convertModsNumberToString(parseInt(score.enabled_mods)),
+    acc: accuracy, created_at: score.date
+  };
+}
+
+export async function getMapScores(beatmapID, gameMode = 0) {
+  if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') return null;
   try {
     const response = await fetch(`${API_BASE}/get_scores?k=${apiKey}&b=${beatmapID}&limit=100`);
     if (!response.ok) return null;
-    
     const data = await response.json();
     if (!data || data.length === 0) return null;
-
-    return data.map(score => {
-      const count_300 = parseInt(score.count300);
-      const count_100 = parseInt(score.count100);
-      const count_50 = parseInt(score.count50);
-      const count_miss = parseInt(score.countmiss);
-      const count_geki = parseInt(score.countgeki);
-      const count_katu = parseInt(score.countkatu);
-      let accuracy = 0;
-
-      switch (gameMode) {
-        case 0: // osu!standard
-          const totalHitsStd = count_300 + count_100 + count_50 + count_miss;
-          accuracy = totalHitsStd > 0 
-            ? ((count_300 * 300 + count_100 * 100 + count_50 * 50) / (totalHitsStd * 300)) * 100
-            : 0;
-          break;
-          
-        case 1: // taiko
-          const totalHitsTaiko = count_300 + count_100 + count_miss;
-          accuracy = totalHitsTaiko > 0
-            ? ((count_300 + count_100 * 0.5) / totalHitsTaiko) * 100
-            : 0;
-          break;
-          
-        case 2: // catch
-          const totalHitsCatch = count_300 + count_100 + count_50 + count_katu + count_miss;
-          accuracy = totalHitsCatch > 0
-            ? ((count_300 + count_100 + count_50) / totalHitsCatch) * 100
-            : 0;
-          break;
-          
-        case 3: // mania
-          const totalHitsMania = count_geki + count_300 + count_katu + count_100 + count_50 + count_miss;
-          accuracy = totalHitsMania > 0
-            ? ((count_geki * 300 + count_300 * 300 + count_katu * 200 + count_100 * 100 + count_50 * 50) / (totalHitsMania * 300)) * 100
-            : 0;
-          break;
-      }
-      
-      return {
-        user_id: parseInt(score.user_id),
-        username: score.username,
-        score: parseInt(score.score),
-        max_combo: parseInt(score.maxcombo),
-        count_300,
-        count_100,
-        count_50,
-        count_miss,
-        count_geki,
-        count_katu,
-        rank: score.rank,
-        pp: parseFloat(score.pp),
-        mods: convertModsNumberToString(parseInt(score.enabled_mods)),
-        acc: accuracy,
-        created_at: score.date
-      };
-    });
-  } catch (error) {
-    console.error('Error fetching beatmap scores:', error);
-    return null;
-  }
+    return data.map(score => mapScore(score, gameMode));
+  } catch (error) { console.error(error); return null; }
 }
 
-export async function getModsScores(beatmapID, modsString, gameMode = 0) {
-  if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') {
-    return null;
-  }
-  
+export async function getModsScores(beatmapID, modsNumber, gameMode = 0) {
+  if (!apiKey || !beatmapID || beatmapID === 'undefined' || beatmapID === 'null') return null;
   try {
-    const allScores = await getMapScores(beatmapID, gameMode);
-    if (!allScores) return null;
-
-    const modsArray = [];
-    if (modsString && modsString !== 'NM') {
-      for (let i = 0; i < modsString.length; i += 2) {
-        modsArray.push(modsString.substr(i, 2));
-      }
-    }
-
-    if (modsArray.length === 0) {
-      return allScores;
-    }
-
-    return allScores.filter(score => {
-      const scoreMods = score.mods.match(/.{1,2}/g) || [];
-      const requestedMods = modsArray.sort().join('');
-      const scoreModsStr = scoreMods.sort().join('');
-      return scoreModsStr === requestedMods;
-    });
-  } catch (error) {
-    console.error('Error fetching scores with mods:', error);
-    return null;
-  }
+    const response = await fetch(`${API_BASE}/get_scores?k=${apiKey}&b=${beatmapID}&limit=100&mods=${modsNumber}`);
+    if (!response.ok) return null;
+    const data = await response.json();
+    if (!data || data.length === 0) return null;
+    return data.map(score => mapScore(score, gameMode));
+  } catch (error) { console.error(error); return null; }
 }
 
 export function postUserID() {

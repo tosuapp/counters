@@ -1,4 +1,4 @@
-## SonataOverlay by Paraliyzed_evo
+## EvosOverlay by Paraliyzed_evo
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/sonataoverlay by paraliyzed_evo v1.22.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Paraliyzedevo" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
 
@@ -8,14 +8,19 @@
 | Compatible with | tosu |
 | Size |  2560x1440 |
 
+## Gameplay
+<img src="https://github.com/ParaliyzedEvo/counters/blob/master/.github/images/sonataoverlay%20by%20paraliyzed_evo.png?raw=true" />
 
-<img src="/.github/images/sonataoverlay by paraliyzed_evo.png" /> <img src="/.github/images/sonataoverlay by paraliyzed_evo1.png" />
+## Results
+<img src="https://github.com/ParaliyzedEvo/counters/blob/master/.github/images/sonataoverlay%20by%20paraliyzed_evo1.png?raw=true" />
 
-[![CodeFactor](https://www.codefactor.io/repository/github/paraliyzedevo/sonotaoverlay/badge)](https://www.codefactor.io/repository/github/paraliyzedevo/sonotaoverlay)
+[![CodeFactor](https://www.codefactor.io/repository/github/paraliyzedevo/evosoverlay/badge)](https://www.codefactor.io/repository/github/paraliyzedevo/sonotaoverlay)
 [![Website](https://img.shields.io/badge/-Website-6a0dad?style=flat&logo=osu&logoColor=FFFFFF&labelColor=ff1493&color=6a0dad)](https://paraliyzed.net/)
 [![Donate](https://img.shields.io/badge/-Donate-FFDE21?style=flat&logo=paypal&logoColor=%23FFFFFF&labelColor=%2300c244&color=%2300c244)](https://paypal.me/Paraliyzedevo)
 
-Basically this repo is a fork (and maintained version) of the original [SonotaOverlay](https://web.archive.org/web/20250325212754/https://github.com/HosizoraN/SonataOverlay) made by [HosizoraN](https://web.archive.org/web/20250325212754/https://github.com/HosizoraN) (using archive.org links due to them deleting the accounts). Only reason I have this is me having this overlay for a few years and using it (via [tosu](https://github.com/tosuapp/tosu)) for videos and streams and problems arose with it and I fixed them. This code has my patches and extras included with this, but if you want to revert them, you can go look in the [source code](https://github.com/ParaliyzedEvo/SonotaOverlay/tree/source) and edit the overlay yourself.
+Basically this repo is a fork (and maintained version) of the original Sonata Framework (the original overlay). Only reason I have this is me having this overlay for a few years and using it (via [tosu](https://github.com/tosuapp/tosu)) for videos and streams and problems arose with it and I fixed them. This code has my patches and extras included with this, but if you want to revert them, you can go look in the [source code](https://github.com/ParaliyzedEvo/SonotaOverlay/tree/source) and edit the overlay yourself.
+
+Report issues or feature ideas [here](https://github.com/ParaliyzedEvo/SonataOverlay/issues)
 
 ## Instructions
 Settings for replays (ingame):
@@ -44,4 +49,3 @@ No new preview for now :v
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ParaliyzedEvo/SonotaOverlay&type=date&legend=top-left" />
  </picture>
 </a>
-

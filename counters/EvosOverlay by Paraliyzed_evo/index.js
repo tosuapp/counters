@@ -386,7 +386,7 @@ socket.commands(async (data) => {
 
       if (message['Recorder'] != null) {
           document.getElementById("recorderName").innerHTML = `${message['Recorder']}`;
-          document.getElementById("resultRecorder").innerHTML = `Recorder: ` + `${message['Recorder']}`;
+          document.getElementById("resultRecorder").innerHTML = `` + `${message['Recorder']}`;
       }
 
       if (cache['ColorSet'] !== message['ColorSet']) {
@@ -609,7 +609,7 @@ socket.commands(async (data) => {
         }
         if (cache['beatmap.stats.bpm.common'] !== beatmap.stats.bpm.common) {
             cache['beatmap.stats.bpm.common'] = beatmap.stats.bpm.common;
-            StatsBPM.innerHTML = cache['beatmap.stats.bpm.common'] + 'BPM';
+            StatsBPM.innerHTML = Math.round(cache['beatmap.stats.bpm.common']) + 'BPM';
         }
         if (cache['beatmap.stats.maxCombo'] !== beatmap.stats.maxCombo) {
             cache['beatmap.stats.maxCombo'] = beatmap.stats.maxCombo;
@@ -709,8 +709,10 @@ socket.commands(async (data) => {
             }
         }
         if (cache['play.mods.name'] !== play.mods.name || cache['play.mods.number'] !== play.mods.number) {
-            cache['play.mods.name'] = play.mods.name.replace('HDHRDT', 'HDDTHR').replace('HDDRNC', 'HDNCHR');;
-            cache['play.mods.number'] !== play.mods.number;
+            cache['play.mods.name'] = play.mods.name.replace('HDHRDT', 'HDDTHR').replace('HDDRNC', 'HDNCHR');
+            cache['play.mods.number'] = play.mods.number;
+            cache['play.mods.received'] = true; 
+            leaderboardFetch = false;
 
             document.getElementById("lbcpMods").innerHTML = " ";
 
@@ -942,7 +944,7 @@ socket.commands(async (data) => {
                  cache['beatmap_rankedStatus'] === 5) && 
                  cache['LBEnabled'] === true) {
                 
-                setupMapScores(cache['beatmap.id']);
+                setupMapScores(cache['beatmap.id'], play.mods.number);
                 lbcpPosition.innerHTML = `${playerPosition}`;
                 leaderboard.style.opacity = 1;
 
@@ -1775,20 +1777,19 @@ socket.commands(async (data) => {
     }
 }
 
-async function setupMapScores(beatmapID) {
+async function setupMapScores(beatmapID, currentModsNumber) {
     if (leaderboardFetch === false) {
+        if (cache['LBOptions'] === "Selected Mods" && !cache['play.mods.received']) {
+            return;
+        }
+
         leaderboardFetch = true;
         let data;
+        const modeNumber = {'osu':0,'taiko':1,'fruits':2,'mania':3}[cache['mode']] || 0;
+
         if (cache['LBOptions'] === "Selected Mods") {
-            data = await getModsScores(beatmapID, cache['resultsScreen.mods.name'], cache['mode']);
-        }
-        else {
-            const modeNumber = {
-                'osu': 0,
-                'taiko': 1,
-                'fruits': 2,
-                'mania': 3
-            }[cache['mode']] || 0;
+            data = await getModsScores(beatmapID, currentModsNumber, modeNumber);
+        } else {
             data = await getMapScores(beatmapID, modeNumber);
         }
         if (data) {
@@ -1798,6 +1799,8 @@ async function setupMapScores(beatmapID) {
             tempSlotLength = 0;
             playerPosition = 1;
         }
+        console.log('[LB] data length:', data?.length, 'tempSlotLength:', tempSlotLength);
+        console.log('[LB] currentModsNumber:', currentModsNumber);
         for (let i = tempSlotLength; i > 0; i--) {
             tempMapScores[i - 1] = data[i - 1].score;
             let playerContainer = document.createElement("div");
@@ -1837,6 +1840,7 @@ async function setupMapScores(beatmapID) {
                 ${playerMods}
             `;
             document.getElementById("lbopCont").appendChild(playerContainer);
+            document.getElementById(`lb_Mods_slot${i}`).innerHTML = "";
             let minimodsCount = data[i - 1].mods.length;
             for (let k = 0; k < minimodsCount; k++) {
                 let mods = document.createElement("div");
