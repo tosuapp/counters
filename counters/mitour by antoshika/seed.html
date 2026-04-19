@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Torus&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="click-zone zone-left" onclick="prevSlide()" title="PREV"></div>
+    <div class="click-zone zone-right" onclick="nextSlide()" title="NEXT"></div>
+
+    <div id="slideContainer" class="slide-container seed-hidden">
+        
+        <div class="left-panel-seed">
+            <div class="left-content-wrapper">
+                
+                <div class="seed-header" id="seedWrapper">
+                    <span class="seed-label">SEED</span>
+                    <span id="teamSeed">#1</span>
+                </div>
+                
+                <div class="team-block">
+                    <img id="teamAvatar" src="" class="team-avatar" onerror="this.style.display='none'">
+                    
+                    <div class="team-info-wrapper">
+                        <div class="name-flag-row">
+                            <div id="teamFullname" class="team-fullname">TEAM NAME</div>
+                            <img id="teamFlag" src="" class="team-flag">
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div id="rosterBlock" class="roster-block">
+                    <div id="rosterList" class="roster-list"></div>
+                </div>
+
+                <div id="rankBlock" class="rank-block">
+                    <span class="stat-label">AVG RANK</span>
+                    <span id="teamRank" class="stat-value">#0</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="right-panel-seed">
+            <div id="modsContainer" class="mods-container"></div>
+        </div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <div class="background-layer"></div>
+
+        <div id="winner-container" class="hidden">
+            <div class="left-panel">
+                <div class="avatar-ring">
+                    <div class="avatar-glow"></div>
+                    <div id="team-logo" class="team-logo"></div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+
+                <div class="winner-title">WINNER</div>
+
+                <div class="team-info-block">
+                    <div class="team-label" id="team-label">TEAM RED</div>
+                    <div class="team-name-box">
+                        <span id="team-name">TEAM NAME</span>
+                    </div>
+                </div>
+
+                <div class="players-grid" id="players-grid"></div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

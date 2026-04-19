@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.7/countUp.umd.js"></script>
+</head>
+<body class="showcase-mode">
+    <div class="top-bar" id="top-bar">
+        <div class="inner-pick-badge" id="inner-pick-badge">PICK</div>
+        <div class="card-bg" id="card-bg"></div>
+        
+        <div class="card-content">
+            <div class="map-thumb" id="map-thumb"></div>
+            <div class="map-details">
+                <div class="text-info">
+                    
+                    <div class="replay-row">
+                        <span class="replay-prefix">Replay by:</span>
+                        <div class="replay-name-wrapper">
+                            <span id="player" class="replay-name">Guest</span>
+                        </div>
+                    </div>
+
+                    <div class="title-row">
+                        <div class="title-overflow-wrap">
+                            <div id="title" class="song-title">Waiting for map...</div>
+                        </div>
+                    </div>
+                    <div id="artist" class="song-artist">Artist</div>
+                </div>
+                
+                <div class="stats-row">
+                    <div class="stats-grid">
+                        <div class="stat-item"><span class="label">CS</span><span class="val" id="cs">0</span></div>
+                        <div class="stat-item"><span class="label">AR</span><span class="val" id="ar">0</span></div>
+                        <div class="stat-item"><span class="label">OD</span><span class="val" id="od">0</span></div>
+                        <div class="stat-item highlight"><span class="label">SR</span><span class="val" id="sr">0.0★</span></div>
+                        <div class="stat-item"><span class="label">BPM</span><span class="val" id="bpm">0</span></div>
+                        <div class="stat-item"><span class="label">Length</span><span class="val" id="len">0:00</span></div>
+                        <div class="stat-item"><span class="label">ID</span><span class="val" id="mapid">0</span></div>
+                    </div>
+                    <div id="map-status" class="status-badge"></div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pick-bar" id="pick-bar">
+            <span id="pick-text">WARMUP</span>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

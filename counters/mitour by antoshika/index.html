@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>antoshika osu! Tournament Overlay</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='512' height='512' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3CclipPath id='circleClip'%3E%3Ccircle cx='256' cy='256' r='240' /%3E%3C/clipPath%3E%3ClinearGradient id='stalkGrad' x1='280' y1='380' x2='220' y2='220' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0.1' stop-color='%23FEFEE9'/%3E%3Cstop offset='0.6' stop-color='%23CFE7A5'/%3E%3Cstop offset='1' stop-color='%2396C95B'/%3E%3C/linearGradient%3E%3ClinearGradient id='leafGrad' x1='220' y1='250' x2='160' y2='140' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%2396C95B'/%3E%3Cstop offset='1' stop-color='%234F8F27'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='256' cy='256' r='250' fill='white' /%3E%3Ccircle cx='256' cy='256' r='240' fill='%234B9EA2' /%3E%3Cg clip-path='url(%23circleClip)' fill='%233D8589' opacity='0.6'%3E%3Cpolygon points='256,50 100,400 412,400' /%3E%3Cpolygon points='120,150 -50,450 250,450' opacity='0.7'/%3E%3Cpolygon points='390,150 200,450 550,450' opacity='0.7'/%3E%3Cpolygon points='256,350 156,512 356,512' opacity='0.5'/%3E%3C/g%3E%3Cg stroke='%231A2E1A' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M260,240 Q280,180 300,160 L285,210 Z' fill='%236BAF3F' /%3E%3Cpath d='M295,365 Q305,375 298,385 L275,405 Q265,412 258,402 L210,300 Q190,240 180,160 Q200,170 230,230 L255,280 Z' fill='url(%23stalkGrad)' /%3E%3Cpath d='M210,300 Q190,240 180,160 Q200,170 230,230 L210,300 Z' fill='url(%23leafGrad)' stroke='none'/%3E%3Cpath d='M210,300 Q190,240 180,160 Q200,170 230,230' fill='none' /%3E%3Cpath d='M220,310 Q180,280 160,230 L205,280 Z' fill='%236BAF3F' /%3E%3Cpath d='M160,230 Q170,260 200,290 L220,310 Q185,290 160,230 Z' fill='%23DCE775' /%3E%3Cpath d='M265,390 L225,305' stroke='white' stroke-width='3' opacity='0.4' fill='none' stroke-linecap='butt'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.7/countUp.umd.js"></script>
+</head>
+<body tabindex="0">
+    <div id="app">
+        <div id="mappool-overlay">
+            <div class="pool-header">Mappool</div>
+            <div class="pool-grid" id="pool-grid"></div>
+        </div>
+
+        <div class="top-bar" id="top-bar">
+            <div class="inner-pick-badge" id="inner-pick-badge">PICK</div>
+            <div class="card-bg" id="card-bg"></div>
+            
+            <div class="card-content">
+                <div class="map-thumb" id="map-thumb"></div>
+                <div class="map-details">
+                    <div class="text-info">
+                        <div class="title-row">
+                            <div class="title-overflow-wrap">
+                                <div id="title" class="song-title">Waiting for map...</div>
+                            </div>
+                        </div>
+                        <div id="artist" class="song-artist">Artist</div>
+                    </div>
+                    
+                    <div class="stats-row">
+                        <div class="stats-grid">
+                            <div class="stat-item"><span class="label">CS</span><span class="val" id="cs">0</span></div>
+                            <div class="stat-item"><span class="label">AR</span><span class="val" id="ar">0</span></div>
+                            <div class="stat-item"><span class="label">OD</span><span class="val" id="od">0</span></div>
+                            <div class="stat-item highlight"><span class="label">SR</span><span class="val" id="sr">0.0★</span></div>
+                            <div class="stat-item"><span class="label">BPM</span><span class="val" id="bpm">0</span></div>
+                            <div class="stat-item"><span class="label">Length</span><span class="val" id="len">0:00</span></div>
+                            <div class="stat-item"><span class="label">ID</span><span class="val" id="mapid">0</span></div>
+                        </div>
+                        <div id="map-status" class="status-badge"></div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar-bg">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pick-bar" id="pick-bar">
+                <span id="pick-text">WARMUP</span>
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <div class="team red" id="team-red">
+                <div class="team-info-left">
+                    <div class="team-name" id="red-name">Red</div>
+                    <div class="stars" id="red-stars"></div>
+                </div>
+                <div class="team-icon" id="red-icon"></div>
+                <div class="score-wrapper">
+                    <div class="score" id="red-score">0</div>
+                    <div class="diff-val" id="red-diff"></div>
+                </div>
+            </div>
+
+            <div class="vs-marker">VS</div>
+
+            <div class="team blue" id="team-blue">
+                <div class="score-wrapper">
+                    <div class="score" id="blue-score">0</div>
+                    <div class="diff-val" id="blue-diff"></div>
+                </div>
+                <div class="team-icon" id="blue-icon"></div>
+                <div class="team-info-right">
+                    <div class="team-name" id="blue-name">Blue</div>
+                    <div class="stars" id="blue-stars"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-overlay" id="chat-overlay">
+            <div class="chat-messages" id="chat-messages"></div>
+        </div>
+
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

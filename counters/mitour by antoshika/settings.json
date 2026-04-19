@@ -1,0 +1,58 @@
+[
+  {
+    "uniqueID": "documentation",
+    "type": "button",
+    "title": "Documentation",
+    "description": "all about how configure overlay",
+    "options": "",
+    "value": "https://hatsunemiku39.ru/documentation"
+  },
+  {
+    "uniqueID": "getApiButtonLink",
+    "type": "button",
+    "title": "Get osu!API Key",
+    "description": "",
+    "options": "",
+    "value": "https://osu.ppy.sh/home/account/edit#legacy-api"
+  },
+  {
+    "uniqueID": "osuApiKey",
+    "type": "text",
+    "title": "osu!API Key",
+    "description": "Paste your API key here",
+    "options": "",
+    "value": ""
+  },
+  {
+    "uniqueID": "tourneySection",
+    "type": "title",
+    "title": "Tournament Parts",
+    "description": "========================================================",
+    "options": "",
+    "value": ""
+  },
+  {
+    "uniqueID": "mappoolData",
+    "type": "textarea",
+    "title": "Mappool",
+    "description": "Fill your mappool.",
+    "options": "",
+    "value": ""
+  },
+  {
+    "uniqueID": "teamsData",
+    "type": "textarea",
+    "title": "Teams",
+    "description": "Example: Red: 18815482, 18815482 | Blue: 18815482, 18815482",
+    "options": "",
+    "value": ""
+  },
+  {
+    "uniqueID": "bracketData",
+    "type": "textarea",
+    "title": "Bracket",
+    "description": "Paste the contents of your 'bracket.json' here",
+    "options": "",
+    "value": ""
+  }
+]
