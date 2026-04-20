@@ -770,10 +770,10 @@ body {
 .marquee-container { 
     width: 100%; overflow: hidden; white-space: nowrap; position: relative;
 }
-.song-title-seed { font-size: 0.8rem; font-weight: 700; color: #fff; display: inline-block; }
+.song-title-seed { font-size: 0.8rem; font-weight: 700; color: #fff; display: inline-block; white-space: nowrap; }
 
 .song-title-seed.scroll {
-    animation: scroll-text 10s linear infinite; 
+    animation: scroll-text 10s linear infinite;
     padding-right: 20px;
 }
 

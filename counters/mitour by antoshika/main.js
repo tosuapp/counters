@@ -2,7 +2,6 @@ let OSU_API_KEY = "";
 
 let teamSeeds = {};
 let TEAMS_CONFIG = {};
-let hasLoadedBracket = false;
 
 function processBracketData(data) {
     if (data && data.Teams) {
@@ -12,8 +11,7 @@ function processBracketData(data) {
             if (t.Acronym) teamSeeds[t.Acronym.toLowerCase()] = t.Seed;
         });
     }
-    if (document.getElementById('slideContainer') && data && !hasLoadedBracket) {
-        hasLoadedBracket = true;
+    if (document.getElementById('slideContainer') && data) {
         initSeedRevealWithData(data);
     }
 }
@@ -612,14 +610,14 @@ function hideWinner() {
 }
 
 async function fetchPlayer(userId) {
-    if (userId == 18815482) return { name: "antoshika", country: "RU" };
-    if (!userId || isNaN(userId)) return { name: "Unknown", country: null };
+    if (userId == 18815482) return { name: "antoshika", country: "RU", rank: 0 };
+    if (!userId || isNaN(userId)) return { name: "Unknown", country: null, rank: 0 };
     if (OSU_API_KEY) {
         try {
             const res = await fetch(`https://osu.ppy.sh/api/get_user?k=${OSU_API_KEY}&u=${userId}&type=id`);
             if (res.ok) {
                 const json = await res.json();
-                if (json && json.length > 0) return { name: json[0].username, country: json[0].country };
+                if (json && json.length > 0) return { name: json[0].username, country: json[0].country, rank: parseInt(json[0].pp_rank) || 0 };
             }
         } catch (e) { }
     }
@@ -627,17 +625,17 @@ async function fetchPlayer(userId) {
         const res = await fetch(`https://api.nerinyan.moe/u/${userId}`);
         if (res.ok) {
             const json = await res.json();
-            return { name: json.username, country: json.country_code };
+            return { name: json.username, country: json.country_code, rank: json.statistics ? json.statistics.global_rank : 0 };
         }
     } catch (e) { }
     try {
         const res = await fetch(`https://catboy.best/api/v2/user/${userId}`);
         if (res.ok) {
             const json = await res.json();
-            return { name: json.username, country: json.country };
+            return { name: json.username, country: json.country, rank: json.statistics ? json.statistics.global_rank : 0 };
         }
     } catch (e) { }
-    return { name: `Player ${userId}`, country: null };
+    return { name: `Player ${userId}`, country: null, rank: 0 };
 }
 
 function renderPlayers(players) {
@@ -928,12 +926,12 @@ async function initSeedRevealWithData(data) {
                                 embeddedInfo = {
                                     title: m.BeatmapInfo.Metadata.Title,
                                     artist: m.BeatmapInfo.Metadata.Artist,
-                                    creator: m.BeatmapInfo.Metadata.Author.Username,
-                                    version: m.BeatmapInfo.DifficultyName,
+                                    mapper: m.BeatmapInfo.Metadata.Author.Username,
+                                    diff: m.BeatmapInfo.DifficultyName,
                                     cover: m.BeatmapInfo.Covers ? m.BeatmapInfo.Covers['cover@2x'] : null
                                 };
                             }
-                            targetList.push({ mod: modName, poolId: poolId, seed: m.Seed, score: m.Score, id: m.ID, info: embeddedInfo });
+                            targetList.push({ mod: modName, poolId: poolId, seed: parseInt(m.Seed, 10) || m.Seed, score: m.Score, id: m.ID, info: embeddedInfo });
                         });
                     }
                 });
@@ -947,9 +945,10 @@ async function initSeedRevealWithData(data) {
                     if (p.country_code) cCode = p.country_code;
                     else if (p.country && p.country.code) cCode = p.country.code;
                     if (cCode) cCode = cCode.toUpperCase();
-                    let pName = p.Username;
+                    let pName = p.Username || p.username || p.Name || p.name;
                     if (!pName && t.Players.length === 1) pName = t.FullName;
-                    return { name: pName || null, country: cCode, id: p.id };
+                    let pId = p.id || p.ID;
+                    return { name: pName || (pId ? `Player ${pId}` : null), country: cCode, id: pId };
                 }).filter(p => p.name !== null);
             }
             return {
@@ -967,6 +966,10 @@ async function initSeedRevealWithData(data) {
         seedCurrentTeamIndex = seedTeams.length - 1;
         await preloadMapsForTeam(seedTeams[seedCurrentTeamIndex]);
         renderSlide();
+        
+        const container = document.getElementById('slideContainer');
+        if (container) container.classList.remove('seed-hidden');
+
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' || e.code === 'ArrowRight') nextSlide();
             if (e.code === 'ArrowLeft') prevSlide();
@@ -1036,4 +1039,209 @@ async function getMapInfo(beatmapId) {
     const data = await fetchBeatmapData(beatmapId);
     seedMapCache.set(beatmapId, data);
     return data;
+}
+
+async function preloadMapsForTeam(team) {
+    if (!team) return;
+    const promises = [];
+    if (team._groupedMaps) {
+        for (const mod in team._groupedMaps) {
+            team._groupedMaps[mod].forEach(m => {
+                if (!m.info && m.id) {
+                    promises.push(getMapInfo(m.id).then(data => {
+                        m.info = data;
+                    }));
+                }
+            });
+        }
+    }
+    if (team._roster) {
+        team._roster.forEach(p => {
+            if ((p.name && p.name.startsWith('Player ')) || !p._rankFetched) {
+                promises.push(fetchPlayer(p.id).then(data => {
+                    p.name = data.name;
+                    if (data.country) p.country = data.country.toUpperCase();
+                    if (data.rank) p.rank = data.rank;
+                    p._rankFetched = true;
+                }));
+            }
+        });
+    }
+    await Promise.all(promises);
+
+    if (!team._avgRank || team._avgRank === 0) {
+        if (team._roster && team._roster.length > 0) {
+            const validRanks = team._roster.filter(p => p.rank && p.rank > 0).map(p => p.rank);
+            if (validRanks.length > 0) {
+                team._avgRank = Math.round(validRanks.reduce((a, b) => a + b, 0) / validRanks.length);
+            }
+        }
+    }
+}
+
+async function updateSlideWithAnimation() {
+    const container = document.getElementById('slideContainer');
+    if (container) {
+        container.style.opacity = 0;
+        container.style.transition = 'opacity 0.3s ease';
+        setTimeout(async () => {
+            await preloadMapsForTeam(seedTeams[seedCurrentTeamIndex]);
+            renderSlide();
+            container.style.opacity = 1;
+        }, 300);
+    } else {
+        await preloadMapsForTeam(seedTeams[seedCurrentTeamIndex]);
+        renderSlide();
+    }
+}
+
+function renderSlide() {
+    const team = seedTeams[seedCurrentTeamIndex];
+    if (!team) return;
+
+    const teamSeedEl = document.getElementById('teamSeed');
+    if (teamSeedEl) teamSeedEl.innerText = `#${team._seed}`;
+
+    const seedWrapper = document.getElementById('seedWrapper');
+    if (seedWrapper) {
+        seedWrapper.classList.remove('seed-gold', 'seed-silver', 'seed-bronze');
+        if (team._seed === 1) seedWrapper.classList.add('seed-gold');
+        else if (team._seed === 2) seedWrapper.classList.add('seed-silver');
+        else if (team._seed === 3) seedWrapper.classList.add('seed-bronze');
+    }
+    
+    const fullnameEl = document.getElementById('teamFullname');
+    if (fullnameEl) fullnameEl.innerText = team._fullname || team._acronym || "Unknown Team";
+
+    const flagEl = document.getElementById('teamFlag');
+    if (flagEl) {
+        if (team._flagName && team._flagName !== 'XX') {
+            flagEl.src = `https://flagcdn.com/w40/${team._flagName.toLowerCase()}.png`;
+            flagEl.style.display = 'block';
+        } else {
+            flagEl.style.display = 'none';
+        }
+    }
+
+    const avatarEl = document.getElementById('teamAvatar');
+    if (avatarEl) {
+        const teamName = team._fullname || team._acronym;
+        if (teamName) {
+            setImageWithFallback(avatarEl, teamName, true);
+        } else {
+            avatarEl.style.display = 'none';
+        }
+    }
+
+    const rankEl = document.getElementById('teamRank');
+    if (rankEl) {
+        rankEl.innerText = `#${team._avgRank || 0}`;
+        document.getElementById('rankBlock').style.display = 'block';
+    }
+
+    const rosterBlock = document.getElementById('rosterBlock');
+    const rosterList = document.getElementById('rosterList');
+    if (rosterBlock && rosterList) {
+        rosterList.innerHTML = '';
+        if (team._roster && team._roster.length > 0) {
+            rosterBlock.style.display = 'block';
+            team._roster.forEach(player => {
+                const pDiv = document.createElement('div');
+                pDiv.className = 'player-card';
+                
+                const pAvatar = document.createElement('img');
+                pAvatar.className = 'p-avatar';
+                pAvatar.src = player.id ? `https://a.ppy.sh/${player.id}` : '';
+                pAvatar.onerror = () => pAvatar.style.display = 'none';
+                
+                const pInfo = document.createElement('div');
+                pInfo.className = 'p-info';
+                
+                if (player.country && player.country !== 'XX') {
+                    const pFlag = document.createElement('img');
+                    pFlag.className = 'p-flag';
+                    pFlag.src = `https://flagcdn.com/w40/${player.country.toLowerCase()}.png`;
+                    pInfo.appendChild(pFlag);
+                }
+                
+                const pName = document.createElement('span');
+                pName.className = 'p-name';
+                pName.innerText = player.name;
+                pInfo.appendChild(pName);
+                
+                pDiv.appendChild(pAvatar);
+                pDiv.appendChild(pInfo);
+                rosterList.appendChild(pDiv);
+            });
+        } else {
+            rosterBlock.style.display = 'none';
+        }
+    }
+
+    const modsContainer = document.getElementById('modsContainer');
+    if (modsContainer) {
+        modsContainer.innerHTML = '';
+        MOD_ORDER.forEach(mod => {
+            const maps = team._groupedMaps[mod];
+            if (!maps || maps.length === 0) return;
+            
+            const modCol = document.createElement('div');
+            modCol.className = 'mod-column';
+            
+            const modHeader = document.createElement('div');
+            modHeader.className = 'mod-header';
+            modHeader.innerText = mod;
+            let colorVar = getColorForMod(mod);
+            modHeader.style.color = `var(${colorVar})`;
+            modHeader.style.borderLeftColor = `var(${colorVar})`;
+            modCol.appendChild(modHeader);
+            
+            maps.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'map-card';
+                
+                const info = m.info || { title: `Map ID: ${m.id}`, mapper: "Unknown", diff: "Unknown", cover: null, setId: 0 };
+                
+                let bgUrl = '';
+                if (info.cover) bgUrl = info.cover;
+                else if (info.setId > 0) bgUrl = `https://assets.ppy.sh/beatmaps/${info.setId}/covers/cover.jpg`;
+                
+                let rankClass = '';
+                if (m.seed === 1) rankClass = 'rank-gold';
+                else if (m.seed === 2) rankClass = 'rank-silver';
+                else if (m.seed === 3) rankClass = 'rank-bronze';
+
+                card.innerHTML = `
+                    ${bgUrl ? `<div class="map-bg" style="background-image: url('${bgUrl}');"></div>` : `<div class="map-bg-fallback"></div>`}
+                    <div class="map-content">
+                        <div class="map-top">
+                            <span class="pool-id" style="color: var(${colorVar})">${m.poolId || ''}</span>
+                            <div class="map-info">
+                                <div class="marquee-container">
+                                    <span class="song-title-seed">${info.title} [${info.diff}]</span>
+                                </div>
+                                <span class="map-mapper">${info.mapper}</span>
+                            </div>
+                        </div>
+                        <div class="map-bot">
+                            <span class="map-rank ${rankClass}">#${m.seed || 0}</span>
+                            <span class="map-score">${m.score ? (Math.round(m.score * 100) / 100).toLocaleString('en-US') : 0}</span>
+                        </div>
+                    </div>
+                `;
+                modCol.appendChild(card);
+            });
+            modsContainer.appendChild(modCol);
+        });
+
+        setTimeout(() => {
+            document.querySelectorAll('.song-title-seed').forEach(el => {
+                if (el.scrollWidth > el.parentElement.clientWidth) {
+                    el.classList.add('scroll');
+                } else {
+                    el.classList.remove('scroll');
+                }
+            });
+        }, 100);
+    }
 }
