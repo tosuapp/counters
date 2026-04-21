@@ -128,78 +128,91 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-const socket = new WebSocket("ws://127.0.0.1:24050/ws");
+let urlParams = new URLSearchParams(window.location.search);
+let pathFromUrl = window.location.pathname.split('/')[1] || "";
+if (pathFromUrl) pathFromUrl = decodeURIComponent(pathFromUrl);
+window.COUNTER_PATH = window.COUNTER_PATH || urlParams.get('l') || pathFromUrl || "mitour by antoshika";
 
-let commandsSocket;
-try {
-    let urlParams = new URLSearchParams(window.location.search);
-    let pathFromUrl = window.location.pathname.split('/')[1] || "";
-    if (pathFromUrl) pathFromUrl = decodeURIComponent(pathFromUrl);
-    let counterPath = window.COUNTER_PATH || urlParams.get('l') || pathFromUrl || "mitour by antoshika";
-    
-    commandsSocket = new WebSocket(`ws://127.0.0.1:24050/websocket/commands?l=${encodeURI(counterPath)}`);
-    
-    commandsSocket.onopen = () => {
-        commandsSocket.send(`getSettings:${encodeURI(counterPath)}`);
-    };
+const socket = new Socket("127.0.0.1:24050");
 
-    commandsSocket.onmessage = (event) => {
+socket.createConnection("/ws", (data) => {
+    if (document.getElementById('slideContainer')) return; 
+
+    try {
+        let pName = "";
         try {
-            const data = JSON.parse(event.data);
-            if (data.command === 'getSettings') {
-                const msg = data.message;
-                
-                if (msg.osuApiKey && msg.osuApiKey.trim() !== "") {
-                    OSU_API_KEY = msg.osuApiKey.trim();
-                }
+            if (data.resultsScreen && data.resultsScreen.name) {
+                pName = data.resultsScreen.name;
+            } else if (data.gameplay && data.gameplay.name) {
+                pName = data.gameplay.name;
+            }
 
-                if (msg.bracketData && msg.bracketData.trim() !== "" && msg.bracketData !== "{}") {
-                    try {
-                        const parsed = JSON.parse(msg.bracketData);
-                        processBracketData(parsed);
-                    } catch(e) {}
-                }
-                
-                if (msg.mappoolData && msg.mappoolData.trim() !== "" && msg.mappoolData !== "{}") {
-                    try {
-                        const lines = msg.mappoolData.split('\n');
-                        const newPicks = {};
-                        lines.forEach(line => {
-                            const parts = line.split(':');
-                            if (parts.length === 2) {
-                                const mod = parts[0].trim();
-                                const id = parts[1].trim();
-                                if (mod && id) newPicks[id] = mod;
-                            }
-                        });
-                        picksData = newPicks;
-                        if(document.getElementById('pool-grid')) {
-                            renderMappool(); 
-                            fetchMapDetails();
-                        }
-                    } catch(e) {}
-                }
-                
-                if (msg.teamsData && msg.teamsData.trim() !== "" && msg.teamsData !== "{}") {
-                    try {
-                        const lines = msg.teamsData.split('\n');
-                        const newTeams = {};
-                        lines.forEach(line => {
-                            const parts = line.split(':');
-                            if (parts.length >= 2) {
-                                const teamName = parts.shift().trim();
-                                const idsStr = parts.join(':');
-                                const ids = idsStr.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
-                                if (teamName && ids.length > 0) newTeams[teamName] = ids;
-                            }
-                        });
-                        TEAMS_CONFIG = newTeams;
-                    } catch(e) {}
+            if (pName && pName.trim() !== "") {
+                if (pName !== currentPlayer && !isAnimatingPlayer) {
+                    updatePlayerName(pName);
                 }
             }
-        } catch(e) {}
-    };
-} catch(e) {}
+        } catch (e) {}
+
+        updateOverlay(data);
+        
+        if (!DEBUG_MODE && data.tourney && data.tourney.manager) {
+            handleWinnerData(data.tourney.manager);
+        }
+    } catch (err) { }
+});
+
+socket.createConnection("/websocket/commands", (data) => {
+    try {
+        if (data.command === 'getSettings') {
+            const msg = data.message;
+            if (msg.osuApiKey && msg.osuApiKey.trim() !== "") {
+                OSU_API_KEY = msg.osuApiKey.trim();
+            }
+            if (msg.bracketData && msg.bracketData.trim() !== "" && msg.bracketData !== "{}") {
+                try {
+                    const parsed = JSON.parse(msg.bracketData);
+                    processBracketData(parsed);
+                } catch(e) {}
+            }
+            if (msg.mappoolData && msg.mappoolData.trim() !== "" && msg.mappoolData !== "{}") {
+                try {
+                    const lines = msg.mappoolData.split('\n');
+                    const newPicks = {};
+                    lines.forEach(line => {
+                        const parts = line.split(':');
+                        if (parts.length === 2) {
+                            const mod = parts[0].trim();
+                            const id = parts[1].trim();
+                            if (mod && id) newPicks[id] = mod;
+                        }
+                    });
+                    picksData = newPicks;
+                    if(document.getElementById('pool-grid')) {
+                        renderMappool(); 
+                        fetchMapDetails();
+                    }
+                } catch(e) {}
+            }
+            if (msg.teamsData && msg.teamsData.trim() !== "" && msg.teamsData !== "{}") {
+                try {
+                    const lines = msg.teamsData.split('\n');
+                    const newTeams = {};
+                    lines.forEach(line => {
+                        const parts = line.split(':');
+                        if (parts.length >= 2) {
+                            const teamName = parts.shift().trim();
+                            const idsStr = parts.join(':');
+                            const ids = idsStr.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
+                            if (teamName && ids.length > 0) newTeams[teamName] = ids;
+                        }
+                    });
+                    TEAMS_CONFIG = newTeams;
+                } catch(e) {}
+            }
+        }
+    } catch(e) {}
+});
 
 let currentSetId = -1;
 let currentMapId = -1;
@@ -225,36 +238,6 @@ if (typeof countUp !== 'undefined') {
     }
 }
 
-socket.onopen = () => console.log("Connected to tosu!");
-
-socket.onmessage = (event) => {
-    if (document.getElementById('slideContainer')) return; 
-
-    try {
-        const data = JSON.parse(event.data);
-
-        let pName = "";
-        try {
-            if (data.resultsScreen && data.resultsScreen.name) {
-                pName = data.resultsScreen.name;
-            } else if (data.gameplay && data.gameplay.name) {
-                pName = data.gameplay.name;
-            }
-
-            if (pName && pName.trim() !== "") {
-                if (pName !== currentPlayer && !isAnimatingPlayer) {
-                    updatePlayerName(pName);
-                }
-            }
-        } catch (e) {}
-
-        updateOverlay(data);
-        
-        if (!DEBUG_MODE && data.tourney && data.tourney.manager) {
-            handleWinnerData(data.tourney.manager);
-        }
-    } catch (err) { }
-};
 
 function updatePlayerName(newText) {
     const el = document.getElementById("player");
