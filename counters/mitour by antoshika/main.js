@@ -133,7 +133,7 @@ let pathFromUrl = window.location.pathname.split('/')[1] || "";
 if (pathFromUrl) pathFromUrl = decodeURIComponent(pathFromUrl);
 window.COUNTER_PATH = window.COUNTER_PATH || urlParams.get('l') || pathFromUrl || "mitour by antoshika";
 
-const socket = new Socket("127.0.0.1:24050");
+const socket = new Socket(window.location.host);
 
 socket.createConnection("/ws", (data) => {
     if (document.getElementById('slideContainer')) return; 
@@ -191,6 +191,13 @@ socket.createConnection("/websocket/commands", (data) => {
                     if(document.getElementById('pool-grid')) {
                         renderMappool(); 
                         fetchMapDetails();
+                    }
+                    if(document.getElementById('pick-bar')) {
+                        const pickName = picksData[String(currentMapId)] || "WARMUP";
+                        updatePickBar(pickName);
+                    }
+                    if(document.getElementById('inner-pick-badge')) {
+                        checkInnerPickBadge(currentMapId);
                     }
                 } catch(e) {}
             }
