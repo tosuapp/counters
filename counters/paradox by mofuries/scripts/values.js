@@ -1,4 +1,4 @@
-const version = "v1.1.2";
+const version = "v1.1.3";
 const channel = "";
 let isLatest;
 
@@ -188,8 +188,8 @@ const modsImgs = {
     
 const gradeImgs = {
   '0': './assets/SSH.svg',
-  '1': './assets/SH.svg',
-  '2': './assets/SS.svg',
+  '1': './assets/SS.svg',
+  '2': './assets/SH.svg',
   '3': './assets/S.svg',
   '4': './assets/A.svg',
   '5': './assets/B.svg',
@@ -198,8 +198,8 @@ const gradeImgs = {
   '8': './assets/none.png',
   '9': './assets/none.png',
   'XH': './assets/SSH.svg',
-  'X': './assets/SH.svg',
-  'SH': './assets/SS.svg',
+  'X': './assets/SS.svg',
+  'SH': './assets/SH.svg',
   'S': './assets/S.svg',
   'A': './assets/A.svg',
   'B': './assets/B.svg',
