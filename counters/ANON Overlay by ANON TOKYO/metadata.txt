@@ -3,6 +3,5 @@ Name: ANON Overlay
 Author: ANON TOKYO
 CompatibleWith: tosu
 Version: 1.0
-Resolution: 1920x1080 (but can adapt to other screen resolution)
+Resolution: 1920x1080
 authorLinks: https://github.com/FukutoTojido
-Notes: 
