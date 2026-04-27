@@ -10,7 +10,7 @@ var KeyGraphHandler = class KeyGraphHandler {
 	key1Array = new List();
 	key2Array = new List();
 	canvas = document.querySelector("#key-graph");
-	static TIME_WINDOW = 500;
+	static TIME_WINDOW = 300;
 	_k1Color = "white";
 	_k2Color = "white";
 	constructor(engine) {

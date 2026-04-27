@@ -1,6 +1,7 @@
 import { Vibrant } from "../../../node_modules/@vibrant/core/dist/esm/index.js";
 import "../../../node_modules/node-vibrant/dist/esm/browser.js";
 //#region src/handlers/GameplayHandler/BackgroundHandler.ts
+var BASE_URL = `http://${window.location.host}`;
 var BackgroundHandler = class {
 	palette = {
 		Vibrant: null,
@@ -15,7 +16,7 @@ var BackgroundHandler = class {
 			if (!document.querySelector("#app")) return;
 			const rankingPanel = document.querySelector("#rankingPanel");
 			if (!rankingPanel) return;
-			const url = `http://127.0.0.1:24050/Songs/${background.replaceAll("\\", "/")}`;
+			const url = `${BASE_URL}/Songs/${background.replaceAll("\\", "/")}`;
 			rankingPanel.style.backgroundImage = `linear-gradient(to bottom, transparent 40%, rgb(0 0 0 /.6) 100%), url("${url}")`;
 			try {
 				this.palette = await Vibrant.from(url).getPalette();

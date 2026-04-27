@@ -6,7 +6,9 @@ import GameplayHandler from "./handlers/GameplayHandler/index.js";
 import RankingPanelHandler from "./handlers/RankingPanelHandler/index.js";
 /* empty css      */
 //#region src/main.ts
-var engine = new ZEngine("ws://127.0.0.1:24050/websocket/v2", [
+var WS_URL = `ws://${window.location.host}/websocket/v2`;
+var WS_PRECISE_URL = `ws://${window.location.host}/websocket/v2/precise`;
+var engine = new ZEngine(WS_URL, [
 	"state",
 	{
 		field: "beatmap",
@@ -77,7 +79,7 @@ var engine = new ZEngine("ws://127.0.0.1:24050/websocket/v2", [
 		keys: ["interfaceVisible"]
 	}
 ]);
-new GameplayHandler(engine, new ZEngine("ws://127.0.0.1:24050/websocket/v2/precise"));
+new GameplayHandler(engine, new ZEngine(WS_PRECISE_URL));
 new RankingPanelHandler(engine);
 if (query.get("hide_np") !== null) document.body.classList.add("hideNp");
 //#endregion
