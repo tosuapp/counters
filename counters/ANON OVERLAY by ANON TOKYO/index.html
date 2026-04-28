@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>anon-overlay</title>
+  <script type="module" crossorigin src="./assets/index.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/deps/polyfill.js">
+  <link rel="modulepreload" crossorigin href="./assets/deps/vendor.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/BaseHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/CountUpHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/AccuracyHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/BackgroundHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/ComboHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/GradeHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/HitCountHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/KeyCountHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/KeyGraphHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/LeaderboardHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/MaxComboHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/MetadataHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/const.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/ModsHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/PerformanceHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/PlayerHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/ScoreHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/StatsHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/UnstableRateHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/GameplayHandler/index.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingAccuracyHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingComboHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingGradeHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingJudgementHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingMetadataHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingModsHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingPerformanceHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingPlayerHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/RankingScoreHandler.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/handlers/RankingPanelHandler/index.js">
+  <link rel="modulepreload" crossorigin href="./assets/src/main.js">
+  <link rel="stylesheet" crossorigin href="./assets/deps/vendor.css">
+  <link rel="stylesheet" crossorigin href="./assets/src/main.css">
+</head>
+
+<body>
+	<div id="app"
+		class="group/gameplay hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-all overflow-hidden">
+		<div id="score"
+			class="absolute top-5 left-0 right-0 mx-auto text-5xl font-c font-bold text-center w-min font-numbers tracking-tighter tabular-nums drop-shadow-lg">
+		</div>
+		<div
+			class="absolute top-18.75 left-0 right-0 mx-auto text-[32px] font-d font-medium text-center w-max drop-shadow-lg">
+			<number-flow id="accuracy"></number-flow>
+		</div>
+		<div class="absolute top-5 right-25 flex flex-col gap-1 items-end">
+			<div class="font-d text-xl">performance</div>
+			<div class="font-d text-[32px] font-bold"><number-flow id="performance"></number-flow></div>
+		</div>
+		<div id="gradeContainer" class="absolute -top-1.5 -right-2.5 w-15 h-15 py-7.5 px-7.5 box-content">
+			<div id="grade" class="absolute flex flex-col w-15 top-9 transition-all">
+				<div
+					class="w-15 font-d font-medium text-5xl italic text-center text-grade-x drop-shadow-grade-x/25 drop-shadow-grade group-has-[.mod.HD]/gameplay:text-grade-hidden group-has-[.mod.HD]/gameplay:drop-shadow-grade-hidden/25">
+					SS</div>
+				<div
+					class="w-15 font-d font-medium text-5xl italic text-center text-grade-s drop-shadow-grade-s/25 drop-shadow-grade group-has-[.mod.HD]/gameplay:text-grade-hidden group-has-[.mod.HD]/gameplay:drop-shadow-grade-hidden/25">
+					S</div>
+				<div
+					class="w-15 font-d font-medium text-5xl italic text-center text-grade-a drop-shadow-grade-a/25 drop-shadow-grade">
+					A</div>
+				<div
+					class="w-15 font-d font-medium text-5xl italic text-center text-grade-b drop-shadow-grade-b/25 drop-shadow-grade">
+					B</div>
+				<div
+					class="w-15 font-d font-medium text-5xl italic text-center text-grade-c drop-shadow-grade-c/25 drop-shadow-grade">
+					C</div>
+				<div
+					class="w-15 font-d font-medium text-5xl italic text-center text-grade-d drop-shadow-grade-d/25 drop-shadow-grade">
+					D</div>
+			</div>
+		</div>
+		<div id="mods" class="absolute right-5 top-25 flex h-10.5">
+		</div>
+		<div class="absolute top-5 left-5 h-20 flex gap-5 items-center drop-shadow-lg">
+			<div class="h-full aspect-square relative">
+				<div id="user-avatar" alt="" class="size-full rounded-[20px] bg-cover bg-center bg-no-repeat"></div>
+				<span alt="" id="user-country"
+					class="size-5 absolute left-0 right-0 mx-auto bottom-0 translate-y-2.5 bg-cover bg-center bg-no-repeat" />
+			</div>
+			<div class="flex flex-col">
+				<span id="user-name" class="font-d font-bold text-2xl mb-1.25"></span>
+				<span class="mb-0.5 font-d text-sm font-light">
+					performance
+					<span class="font-bold ml-1.25"><span id="user-performance"></span>pp</span>
+				</span>
+				<span class="mb-0.5 font-d text-sm font-light">
+					rank
+					<span class="font-bold ml-1.25">#<span id="user-rank"></span></span>
+				</span>
+			</div>
+		</div>
+		<div class="absolute bottom-5 left-10 flex items-center gap-10 drop-shadow-lg" id="np-container">
+			<i class="ri-music-2-fill text-4xl"></i>
+			<div class="flex flex-col gap-2">
+				<div class="flex flex-col gap-0.75 max-w-100">
+					<div id="artist" class="n font-d text-sm line-clamp-1"></div>
+					<div id="title" class="font-d font-bold text-2xl line-clamp-1"></div>
+					<div id="version" class="font-d font-bold italic text-sm line-clamp-1"></div>
+				</div>
+				<div class="font-d">
+					CS <span class="font-black"><span id="cs"></span></span> / AR <span class="font-black"><span
+							id="ar"></span></span> / OD
+					<span class="font-black"><span id="od"></span></span> / SR
+					<span class="font-black"><span id="sr"></span><i class="ri-star-s-fill"></i></span>
+				</div>
+			</div>
+		</div>
+		<div class="absolute bottom-2.5 left-0 right-0 mx-auto w-0 h-0">
+			<div class="font-d font-bold text-2xl absolute bottom-0 right-42.5 text-right flex drop-shadow-lg">
+				<number-flow id="combo"></number-flow>
+				<div id="maxComboContainer" class="flex justify-end">
+					<number-flow id="maxCombo"></number-flow>
+				</div>
+			</div>
+			<div class="font-d font-bold text-2xl absolute bottom-0 left-42.5 text-left drop-shadow-lg"><number-flow
+					id="ur"></number-flow></div>
+		</div>
+		<div class="absolute left-0 right-0 mx-auto bottom-10 flex items-center w-37.5">
+			<div class="flex-1 flex justify-start h-full">
+				<div class="flex flex-col items-center drop-shadow-judgement drop-shadow-judgement-good/50">
+					<div class="font-bold font-d text-xl drop-shadow-lg"><number-flow id="h100"></number-flow></div>
+					<div class="font-bold font-d text-xs text-judgement-good">good</div>
+				</div>
+			</div>
+			<div class="flex-1 flex justify-center h-full">
+				<div class="flex flex-col items-center drop-shadow-judgement drop-shadow-judgement-meh/50">
+					<div class="font-bold font-d text-xl drop-shadow-lg"><number-flow id="h50"></number-flow></div>
+					<div class="font-bold font-d text-xs text-judgement-meh">meh</div>
+				</div>
+			</div>
+			<div class="flex-1 flex justify-end h-full">
+				<div class="flex flex-col items-center drop-shadow-judgement drop-shadow-judgement-miss/50">
+					<div class="font-bold font-d text-xl drop-shadow-lg"><number-flow id="h0"></number-flow></div>
+					<div class="font-bold font-d text-xs text-judgement-miss">miss</div>
+				</div>
+			</div>
+		</div>
+		<div id="leaderboard" class="absolute left-5 top-80 ease-in-out transition-[200ms]">
+			<div class="absolute top-0 w-55 h-75 overflow-hidden">
+				<div class="flex flex-col transition-transform" id="leaderboardContainer"></div>
+			</div>
+		</div>
+		<div class="absolute top-0 bottom-0 my-auto right-5 flex justify-end h-min gap-1.25">
+			<canvas width="100" height="45" id="key-graph"></canvas>
+			<div class="flex flex-col gap-1.25 min-w-10">
+				<div class="relative text-xs font-d font-bold flex items-center justify-center h-5">
+					<div id="k1-container"
+						class="absolute size-full inset-0 rounded-[5px] bg-white duration-100 ease-out opacity-10">
+					</div>
+					<number-flow id="k1"></number-flow>
+				</div>
+				<div class="relative text-xs font-d font-bold flex items-center justify-center h-5">
+					<div id="k2-container"
+						class="absolute size-full inset-0 rounded-[5px] bg-white duration-100 ease-out opacity-10">
+					</div>
+					<number-flow id="k2"></number-flow>
+				</div>
+			</div>
+		</div>
+	</div>
+	<template id="leaderboard-entry">
+		<div class="w-55 h-12.5 rounded-[10px] p-2.5 flex items-start gap-2.5 transition-transform">
+			<div data-label="user-rank" class="font-d font-bold w-7.5 text-right"></div>
+			<div class="flex flex-col gap-0.75">
+				<div data-label="user-name" class="font-d font-bold"></div>
+				<div data-label="user-score" class="font-b text-xs"></div>
+			</div>
+		</div>
+	</template>
+	<div id="rankingPanel"
+		class="group/panel hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-all overflow-hidden">
+		<div class="min-w-200 h-31.25 absolute top-10 -right-7.5 px-10 py-7.5 gap-5 flex items-center">
+			<div class="skewCard bg-black/50 border-white/40 border"></div>
+			<i class="ri-music-2-fill text-5xl relative"></i>
+			<div class="flex flex-col gap-1.25 relative">
+				<div class="font-d text-4xl">
+					<span id="ranking-artist"></span>
+					-
+					<span id="ranking-title" class="font-bold"></span>
+				</div>
+				<div class="font-d text-2xl italic">
+					Difficulty: <span id="ranking-version" class="font-bold"></span> - Mapped by
+					<span id="ranking-mapper" class="font-bold"></span>
+				</div>
+			</div>
+		</div>
+		<div class="w-100 h-22.5 absolute top-43.75 -right-7.5 gap-5 flex items-center">
+			<div class="skewCard bg-black/50"></div>
+			<div class="h-full aspect-square relative">
+				<div class="skewCard bg-black/50 shadow-none! overflow-hidden flex items-center justify-center">
+					<div id="ranking-user-avatar" class="shrink-0 w-[108%] h-[108%] bg-center bg-cover -skew-x-5"></div>
+				</div>
+			</div>
+			<div class="flex flex-col gap-1.25 relative">
+				<div class="font-d text-2xl font-bold" id="ranking-user-name"></div>
+				<div class="font-d">
+					performance
+					<span class="font-bold ml-1.25"><span id="ranking-user-performance"></span>pp</span>
+				</div>
+			</div>
+			<div class="skewCard border-white/40 border backdrop-blur-none!"></div>
+		</div>
+		<div id="ranking-mods-container"
+			class="absolute bottom-121.25 -right-7.5 min-w-50 h-22.5 flex flex-col gap-1.25 justify-center px-10 ease-in-out transition-[300ms]">
+			<div class="antiSkewCard bg-white/95"></div>
+			<div class="relative font-medium font-d text-accent">mods</div>
+			<div id="ranking-mods" class="relative flex h-7 justify-start">
+			</div>
+		</div>
+		<div class="growIn absolute w-231.25 h-50 bottom-67.5 -right-7.5 flex flex-col justify-center px-20">
+			<div class="antiSkewCard bg-white/95"></div>
+			<div class="relative font-medium font-d text-[40px] text-accent">score</div>
+			<div class="relative font-bold text-8xl text-accent"><number-flow id="ranking-score"></number-flow>
+			</div>
+		</div>
+		<div class="absolute -right-7.5 bottom-38.75 flex gap-3.75 w-221.25 h-25">
+			<div class="growIn relative w-62.5 h-full flex flex-col justify-center px-10">
+				<div class="antiSkewCard bg-white/95"></div>
+				<div class="relative font-medium font-d text-accent">accuracy</div>
+				<div class="relative font-bold text-[40px] text-accent">
+					<number-flow id="ranking-accuracy"></number-flow>
+				</div>
+			</div>
+			<div class="growIn relative w-62.5 h-full flex flex-col justify-center px-10">
+				<div class="antiSkewCard bg-white/95"></div>
+				<div class="relative font-medium font-d text-accent">combo</div>
+				<div class="relative font-bold text-[40px] text-accent">
+					<number-flow id="ranking-combo"></number-flow>
+				</div>
+			</div>
+			<div class="growIn relative flex-1 h-full flex flex-col justify-center px-10">
+				<div class="antiSkewCard bg-white/95"></div>
+				<div class="relative font-medium font-d text-accent">performance</div>
+				<div class="relative font-bold text-[40px] text-accent">
+					<number-flow id="ranking-performance"></number-flow>
+				</div>
+			</div>
+		</div>
+		<div class="absolute -right-7.5 bottom-10 flex gap-3.75 w-211.25 h-25">
+			<div class="growIn relative w-50 h-full flex flex-col justify-center px-10">
+				<div class="antiSkewCard bg-black/50 border border-white/40"></div>
+				<div class="flex flex-col drop-shadow-ranking-judgement drop-shadow-ranking-great">
+					<div class="relative font-medium font-d text-ranking-great">great</div>
+					<div class="relative font-bold text-[40px] text-white">
+						<number-flow id="ranking-h300"></number-flow>
+					</div>
+				</div>
+			</div>
+			<div class="growIn relative w-50 h-full flex flex-col justify-center px-10">
+				<div class="antiSkewCard bg-black/50 border border-white/40"></div>
+				<div class="flex flex-col drop-shadow-ranking-judgement drop-shadow-ranking-good">
+					<div class="relative font-medium font-d text-ranking-good">good</div>
+					<div class="relative font-bold text-[40px] text-white">
+						<number-flow id="ranking-h100"></number-flow>
+					</div>
+				</div>
+			</div>
+			<div class="growIn relative w-50 h-full flex flex-col justify-center px-10">
+				<div class="antiSkewCard bg-black/50 border border-white/40"></div>
+				<div class="flex flex-col drop-shadow-ranking-judgement drop-shadow-ranking-meh">
+					<div class="relative font-medium font-d text-ranking-meh">meh</div>
+					<div class="relative font-bold text-[40px] text-white">
+						<number-flow id="ranking-h50"></number-flow>
+					</div>
+				</div>
+			</div>
+			<div class="growIn relative flex-1 h-full flex flex-col justify-center px-10">
+				<div class="antiSkewCard bg-black/50 border border-white/40"></div>
+				<div class="flex flex-col drop-shadow-ranking-judgement">
+					<div class="relative font-medium font-d text-ranking-miss drop-shadow-ranking-miss">miss</div>
+					<div class="relative font-bold text-[40px] text-white">
+						<number-flow id="ranking-h0"></number-flow>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="ranking-grade"
+			class="absolute bottom-0 left-0 px-30 flex items-center justify-center text-center font-bold italic text-[500px] tracking-tighter drop-shadow-ranking-grade drop-shadow-black/50">
+			<div id="ranking-grade-x"
+				class="hidden ranking-grade text-grade-x drop-shadow-grade-x/50 drop-shadow-ranking-grade group-has-[.mod.HD]/panel:text-grade-hidden group-has-[.mod.HD]/panel:drop-shadow-grade-hidden/50">
+				SS</div>
+			<div id="ranking-grade-s"
+				class="hidden ranking-grade text-grade-s drop-shadow-grade-s/50 drop-shadow-ranking-grade group-has-[.mod.HD]/panel:text-grade-hidden group-has-[.mod.HD]/panel:drop-shadow-grade-hidden/50">
+				S</div>
+			<div id="ranking-grade-a"
+				class="hidden ranking-grade text-grade-a drop-shadow-grade-a/50 drop-shadow-ranking-grade">
+				A</div>
+			<div id="ranking-grade-b"
+				class="hidden ranking-grade text-grade-b drop-shadow-grade-b/50 drop-shadow-ranking-grade">
+				B</div>
+			<div id="ranking-grade-c"
+				class="hidden ranking-grade text-grade-c drop-shadow-grade-c/50 drop-shadow-ranking-grade">
+				C</div>
+			<div id="ranking-grade-d"
+				class="hidden ranking-grade text-grade-d drop-shadow-grade-d/50 drop-shadow-ranking-grade">
+				D</div>
+		</div>
+	</div>
+</body>
+
+</html>
