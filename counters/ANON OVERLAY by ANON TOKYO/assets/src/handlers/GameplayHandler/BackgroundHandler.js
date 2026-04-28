@@ -12,12 +12,10 @@ var BackgroundHandler = class {
 	};
 	constructor(engine, onUpdate) {
 		engine.register_jq(".directPath?.beatmapBackground?", async (_, background) => {
-			const app = document.querySelector("#app");
-			if (!app) return;
+			if (!document.querySelector("#app")) return;
 			const rankingPanel = document.querySelector("#rankingPanel");
 			if (!rankingPanel) return;
 			const url = `${BASE_URL}/Songs/${background.replaceAll("\\", "/")}`;
-			app.style.backgroundImage = `linear-gradient(to bottom, rgb(0 0 0 /.6), rgb(0 0 0 /.6) 100%), url("${url}")`;
 			rankingPanel.style.backgroundImage = `linear-gradient(to bottom, transparent 40%, rgb(0 0 0 /.6) 100%), url("${url}")`;
 			try {
 				this.palette = await Vibrant.from(url).getPalette();
