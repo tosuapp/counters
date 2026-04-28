@@ -1,5 +1,5 @@
 Usecase: ingame, obs-overlay
-Name: ANON Overlay
+Name: ANON OVERLAY
 Author: ANON TOKYO
 CompatibleWith: tosu
 Version: 1.0
