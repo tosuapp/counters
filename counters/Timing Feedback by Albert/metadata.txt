@@ -1,0 +1,6 @@
+Usecase: Ingame Overlay, OBS Overlay
+Name: Timing Feedback
+Version: 1.0.0
+Author: Albert (Based on breadles)
+CompatibleWith: Tosu
+Resolution: 500x250

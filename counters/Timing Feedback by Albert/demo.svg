@@ -1,0 +1,76 @@
+<svg viewBox="0 0 500 180" xmlns="http://www.w3.org/2000/svg" width="500" height="180">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@700&amp;display=swap');
+      text { font-family: 'Verdana', sans-serif; font-weight: 700; text-anchor: middle; }
+      .label { font-size: 52px; letter-spacing: 4px; text-transform: uppercase; paint-order: stroke fill; stroke: #000; stroke-width: 6px; stroke-linejoin: round; }
+      .ms    { font-size: 26px; letter-spacing: 2px; paint-order: stroke fill; stroke: #000; stroke-width: 4px; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <!-- Black background -->
+  <rect width="500" height="180" fill="#000"/>
+
+  <!-- Subtle center guides -->
+  <line x1="250" y1="0" x2="250" y2="180" stroke="#111" stroke-width="1"/>
+
+  <!-- === SCENE 1: EARLY === total 0s–2.2s -->
+  <!-- fade in 0–0.3s, hold 0.3–1.6s, fade out 1.6–2.0s, gap 2.0–2.2s -->
+  <g>
+    <text class="label" x="250" y="102" fill="#3366ff">
+      EARLY
+      <animate attributeName="opacity" 
+        values="0;0;1;1;0;0"
+        keyTimes="0;0.036;0.072;0.193;0.241;1"
+        dur="8.3s" repeatCount="indefinite"/>
+    </text>
+    <text class="ms" x="250" y="138" fill="#3366ff">
+      -34.17ms
+      <animate attributeName="opacity"
+        values="0;0;1;1;0;0"
+        keyTimes="0;0.036;0.072;0.193;0.241;1"
+        dur="8.3s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- === SCENE 2: LATE === 2.2s–4.4s -->
+  <g>
+    <text class="label" x="250" y="102" fill="#ff2222">
+      LATE
+      <animate attributeName="opacity"
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.241;0.265;0.301;0.446;0.494;1"
+        dur="8.3s" repeatCount="indefinite"/>
+    </text>
+    <text class="ms" x="250" y="138" fill="#ff2222">
+      +52.83ms
+      <animate attributeName="opacity"
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.241;0.265;0.301;0.446;0.494;1"
+        dur="8.3s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- === SCENE 3: PERFECT (ms only) === 4.4s–6.5s -->
+  <g>
+    <text class="ms" x="250" y="120" fill="#ffffff">
+      +4.02ms
+      <animate attributeName="opacity"
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.494;0.530;0.566;0.711;0.759;1"
+        dur="8.3s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- === SCENE 4: EARLY no ms === 6.5s–8.3s -->
+  <g>
+    <text class="label" x="250" y="110" fill="#3366ff">
+      EARLY
+      <animate attributeName="opacity"
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.759;0.795;0.831;0.940;0.976;1"
+        dur="8.3s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+</svg>

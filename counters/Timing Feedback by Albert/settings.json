@@ -1,0 +1,258 @@
+[
+    {
+        "uniqueID": "useCustomTimingWindow",
+        "type": "checkbox",
+        "title": "Use Custom Timing Window",
+        "description": "If enabled, uses the custom timing window below. If disabled, automatically calculates based on osu! game mode and OD.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "customPerfectWindow",
+        "type": "number",
+        "title": "Custom Perfect Window (+/- ms)",
+        "description": "Used only when 'Use Custom Timing Window' is enabled.",
+        "options": [],
+        "value": 16
+    },
+    {
+        "uniqueID": "showMainJudgement",
+        "type": "checkbox",
+        "title": "Show Timing Judgement",
+        "description": "Enable to show the Early/Late text or images. If disabled, only the Hit Error (ms) will appear.",
+        "options": [],
+        "value": true
+    },
+    {
+        "uniqueID": "useCustomImages",
+        "type": "checkbox",
+        "title": "Use Custom Images",
+        "description": "Load custom image file directly for judgement from plugin folder. Overrides all font settings.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "imageEarly",
+        "type": "text",
+        "title": "Early Image File",
+        "description": "Use Transparent PNG.",
+        "options": [],
+        "value": "early.png"
+    },
+    {
+        "uniqueID": "imageLate",
+        "type": "text",
+        "title": "Late Image File",
+        "description": "Use Transparent PNG.",
+        "options": [],
+        "value": "late.png"
+    },
+    {
+        "uniqueID": "imageSize",
+        "type": "number",
+        "title": "Custom Image Size (px)",
+        "description": "Changes the height of the custom images.",
+        "options": [],
+        "value": 64
+    },
+    {
+        "uniqueID": "textEarly",
+        "type": "text",
+        "title": "Early Text",
+        "description": "",
+        "options": [],
+        "value": "EARLY"
+    },
+    {
+        "uniqueID": "textLate",
+        "type": "text",
+        "title": "Late Text",
+        "description": "",
+        "options": [],
+        "value": "LATE"
+    },
+    {
+        "uniqueID": "fontSize",
+        "type": "number",
+        "title": "Font Size (px)",
+        "description": "Changes main judgement text size.",
+        "options": [],
+        "value": 32
+    },
+    {
+        "uniqueID": "judgementOffsetX",
+        "type": "number",
+        "title": "Judgement X-Offset (px)",
+        "description": "Move the Timing judgement horizontally.",
+        "options": [],
+        "value": 0
+    },
+    {
+        "uniqueID": "judgementOffsetY",
+        "type": "number",
+        "title": "Judgement Y-Offset (px)",
+        "description": "Move the Timing judgement vertically.",
+        "options": [],
+        "value": 0
+    },
+    {
+        "uniqueID": "showHitErrorMs",
+        "type": "checkbox",
+        "title": "Show Hit Error (Early/Late)",
+        "description": "Show the exact hit error in milliseconds (e.g., +16.67ms) below the judgement.",
+        "options": [],
+        "value": false
+    },
+	{
+        "uniqueID": "hideEarlyLateMs",
+        "type": "checkbox",
+        "title": "Hide Early/Late Hit Error",
+        "description": "If enabled, hides the hit error for Early and Late hits only.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "showPerfectMs",
+        "type": "checkbox",
+        "title": "Show Perfect Hit Error",
+        "description": "Show the exact millisecond hit error even for Perfect hits.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "alwaysShowHitError",
+        "type": "checkbox",
+        "title": "Always Show Hit Error (0ms)",
+        "description": "Keep showing 0ms even when no note is hit (after the judgement resets).",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "hitErrorDecimals",
+        "type": "number",
+        "title": "Hit Error Decimal Places",
+        "description": "How many decimals to show (e.g., 0 for 16ms, 1 for 16.6ms, 2 for 16.67ms).",
+        "options": [],
+        "value": 2
+    },
+    {
+        "uniqueID": "msFontSize",
+        "type": "number",
+        "title": "Hit Error Font Size (px)",
+        "description": "Changes the size of the exact hit error text.",
+        "options": [],
+        "value": 32
+    },
+    {
+        "uniqueID": "msOffsetX",
+        "type": "number",
+        "title": "Hit Error X-Offset (px)",
+        "description": "Move the hit error text horizontally.",
+        "options": [],
+        "value": 0
+    },
+    {
+        "uniqueID": "msOffsetY",
+        "type": "number",
+        "title": "Hit Error Y-Offset (px)",
+        "description": "Move the hit error text vertically.",
+        "options": [],
+        "value": 0
+    },
+    {
+        "uniqueID": "colorEarly",
+        "type": "color",
+        "title": "Early Color",
+        "description": "",
+        "options": [],
+        "value": "#0000ff"
+    },
+    {
+        "uniqueID": "colorLate",
+        "type": "color",
+        "title": "Late Color",
+        "description": "",
+        "options": [],
+        "value": "#ff0000"
+    },
+    {
+        "uniqueID": "colorPerfect",
+        "type": "color",
+        "title": "Perfect Color",
+        "description": "Color used for Perfect hit error details.",
+        "options": [],
+        "value": "#ffffff"
+    },
+    {
+        "uniqueID": "font",
+        "type": "text",
+        "title": "Font Name",
+        "description": "Name font installed on Windows (e.g., Verdana, Arial, etc).",
+        "options": [],
+        "value": "Verdana"
+    },
+    {
+        "uniqueID": "useCustomFontFile",
+        "type": "checkbox",
+        "title": "Use Custom Font File",
+        "description": "Load font file directly from plugin folder (e.g., font.ttf). Overrides Online/Offline font settings.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "customFontFileName",
+        "type": "text",
+        "title": "Custom Font File Name",
+        "description": "",
+        "options": [],
+        "value": "Goldman-Bold.ttf"
+    },
+    {
+        "uniqueID": "useStrokeEffect",
+        "type": "checkbox",
+        "title": "Use Text Stroke",
+        "description": "Add a thick black border around the text.",
+        "options": [],
+        "value": true
+    },
+    {
+        "uniqueID": "strokeThickness",
+        "type": "number",
+        "title": "Judgement Stroke Thickness (px)",
+        "description": "",
+        "options": [],
+        "value": 2
+    },
+    {
+        "uniqueID": "msStrokeThickness",
+        "type": "number",
+        "title": "Hit Error Stroke Thickness (px)",
+        "description": "",
+        "options": [],
+        "value": 2
+    },
+    {
+        "uniqueID": "useFadeAnimation",
+        "type": "checkbox",
+        "title": "Use Fade Out Animation",
+        "description": "If unchecked, judgements snap disappear instead of fading.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "displayDuration",
+        "type": "number",
+        "title": "Show Duration (ms)",
+        "description": "Used when animation is OFF.",
+        "options": [],
+        "value": 400
+    },
+    {
+        "uniqueID": "fadeDuration",
+        "type": "number",
+        "title": "Fade Duration (ms)",
+        "description": "Used when animation is ON.",
+        "options": [],
+        "value": 400
+    }
+]
