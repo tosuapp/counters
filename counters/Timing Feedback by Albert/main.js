@@ -82,7 +82,7 @@ let settings = {
     fontSize: 32, judgementOffsetX: 0, judgementOffsetY: 0, showMainJudgement: true,
     showHitErrorMs: false, hideEarlyLateMs: false, showPerfectMs: false, alwaysShowHitError: false, hitErrorDecimals: 2, 
     msFontSize: 32, msOffsetX: 0, msOffsetY: 0, 
-    useStrokeEffect: true, strokeThickness: 4, msStrokeThickness: 4,
+    useStrokeEffect: true, strokeThickness: 2, msStrokeThickness: 2,
     useFadeAnimation: false, displayDuration: 400, fadeDuration: 400
 };
 
