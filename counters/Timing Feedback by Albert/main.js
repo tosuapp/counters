@@ -67,6 +67,11 @@ const calculateWindows = (mode, od, mods) => {
 const DEFAULT_HOST = window.location.host;
 const wsManager = new WebSocketManager(DEFAULT_HOST);
 
+const uiContainer = document.getElementById("judgement-container");
+const uiText = document.getElementById("judgement-text");
+const uiImage = document.getElementById("judgement-image");
+const uiMs = document.getElementById("judgement-ms");
+
 let settings = {
     useCustomTimingWindow: false, customPerfectWindow: 16,
     useCustomImages: false, imageEarly: "early.png", imageLate: "late.png", imageSize: 64,
@@ -77,7 +82,7 @@ let settings = {
     fontSize: 32, judgementOffsetX: 0, judgementOffsetY: 0, showMainJudgement: true,
     showHitErrorMs: false, hideEarlyLateMs: false, showPerfectMs: false, alwaysShowHitError: false, hitErrorDecimals: 2, 
     msFontSize: 32, msOffsetX: 0, msOffsetY: 0, 
-    useStrokeEffect: true, strokeThickness: 2, msStrokeThickness: 2,
+    useStrokeEffect: true, strokeThickness: 4, msStrokeThickness: 4,
     useFadeAnimation: false, displayDuration: 400, fadeDuration: 400
 };
 
@@ -107,7 +112,7 @@ function applyFontSettings() {
             }
         `;
         fontStack = `'MyCustomOverlayFont', '${settings.font}', sans-serif`;
-    }
+    } 
     document.documentElement.style.setProperty("--judgement-font", fontStack);
 }
 
@@ -151,22 +156,17 @@ wsManager.api_v2((data) => {
             
             if (processedHits === 0) resetState(); 
         } else {
-            const container = document.getElementById("judgement-container");
-            const textEl = document.getElementById("judgement-text");
-            const imgEl = document.getElementById("judgement-image");
-            const msEl = document.getElementById("judgement-ms");
-            
             if (fadeTimeout) clearTimeout(fadeTimeout);
             if (resetTimeout) clearTimeout(resetTimeout);
             
-            container.classList.remove("active", "animated-hide");
-            container.classList.add("snap-hide", "hide-visual");
-            textEl.classList.remove("animated-hide", "invisible");
-            textEl.classList.add("snap-hide");
-            imgEl.classList.remove("animated-hide", "invisible");
-            imgEl.classList.add("snap-hide");
-            msEl.classList.remove("animated-hide", "invisible", "hide-visual");
-            msEl.classList.add("snap-hide");
+            uiContainer.classList.remove("active", "animated-hide");
+            uiContainer.classList.add("snap-hide", "hide-visual");
+            uiText.classList.remove("animated-hide", "invisible");
+            uiText.classList.add("snap-hide");
+            uiImage.classList.remove("animated-hide", "invisible");
+            uiImage.classList.add("snap-hide");
+            uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
+            uiMs.classList.add("snap-hide");
             
             processedHits = 0;
             cache.isLazer = false; 
@@ -177,49 +177,44 @@ wsManager.api_v2((data) => {
 function resetState() {
     if (cache.state !== "play") return; 
 
-    const container = document.getElementById("judgement-container");
-    const textEl = document.getElementById("judgement-text");
-    const imgEl = document.getElementById("judgement-image");
-    const msEl = document.getElementById("judgement-ms");
-
     if (settings.useCustomImages) {
-        imgEl.src = settings.imageEarly;
-        imgEl.classList.remove("hide-visual");
-        textEl.classList.add("hide-visual");
+        uiImage.src = settings.imageEarly;
+        uiImage.classList.remove("hide-visual");
+        uiText.classList.add("hide-visual");
     } else {
-        textEl.innerText = settings.textEarly;
-        textEl.classList.remove("hide-visual");
-        imgEl.classList.add("hide-visual");
+        uiText.innerText = settings.textEarly;
+        uiText.classList.remove("hide-visual");
+        uiImage.classList.add("hide-visual");
     }
 
     if (settings.alwaysShowHitError) {
-        container.classList.remove("animated-hide", "snap-hide", "hide-visual");
-        container.classList.add("active");
+        uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
+        uiContainer.classList.add("active");
         
-        textEl.classList.remove("animated-hide", "snap-hide");
-        textEl.classList.add("invisible");
-        imgEl.classList.remove("animated-hide", "snap-hide");
-        imgEl.classList.add("invisible");
+        uiText.classList.remove("animated-hide", "snap-hide");
+        uiText.classList.add("invisible");
+        uiImage.classList.remove("animated-hide", "snap-hide");
+        uiImage.classList.add("invisible");
         
-        msEl.classList.remove("hide-visual", "invisible", "animated-hide", "snap-hide");
+        uiMs.classList.remove("hide-visual", "invisible", "animated-hide", "snap-hide");
         
         let decimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals));
         if (!cache.isLazer && cache.rate === 1) {
             decimalPlaces = 0; 
         }
         
-        msEl.innerText = (0).toFixed(decimalPlaces) + "ms";
-        msEl.style.color = settings.colorPerfect;
+        uiMs.innerText = (0).toFixed(decimalPlaces) + "ms";
+        uiMs.style.color = settings.colorPerfect;
     } else {
-        container.classList.remove("active");
-        container.classList.add("snap-hide", "hide-visual");
+        uiContainer.classList.remove("active");
+        uiContainer.classList.add("snap-hide", "hide-visual");
         
-        textEl.classList.remove("animated-hide", "invisible");
-        textEl.classList.add("snap-hide");
-        imgEl.classList.remove("animated-hide", "invisible");
-        imgEl.classList.add("snap-hide");
-        msEl.classList.remove("animated-hide", "invisible", "hide-visual");
-        msEl.classList.add("snap-hide");
+        uiText.classList.remove("animated-hide", "invisible");
+        uiText.classList.add("snap-hide");
+        uiImage.classList.remove("animated-hide", "invisible");
+        uiImage.classList.add("snap-hide");
+        uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
+        uiMs.classList.add("snap-hide");
     }
 }
 
@@ -227,12 +222,6 @@ function showJudgement(rawHitError) {
     if (cache.state !== "play") return; 
 
     const hitError = rawHitError / cache.rate;
-
-    const container = document.getElementById("judgement-container");
-    const textEl = document.getElementById("judgement-text");
-    const imgEl = document.getElementById("judgement-image");
-    const msEl = document.getElementById("judgement-ms");
-
     const threshold = settings.useCustomTimingWindow ? settings.customPerfectWindow : cache.calculatedPerfect;
     const isPerfect = Math.abs(hitError) <= threshold;
     const isEarly = hitError < 0;
@@ -247,8 +236,8 @@ function showJudgement(rawHitError) {
     if (fadeTimeout) clearTimeout(fadeTimeout);
     if (resetTimeout) clearTimeout(resetTimeout);
     
-    container.classList.remove("animated-hide", "snap-hide", "hide-visual");
-    container.classList.add("active");
+    uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
+    uiContainer.classList.add("active");
     
     let activeColor;
     if (isPerfect) activeColor = settings.colorPerfect;
@@ -256,38 +245,36 @@ function showJudgement(rawHitError) {
     else activeColor = settings.colorLate;
 
     if (!isPerfect) {
-        textEl.classList.remove("animated-hide", "snap-hide", "invisible");
-        imgEl.classList.remove("animated-hide", "snap-hide", "invisible");
-        void textEl.offsetWidth;
-        void imgEl.offsetWidth;
+        uiText.classList.remove("animated-hide", "snap-hide", "invisible");
+        uiImage.classList.remove("animated-hide", "snap-hide", "invisible");
+        void uiText.offsetWidth;
+        void uiImage.offsetWidth;
 
         if (settings.useCustomImages) {
-            textEl.classList.add("hide-visual");
-            imgEl.classList.remove("hide-visual");
-            imgEl.src = isEarly ? settings.imageEarly : settings.imageLate;
+            uiText.classList.add("hide-visual");
+            uiImage.classList.remove("hide-visual");
+            uiImage.src = isEarly ? settings.imageEarly : settings.imageLate;
         } else {
-            imgEl.classList.add("hide-visual");
-            textEl.classList.remove("hide-visual");
-            textEl.innerText = isEarly ? settings.textEarly : settings.textLate;
-            textEl.style.color = activeColor;
+            uiImage.classList.add("hide-visual");
+            uiText.classList.remove("hide-visual");
+            uiText.innerText = isEarly ? settings.textEarly : settings.textLate;
+            uiText.style.color = activeColor;
         }
         
         if (!settings.showMainJudgement) {
-            textEl.classList.add("invisible");
-            imgEl.classList.add("invisible");
+            uiText.classList.add("invisible");
+            uiImage.classList.add("invisible");
         }
     } else {
         if (!settings.useFadeAnimation) {
-            textEl.classList.add("invisible");
-            imgEl.classList.add("invisible");
+            uiText.classList.add("invisible");
+            uiImage.classList.add("invisible");
         }
     }
 
     const safeHitError = hitError === 0 ? 0 : hitError;
-    
     let shouldShowMs = false;
 
-    // Evaluate based on the master switch
     if (settings.showHitErrorMs) {
         if (isPerfect) {
             shouldShowMs = settings.showPerfectMs;
@@ -296,14 +283,13 @@ function showJudgement(rawHitError) {
         }
     }
 
-    // alwaysShowHitError acts as an override for an exact 0ms hit
     if (safeHitError === 0 && settings.alwaysShowHitError) {
         shouldShowMs = true;
     }
     
     if (shouldShowMs) {
-        msEl.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
-        void msEl.offsetWidth; 
+        uiMs.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
+        void uiMs.offsetWidth; 
         
         const prefix = safeHitError > 0 ? "+" : ""; 
         
@@ -312,17 +298,17 @@ function showJudgement(rawHitError) {
             decimalPlaces = 0; 
         }
         
-        msEl.innerText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
-        msEl.style.color = activeColor; 
+        uiMs.innerText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
+        uiMs.style.color = activeColor; 
     } else {
-        msEl.classList.remove("hide-visual");
-        msEl.classList.add("invisible");
+        uiMs.classList.remove("hide-visual");
+        uiMs.classList.add("invisible");
     }
 
     if (settings.useFadeAnimation) {
         fadeTimeout = setTimeout(() => {
-            textEl.classList.add("animated-hide");
-            imgEl.classList.add("animated-hide");
+            uiText.classList.add("animated-hide");
+            uiImage.classList.add("animated-hide");
         }, 50);
         resetTimeout = setTimeout(resetState, 50 + settings.fadeDuration);
     } else {
