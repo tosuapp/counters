@@ -1,149 +1,118 @@
-let socket = new ReconnectingWebSocket(`ws://${window.location.host}/websocket/v2`);
+import WebSocketManager from './deps/socket.js';
 
-socket.onopen = () => {
-    console.log("api v2 connected");
-
-    socket.send(`applyFilters:${JSON.stringify([
-        'profile',
-        {
-            field: 'beatmap',
-            keys: [
-                'artist',
-                'title',
-                'version',
-            ]
-        },
-        {
-            field: 'play',
-            keys: [
-                'playerName'
-            ]
-        }
-    ])}`)
-};
-
-socket.onclose = (event) => {
-    console.log("Socket Closed Connection: ", event);
-    socket.send("Client Closed!");
-};
-socket.onerror = (error) => {
-    console.log("Socket Error: ", error);
-};
-
+const socket = new WebSocketManager(window.location.host);
 
 const cache = {};
+const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
 
-socket.onmessage = (event) => {
-    let data = JSON.parse(event.data);
+socket.api_v2(({ profile, play, beatmap, server }) => {
+    try {    
 
-    if (cache['UserAvatar'] != data.profile.id) {
-        cache['UserAvatar'] = data.profile.id;
-        UserAvatar.style.backgroundImage = `url("https://a.ppy.sh/${data.profile.id}")`;
+    if (cache['UserAvatar'] != profile.id) {
+        cache['UserAvatar'] = profile.id;
+        UserAvatar.style.backgroundImage = `url("https://a.${server}/${profile.id}")`;
     };
 
-    if (cache['UserFlag'] != data.profile.countryCode.name) {
-        cache['UserFlag'] = data.profile.countryCode.name;
-        UserFlag.style.backgroundImage = `url("https://assets.ppy.sh/old-flags/${data.profile.countryCode.name}.png")`;
+    if (cache['UserFlag'] != profile.countryCode.name) {
+        cache['UserFlag'] = profile.countryCode.name;
+        const country =
+            `${profile.countryCode.name
+            .split("")
+            .map((char) => 127397 + char.charCodeAt())[0]
+            .toString(16)}-${profile.countryCode.name
+            .split("")
+            .map((char) => 127397 + char.charCodeAt())[1]
+            .toString(16)}`;
+
+        UserFlag.style.backgroundImage = `url("https://osu.ppy.sh/assets/images/flags/${country}.svg")`;
     };
 
-    if (cache['UserMode'] != data.profile.mode.name) {
-        cache['UserMode'] = data.profile.mode.name;
-        UserMode.style.backgroundImage = `url("./images/${data.profile.mode.name}.png")`;
+    if (cache['UserMode'] != profile.mode.name) {
+        cache['UserMode'] = profile.mode.name;
+        UserMode.style.backgroundImage = `url("./images/${profile.mode.name}.png")`;
+    };
+
+    if (cache['profile.banchoStatus'] != profile.banchoStatus.number) {
+        cache['profile.banchoStatus'] = profile.banchoStatus.number;
+
+        ColorBG.setAttribute('class', `Status${profile.banchoStatus.number}`);
+        switch (profile.banchoStatus.number) {
+            case 0: UserCurrentStatus.innerHTML = `Idle`; break;
+            case 1: UserCurrentStatus.innerHTML = `AFK`; break;
+            case 2: UserCurrentStatus.innerHTML = `Playing ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+            case 3: UserCurrentStatus.innerHTML = `Editing ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+            case 4: UserCurrentStatus.innerHTML = `Modding ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+            case 5: UserCurrentStatus.innerHTML = `Multiplayer`; break;
+            case 6: UserCurrentStatus.innerHTML = `Watching ${play.playerName} play ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+            case 8: UserCurrentStatus.innerHTML = `Testing ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+            case 9: UserCurrentStatus.innerHTML = `Submitting`; break;
+            case 11: UserCurrentStatus.innerHTML = `Multiplayer ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+            case 12: UserCurrentStatus.innerHTML = `Multiplaying ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+            case 13: UserCurrentStatus.innerHTML = `OsuDirect ${beatmap.artist} - ${beatmap.title} [${beatmap.version}]`; break;
+        }
+    };
+
+    if (cache['profile.name'] != profile.name) {
+        cache['profile.name'] = profile.name;
+
+        Username.innerHTML = profile.name;
+    };
+
+    if (cache['profile.globalRank'] != profile.globalRank) {
+        cache['profile.globalRank'] = profile.globalRank;
+
+        UserRank.innerHTML = "#" + profile.globalRank;
+
+        if (profile.globalRank <= 10 && profile.globalRank !== 1, 0) UserRank.style.color = `rgb(255, 255, 117)`
+        else if (profile.globalRank === 1) UserRank.style.color = `rgb(99, 154, 255)`
+        else UserRank.style.color = `white`
+    };
+
+    if (cache['profile.pp'] != profile.pp) {
+        cache['profile.pp'] = profile.pp;
+
+        UserPP.innerHTML = `Performance: ${profile.pp}pp`;
+    };
+
+    if (cache['profile.accuracy'] != profile.accuracy) {
+        cache['profile.accuracy'] = profile.accuracy;
+
+        UserAcc.innerHTML = `Accuracy: ${profile.accuracy.toFixed(2)}%`;
     };
 
 
-    if (cache['profile.name'] != data.profile.name) {
-        cache['profile.name'] = data.profile.name;
+    if (cache['profile.playCount'] != profile.playCount || cache['profile.level'] != profile.level) {
+        cache['profile.playCount'] = profile.playCount;
+        cache['profile.level'] = profile.level;
 
-        Username.innerHTML = data.profile.name;
+        UserPlayCountAndLevels.innerHTML = `Play Count: ${profile.playCount} (Lv${profile.level.toFixed(0)})`
     };
-
-    if (cache['profile.globalRank'] != data.profile.globalRank) {
-        cache['profile.globalRank'] = data.profile.globalRank;
-
-        UserRank.innerHTML = "#" + data.profile.globalRank;
-    };
-
-    if (cache['profile.pp'] != data.profile.pp) {
-        cache['profile.pp'] = data.profile.pp;
-
-        UserPP.innerHTML = `Performance: ${data.profile.pp}pp`;
-    };
-
-    if (cache['profile.accuracy'] != data.profile.accuracy) {
-        cache['profile.accuracy'] = data.profile.accuracy;
-
-        UserAcc.innerHTML = `Accuracy: ${data.profile.accuracy}%`;
-    };
-
-
-    if (cache['profile.playCount'] != data.profile.playCount || cache['profile.level'] != data.profile.level) {
-        cache['profile.playCount'] = data.profile.playCount;
-        cache['profile.level'] = data.profile.level;
-
-        UserPlayCountAndLevels.innerHTML = `Play Count: ${data.profile.playCount} (Lv${data.profile.level.toFixed(0)})`
-    };
-
-
 
     const currentTime = new Date();
     const hours = currentTime.getHours().toString().padStart(2, '0');
     const minutes = currentTime.getMinutes().toString().padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
 
-    UserCountryNameAndTimes.innerHTML = `${formattedTime} @ ${data.profile.countryCode.name}`;
+    UserCountryNameAndTimes.innerHTML = `${formattedTime} @ ${regionNames.of(profile.countryCode.name)}`;
 
-    if (data.profile.banchoStatus.number == 0 || data.profile.banchoStatus.number == 13) {
-        ColorBG.style.backgroundColor = `rgba(63, 124, 169, 0.5)`
-        ColorBG.style.borderColor = `rgb(110, 168, 230)`
-        UserCurrentStatus.innerHTML = `Idle`
+    } catch (error) {
+        console.log(error);
     }
-    if (data.profile.banchoStatus.number == 1) {
-        ColorBG.style.backgroundColor = `rgba(0, 0, 0, 0.5)`
-        ColorBG.style.borderColor = `rgb(90, 90, 90)`
-        UserCurrentStatus.innerHTML = `AFK`
+}, [
+    'server',
+    'profile',
+    {
+        field: 'beatmap',
+        keys: [
+            'artist',
+            'title',
+            'version',
+        ]
+    },
+    {
+        field: 'play',
+        keys: [
+            'playerName'
+        ]
     }
-    if (data.profile.banchoStatus.number == 2) {
-        ColorBG.style.backgroundColor = `rgba(156, 156, 156, 0.5)`
-        ColorBG.style.borderColor = `rgb(160, 160, 160)`
-        UserCurrentStatus.innerHTML = `Playing ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
-    }
-    if (data.profile.banchoStatus.number == 3) {
-        ColorBG.style.backgroundColor = `rgba(205, 101, 101, 0.5)`
-        ColorBG.style.borderColor = `rgb(173, 85, 85)`
-        UserCurrentStatus.innerHTML = `Editing ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
-    }
-    if (data.profile.banchoStatus.number == 4) {
-        ColorBG.style.backgroundColor = `rgba(90, 217, 82, 0.5)`
-        ColorBG.style.borderColor = `rgb(85, 173, 90)`
-        UserCurrentStatus.innerHTML = `Modding ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
-    }
-    if (data.profile.banchoStatus.number == 5) {
-        ColorBG.style.backgroundColor = `rgba(205, 145, 101, 0.5)`
-        ColorBG.style.borderColor = `rgb(230, 173, 110)`
-        UserCurrentStatus.innerHTML = `Multiplayer`
-        if (data.profile.banchoStatus.number == 11) {
-            UserCurrentStatus.innerHTML = `Multiplayer ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
-        }
-    }
-    if (data.profile.banchoStatus.number == 6) {
-        ColorBG.style.backgroundColor = `rgba(141, 116, 255, 0.5)`
-        ColorBG.style.borderColor = `rgb(143, 109, 222)`
-        UserCurrentStatus.innerHTML = `Watching ${data.play.playerName} play ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
-    }
-    if (data.profile.banchoStatus.number == 8) {
-        ColorBG.style.backgroundColor = `rgba(215, 82, 217, 0.5)`
-        ColorBG.style.borderColor = `rgb(173, 85, 169)`
-        UserCurrentStatus.innerHTML = `Testing ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
-    }
-    if (data.profile.banchoStatus.number == 9) {
-        ColorBG.style.backgroundColor = `rgba(136, 255, 199, 0.5)`
-        ColorBG.style.borderColor = `rgb(85, 184, 142)`
-        UserCurrentStatus.innerHTML = `Submitting`
-    }
-    if (data.profile.banchoStatus.number == 12) {
-        ColorBG.style.backgroundColor = `rgba(240, 232, 123, 0.5)`
-        ColorBG.style.borderColor = `rgb(220, 216, 108)`
-        UserCurrentStatus.innerHTML = `Multiplaying ${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}]`
-    }
-};
+]);
