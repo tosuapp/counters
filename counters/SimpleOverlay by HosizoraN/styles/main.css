@@ -8,7 +8,7 @@
     --h0Color: #fff;
     --hSBColor: #fff;
     --keyColor: #fff;
-    --keyText: #fff;
+    --keyText: #000000;
     --hpColor: #fff;
     --keyPressed: #ffd256;
 }
@@ -30,6 +30,7 @@
     justify-content: center;
     align-items: center;
     transition: ease-in-out 500ms;
+    opacity: 0;
 }
 #score {
     position: absolute;
@@ -92,16 +93,16 @@
 .keyCont {
     align-items: center;
     margin-bottom: 20px;
-    width: 7px;
+    width: 50px;
     height: 50px;
     background-color: var(--keyColor);
     justify-content: center;
     display: flex;
     transition: transform ease-in 100ms;
+    transform: scale(100%);
 }
 .keyText {
     position: absolute;
-    right: 25px;
     font-size: 20px;
     color: var(--keyText);
 }
@@ -112,4 +113,10 @@
     background-color: var(--hpColor);
     transition: linear 100ms;
 }
+
+.pressed {
+    transform: scale(80%);
+    background-color: var(--keyPressed);
+}
+
 

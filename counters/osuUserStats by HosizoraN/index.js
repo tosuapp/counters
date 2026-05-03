@@ -101,18 +101,6 @@ socket.api_v2(({ profile, play, beatmap, server }) => {
 }, [
     'server',
     'profile',
-    {
-        field: 'beatmap',
-        keys: [
-            'artist',
-            'title',
-            'version',
-        ]
-    },
-    {
-        field: 'play',
-        keys: [
-            'playerName'
-        ]
-    }
+    {field: 'beatmap', keys: ['artist', 'title', 'version']},
+    {field: 'play', keys: ['playerName']}
 ]);
