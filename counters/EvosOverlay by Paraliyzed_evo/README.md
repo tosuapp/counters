@@ -1,6 +1,6 @@
 ## EvosOverlay by Paraliyzed_evo
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/sonataoverlay by paraliyzed_evo v1.22.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Paraliyzedevo" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/evosoverlay by paraliyzed_evo v1.23.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Paraliyzedevo" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
 
 |||
 | ------------- | ------------- |
@@ -9,10 +9,7 @@
 | Size |  2560x1440 |
 
 ## Gameplay
-<img src="https://github.com/ParaliyzedEvo/counters/blob/master/.github/images/sonataoverlay%20by%20paraliyzed_evo.png?raw=true" />
-
-## Results
-<img src="https://github.com/ParaliyzedEvo/counters/blob/master/.github/images/sonataoverlay%20by%20paraliyzed_evo1.png?raw=true" />
+<img src="/.github/images/evosoverlay by paraliyzed_evo.png" /> <img src="/.github/images/evosoverlay by paraliyzed_evo1.png" />
 
 [![CodeFactor](https://www.codefactor.io/repository/github/paraliyzedevo/evosoverlay/badge)](https://www.codefactor.io/repository/github/paraliyzedevo/sonotaoverlay)
 [![Website](https://img.shields.io/badge/-Website-6a0dad?style=flat&logo=osu&logoColor=FFFFFF&labelColor=ff1493&color=6a0dad)](https://paraliyzed.net/)
