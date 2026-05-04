@@ -43,7 +43,8 @@ html {
     width: 1280px;
     height: 300px;
     border-radius: 20px;
-    border: 8px solid white;
+    border-width: 8px;
+    border-style: solid;
     transition: 500ms ease-in-out;
 
 }
@@ -53,14 +54,18 @@ html {
     height: 270px;
     margin: 10px;
     background-size: 100%;
+    background-position: 50% 50%;
+    display: flex;
+    justify-content: center;
 }
 #UserFlag {
     position: absolute;
-    width: 70px;
+    width: 60px;
     height: 47px;
     border-radius: 10px;
+    background-size: cover;
+    background-position: 50% 50%;
     bottom: 5px;
-    left: 110px;
 }
 #Username {
     position: absolute;
@@ -72,10 +77,10 @@ html {
 }
 #UserRank {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: -5px;
+    right: 10px;
     font-size: 160px;
-    opacity: 30%;
+    opacity: 50%;
 }
 .stats {
     position: absolute;
@@ -90,10 +95,10 @@ html {
     overflow: hidden;
 }
 #UserStats {
-    animation: fade1 10s linear infinite;
+    animation: fade1 15s linear infinite;
 }
 #UserStatus {
-    animation: fade2 10s linear infinite;
+    animation: fade2 15s linear infinite;
 }
 
 @keyframes fade1 {
@@ -109,4 +114,45 @@ html {
     55% {opacity: 1;}
     95% {opacity: 1;}
     100% {opacity: 0;}
+}
+
+.Status0, .Status13 {
+    background-color: rgba(63, 124, 169, 0.7);
+    border-color: rgb(110, 168, 230);
+}
+.Status1 {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: rgb(90, 90, 90);
+}
+.Status2 {
+    background-color: rgba(156, 156, 156, 0.7);
+    border-color: rgb(160, 160, 160);
+}
+.Status3 {
+    background-color: rgba(205, 101, 101, 0.7);
+    border-color: rgb(173, 85, 85);
+}
+.Status4 {
+    background-color: rgba(90, 217, 82, 0.7);
+    border-color: rgb(85, 173, 90);
+}
+.Status5, .Status11 {
+    background-color: rgba(205, 145, 101, 0.7);
+    border-color: rgb(230, 173, 110);
+}
+.Status6 {
+    background-color: rgba(141, 116, 255, 0.7);
+    border-color: rgb(143, 109, 222);
+}
+.Status8 {
+    background-color: rgba(215, 82, 217, 0.7);
+    border-color: rgb(173, 85, 169);
+}
+.Status9 {
+    background-color: rgba(136, 255, 199, 0.7);
+    border-color: rgb(85, 184, 142);
+}
+.Status12 {
+    background-color: rgba(240, 232, 123, 0.7);
+    border-color: rgb(220, 216, 108);
 }
