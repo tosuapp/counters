@@ -54,7 +54,7 @@ const calculateWindows = (mode, od, mods) => {
     if (mode === "mania") {
         if (mods.includes("EZ")) return 22.5;
         if (mods.includes("HR")) return 11.43;
-        return 16.5; 
+        return 16; // Fix it should be 16ms See: osu.ppy.sh/wiki/en/Gameplay/Judgement/osu%21mania
     }
     if (mode === "taiko") {
         const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
