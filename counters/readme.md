@@ -142,6 +142,20 @@
 <img src="/.github/images/darkandwhite by cyperdark.jpg" /> <img src="/.github/gifs/darkandwhite by cyperdark.gif" /> 
 
 
+## EvosOverlay by Paraliyzed_evo
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/evosoverlay by paraliyzed_evo v1.23.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Paraliyzedevo" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | ingame, obs-overlay |
+| Compatible with | tosu |
+| Size |  2560x1440 |
+
+
+<img src="/.github/images/evosoverlay by paraliyzed_evo.png" /> <img src="/.github/images/evosoverlay by paraliyzed_evo1.png" /> 
+
+
 ## Fullcombo by hizak
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/fullcombo by hizak v1.1.3.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
@@ -500,7 +514,7 @@
 
 ## osuUserStats by HosizoraN
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/osuuserstats by hosizoran v1.004.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/osuuserstats by hosizoran v1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/shinomimi" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -514,7 +528,7 @@
 
 ## paradox by mofuries
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/paradox by mofuries v1.1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mofuries" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/paradox by mofuries v1.1.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/mofuries" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -598,7 +612,7 @@
 
 ## SimpleOverlay by HosizoraN
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/simpleoverlay by hosizoran v1.1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/HosizoraN" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/simpleoverlay by hosizoran v1.1.5.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/shinomimi" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |
@@ -624,20 +638,6 @@
 <img src="/.github/images/simplistic by jassper0.jpg" /> <img src="/.github/gifs/simplistic by jassper0.gif" /> 
 
 
-## SonataOverlay by Paraliyzed_evo
-
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/sonataoverlay by paraliyzed_evo v1.22.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Paraliyzedevo" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
-
-|||
-| ------------- | ------------- |
-| For | ingame, obs-overlay |
-| Compatible with | tosu |
-| Size |  2560x1440 |
-
-
-<img src="/.github/images/sonataoverlay by paraliyzed_evo.png" /> <img src="/.github/images/sonataoverlay by paraliyzed_evo1.png" /> 
-
-
 ## Souei-Overlay by -Souei
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/souei-overlay by -souei v2.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
@@ -652,6 +652,20 @@
 > Souei's osu! overlay with customizable colors and fonts
 
 <img src="/.github/images/souei-overlay by -souei.png" /> 
+
+
+## Timing Feedback by Albert
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/timing feedback by albert v1.0.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | Ingame Overlay, OBS Overlay |
+| Compatible with | Tosu |
+| Size |  500x250 |
+
+
+<img src="/.github/gifs/timing feedback by albert.gif" /> 
 
 
 ## tosu-debug by cyperdark
