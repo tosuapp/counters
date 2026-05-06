@@ -195,7 +195,7 @@
         "uniqueID": "useCustomFontFile",
         "type": "checkbox",
         "title": "Use Custom Font File",
-        "description": "Load font file directly from plugin folder (e.g., font.ttf). Overrides Online/Offline font settings.",
+        "description": "Load font file directly from plugin folder (e.g., font.ttf). Overrides Local Installed font setting.",
         "options": [],
         "value": false
     },
