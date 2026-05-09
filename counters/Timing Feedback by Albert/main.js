@@ -50,7 +50,6 @@ class WebSocketManager {
     }
 }
 
-// FORMATTER: Wraps numbers in spans to prevent font jitter
 const formatMs = (msString) => {
     return msString.split('').map(char => {
         if (/[0-9]/.test(char)) {
@@ -79,7 +78,8 @@ const wsManager = new WebSocketManager(DEFAULT_HOST);
 
 const uiContainer = document.getElementById("judgement-container");
 const uiText = document.getElementById("judgement-text");
-const uiImage = document.getElementById("judgement-image");
+const uiImageEarly = document.getElementById("judgement-image-early");
+const uiImageLate = document.getElementById("judgement-image-late");
 const uiMs = document.getElementById("judgement-ms");
 
 let settings = {
@@ -100,7 +100,7 @@ let cache = {
     state: "", isLazer: false,
     mode: "osu", mods: "", od: 0, rate: 1, 
     firstObjectTime: 0, calculatedPerfect: 16,
-    lastTime: 0 
+    lastTime: 0
 };
 let processedHits = 0;
 let fadeTimeout = null;
@@ -147,8 +147,11 @@ wsManager.commands((data) => {
             document.documentElement.style.setProperty("--ms-offset-y", `${settings.msOffsetY}px`);
             
             applyFontSettings();
+
+            // THE FIX: Preload both images immediately so they never have to decode mid-game
+            uiImageEarly.src = settings.imageEarly;
+            uiImageLate.src = settings.imageLate;
             
-            // Instantly unlocks and redraws the screen so it catches custom font/colors.
             isReset = false; 
             if (cache.state === "play" && processedHits === 0) {
                 resetState();
@@ -165,7 +168,6 @@ wsManager.api_v2((data) => {
         cache.state = data.state.name;
         
         if (cache.state === "play") {
-            // STARTUP SHIELD: Hides for 1s on map start so Overlay has time to load fonts.
             if (prevState !== "play") {
                 uiContainer.classList.add("startup-hidden");
                 setTimeout(() => {
@@ -190,8 +192,10 @@ wsManager.api_v2((data) => {
             uiContainer.classList.add("snap-hide", "hide-visual");
             uiText.classList.remove("animated-hide", "invisible");
             uiText.classList.add("snap-hide");
-            uiImage.classList.remove("animated-hide", "invisible");
-            uiImage.classList.add("snap-hide");
+            uiImageEarly.classList.remove("animated-hide", "invisible");
+            uiImageEarly.classList.add("snap-hide");
+            uiImageLate.classList.remove("animated-hide", "invisible");
+            uiImageLate.classList.add("snap-hide");
             uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
             uiMs.classList.add("snap-hide");
             
@@ -205,18 +209,18 @@ wsManager.api_v2((data) => {
 function resetState() {
     if (cache.state !== "play") return; 
     
-    // SAFETY LOCK: Prevents infinite CPU loops
     if (isReset) return; 
     isReset = true;
 
     if (settings.useCustomImages) {
-        uiImage.src = settings.imageEarly;
-        uiImage.classList.remove("hide-visual");
+        uiImageEarly.classList.remove("hide-visual");
+        uiImageLate.classList.add("hide-visual"); 
         uiText.classList.add("hide-visual");
     } else {
         uiText.innerText = settings.textEarly;
         uiText.classList.remove("hide-visual");
-        uiImage.classList.add("hide-visual");
+        uiImageEarly.classList.add("hide-visual");
+        uiImageLate.classList.add("hide-visual");
     }
 
     if (settings.alwaysShowHitError) {
@@ -225,8 +229,10 @@ function resetState() {
         
         uiText.classList.remove("animated-hide", "snap-hide");
         uiText.classList.add("invisible");
-        uiImage.classList.remove("animated-hide", "snap-hide");
-        uiImage.classList.add("invisible");
+        uiImageEarly.classList.remove("animated-hide", "snap-hide");
+        uiImageEarly.classList.add("invisible");
+        uiImageLate.classList.remove("animated-hide", "snap-hide");
+        uiImageLate.classList.add("invisible");
         
         uiMs.classList.remove("hide-visual", "invisible", "animated-hide", "snap-hide");
         
@@ -235,7 +241,6 @@ function resetState() {
             decimalPlaces = 0; 
         }
         
-        // Use the formatter for the default 0ms text
         const defaultMsText = (0).toFixed(decimalPlaces) + "ms";
         uiMs.innerHTML = formatMs(defaultMsText);
         uiMs.style.color = settings.colorPerfect;
@@ -245,8 +250,10 @@ function resetState() {
         
         uiText.classList.remove("animated-hide", "invisible");
         uiText.classList.add("snap-hide");
-        uiImage.classList.remove("animated-hide", "invisible");
-        uiImage.classList.add("snap-hide");
+        uiImageEarly.classList.remove("animated-hide", "invisible");
+        uiImageEarly.classList.add("snap-hide");
+        uiImageLate.classList.remove("animated-hide", "invisible");
+        uiImageLate.classList.add("snap-hide");
         uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
         uiMs.classList.add("snap-hide");
     }
@@ -281,33 +288,41 @@ function showJudgement(rawHitError) {
     else activeColor = settings.colorLate;
 
     if (!isPerfect) {
-        // GHOST-FRAME FIX: Updates the inner text BEFORE removing the invisibility class.
         if (settings.useCustomImages) {
             uiText.classList.add("hide-visual");
-            uiImage.classList.remove("hide-visual");
-            uiImage.src = isEarly ? settings.imageEarly : settings.imageLate;
+            // INSTANT TOGGLE: We just flip the visibility. The images are already loaded in the DOM.
+            if (isEarly) {
+                uiImageLate.classList.add("hide-visual");
+                uiImageEarly.classList.remove("hide-visual", "animated-hide", "snap-hide", "invisible");
+                void uiImageEarly.offsetWidth;
+            } else {
+                uiImageEarly.classList.add("hide-visual");
+                uiImageLate.classList.remove("hide-visual", "animated-hide", "snap-hide", "invisible");
+                void uiImageLate.offsetWidth;
+            }
         } else {
-            uiImage.classList.add("hide-visual");
+            uiImageEarly.classList.add("hide-visual");
+            uiImageLate.classList.add("hide-visual");
             uiText.classList.remove("hide-visual");
             uiText.innerText = isEarly ? settings.textEarly : settings.textLate;
             uiText.style.color = activeColor;
+            
+            uiText.classList.remove("animated-hide", "snap-hide", "invisible");
+            void uiText.offsetWidth;
         }
-
-        uiText.classList.remove("animated-hide", "snap-hide", "invisible");
-        uiImage.classList.remove("animated-hide", "snap-hide", "invisible");
-        void uiText.offsetWidth;
-        void uiImage.offsetWidth;
 
         if (!settings.showMainJudgement) {
             uiText.classList.add("invisible");
-            uiImage.classList.add("invisible");
+            uiImageEarly.classList.add("invisible");
+            uiImageLate.classList.add("invisible");
         }
     } else {
-        // CHORD DESYNC FIX: Forces text/image to instantly hide if the hit is Perfect
         uiText.classList.remove("animated-hide", "snap-hide");
-        uiImage.classList.remove("animated-hide", "snap-hide");
+        uiImageEarly.classList.remove("animated-hide", "snap-hide");
+        uiImageLate.classList.remove("animated-hide", "snap-hide");
         uiText.classList.add("invisible");
-        uiImage.classList.add("invisible");
+        uiImageEarly.classList.add("invisible");
+        uiImageLate.classList.add("invisible");
     }
 
     const safeHitError = hitError === 0 ? 0 : hitError;
@@ -336,7 +351,6 @@ function showJudgement(rawHitError) {
             decimalPlaces = 0; 
         }
         
-        // Format the live hit error string to prevent jitter
         const msText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
         uiMs.innerHTML = formatMs(msText);
         uiMs.style.color = activeColor; 
@@ -348,7 +362,8 @@ function showJudgement(rawHitError) {
     if (settings.useFadeAnimation) {
         fadeTimeout = setTimeout(() => {
             uiText.classList.add("animated-hide");
-            uiImage.classList.add("animated-hide");
+            uiImageEarly.classList.add("animated-hide");
+            uiImageLate.classList.add("animated-hide");
         }, 50);
         resetTimeout = setTimeout(resetState, 50 + settings.fadeDuration);
     } else {
@@ -359,7 +374,6 @@ function showJudgement(rawHitError) {
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
-    // SCRUB / TIME JUMP FIX
     if (data.currentTime < (cache.lastTime || 0) - 50) {
         isReset = false; 
         resetState();
@@ -369,7 +383,6 @@ wsManager.api_v2_precise((data) => {
     }
     cache.lastTime = data.currentTime;
 
-    // MEMORY GLITCH FIX
     if (data.hitErrors.length < processedHits) {
         isReset = false; 
         resetState();
@@ -377,7 +390,6 @@ wsManager.api_v2_precise((data) => {
         return;
     }
 
-    // INTRO CHECK
     if (data.currentTime < cache.firstObjectTime || data.hitErrors.length === 0) {
         processedHits = 0;
         resetState(); 
