@@ -50,11 +50,11 @@ class WebSocketManager {
     }
 }
 
-const calculateWindows = (mode, od, mods) => {
+const calculateWindows = (mode, od, mods, rate) => {
     if (mode === "mania") {
-        if (mods.includes("EZ")) return 22.5;
-        if (mods.includes("HR")) return 11.43;
-        return 16; // Fix it should be 16ms See: osu.ppy.sh/wiki/en/Gameplay/Judgement/osu%21mania
+        if (mods.includes("EZ")) return 22.5 * rate;
+        if (mods.includes("HR")) return 11.43 * rate;
+        return 16 * rate; 
     }
     if (mode === "taiko") {
         const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
@@ -319,19 +319,22 @@ function showJudgement(rawHitError) {
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
-    if (data.currentTime < cache.firstObjectTime || data.hitErrors.length === 0) {
+    if (data.currentTime < cache.firstObjectTime || data.hitErrors.length === 0 || data.hitErrors.length < processedHits) {
         processedHits = 0;
         resetState(); 
         return;
     }
+    
     if (data.hitErrors.length > processedHits) {
-        const rawError = data.hitErrors[data.hitErrors.length - 1];
-        
-        if (!Number.isInteger(rawError)) {
-            cache.isLazer = true;
+        for (let i = processedHits; i < data.hitErrors.length; i++) {
+            const rawError = data.hitErrors[i];
+            
+            if (!Number.isInteger(rawError)) {
+                cache.isLazer = true;
+            }
+            
+            showJudgement(rawError);
         }
-        
-        showJudgement(rawError);
         processedHits = data.hitErrors.length;
     }
 }, ["hitErrors", "currentTime"]);
