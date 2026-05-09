@@ -254,7 +254,6 @@ function showJudgement(rawHitError) {
     else activeColor = settings.colorLate;
 
     if (!isPerfect) {
-        // FIX: Update the DOM text FIRST before it visible
         if (settings.useCustomImages) {
             uiText.classList.add("hide-visual");
             uiImage.classList.remove("hide-visual");
@@ -266,11 +265,9 @@ function showJudgement(rawHitError) {
             uiText.style.color = activeColor;
         }
 
-        // Now that the text is correct, remove the invisibility
         uiText.classList.remove("animated-hide", "snap-hide", "invisible");
         uiImage.classList.remove("animated-hide", "snap-hide", "invisible");
         
-        // And safely force the browser reflow
         void uiText.offsetWidth;
         void uiImage.offsetWidth;
 
@@ -333,6 +330,7 @@ function showJudgement(rawHitError) {
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
+    // REPLAY SCRUB / TIME JUMP FIX
     if (data.currentTime < (cache.lastTime || 0) - 50) {
         resetState();
         cache.lastTime = data.currentTime;
@@ -341,6 +339,7 @@ wsManager.api_v2_precise((data) => {
     }
     cache.lastTime = data.currentTime;
 
+    // MEMORY GLITCH FIX
     if (data.hitErrors.length < processedHits) {
         if (data.hitErrors.length === 0) {
             resetState();
@@ -353,15 +352,16 @@ wsManager.api_v2_precise((data) => {
     }
     
     if (data.hitErrors.length > processedHits) {
-        for (let i = processedHits; i < data.hitErrors.length; i++) {
-            const rawError = data.hitErrors[i];
-            
-            if (!Number.isInteger(rawError)) {
-                cache.isLazer = true;
-            }
-            
-            showJudgement(rawError);
+        
+        // THE FIX: Removed the For Loop so it stops fighting itself on chords.
+        // It now only displays the exact final hit error of the chord, matching the old code perfectly!
+        const rawError = data.hitErrors[data.hitErrors.length - 1];
+        
+        if (!Number.isInteger(rawError)) {
+            cache.isLazer = true;
         }
+        
+        showJudgement(rawError);
         processedHits = data.hitErrors.length;
     }
 }, ["hitErrors", "currentTime"]);
