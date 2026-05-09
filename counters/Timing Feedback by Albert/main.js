@@ -193,16 +193,6 @@ function resetState() {
     if (isReset) return; 
     isReset = true;
 
-    if (settings.useCustomImages) {
-        uiImage.src = settings.imageEarly;
-        uiImage.classList.remove("hide-visual");
-        uiText.classList.add("hide-visual");
-    } else {
-        uiText.innerText = settings.textEarly;
-        uiText.classList.remove("hide-visual");
-        uiImage.classList.add("hide-visual");
-    }
-
     if (settings.alwaysShowHitError) {
         uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
         uiContainer.classList.add("active");
@@ -237,6 +227,8 @@ function resetState() {
 
 function showJudgement(rawHitError) {
     if (cache.state !== "play") return; 
+    
+    isReset = false;
 
     const hitError = rawHitError / cache.rate;
     const threshold = settings.useCustomTimingWindow ? settings.customPerfectWindow : cache.calculatedPerfect;
@@ -244,10 +236,11 @@ function showJudgement(rawHitError) {
     const isEarly = hitError < 0;
 
     if (isPerfect && !settings.showPerfectMs && !settings.alwaysShowHitError) {
+        if (fadeTimeout) clearTimeout(fadeTimeout);
+        if (resetTimeout) clearTimeout(resetTimeout);
+        resetState();
         return; 
     }
-
-    isReset = false;
 
     if (fadeTimeout) clearTimeout(fadeTimeout);
     if (resetTimeout) clearTimeout(resetTimeout);
@@ -261,11 +254,7 @@ function showJudgement(rawHitError) {
     else activeColor = settings.colorLate;
 
     if (!isPerfect) {
-        uiText.classList.remove("animated-hide", "snap-hide", "invisible");
-        uiImage.classList.remove("animated-hide", "snap-hide", "invisible");
-        void uiText.offsetWidth;
-        void uiImage.offsetWidth;
-
+        // FIX: Update the DOM text FIRST before it visible
         if (settings.useCustomImages) {
             uiText.classList.add("hide-visual");
             uiImage.classList.remove("hide-visual");
@@ -276,7 +265,15 @@ function showJudgement(rawHitError) {
             uiText.innerText = isEarly ? settings.textEarly : settings.textLate;
             uiText.style.color = activeColor;
         }
+
+        // Now that the text is correct, remove the invisibility
+        uiText.classList.remove("animated-hide", "snap-hide", "invisible");
+        uiImage.classList.remove("animated-hide", "snap-hide", "invisible");
         
+        // And safely force the browser reflow
+        void uiText.offsetWidth;
+        void uiImage.offsetWidth;
+
         if (!settings.showMainJudgement) {
             uiText.classList.add("invisible");
             uiImage.classList.add("invisible");
