@@ -22,6 +22,8 @@ body, html {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    transform: translateZ(0); 
+    -webkit-font-smoothing: antialiased;
 }
 
 #judgement-container {
@@ -70,6 +72,17 @@ body, html {
     top: var(--ms-offset-y);
     
     -webkit-text-stroke: var(--ms-text-stroke);
+    white-space: nowrap; 
+}
+
+.symbol {
+    display: inline-block;
+}
+
+.digit {
+    display: inline-block;
+    width: 1ch; 
+    text-align: center;
 }
 
 .hide-visual {

@@ -50,6 +50,15 @@ class WebSocketManager {
     }
 }
 
+const formatMs = (msString) => {
+    return msString.split('').map(char => {
+        if (/[0-9]/.test(char)) {
+            return `<span class="digit">${char}</span>`;
+        }
+        return `<span class="symbol">${char}</span>`;
+    }).join('');
+};
+
 const calculateWindows = (mode, od, mods, rate) => {
     if (mode === "mania") {
         if (mods.includes("EZ")) return 22.5 * rate;
@@ -203,7 +212,8 @@ function resetState() {
             decimalPlaces = 0; 
         }
         
-        uiMs.innerText = (0).toFixed(decimalPlaces) + "ms";
+        const defaultMsText = (0).toFixed(decimalPlaces) + "ms";
+        uiMs.innerHTML = formatMs(defaultMsText);
         uiMs.style.color = settings.colorPerfect;
     } else {
         uiContainer.classList.remove("active");
@@ -298,7 +308,8 @@ function showJudgement(rawHitError) {
             decimalPlaces = 0; 
         }
         
-        uiMs.innerText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
+        const msText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
+        uiMs.innerHTML = formatMs(msText);
         uiMs.style.color = activeColor; 
     } else {
         uiMs.classList.remove("hide-visual");
