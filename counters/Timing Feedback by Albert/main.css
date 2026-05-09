@@ -70,6 +70,20 @@ body, html {
     top: var(--ms-offset-y);
     
     -webkit-text-stroke: var(--ms-text-stroke);
+    
+    transform: translateZ(0); 
+    -webkit-font-smoothing: antialiased;
+    white-space: nowrap; 
+}
+
+.symbol {
+    display: inline-block;
+}
+
+.digit {
+    display: inline-block;
+    width: 1ch; 
+    text-align: center;
 }
 
 .hide-visual {
@@ -95,6 +109,7 @@ body, html {
     transition: none !important;
 }
 
+/* Allows background rendering while starting to play state for 1000ms */
 #judgement-container.startup-hidden {
     opacity: 0 !important;
     visibility: hidden !important;

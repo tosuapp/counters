@@ -12,74 +12,64 @@
   <rect width="500" height="180" fill="#000"/>
 
   <!-- Subtle center guides -->
-  <line x1="250" y1="0" x2="250" y2="180" stroke="#000" stroke-width="0"/>
+  <line x1="250" y1="0" x2="250" y2="180" stroke="#111" stroke-width="1"/>
 
-  <!-- === SCENE 1: EARLY === 0.0s - 1.8s -->
+  <!-- === SCENE 1: EARLY === total 0s–2.2s -->
+  <!-- fade in 0–0.3s, hold 0.3–1.6s, fade out 1.6–2.0s, gap 2.0–2.2s -->
   <g>
     <text class="label" x="250" y="102" fill="#3366ff">
       EARLY
       <animate attributeName="opacity" 
-        values="0;1;1;0;0"
-        keyTimes="0;0.022;0.178;0.200;1"
-        dur="9s" repeatCount="indefinite"/>
+        values="0;0;1;1;0;0"
+        keyTimes="0;0.036;0.072;0.193;0.241;1"
+        dur="8.3s" repeatCount="indefinite"/>
     </text>
     <text class="ms" x="250" y="138" fill="#3366ff">
-      -33.34ms
+      -34.17ms
       <animate attributeName="opacity"
-        values="0;1;1;0;0"
-        keyTimes="0;0.022;0.178;0.200;1"
-        dur="9s" repeatCount="indefinite"/>
+        values="0;0;1;1;0;0"
+        keyTimes="0;0.036;0.072;0.193;0.241;1"
+        dur="8.3s" repeatCount="indefinite"/>
     </text>
   </g>
 
-  <!-- === SCENE 2: LATE === 1.8s - 3.6s -->
+  <!-- === SCENE 2: LATE === 2.2s–4.4s -->
   <g>
     <text class="label" x="250" y="102" fill="#ff2222">
       LATE
       <animate attributeName="opacity"
-        values="0;0;1;1;0;0"
-        keyTimes="0;0.200;0.222;0.378;0.400;1"
-        dur="9s" repeatCount="indefinite"/>
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.241;0.265;0.301;0.446;0.494;1"
+        dur="8.3s" repeatCount="indefinite"/>
     </text>
     <text class="ms" x="250" y="138" fill="#ff2222">
-      +33.34ms
+      +52.83ms
       <animate attributeName="opacity"
-        values="0;0;1;1;0;0"
-        keyTimes="0;0.200;0.222;0.378;0.400;1"
-        dur="9s" repeatCount="indefinite"/>
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.241;0.265;0.301;0.446;0.494;1"
+        dur="8.3s" repeatCount="indefinite"/>
     </text>
   </g>
 
-  <!-- === SCENE 3: PERFECT (ms only) === 3.6s - 5.4s -->
+  <!-- === SCENE 3: PERFECT (ms only) === 4.4s–6.5s -->
   <g>
     <text class="ms" x="250" y="120" fill="#ffffff">
-      +16.67ms
+      +4.02ms
       <animate attributeName="opacity"
-        values="0;0;1;1;0;0"
-        keyTimes="0;0.400;0.422;0.578;0.600;1"
-        dur="9s" repeatCount="indefinite"/>
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.494;0.530;0.566;0.711;0.759;1"
+        dur="8.3s" repeatCount="indefinite"/>
     </text>
   </g>
 
-  <!-- === SCENE 4: EARLY no ms === 5.4s - 7.2s -->
+  <!-- === SCENE 4: EARLY no ms === 6.5s–8.3s -->
   <g>
     <text class="label" x="250" y="110" fill="#3366ff">
       EARLY
       <animate attributeName="opacity"
-        values="0;0;1;1;0;0"
-        keyTimes="0;0.600;0.622;0.778;0.800;1"
-        dur="9s" repeatCount="indefinite"/>
-    </text>
-  </g>
-
-  <!-- === SCENE 5: LATE no ms === 7.2s - 9.0s -->
-  <g>
-    <text class="label" x="250" y="110" fill="#ff2222">
-      LATE
-      <animate attributeName="opacity"
-        values="0;0;1;1;0;0"
-        keyTimes="0;0.800;0.822;0.978;1;1"
-        dur="9s" repeatCount="indefinite"/>
+        values="0;0;0;1;1;0;0"
+        keyTimes="0;0.759;0.795;0.831;0.940;0.976;1"
+        dur="8.3s" repeatCount="indefinite"/>
     </text>
   </g>
 

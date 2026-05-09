@@ -50,11 +50,21 @@ class WebSocketManager {
     }
 }
 
-const calculateWindows = (mode, od, mods, rate) => {
+// FORMATTER: Wraps numbers in spans to prevent font jitter
+const formatMs = (msString) => {
+    return msString.split('').map(char => {
+        if (/[0-9]/.test(char)) {
+            return `<span class="digit">${char}</span>`;
+        }
+        return `<span class="symbol">${char}</span>`;
+    }).join('');
+};
+
+const calculateWindows = (mode, od, mods) => {
     if (mode === "mania") {
-        if (mods.includes("EZ")) return 22.5 * rate;
-        if (mods.includes("HR")) return 11.43 * rate;
-        return 16 * rate; 
+        if (mods.includes("EZ")) return 22.5;
+        if (mods.includes("HR")) return 11.43;
+        return 16; 
     }
     if (mode === "taiko") {
         const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
@@ -90,7 +100,7 @@ let cache = {
     state: "", isLazer: false,
     mode: "osu", mods: "", od: 0, rate: 1, 
     firstObjectTime: 0, calculatedPerfect: 16,
-    lastTime: 0
+    lastTime: 0 
 };
 let processedHits = 0;
 let fadeTimeout = null;
@@ -137,6 +147,12 @@ wsManager.commands((data) => {
             document.documentElement.style.setProperty("--ms-offset-y", `${settings.msOffsetY}px`);
             
             applyFontSettings();
+            
+            // Instantly unlocks and redraws the screen so it catches custom font/colors.
+            isReset = false; 
+            if (cache.state === "play" && processedHits === 0) {
+                resetState();
+            }
         }
     } catch (error) {}
 });
@@ -149,6 +165,7 @@ wsManager.api_v2((data) => {
         cache.state = data.state.name;
         
         if (cache.state === "play") {
+            // STARTUP SHIELD: Hides for 1s on map start so Overlay has time to load fonts.
             if (prevState !== "play") {
                 uiContainer.classList.add("startup-hidden");
                 setTimeout(() => {
@@ -188,8 +205,19 @@ wsManager.api_v2((data) => {
 function resetState() {
     if (cache.state !== "play") return; 
     
+    // SAFETY LOCK: Prevents infinite CPU loops
     if (isReset) return; 
     isReset = true;
+
+    if (settings.useCustomImages) {
+        uiImage.src = settings.imageEarly;
+        uiImage.classList.remove("hide-visual");
+        uiText.classList.add("hide-visual");
+    } else {
+        uiText.innerText = settings.textEarly;
+        uiText.classList.remove("hide-visual");
+        uiImage.classList.add("hide-visual");
+    }
 
     if (settings.alwaysShowHitError) {
         uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
@@ -207,7 +235,9 @@ function resetState() {
             decimalPlaces = 0; 
         }
         
-        uiMs.innerText = (0).toFixed(decimalPlaces) + "ms";
+        // Use the formatter for the default 0ms text
+        const defaultMsText = (0).toFixed(decimalPlaces) + "ms";
+        uiMs.innerHTML = formatMs(defaultMsText);
         uiMs.style.color = settings.colorPerfect;
     } else {
         uiContainer.classList.remove("active");
@@ -251,6 +281,7 @@ function showJudgement(rawHitError) {
     else activeColor = settings.colorLate;
 
     if (!isPerfect) {
+        // GHOST-FRAME FIX: Updates the inner text BEFORE removing the invisibility class.
         if (settings.useCustomImages) {
             uiText.classList.add("hide-visual");
             uiImage.classList.remove("hide-visual");
@@ -272,6 +303,7 @@ function showJudgement(rawHitError) {
             uiImage.classList.add("invisible");
         }
     } else {
+        // CHORD DESYNC FIX: Forces text/image to instantly hide if the hit is Perfect
         uiText.classList.remove("animated-hide", "snap-hide");
         uiImage.classList.remove("animated-hide", "snap-hide");
         uiText.classList.add("invisible");
@@ -304,7 +336,9 @@ function showJudgement(rawHitError) {
             decimalPlaces = 0; 
         }
         
-        uiMs.innerText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
+        // Format the live hit error string to prevent jitter
+        const msText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
+        uiMs.innerHTML = formatMs(msText);
         uiMs.style.color = activeColor; 
     } else {
         uiMs.classList.remove("hide-visual");
@@ -325,7 +359,9 @@ function showJudgement(rawHitError) {
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
+    // SCRUB / TIME JUMP FIX
     if (data.currentTime < (cache.lastTime || 0) - 50) {
+        isReset = false; 
         resetState();
         cache.lastTime = data.currentTime;
         processedHits = data.hitErrors.length;
@@ -333,14 +369,18 @@ wsManager.api_v2_precise((data) => {
     }
     cache.lastTime = data.currentTime;
 
+    // MEMORY GLITCH FIX
     if (data.hitErrors.length < processedHits) {
-        if (data.hitErrors.length === 0) {
-            resetState();
-            processedHits = 0;
-        } else {
-            resetState();
-            processedHits = data.hitErrors.length;
-        }
+        isReset = false; 
+        resetState();
+        processedHits = data.hitErrors.length === 0 ? 0 : data.hitErrors.length;
+        return;
+    }
+
+    // INTRO CHECK
+    if (data.currentTime < cache.firstObjectTime || data.hitErrors.length === 0) {
+        processedHits = 0;
+        resetState(); 
         return;
     }
     
