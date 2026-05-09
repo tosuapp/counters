@@ -4,3 +4,4 @@ Version: 1.5.0
 Author: Albert
 CompatibleWith: Tosu
 Resolution: 500x250
+authorLinks: https://github.com/AlberttFrgk/
