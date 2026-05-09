@@ -98,11 +98,14 @@ let settings = {
 let cache = { 
     state: "", isLazer: false,
     mode: "osu", mods: "", od: 0, rate: 1, 
-    firstObjectTime: 0, calculatedPerfect: 16 
+    firstObjectTime: 0, calculatedPerfect: 16,
+    lastTime: 0
 };
+
 let processedHits = 0;
 let fadeTimeout = null;
 let resetTimeout = null;
+let isReset = false;
 
 function applyFontSettings() {
     let fontStack = `'${settings.font}', sans-serif`;
@@ -179,12 +182,16 @@ wsManager.api_v2((data) => {
             
             processedHits = 0;
             cache.isLazer = false; 
+            isReset = false;
         }
     }
 }, ["state", { field: "play", keys: ["mode", "mods"] }, { field: "beatmap", keys: ["mode", "stats", "time"] }]);
 
 function resetState() {
     if (cache.state !== "play") return; 
+    
+    if (isReset) return; 
+    isReset = true;
 
     if (settings.useCustomImages) {
         uiImage.src = settings.imageEarly;
@@ -230,6 +237,8 @@ function resetState() {
 
 function showJudgement(rawHitError) {
     if (cache.state !== "play") return; 
+    
+    isReset = false;
 
     const hitError = rawHitError / cache.rate;
     const threshold = settings.useCustomTimingWindow ? settings.customPerfectWindow : cache.calculatedPerfect;
@@ -330,9 +339,22 @@ function showJudgement(rawHitError) {
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
-    if (data.currentTime < cache.firstObjectTime || data.hitErrors.length === 0 || data.hitErrors.length < processedHits) {
-        processedHits = 0;
-        resetState(); 
+    if (data.currentTime < (cache.lastTime || 0) - 50) {
+        resetState();
+        cache.lastTime = data.currentTime;
+        processedHits = data.hitErrors.length;
+        return;
+    }
+    cache.lastTime = data.currentTime;
+
+    if (data.hitErrors.length < processedHits) {
+        if (data.hitErrors.length === 0) {
+            resetState();
+            processedHits = 0;
+        } else {
+            resetState();
+            processedHits = data.hitErrors.length;
+        }
         return;
     }
     
