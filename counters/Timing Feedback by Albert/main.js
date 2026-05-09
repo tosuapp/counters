@@ -237,8 +237,6 @@ function resetState() {
 
 function showJudgement(rawHitError) {
     if (cache.state !== "play") return; 
-    
-    isReset = false;
 
     const hitError = rawHitError / cache.rate;
     const threshold = settings.useCustomTimingWindow ? settings.customPerfectWindow : cache.calculatedPerfect;
@@ -246,11 +244,10 @@ function showJudgement(rawHitError) {
     const isEarly = hitError < 0;
 
     if (isPerfect && !settings.showPerfectMs && !settings.alwaysShowHitError) {
-        if (fadeTimeout) clearTimeout(fadeTimeout);
-        if (resetTimeout) clearTimeout(resetTimeout);
-        resetState();
         return; 
     }
+
+    isReset = false;
 
     if (fadeTimeout) clearTimeout(fadeTimeout);
     if (resetTimeout) clearTimeout(resetTimeout);
@@ -285,10 +282,10 @@ function showJudgement(rawHitError) {
             uiImage.classList.add("invisible");
         }
     } else {
-        if (!settings.useFadeAnimation) {
-            uiText.classList.add("invisible");
-            uiImage.classList.add("invisible");
-        }
+        uiText.classList.remove("animated-hide", "snap-hide");
+        uiImage.classList.remove("animated-hide", "snap-hide");
+        uiText.classList.add("invisible");
+        uiImage.classList.add("invisible");
     }
 
     const safeHitError = hitError === 0 ? 0 : hitError;
