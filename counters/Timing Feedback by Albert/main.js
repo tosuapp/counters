@@ -50,15 +50,6 @@ class WebSocketManager {
     }
 }
 
-const formatMs = (msString) => {
-    return msString.split('').map(char => {
-        if (/[0-9]/.test(char)) {
-            return `<span class="digit">${char}</span>`;
-        }
-        return `<span class="symbol">${char}</span>`;
-    }).join('');
-};
-
 const calculateWindows = (mode, od, mods, rate) => {
     if (mode === "mania") {
         if (mods.includes("EZ")) return 22.5 * rate;
@@ -101,11 +92,10 @@ let cache = {
     firstObjectTime: 0, calculatedPerfect: 16,
     lastTime: 0
 };
-
 let processedHits = 0;
 let fadeTimeout = null;
 let resetTimeout = null;
-let isReset = false;
+let isReset = false; 
 
 function applyFontSettings() {
     let fontStack = `'${settings.font}', sans-serif`;
@@ -155,9 +145,17 @@ wsManager.sendCommand("getSettings", window.COUNTER_PATH ? encodeURI(window.COUN
 
 wsManager.api_v2((data) => {
     if (data.state && data.state.name) {
+        const prevState = cache.state;
         cache.state = data.state.name;
         
         if (cache.state === "play") {
+            if (prevState !== "play") {
+                uiContainer.classList.add("startup-hidden");
+                setTimeout(() => {
+                    uiContainer.classList.remove("startup-hidden");
+                }, 1000);
+            }
+
             cache.mode = data.play.mode.name;
             cache.mods = data.play.mods.name;
             cache.od = data.beatmap.stats.od.original;
@@ -171,7 +169,7 @@ wsManager.api_v2((data) => {
             if (fadeTimeout) clearTimeout(fadeTimeout);
             if (resetTimeout) clearTimeout(resetTimeout);
             
-            uiContainer.classList.remove("active", "animated-hide");
+            uiContainer.classList.remove("active", "animated-hide", "startup-hidden");
             uiContainer.classList.add("snap-hide", "hide-visual");
             uiText.classList.remove("animated-hide", "invisible");
             uiText.classList.add("snap-hide");
@@ -182,7 +180,7 @@ wsManager.api_v2((data) => {
             
             processedHits = 0;
             cache.isLazer = false; 
-            isReset = false;
+            isReset = false; 
         }
     }
 }, ["state", { field: "play", keys: ["mode", "mods"] }, { field: "beatmap", keys: ["mode", "stats", "time"] }]);
@@ -209,8 +207,7 @@ function resetState() {
             decimalPlaces = 0; 
         }
         
-        const defaultMsText = (0).toFixed(decimalPlaces) + "ms";
-        uiMs.innerHTML = formatMs(defaultMsText);
+        uiMs.innerText = (0).toFixed(decimalPlaces) + "ms";
         uiMs.style.color = settings.colorPerfect;
     } else {
         uiContainer.classList.remove("active");
@@ -228,7 +225,7 @@ function resetState() {
 function showJudgement(rawHitError) {
     if (cache.state !== "play") return; 
     
-    isReset = false;
+    isReset = false; 
 
     const hitError = rawHitError / cache.rate;
     const threshold = settings.useCustomTimingWindow ? settings.customPerfectWindow : cache.calculatedPerfect;
@@ -267,7 +264,6 @@ function showJudgement(rawHitError) {
 
         uiText.classList.remove("animated-hide", "snap-hide", "invisible");
         uiImage.classList.remove("animated-hide", "snap-hide", "invisible");
-        
         void uiText.offsetWidth;
         void uiImage.offsetWidth;
 
@@ -308,8 +304,7 @@ function showJudgement(rawHitError) {
             decimalPlaces = 0; 
         }
         
-        const msText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
-        uiMs.innerHTML = formatMs(msText);
+        uiMs.innerText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
         uiMs.style.color = activeColor; 
     } else {
         uiMs.classList.remove("hide-visual");
@@ -330,7 +325,6 @@ function showJudgement(rawHitError) {
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
-    // REPLAY SCRUB / TIME JUMP FIX
     if (data.currentTime < (cache.lastTime || 0) - 50) {
         resetState();
         cache.lastTime = data.currentTime;
@@ -339,7 +333,6 @@ wsManager.api_v2_precise((data) => {
     }
     cache.lastTime = data.currentTime;
 
-    // MEMORY GLITCH FIX
     if (data.hitErrors.length < processedHits) {
         if (data.hitErrors.length === 0) {
             resetState();
@@ -352,9 +345,6 @@ wsManager.api_v2_precise((data) => {
     }
     
     if (data.hitErrors.length > processedHits) {
-        
-        // THE FIX: Removed the For Loop so it stops fighting itself on chords.
-        // It now only displays the exact final hit error of the chord, matching the old code perfectly!
         const rawError = data.hitErrors[data.hitErrors.length - 1];
         
         if (!Number.isInteger(rawError)) {

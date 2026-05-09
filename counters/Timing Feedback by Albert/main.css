@@ -22,8 +22,6 @@ body, html {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    transform: translateZ(0); 
-    -webkit-font-smoothing: antialiased;
 }
 
 #judgement-container {
@@ -72,17 +70,6 @@ body, html {
     top: var(--ms-offset-y);
     
     -webkit-text-stroke: var(--ms-text-stroke);
-    white-space: nowrap; 
-}
-
-.symbol {
-    display: inline-block;
-}
-
-.digit {
-    display: inline-block;
-    width: 1ch; 
-    text-align: center;
 }
 
 .hide-visual {
@@ -105,5 +92,11 @@ body, html {
 
 .active {
     opacity: 1 !important;
+    transition: none !important;
+}
+
+#judgement-container.startup-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
     transition: none !important;
 }
