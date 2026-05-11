@@ -54,10 +54,7 @@ const formatCache = new Map();
 const formatMs = (msString) => {
     if (formatCache.has(msString)) return formatCache.get(msString);
     const str = msString.split('').map(char => {
-        if (/[0-9]/.test(char)) {
-            return `<span class="digit">${char}</span>`;
-        }
-        return `<span class="symbol">${char}</span>`;
+        return /[0-9]/.test(char) ? `<span class="digit">${char}</span>` : `<span class="symbol">${char}</span>`;
     }).join('');
     
     if (formatCache.size > 2000) formatCache.clear(); 
@@ -65,23 +62,17 @@ const formatMs = (msString) => {
     return str;
 };
 
-const calculateWindows = (mode, od, mods, rate = 1) => {
+const calculateWindows = (mode, od, mods, rate = 1) => { 
     if (mode === "mania") {
         let baseWindow = 16;
         if (mods.includes("EZ")) baseWindow = 22.5;
         if (mods.includes("HR")) baseWindow = 11.43;
-        
         return baseWindow / rate; 
     }
 
-    const modifiedOd = mods.includes("EZ") 
-        ? od / 2 
-        : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
+    const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
 
-    if (mode === "taiko") {
-        return (50 - 3 * modifiedOd) / rate; 
-    }
-    
+    if (mode === "taiko") return (50 - 3 * modifiedOd) / rate; 
     return (80 - 6 * modifiedOd) / rate; 
 };
 
@@ -97,8 +88,7 @@ const uiMs = document.getElementById("judgement-ms");
 let settings = {
     useCustomTimingWindow: false, customPerfectWindow: 16,
     useCustomImages: false, imageEarly: "early.png", imageLate: "late.png", imageSize: 64,
-    useCustomFontFile: false, customFontFileName: "Goldman-Bold.ttf",
-    font: "Verdana",
+    useCustomFontFile: false, customFontFileName: "Goldman-Bold.ttf", font: "Verdana",
     textEarly: "EARLY", textLate: "LATE",
     colorPerfect: "#ffffff", colorEarly: "#0000ff", colorLate: "#ff0000",
     fontSize: 32, judgementOffsetX: 0, judgementOffsetY: 0, showMainJudgement: true,
@@ -109,19 +99,29 @@ let settings = {
 };
 
 let cache = { 
-    state: "", isLazer: false,
-    mode: "osu", mods: "", od: 0, rate: 1, 
-    firstObjectTime: 0, calculatedPerfect: 16,
-    lastTime: 0
+    state: "", isLazer: false, mode: "osu", mods: "", od: 0, rate: 1, 
+    firstObjectTime: 0, calculatedPerfect: 16, lastTime: 0
 };
-let processedHits = 0;
 
-let judgementFadeTimeout = null;
-let judgementResetTimeout = null;
-let msFadeTimeout = null;
-let msResetTimeout = null;
-let isReset = false; 
-let cachedDecimalPlaces = 2;
+let processedHits = 0;
+let judgementFadeTimeout = null, judgementResetTimeout = null;
+let msFadeTimeout = null, msResetTimeout = null;
+let isReset = false, cachedDecimalPlaces = 2;
+
+const clearJudgement = () => {
+    clearTimeout(judgementFadeTimeout);
+    clearTimeout(judgementResetTimeout);
+};
+
+const clearMs = () => {
+    clearTimeout(msFadeTimeout);
+    clearTimeout(msResetTimeout);
+};
+
+const clearAll = () => {
+    clearJudgement();
+    clearMs();
+};
 
 function applyFontSettings() {
     let fontStack = `'${settings.font}', sans-serif`;
@@ -133,12 +133,7 @@ function applyFontSettings() {
             styleEl.id = "custom-font-style";
             document.head.appendChild(styleEl);
         }
-        styleEl.innerHTML = `
-            @font-face {
-                font-family: 'MyCustomOverlayFont';
-                src: url('./${settings.customFontFileName}');
-            }
-        `;
+        styleEl.innerHTML = `@font-face { font-family: 'MyCustomOverlayFont'; src: url('./${settings.customFontFileName}'); }`;
         fontStack = `'MyCustomOverlayFont', '${settings.font}', sans-serif`;
     } 
     document.documentElement.style.setProperty("--judgement-font", fontStack);
@@ -147,32 +142,28 @@ function applyFontSettings() {
 wsManager.commands((data) => {
     try {
         if (data.command === "getSettings") {
-            for (const [k, v] of Object.entries(data.message)) { settings[k] = v; }
+            Object.assign(settings, data.message);
             
             cachedDecimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals || 2));
             
-            document.documentElement.style.setProperty("--font-size", `${settings.fontSize}px`);
-            document.documentElement.style.setProperty("--image-size", `${settings.imageSize}px`);
-            document.documentElement.style.setProperty("--ms-font-size", `${settings.msFontSize}px`);
-            document.documentElement.style.setProperty("--fade-duration", `${settings.fadeDuration}ms`);
-            
-            document.documentElement.style.setProperty("--text-stroke", settings.useStrokeEffect ? `${settings.strokeThickness}px #000000` : "0px transparent");
-            document.documentElement.style.setProperty("--ms-text-stroke", settings.useStrokeEffect ? `${settings.msStrokeThickness}px #000000` : "0px transparent");
-            
-            document.documentElement.style.setProperty("--judgement-offset-x", `${settings.judgementOffsetX}px`);
-            document.documentElement.style.setProperty("--judgement-offset-y", `${settings.judgementOffsetY}px`);
-            document.documentElement.style.setProperty("--ms-offset-x", `${settings.msOffsetX}px`);
-            document.documentElement.style.setProperty("--ms-offset-y", `${settings.msOffsetY}px`);
+            const root = document.documentElement.style;
+            root.setProperty("--font-size", `${settings.fontSize}px`);
+            root.setProperty("--image-size", `${settings.imageSize}px`);
+            root.setProperty("--ms-font-size", `${settings.msFontSize}px`);
+            root.setProperty("--fade-duration", `${settings.fadeDuration}ms`);
+            root.setProperty("--text-stroke", settings.useStrokeEffect ? `${settings.strokeThickness}px #000000` : "0px transparent");
+            root.setProperty("--ms-text-stroke", settings.useStrokeEffect ? `${settings.msStrokeThickness}px #000000` : "0px transparent");
+            root.setProperty("--judgement-offset-x", `${settings.judgementOffsetX}px`);
+            root.setProperty("--judgement-offset-y", `${settings.judgementOffsetY}px`);
+            root.setProperty("--ms-offset-x", `${settings.msOffsetX}px`);
+            root.setProperty("--ms-offset-y", `${settings.msOffsetY}px`);
             
             applyFontSettings();
-
             uiImageEarly.src = settings.imageEarly;
             uiImageLate.src = settings.imageLate;
             
             isReset = false; 
-            if (cache.state === "play" && processedHits === 0) {
-                resetState();
-            }
+            if (cache.state === "play" && processedHits === 0) resetState();
         }
     } catch (error) {}
 });
@@ -180,74 +171,63 @@ wsManager.commands((data) => {
 wsManager.sendCommand("getSettings", window.COUNTER_PATH ? encodeURI(window.COUNTER_PATH) : "");
 
 wsManager.api_v2((data) => {
-    if (data.state && data.state.name) {
-        const prevState = cache.state;
-        cache.state = data.state.name;
+    if (!data.state || !data.state.name) return;
+
+    const prevState = cache.state;
+    cache.state = data.state.name;
+    
+    if (cache.state === "play") {
+        if (prevState !== "play") {
+            uiContainer.classList.add("startup-hidden");
+            setTimeout(() => uiContainer.classList.remove("startup-hidden"), 1000);
+        }
+
+        const mode = data.play.mode.name;
+        const mods = data.play.mods.name;
+        const od = data.beatmap.stats.od.original;
+        const rate = data.play.mods.rate || 1;
         
-        if (cache.state === "play") {
-            if (prevState !== "play") {
-                uiContainer.classList.add("startup-hidden");
-                setTimeout(() => {
-                    uiContainer.classList.remove("startup-hidden");
-                }, 1000);
-            }
-
-            const mode = data.play.mode.name;
-            const mods = data.play.mods.name;
-            const od = data.beatmap.stats.od.original;
-            const rate = data.play.mods.rate || 1;
-            
-            if (cache.mode !== mode || cache.mods !== mods || cache.od !== od || cache.rate !== rate) {
-                cache.mode = mode;
-                cache.mods = mods;
-                cache.od = od;
-                cache.rate = rate;
-                cache.calculatedPerfect = calculateWindows(cache.mode, cache.od, cache.mods, cache.rate);
-                isReset = false; 
-            }
-
-            cache.firstObjectTime = data.beatmap.time.firstObject;
-            
-            if (processedHits === 0) resetState(); 
-        } else {
-            if (judgementFadeTimeout) clearTimeout(judgementFadeTimeout);
-            if (judgementResetTimeout) clearTimeout(judgementResetTimeout);
-            if (msFadeTimeout) clearTimeout(msFadeTimeout);
-            if (msResetTimeout) clearTimeout(msResetTimeout);
-            
-            uiContainer.classList.remove("active", "animated-hide", "startup-hidden");
-            uiContainer.classList.add("snap-hide", "hide-visual");
-            uiText.classList.remove("animated-hide", "invisible");
-            uiText.classList.add("snap-hide");
-            uiImageEarly.classList.remove("animated-hide", "invisible");
-            uiImageEarly.classList.add("snap-hide");
-            uiImageLate.classList.remove("animated-hide", "invisible");
-            uiImageLate.classList.add("snap-hide");
-            uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
-            uiMs.classList.add("snap-hide");
-            
-            processedHits = 0;
-            cache.isLazer = false; 
+        if (cache.mode !== mode || cache.mods !== mods || cache.od !== od || cache.rate !== rate) {
+            Object.assign(cache, { mode, mods, od, rate });
+            cache.calculatedPerfect = calculateWindows(mode, od, mods, rate);
             isReset = false; 
         }
+
+        cache.firstObjectTime = data.beatmap.time.firstObject;
+        if (processedHits === 0) resetState(); 
+
+    } else {
+        clearAll();
+        
+        uiContainer.classList.remove("active", "animated-hide", "startup-hidden");
+        uiContainer.classList.add("snap-hide", "hide-visual");
+        
+        [uiText, uiImageEarly, uiImageLate].forEach(el => {
+            el.classList.remove("animated-hide", "invisible");
+            el.classList.add("snap-hide");
+        });
+
+        uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
+        uiMs.classList.add("snap-hide");
+        
+        processedHits = 0;
+        cache.isLazer = false; 
+        isReset = false; 
     }
 }, ["state", { field: "play", keys: ["mode", "mods"] }, { field: "beatmap", keys: ["mode", "stats", "time"] }]);
 
 function resetJudgement() {
-    uiText.classList.remove("animated-hide");
-    uiText.classList.add("snap-hide", "invisible");
-    uiImageEarly.classList.remove("animated-hide");
-    uiImageEarly.classList.add("snap-hide", "invisible");
-    uiImageLate.classList.remove("animated-hide");
-    uiImageLate.classList.add("snap-hide", "invisible");
+    [uiText, uiImageEarly, uiImageLate].forEach(el => {
+        el.classList.remove("animated-hide");
+        el.classList.add("snap-hide", "invisible");
+    });
 }
 
 function resetMs() {
     uiMs.classList.remove("animated-hide");
     if (settings.alwaysShowHitError) {
         uiMs.classList.remove("invisible", "snap-hide", "hide-visual");
-        let decimalPlaces = cachedDecimalPlaces;
-        if (!cache.isLazer && cache.rate === 1) decimalPlaces = 0;
+        let decimalPlaces = (!cache.isLazer && cache.rate === 1) ? 0 : cachedDecimalPlaces;
         uiMs.innerHTML = formatMs((0).toFixed(decimalPlaces) + "ms");
         uiMs.style.color = settings.colorPerfect;
     } else {
@@ -256,15 +236,10 @@ function resetMs() {
 }
 
 function resetState() {
-    if (cache.state !== "play") return; 
-    
-    if (isReset) return; 
+    if (cache.state !== "play" || isReset) return; 
     isReset = true;
 
-    if (judgementFadeTimeout) clearTimeout(judgementFadeTimeout);
-    if (judgementResetTimeout) clearTimeout(judgementResetTimeout);
-    if (msFadeTimeout) clearTimeout(msFadeTimeout);
-    if (msResetTimeout) clearTimeout(msResetTimeout);
+    clearAll();
 
     if (settings.useCustomImages) {
         uiImageEarly.classList.remove("hide-visual");
@@ -291,7 +266,6 @@ function resetState() {
 
 function showJudgement(rawHitError) {
     if (cache.state !== "play") return; 
-    
     isReset = false; 
 
     const hitError = rawHitError / cache.rate;
@@ -303,13 +277,16 @@ function showJudgement(rawHitError) {
     let wantMs = false;
 
     if (settings.showHitErrorMs) {
-        if (isPerfect) wantMs = settings.showPerfectMs;
-        else wantMs = !settings.hideEarlyLateMs;
+        wantMs = isPerfect ? settings.showPerfectMs : !settings.hideEarlyLateMs;
     }
 
-    if (!wantJudgement && !wantMs && !settings.alwaysShowHitError) {
-        return; 
+    if (isPerfect && !settings.useFadeAnimation) {
+        clearAll();
+        resetJudgement();
+        resetMs();
     }
+
+    if (!wantJudgement && !wantMs && !settings.alwaysShowHitError) return; 
 
     uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
     uiContainer.classList.add("active");
@@ -317,18 +294,17 @@ function showJudgement(rawHitError) {
     let activeColor = isPerfect ? settings.colorPerfect : (isEarly ? settings.colorEarly : settings.colorLate);
 
     if (wantJudgement) {
-        if (judgementFadeTimeout) clearTimeout(judgementFadeTimeout);
-        if (judgementResetTimeout) clearTimeout(judgementResetTimeout);
+        clearJudgement();
 
-        uiText.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
-        uiImageEarly.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
-        uiImageLate.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
+        [uiText, uiImageEarly, uiImageLate].forEach(el => {
+            el.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
+        });
 
         if (settings.useCustomImages) {
             uiText.classList.add("hide-visual");
             if (isEarly) {
                 uiImageLate.classList.add("hide-visual");
-                void uiImageEarly.offsetWidth; 
+                void uiImageEarly.offsetWidth;
             } else {
                 uiImageEarly.classList.add("hide-visual");
                 void uiImageLate.offsetWidth; 
@@ -336,24 +312,18 @@ function showJudgement(rawHitError) {
         } else {
             uiImageEarly.classList.add("hide-visual");
             uiImageLate.classList.add("hide-visual");
-            uiText.classList.remove("hide-visual");
             uiText.innerText = isEarly ? settings.textEarly : settings.textLate;
             uiText.style.color = activeColor;
-            
             void uiText.offsetWidth; 
         }
 
         if (!settings.showMainJudgement) {
-            uiText.classList.add("invisible");
-            uiImageEarly.classList.add("invisible");
-            uiImageLate.classList.add("invisible");
+            [uiText, uiImageEarly, uiImageLate].forEach(el => el.classList.add("invisible"));
         }
 
         if (settings.useFadeAnimation) {
             judgementFadeTimeout = setTimeout(() => {
-                uiText.classList.add("animated-hide");
-                uiImageEarly.classList.add("animated-hide");
-                uiImageLate.classList.add("animated-hide");
+                [uiText, uiImageEarly, uiImageLate].forEach(el => el.classList.add("animated-hide"));
             }, 50);
             judgementResetTimeout = setTimeout(resetJudgement, 50 + settings.fadeDuration);
         } else {
@@ -364,16 +334,12 @@ function showJudgement(rawHitError) {
     const safeHitError = hitError === 0 ? 0 : hitError;
 
     if (wantMs || settings.alwaysShowHitError) {
-        if (msFadeTimeout) clearTimeout(msFadeTimeout);
-        if (msResetTimeout) clearTimeout(msResetTimeout);
+        clearMs();
 
         uiMs.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
-        void uiMs.offsetWidth; 
+        void uiMs.offsetWidth;
         
-        let decimalPlaces = cachedDecimalPlaces;
-        if (!cache.isLazer && cache.rate === 1) {
-            decimalPlaces = 0; 
-        }
+        let decimalPlaces = (!cache.isLazer && cache.rate === 1) ? 0 : cachedDecimalPlaces;
 
         if (wantMs) {
             const prefix = safeHitError > 0 ? "+" : ""; 
@@ -388,15 +354,11 @@ function showJudgement(rawHitError) {
 
         if (settings.alwaysShowHitError) {
             msResetTimeout = setTimeout(resetMs, totalDuration);
+        } else if (settings.useFadeAnimation) {
+            msFadeTimeout = setTimeout(() => uiMs.classList.add("animated-hide"), 50);
+            msResetTimeout = setTimeout(resetMs, totalDuration);
         } else {
-            if (settings.useFadeAnimation) {
-                msFadeTimeout = setTimeout(() => {
-                    uiMs.classList.add("animated-hide");
-                }, 50);
-                msResetTimeout = setTimeout(resetMs, totalDuration);
-            } else {
-                msResetTimeout = setTimeout(resetMs, settings.displayDuration);
-            }
+            msResetTimeout = setTimeout(resetMs, settings.displayDuration);
         }
     }
 }
@@ -404,21 +366,15 @@ function showJudgement(rawHitError) {
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
-    if (data.currentTime < (cache.lastTime || 0) - 50) {
+    if (data.currentTime < (cache.lastTime || 0) - 50 || data.hitErrors.length < processedHits) {
         isReset = false; 
         resetState();
         cache.lastTime = data.currentTime;
-        processedHits = data.hitErrors.length;
-        return;
-    }
-    cache.lastTime = data.currentTime;
-
-    if (data.hitErrors.length < processedHits) {
-        isReset = false; 
-        resetState();
         processedHits = data.hitErrors.length === 0 ? 0 : data.hitErrors.length;
         return;
     }
+    
+    cache.lastTime = data.currentTime;
 
     if (data.currentTime < cache.firstObjectTime || data.hitErrors.length === 0) {
         processedHits = 0;
@@ -429,11 +385,9 @@ wsManager.api_v2_precise((data) => {
     if (data.hitErrors.length > processedHits) {
         const rawError = data.hitErrors[data.hitErrors.length - 1];
         
-        if (!Number.isInteger(rawError)) {
-            if (!cache.isLazer) {
-                cache.isLazer = true;
-                isReset = false;
-            }
+        if (!Number.isInteger(rawError) && !cache.isLazer) {
+            cache.isLazer = true;
+            isReset = false;
         }
         
         showJudgement(rawError);
