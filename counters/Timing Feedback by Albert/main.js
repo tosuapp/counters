@@ -50,27 +50,39 @@ class WebSocketManager {
     }
 }
 
+const formatCache = new Map();
 const formatMs = (msString) => {
-    return msString.split('').map(char => {
+    if (formatCache.has(msString)) return formatCache.get(msString);
+    const str = msString.split('').map(char => {
         if (/[0-9]/.test(char)) {
             return `<span class="digit">${char}</span>`;
         }
         return `<span class="symbol">${char}</span>`;
     }).join('');
+    
+    if (formatCache.size > 2000) formatCache.clear(); 
+    formatCache.set(msString, str);
+    return str;
 };
 
-const calculateWindows = (mode, od, mods) => {
+const calculateWindows = (mode, od, mods, rate = 1) => {
     if (mode === "mania") {
-        if (mods.includes("EZ")) return 22.5;
-        if (mods.includes("HR")) return 11.43;
-        return 16; 
+        let baseWindow = 16;
+        if (mods.includes("EZ")) baseWindow = 22.5;
+        if (mods.includes("HR")) baseWindow = 11.43;
+        
+        return baseWindow / rate; 
     }
+
+    const modifiedOd = mods.includes("EZ") 
+        ? od / 2 
+        : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
+
     if (mode === "taiko") {
-        const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
-        return 50 - 3 * modifiedOd; 
+        return (50 - 3 * modifiedOd) / rate; 
     }
-    const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
-    return 80 - 6 * modifiedOd; 
+    
+    return (80 - 6 * modifiedOd) / rate; 
 };
 
 const DEFAULT_HOST = window.location.host;
@@ -103,9 +115,13 @@ let cache = {
     lastTime: 0
 };
 let processedHits = 0;
-let fadeTimeout = null;
-let resetTimeout = null;
+
+let judgementFadeTimeout = null;
+let judgementResetTimeout = null;
+let msFadeTimeout = null;
+let msResetTimeout = null;
 let isReset = false; 
+let cachedDecimalPlaces = 2;
 
 function applyFontSettings() {
     let fontStack = `'${settings.font}', sans-serif`;
@@ -133,6 +149,8 @@ wsManager.commands((data) => {
         if (data.command === "getSettings") {
             for (const [k, v] of Object.entries(data.message)) { settings[k] = v; }
             
+            cachedDecimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals || 2));
+            
             document.documentElement.style.setProperty("--font-size", `${settings.fontSize}px`);
             document.documentElement.style.setProperty("--image-size", `${settings.imageSize}px`);
             document.documentElement.style.setProperty("--ms-font-size", `${settings.msFontSize}px`);
@@ -148,7 +166,6 @@ wsManager.commands((data) => {
             
             applyFontSettings();
 
-            // THE FIX: Preload both images immediately so they never have to decode mid-game
             uiImageEarly.src = settings.imageEarly;
             uiImageLate.src = settings.imageLate;
             
@@ -175,18 +192,28 @@ wsManager.api_v2((data) => {
                 }, 1000);
             }
 
-            cache.mode = data.play.mode.name;
-            cache.mods = data.play.mods.name;
-            cache.od = data.beatmap.stats.od.original;
-            cache.rate = data.play.mods.rate || 1;
-            cache.firstObjectTime = data.beatmap.time.firstObject;
+            const mode = data.play.mode.name;
+            const mods = data.play.mods.name;
+            const od = data.beatmap.stats.od.original;
+            const rate = data.play.mods.rate || 1;
             
-            cache.calculatedPerfect = calculateWindows(cache.mode, cache.od, cache.mods, cache.rate);
+            if (cache.mode !== mode || cache.mods !== mods || cache.od !== od || cache.rate !== rate) {
+                cache.mode = mode;
+                cache.mods = mods;
+                cache.od = od;
+                cache.rate = rate;
+                cache.calculatedPerfect = calculateWindows(cache.mode, cache.od, cache.mods, cache.rate);
+                isReset = false; 
+            }
+
+            cache.firstObjectTime = data.beatmap.time.firstObject;
             
             if (processedHits === 0) resetState(); 
         } else {
-            if (fadeTimeout) clearTimeout(fadeTimeout);
-            if (resetTimeout) clearTimeout(resetTimeout);
+            if (judgementFadeTimeout) clearTimeout(judgementFadeTimeout);
+            if (judgementResetTimeout) clearTimeout(judgementResetTimeout);
+            if (msFadeTimeout) clearTimeout(msFadeTimeout);
+            if (msResetTimeout) clearTimeout(msResetTimeout);
             
             uiContainer.classList.remove("active", "animated-hide", "startup-hidden");
             uiContainer.classList.add("snap-hide", "hide-visual");
@@ -206,11 +233,38 @@ wsManager.api_v2((data) => {
     }
 }, ["state", { field: "play", keys: ["mode", "mods"] }, { field: "beatmap", keys: ["mode", "stats", "time"] }]);
 
+function resetJudgement() {
+    uiText.classList.remove("animated-hide");
+    uiText.classList.add("snap-hide", "invisible");
+    uiImageEarly.classList.remove("animated-hide");
+    uiImageEarly.classList.add("snap-hide", "invisible");
+    uiImageLate.classList.remove("animated-hide");
+    uiImageLate.classList.add("snap-hide", "invisible");
+}
+
+function resetMs() {
+    uiMs.classList.remove("animated-hide");
+    if (settings.alwaysShowHitError) {
+        uiMs.classList.remove("invisible", "snap-hide", "hide-visual");
+        let decimalPlaces = cachedDecimalPlaces;
+        if (!cache.isLazer && cache.rate === 1) decimalPlaces = 0;
+        uiMs.innerHTML = formatMs((0).toFixed(decimalPlaces) + "ms");
+        uiMs.style.color = settings.colorPerfect;
+    } else {
+        uiMs.classList.add("snap-hide", "invisible");
+    }
+}
+
 function resetState() {
     if (cache.state !== "play") return; 
     
     if (isReset) return; 
     isReset = true;
+
+    if (judgementFadeTimeout) clearTimeout(judgementFadeTimeout);
+    if (judgementResetTimeout) clearTimeout(judgementResetTimeout);
+    if (msFadeTimeout) clearTimeout(msFadeTimeout);
+    if (msResetTimeout) clearTimeout(msResetTimeout);
 
     if (settings.useCustomImages) {
         uiImageEarly.classList.remove("hide-visual");
@@ -223,39 +277,15 @@ function resetState() {
         uiImageLate.classList.add("hide-visual");
     }
 
+    resetJudgement();
+    resetMs();
+
     if (settings.alwaysShowHitError) {
         uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
         uiContainer.classList.add("active");
-        
-        uiText.classList.remove("animated-hide", "snap-hide");
-        uiText.classList.add("invisible");
-        uiImageEarly.classList.remove("animated-hide", "snap-hide");
-        uiImageEarly.classList.add("invisible");
-        uiImageLate.classList.remove("animated-hide", "snap-hide");
-        uiImageLate.classList.add("invisible");
-        
-        uiMs.classList.remove("hide-visual", "invisible", "animated-hide", "snap-hide");
-        
-        let decimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals));
-        if (!cache.isLazer && cache.rate === 1) {
-            decimalPlaces = 0; 
-        }
-        
-        const defaultMsText = (0).toFixed(decimalPlaces) + "ms";
-        uiMs.innerHTML = formatMs(defaultMsText);
-        uiMs.style.color = settings.colorPerfect;
     } else {
         uiContainer.classList.remove("active");
         uiContainer.classList.add("snap-hide", "hide-visual");
-        
-        uiText.classList.remove("animated-hide", "invisible");
-        uiText.classList.add("snap-hide");
-        uiImageEarly.classList.remove("animated-hide", "invisible");
-        uiImageEarly.classList.add("snap-hide");
-        uiImageLate.classList.remove("animated-hide", "invisible");
-        uiImageLate.classList.add("snap-hide");
-        uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
-        uiMs.classList.add("snap-hide");
     }
 }
 
@@ -269,36 +299,39 @@ function showJudgement(rawHitError) {
     const isPerfect = Math.abs(hitError) <= threshold;
     const isEarly = hitError < 0;
 
-    if (isPerfect && !settings.showPerfectMs && !settings.alwaysShowHitError) {
-        if (fadeTimeout) clearTimeout(fadeTimeout);
-        if (resetTimeout) clearTimeout(resetTimeout);
-        resetState();
+    const wantJudgement = !isPerfect;
+    let wantMs = false;
+
+    if (settings.showHitErrorMs) {
+        if (isPerfect) wantMs = settings.showPerfectMs;
+        else wantMs = !settings.hideEarlyLateMs;
+    }
+
+    if (!wantJudgement && !wantMs && !settings.alwaysShowHitError) {
         return; 
     }
 
-    if (fadeTimeout) clearTimeout(fadeTimeout);
-    if (resetTimeout) clearTimeout(resetTimeout);
-    
     uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
     uiContainer.classList.add("active");
     
-    let activeColor;
-    if (isPerfect) activeColor = settings.colorPerfect;
-    else if (isEarly) activeColor = settings.colorEarly;
-    else activeColor = settings.colorLate;
+    let activeColor = isPerfect ? settings.colorPerfect : (isEarly ? settings.colorEarly : settings.colorLate);
 
-    if (!isPerfect) {
+    if (wantJudgement) {
+        if (judgementFadeTimeout) clearTimeout(judgementFadeTimeout);
+        if (judgementResetTimeout) clearTimeout(judgementResetTimeout);
+
+        uiText.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
+        uiImageEarly.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
+        uiImageLate.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
+
         if (settings.useCustomImages) {
             uiText.classList.add("hide-visual");
-            // INSTANT TOGGLE: We just flip the visibility. The images are already loaded in the DOM.
             if (isEarly) {
                 uiImageLate.classList.add("hide-visual");
-                uiImageEarly.classList.remove("hide-visual", "animated-hide", "snap-hide", "invisible");
-                void uiImageEarly.offsetWidth;
+                void uiImageEarly.offsetWidth; 
             } else {
                 uiImageEarly.classList.add("hide-visual");
-                uiImageLate.classList.remove("hide-visual", "animated-hide", "snap-hide", "invisible");
-                void uiImageLate.offsetWidth;
+                void uiImageLate.offsetWidth; 
             }
         } else {
             uiImageEarly.classList.add("hide-visual");
@@ -307,8 +340,7 @@ function showJudgement(rawHitError) {
             uiText.innerText = isEarly ? settings.textEarly : settings.textLate;
             uiText.style.color = activeColor;
             
-            uiText.classList.remove("animated-hide", "snap-hide", "invisible");
-            void uiText.offsetWidth;
+            void uiText.offsetWidth; 
         }
 
         if (!settings.showMainJudgement) {
@@ -316,58 +348,56 @@ function showJudgement(rawHitError) {
             uiImageEarly.classList.add("invisible");
             uiImageLate.classList.add("invisible");
         }
-    } else {
-        uiText.classList.remove("animated-hide", "snap-hide");
-        uiImageEarly.classList.remove("animated-hide", "snap-hide");
-        uiImageLate.classList.remove("animated-hide", "snap-hide");
-        uiText.classList.add("invisible");
-        uiImageEarly.classList.add("invisible");
-        uiImageLate.classList.add("invisible");
+
+        if (settings.useFadeAnimation) {
+            judgementFadeTimeout = setTimeout(() => {
+                uiText.classList.add("animated-hide");
+                uiImageEarly.classList.add("animated-hide");
+                uiImageLate.classList.add("animated-hide");
+            }, 50);
+            judgementResetTimeout = setTimeout(resetJudgement, 50 + settings.fadeDuration);
+        } else {
+            judgementResetTimeout = setTimeout(resetJudgement, settings.displayDuration);
+        }
     }
 
     const safeHitError = hitError === 0 ? 0 : hitError;
-    let shouldShowMs = false;
 
-    if (settings.showHitErrorMs) {
-        if (isPerfect) {
-            shouldShowMs = settings.showPerfectMs;
-        } else {
-            shouldShowMs = !settings.hideEarlyLateMs;
-        }
-    }
+    if (wantMs || settings.alwaysShowHitError) {
+        if (msFadeTimeout) clearTimeout(msFadeTimeout);
+        if (msResetTimeout) clearTimeout(msResetTimeout);
 
-    if (safeHitError === 0 && settings.alwaysShowHitError) {
-        shouldShowMs = true;
-    }
-    
-    if (shouldShowMs) {
         uiMs.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
         void uiMs.offsetWidth; 
         
-        const prefix = safeHitError > 0 ? "+" : ""; 
-        
-        let decimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals));
+        let decimalPlaces = cachedDecimalPlaces;
         if (!cache.isLazer && cache.rate === 1) {
             decimalPlaces = 0; 
         }
-        
-        const msText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
-        uiMs.innerHTML = formatMs(msText);
-        uiMs.style.color = activeColor; 
-    } else {
-        uiMs.classList.remove("hide-visual");
-        uiMs.classList.add("invisible");
-    }
 
-    if (settings.useFadeAnimation) {
-        fadeTimeout = setTimeout(() => {
-            uiText.classList.add("animated-hide");
-            uiImageEarly.classList.add("animated-hide");
-            uiImageLate.classList.add("animated-hide");
-        }, 50);
-        resetTimeout = setTimeout(resetState, 50 + settings.fadeDuration);
-    } else {
-        fadeTimeout = setTimeout(resetState, settings.displayDuration);
+        if (wantMs) {
+            const prefix = safeHitError > 0 ? "+" : ""; 
+            uiMs.innerHTML = formatMs(`${prefix}${safeHitError.toFixed(decimalPlaces)}ms`);
+            uiMs.style.color = activeColor; 
+        } else {
+            uiMs.innerHTML = formatMs((0).toFixed(decimalPlaces) + "ms");
+            uiMs.style.color = settings.colorPerfect;
+        }
+
+        const totalDuration = settings.useFadeAnimation ? (50 + settings.fadeDuration) : settings.displayDuration;
+
+        if (settings.alwaysShowHitError) {
+            msResetTimeout = setTimeout(resetMs, totalDuration);
+        } else {
+            if (settings.useFadeAnimation) {
+                msFadeTimeout = setTimeout(() => {
+                    uiMs.classList.add("animated-hide");
+                }, 50);
+                msResetTimeout = setTimeout(resetMs, totalDuration);
+            } else {
+                msResetTimeout = setTimeout(resetMs, settings.displayDuration);
+            }
+        }
     }
 }
 
@@ -400,7 +430,10 @@ wsManager.api_v2_precise((data) => {
         const rawError = data.hitErrors[data.hitErrors.length - 1];
         
         if (!Number.isInteger(rawError)) {
-            cache.isLazer = true;
+            if (!cache.isLazer) {
+                cache.isLazer = true;
+                isReset = false;
+            }
         }
         
         showJudgement(rawError);
