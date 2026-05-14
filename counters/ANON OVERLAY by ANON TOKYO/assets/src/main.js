@@ -78,5 +78,21 @@ var engine = new ZEngine(WS_URL, [
 ]);
 new GameplayHandler(engine, new ZEngine(WS_PRECISE_URL));
 new RankingPanelHandler(engine);
-if (query.get("hide_np") !== null) document.body.classList.add("hideNp");
+for (const [key, id] of [
+	["hide_np", "#np-container"],
+	["hide_leaderboard", "#leaderboard"],
+	["hide_combo", "#combo-container"],
+	["hide_ur", "#ur-container"],
+	["hide_judgements", "#judgements-container"],
+	["hide_key", "#key-container"],
+	["hide_profile", "#profile-container"],
+	["hide_ranking", "#rankingPanel"],
+	["hide_grade", "#grade-wrapper"],
+	["hide_performance", "#performance-container"],
+	["hide_score", "#score"],
+	["hide_accuracy", "#accuracy-container"]
+]) {
+	if (!query.has(key)) continue;
+	document.querySelector(id)?.classList.add("hidden!");
+}
 //#endregion
