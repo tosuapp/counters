@@ -225,7 +225,10 @@ function resetJudgement() {
 
 function resetMs() {
     uiMs.classList.remove("animated-hide");
-    if (isAlwaysShowMsEnabled()) {
+    
+    const alwaysShowMs = settings.alwaysShowHitError && settings.showHitErrorMs && settings.showPerfectMs;
+    
+    if (alwaysShowMs) {
         uiMs.classList.remove("invisible", "snap-hide", "hide-visual");
         let decimalPlaces = (!cache.isLazer && cache.rate === 1) ? 0 : cachedDecimalPlaces;
         uiMs.innerHTML = formatMs((0).toFixed(decimalPlaces) + "ms");
@@ -255,7 +258,9 @@ function resetState() {
     resetJudgement();
     resetMs();
 
-    if (isAlwaysShowMsEnabled()) {
+    const alwaysShowMs = settings.alwaysShowHitError && settings.showHitErrorMs && settings.showPerfectMs;
+
+    if (alwaysShowMs) {
         uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
         uiContainer.classList.add("active");
     } else {
@@ -288,7 +293,7 @@ function showJudgement(rawHitError) {
         resetMs();
     }
 
-    if (!wantJudgement && !wantMs && !wantAlwaysShow) return; 
+    if (!wantJudgement && !wantMs && !alwaysShowMs) return; 
 
     uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
     uiContainer.classList.add("active");
@@ -335,7 +340,7 @@ function showJudgement(rawHitError) {
 
     const safeHitError = hitError === 0 ? 0 : hitError;
 
-    if (wantMs || wantAlwaysShow) {
+    if (wantMs || alwaysShowMs) {
         clearMs();
 
         uiMs.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
@@ -354,7 +359,7 @@ function showJudgement(rawHitError) {
 
         const totalDuration = settings.useFadeAnimation ? (50 + settings.fadeDuration) : settings.displayDuration;
 
-        if (wantAlwaysShow) {
+        if (alwaysShowMs) {
             msResetTimeout = setTimeout(resetMs, totalDuration);
         } else if (settings.useFadeAnimation) {
             msFadeTimeout = setTimeout(() => uiMs.classList.add("animated-hide"), 50);
