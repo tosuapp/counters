@@ -223,10 +223,6 @@ function resetJudgement() {
     });
 }
 
-function isAlwaysShowMsEnabled() {
-    return settings.alwaysShowHitError && settings.showHitErrorMs && settings.showPerfectMs;
-}
-
 function resetMs() {
     uiMs.classList.remove("animated-hide");
     if (isAlwaysShowMsEnabled()) {
@@ -284,8 +280,7 @@ function showJudgement(rawHitError) {
         wantMs = isPerfect ? settings.showPerfectMs : !settings.hideEarlyLateMs;
     }
 
-    // Use the helper function here
-    const wantAlwaysShow = isAlwaysShowMsEnabled();
+    const alwaysShowMs = settings.alwaysShowHitError && settings.showHitErrorMs && settings.showPerfectMs;
 
     if (isPerfect && !settings.useFadeAnimation) {
         clearAll();
