@@ -50,18 +50,30 @@ class WebSocketManager {
     }
 }
 
-const calculateWindows = (mode, od, mods) => {
+const formatCache = new Map();
+const formatMs = (msString) => {
+    if (formatCache.has(msString)) return formatCache.get(msString);
+    const str = msString.split('').map(char => {
+        return /[0-9]/.test(char) ? `<span class="digit">${char}</span>` : `<span class="symbol">${char}</span>`;
+    }).join('');
+    
+    if (formatCache.size > 2000) formatCache.clear(); 
+    formatCache.set(msString, str);
+    return str;
+};
+
+const calculateWindows = (mode, od, mods, rate = 1) => { 
     if (mode === "mania") {
-        if (mods.includes("EZ")) return 22.5;
-        if (mods.includes("HR")) return 11.43;
-        return 16; // Fix it should be 16ms See: osu.ppy.sh/wiki/en/Gameplay/Judgement/osu%21mania
+        let baseWindow = 16;
+        if (mods.includes("EZ")) baseWindow = 22.5;
+        if (mods.includes("HR")) baseWindow = 11.43;
+        return baseWindow / rate; 
     }
-    if (mode === "taiko") {
-        const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
-        return 50 - 3 * modifiedOd; 
-    }
+
     const modifiedOd = mods.includes("EZ") ? od / 2 : (mods.includes("HR") ? Math.min(od * 1.4, 10) : od);
-    return 80 - 6 * modifiedOd; 
+
+    if (mode === "taiko") return (50 - 3 * modifiedOd) / rate; 
+    return (80 - 6 * modifiedOd) / rate; 
 };
 
 const DEFAULT_HOST = window.location.host;
@@ -69,14 +81,14 @@ const wsManager = new WebSocketManager(DEFAULT_HOST);
 
 const uiContainer = document.getElementById("judgement-container");
 const uiText = document.getElementById("judgement-text");
-const uiImage = document.getElementById("judgement-image");
+const uiImageEarly = document.getElementById("judgement-image-early");
+const uiImageLate = document.getElementById("judgement-image-late");
 const uiMs = document.getElementById("judgement-ms");
 
 let settings = {
     useCustomTimingWindow: false, customPerfectWindow: 16,
     useCustomImages: false, imageEarly: "early.png", imageLate: "late.png", imageSize: 64,
-    useCustomFontFile: false, customFontFileName: "Goldman-Bold.ttf",
-    font: "Verdana",
+    useCustomFontFile: false, customFontFileName: "Goldman-Bold.ttf", font: "Verdana",
     textEarly: "EARLY", textLate: "LATE",
     colorPerfect: "#ffffff", colorEarly: "#0000ff", colorLate: "#ff0000",
     fontSize: 32, judgementOffsetX: 0, judgementOffsetY: 0, showMainJudgement: true,
@@ -87,13 +99,29 @@ let settings = {
 };
 
 let cache = { 
-    state: "", isLazer: false,
-    mode: "osu", mods: "", od: 0, rate: 1, 
-    firstObjectTime: 0, calculatedPerfect: 16 
+    state: "", isLazer: false, mode: "osu", mods: "", od: 0, rate: 1, 
+    firstObjectTime: 0, calculatedPerfect: 16, lastTime: 0
 };
+
 let processedHits = 0;
-let fadeTimeout = null;
-let resetTimeout = null;
+let judgementFadeTimeout = null, judgementResetTimeout = null;
+let msFadeTimeout = null, msResetTimeout = null;
+let isReset = false, cachedDecimalPlaces = 2;
+
+const clearJudgement = () => {
+    clearTimeout(judgementFadeTimeout);
+    clearTimeout(judgementResetTimeout);
+};
+
+const clearMs = () => {
+    clearTimeout(msFadeTimeout);
+    clearTimeout(msResetTimeout);
+};
+
+const clearAll = () => {
+    clearJudgement();
+    clearMs();
+};
 
 function applyFontSettings() {
     let fontStack = `'${settings.font}', sans-serif`;
@@ -105,12 +133,7 @@ function applyFontSettings() {
             styleEl.id = "custom-font-style";
             document.head.appendChild(styleEl);
         }
-        styleEl.innerHTML = `
-            @font-face {
-                font-family: 'MyCustomOverlayFont';
-                src: url('./${settings.customFontFileName}');
-            }
-        `;
+        styleEl.innerHTML = `@font-face { font-family: 'MyCustomOverlayFont'; src: url('./${settings.customFontFileName}'); }`;
         fontStack = `'MyCustomOverlayFont', '${settings.font}', sans-serif`;
     } 
     document.documentElement.style.setProperty("--judgement-font", fontStack);
@@ -119,22 +142,28 @@ function applyFontSettings() {
 wsManager.commands((data) => {
     try {
         if (data.command === "getSettings") {
-            for (const [k, v] of Object.entries(data.message)) { settings[k] = v; }
+            Object.assign(settings, data.message);
             
-            document.documentElement.style.setProperty("--font-size", `${settings.fontSize}px`);
-            document.documentElement.style.setProperty("--image-size", `${settings.imageSize}px`);
-            document.documentElement.style.setProperty("--ms-font-size", `${settings.msFontSize}px`);
-            document.documentElement.style.setProperty("--fade-duration", `${settings.fadeDuration}ms`);
+            cachedDecimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals || 2));
             
-            document.documentElement.style.setProperty("--text-stroke", settings.useStrokeEffect ? `${settings.strokeThickness}px #000000` : "0px transparent");
-            document.documentElement.style.setProperty("--ms-text-stroke", settings.useStrokeEffect ? `${settings.msStrokeThickness}px #000000` : "0px transparent");
-            
-            document.documentElement.style.setProperty("--judgement-offset-x", `${settings.judgementOffsetX}px`);
-            document.documentElement.style.setProperty("--judgement-offset-y", `${settings.judgementOffsetY}px`);
-            document.documentElement.style.setProperty("--ms-offset-x", `${settings.msOffsetX}px`);
-            document.documentElement.style.setProperty("--ms-offset-y", `${settings.msOffsetY}px`);
+            const root = document.documentElement.style;
+            root.setProperty("--font-size", `${settings.fontSize}px`);
+            root.setProperty("--image-size", `${settings.imageSize}px`);
+            root.setProperty("--ms-font-size", `${settings.msFontSize}px`);
+            root.setProperty("--fade-duration", `${settings.fadeDuration}ms`);
+            root.setProperty("--text-stroke", settings.useStrokeEffect ? `${settings.strokeThickness}px #000000` : "0px transparent");
+            root.setProperty("--ms-text-stroke", settings.useStrokeEffect ? `${settings.msStrokeThickness}px #000000` : "0px transparent");
+            root.setProperty("--judgement-offset-x", `${settings.judgementOffsetX}px`);
+            root.setProperty("--judgement-offset-y", `${settings.judgementOffsetY}px`);
+            root.setProperty("--ms-offset-x", `${settings.msOffsetX}px`);
+            root.setProperty("--ms-offset-y", `${settings.msOffsetY}px`);
             
             applyFontSettings();
+            uiImageEarly.src = settings.imageEarly;
+            uiImageLate.src = settings.imageLate;
+            
+            isReset = false; 
+            if (cache.state === "play" && processedHits === 0) resetState();
         }
     } catch (error) {}
 });
@@ -142,193 +171,230 @@ wsManager.commands((data) => {
 wsManager.sendCommand("getSettings", window.COUNTER_PATH ? encodeURI(window.COUNTER_PATH) : "");
 
 wsManager.api_v2((data) => {
-    if (data.state && data.state.name) {
-        cache.state = data.state.name;
-        
-        if (cache.state === "play") {
-            cache.mode = data.play.mode.name;
-            cache.mods = data.play.mods.name;
-            cache.od = data.beatmap.stats.od.original;
-            cache.rate = data.play.mods.rate || 1;
-            cache.firstObjectTime = data.beatmap.time.firstObject;
-            
-            cache.calculatedPerfect = calculateWindows(cache.mode, cache.od, cache.mods, cache.rate);
-            
-            if (processedHits === 0) resetState(); 
-        } else {
-            if (fadeTimeout) clearTimeout(fadeTimeout);
-            if (resetTimeout) clearTimeout(resetTimeout);
-            
-            uiContainer.classList.remove("active", "animated-hide");
-            uiContainer.classList.add("snap-hide", "hide-visual");
-            uiText.classList.remove("animated-hide", "invisible");
-            uiText.classList.add("snap-hide");
-            uiImage.classList.remove("animated-hide", "invisible");
-            uiImage.classList.add("snap-hide");
-            uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
-            uiMs.classList.add("snap-hide");
-            
-            processedHits = 0;
-            cache.isLazer = false; 
+    if (!data.state || !data.state.name) return;
+
+    const prevState = cache.state;
+    cache.state = data.state.name;
+    
+    if (cache.state === "play") {
+        if (prevState !== "play") {
+            uiContainer.classList.add("startup-hidden");
+            setTimeout(() => uiContainer.classList.remove("startup-hidden"), 1000);
         }
+
+        const mode = data.play.mode.name;
+        const mods = data.play.mods.name;
+        const od = data.beatmap.stats.od.original;
+        const rate = data.play.mods.rate || 1;
+        
+        if (cache.mode !== mode || cache.mods !== mods || cache.od !== od || cache.rate !== rate) {
+            Object.assign(cache, { mode, mods, od, rate });
+            cache.calculatedPerfect = calculateWindows(mode, od, mods, rate);
+            isReset = false; 
+        }
+
+        cache.firstObjectTime = data.beatmap.time.firstObject;
+        if (processedHits === 0) resetState(); 
+
+    } else {
+        clearAll();
+        
+        uiContainer.classList.remove("active", "animated-hide", "startup-hidden");
+        uiContainer.classList.add("snap-hide", "hide-visual");
+        
+        [uiText, uiImageEarly, uiImageLate].forEach(el => {
+            el.classList.remove("animated-hide", "invisible");
+            el.classList.add("snap-hide");
+        });
+
+        uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
+        uiMs.classList.add("snap-hide");
+        
+        processedHits = 0;
+        cache.isLazer = false; 
+        isReset = false; 
     }
 }, ["state", { field: "play", keys: ["mode", "mods"] }, { field: "beatmap", keys: ["mode", "stats", "time"] }]);
 
+function resetJudgement() {
+    [uiText, uiImageEarly, uiImageLate].forEach(el => {
+        el.classList.remove("animated-hide");
+        el.classList.add("snap-hide", "invisible");
+    });
+}
+
+function resetMs() {
+    uiMs.classList.remove("animated-hide");
+    
+    const alwaysShowMs = settings.alwaysShowHitError && settings.showHitErrorMs && settings.showPerfectMs;
+    
+    if (alwaysShowMs) {
+        uiMs.classList.remove("invisible", "snap-hide", "hide-visual");
+        let decimalPlaces = (!cache.isLazer && cache.rate === 1) ? 0 : cachedDecimalPlaces;
+        uiMs.innerHTML = formatMs((0).toFixed(decimalPlaces) + "ms");
+        uiMs.style.color = settings.colorPerfect;
+    } else {
+        uiMs.classList.add("snap-hide", "invisible");
+    }
+}
+
 function resetState() {
-    if (cache.state !== "play") return; 
+    if (cache.state !== "play" || isReset) return; 
+    isReset = true;
+
+    clearAll();
 
     if (settings.useCustomImages) {
-        uiImage.src = settings.imageEarly;
-        uiImage.classList.remove("hide-visual");
+        uiImageEarly.classList.remove("hide-visual");
+        uiImageLate.classList.add("hide-visual"); 
         uiText.classList.add("hide-visual");
     } else {
         uiText.innerText = settings.textEarly;
         uiText.classList.remove("hide-visual");
-        uiImage.classList.add("hide-visual");
+        uiImageEarly.classList.add("hide-visual");
+        uiImageLate.classList.add("hide-visual");
     }
 
-    if (settings.alwaysShowHitError) {
+    resetJudgement();
+    resetMs();
+
+    const alwaysShowMs = settings.alwaysShowHitError && settings.showHitErrorMs && settings.showPerfectMs;
+
+    if (alwaysShowMs) {
         uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
         uiContainer.classList.add("active");
-        
-        uiText.classList.remove("animated-hide", "snap-hide");
-        uiText.classList.add("invisible");
-        uiImage.classList.remove("animated-hide", "snap-hide");
-        uiImage.classList.add("invisible");
-        
-        uiMs.classList.remove("hide-visual", "invisible", "animated-hide", "snap-hide");
-        
-        let decimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals));
-        if (!cache.isLazer && cache.rate === 1) {
-            decimalPlaces = 0; 
-        }
-        
-        uiMs.innerText = (0).toFixed(decimalPlaces) + "ms";
-        uiMs.style.color = settings.colorPerfect;
     } else {
         uiContainer.classList.remove("active");
         uiContainer.classList.add("snap-hide", "hide-visual");
-        
-        uiText.classList.remove("animated-hide", "invisible");
-        uiText.classList.add("snap-hide");
-        uiImage.classList.remove("animated-hide", "invisible");
-        uiImage.classList.add("snap-hide");
-        uiMs.classList.remove("animated-hide", "invisible", "hide-visual");
-        uiMs.classList.add("snap-hide");
     }
 }
 
 function showJudgement(rawHitError) {
     if (cache.state !== "play") return; 
+    isReset = false; 
 
     const hitError = rawHitError / cache.rate;
     const threshold = settings.useCustomTimingWindow ? settings.customPerfectWindow : cache.calculatedPerfect;
     const isPerfect = Math.abs(hitError) <= threshold;
     const isEarly = hitError < 0;
 
-    if (isPerfect && !settings.showPerfectMs && !settings.alwaysShowHitError) {
-        if (fadeTimeout) clearTimeout(fadeTimeout);
-        if (resetTimeout) clearTimeout(resetTimeout);
-        resetState();
-        return; 
+    const wantJudgement = !isPerfect;
+    let wantMs = false;
+
+    if (settings.showHitErrorMs) {
+        wantMs = isPerfect ? settings.showPerfectMs : !settings.hideEarlyLateMs;
     }
 
-    if (fadeTimeout) clearTimeout(fadeTimeout);
-    if (resetTimeout) clearTimeout(resetTimeout);
-    
+    const alwaysShowMs = settings.alwaysShowHitError && settings.showHitErrorMs && settings.showPerfectMs;
+
+    if (isPerfect && !settings.useFadeAnimation) {
+        clearAll();
+        resetJudgement();
+        resetMs();
+    }
+
+    if (!wantJudgement && !wantMs && !alwaysShowMs) return; 
+
     uiContainer.classList.remove("animated-hide", "snap-hide", "hide-visual");
     uiContainer.classList.add("active");
     
-    let activeColor;
-    if (isPerfect) activeColor = settings.colorPerfect;
-    else if (isEarly) activeColor = settings.colorEarly;
-    else activeColor = settings.colorLate;
+    let activeColor = isPerfect ? settings.colorPerfect : (isEarly ? settings.colorEarly : settings.colorLate);
 
-    if (!isPerfect) {
-        uiText.classList.remove("animated-hide", "snap-hide", "invisible");
-        uiImage.classList.remove("animated-hide", "snap-hide", "invisible");
-        void uiText.offsetWidth;
-        void uiImage.offsetWidth;
+    if (wantJudgement) {
+        clearJudgement();
+
+        [uiText, uiImageEarly, uiImageLate].forEach(el => {
+            el.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
+        });
 
         if (settings.useCustomImages) {
             uiText.classList.add("hide-visual");
-            uiImage.classList.remove("hide-visual");
-            uiImage.src = isEarly ? settings.imageEarly : settings.imageLate;
+            if (isEarly) {
+                uiImageLate.classList.add("hide-visual");
+                void uiImageEarly.offsetWidth;
+            } else {
+                uiImageEarly.classList.add("hide-visual");
+                void uiImageLate.offsetWidth; 
+            }
         } else {
-            uiImage.classList.add("hide-visual");
-            uiText.classList.remove("hide-visual");
+            uiImageEarly.classList.add("hide-visual");
+            uiImageLate.classList.add("hide-visual");
             uiText.innerText = isEarly ? settings.textEarly : settings.textLate;
             uiText.style.color = activeColor;
+            void uiText.offsetWidth; 
         }
-        
+
         if (!settings.showMainJudgement) {
-            uiText.classList.add("invisible");
-            uiImage.classList.add("invisible");
+            [uiText, uiImageEarly, uiImageLate].forEach(el => el.classList.add("invisible"));
         }
-    } else {
-        if (!settings.useFadeAnimation) {
-            uiText.classList.add("invisible");
-            uiImage.classList.add("invisible");
+
+        if (settings.useFadeAnimation) {
+            judgementFadeTimeout = setTimeout(() => {
+                [uiText, uiImageEarly, uiImageLate].forEach(el => el.classList.add("animated-hide"));
+            }, 50);
+            judgementResetTimeout = setTimeout(resetJudgement, 50 + settings.fadeDuration);
+        } else {
+            judgementResetTimeout = setTimeout(resetJudgement, settings.displayDuration);
         }
     }
 
     const safeHitError = hitError === 0 ? 0 : hitError;
-    let shouldShowMs = false;
 
-    if (settings.showHitErrorMs) {
-        if (isPerfect) {
-            shouldShowMs = settings.showPerfectMs;
-        } else {
-            shouldShowMs = !settings.hideEarlyLateMs;
-        }
-    }
+    if (wantMs || alwaysShowMs) {
+        clearMs();
 
-    if (safeHitError === 0 && settings.alwaysShowHitError) {
-        shouldShowMs = true;
-    }
-    
-    if (shouldShowMs) {
         uiMs.classList.remove("animated-hide", "snap-hide", "invisible", "hide-visual");
-        void uiMs.offsetWidth; 
+        void uiMs.offsetWidth;
         
-        const prefix = safeHitError > 0 ? "+" : ""; 
-        
-        let decimalPlaces = Math.max(0, Math.min(20, settings.hitErrorDecimals));
-        if (!cache.isLazer && cache.rate === 1) {
-            decimalPlaces = 0; 
-        }
-        
-        uiMs.innerText = `${prefix}${safeHitError.toFixed(decimalPlaces)}ms`;
-        uiMs.style.color = activeColor; 
-    } else {
-        uiMs.classList.remove("hide-visual");
-        uiMs.classList.add("invisible");
-    }
+        let decimalPlaces = (!cache.isLazer && cache.rate === 1) ? 0 : cachedDecimalPlaces;
 
-    if (settings.useFadeAnimation) {
-        fadeTimeout = setTimeout(() => {
-            uiText.classList.add("animated-hide");
-            uiImage.classList.add("animated-hide");
-        }, 50);
-        resetTimeout = setTimeout(resetState, 50 + settings.fadeDuration);
-    } else {
-        fadeTimeout = setTimeout(resetState, settings.displayDuration);
+        if (wantMs) {
+            const prefix = safeHitError > 0 ? "+" : ""; 
+            uiMs.innerHTML = formatMs(`${prefix}${safeHitError.toFixed(decimalPlaces)}ms`);
+            uiMs.style.color = activeColor; 
+        } else {
+            uiMs.innerHTML = formatMs((0).toFixed(decimalPlaces) + "ms");
+            uiMs.style.color = settings.colorPerfect;
+        }
+
+        const totalDuration = settings.useFadeAnimation ? (50 + settings.fadeDuration) : settings.displayDuration;
+
+        if (alwaysShowMs) {
+            msResetTimeout = setTimeout(resetMs, totalDuration);
+        } else if (settings.useFadeAnimation) {
+            msFadeTimeout = setTimeout(() => uiMs.classList.add("animated-hide"), 50);
+            msResetTimeout = setTimeout(resetMs, totalDuration);
+        } else {
+            msResetTimeout = setTimeout(resetMs, settings.displayDuration);
+        }
     }
 }
 
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return; 
 
+    if (data.currentTime < (cache.lastTime || 0) - 50 || data.hitErrors.length < processedHits) {
+        isReset = false; 
+        resetState();
+        cache.lastTime = data.currentTime;
+        processedHits = data.hitErrors.length === 0 ? 0 : data.hitErrors.length;
+        return;
+    }
+    
+    cache.lastTime = data.currentTime;
+
     if (data.currentTime < cache.firstObjectTime || data.hitErrors.length === 0) {
         processedHits = 0;
         resetState(); 
         return;
     }
+    
     if (data.hitErrors.length > processedHits) {
         const rawError = data.hitErrors[data.hitErrors.length - 1];
         
-        if (!Number.isInteger(rawError)) {
+        if (!Number.isInteger(rawError) && !cache.isLazer) {
             cache.isLazer = true;
+            isReset = false;
         }
         
         showJudgement(rawError);

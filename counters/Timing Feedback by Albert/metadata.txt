@@ -1,6 +1,7 @@
 Usecase: Ingame Overlay, OBS Overlay
 Name: Timing Feedback
-Version: 1.0.1
+Version: 2.0.0
 Author: Albert
 CompatibleWith: Tosu
 Resolution: 500x250
+authorLinks: https://github.com/AlberttFrgk/
