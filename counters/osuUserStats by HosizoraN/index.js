@@ -100,59 +100,51 @@ socket.api_v2(({ profile, play, beatmap, server }) => {
     else UserRank.style.color = `#fff`;
 
     //
-    if (cache['MatchmakingStats'] && cache['profile.matchmaking'] != null) return;
-
     if (cache['profile.globalRank'] != profile.globalRank) {
         cache['profile.globalRank'] = profile.globalRank;
-
-        UserRank.textContent = "#" + profile.globalRank;
     };
 
     if (cache['profile.pp'] != profile.pp) {
         cache['profile.pp'] = profile.pp;
-
-        UserPP.textContent = `Performance: ${profile.pp.toLocaleString()}pp`;
     };
 
     if (cache['profile.accuracy'] != profile.accuracy) {
         cache['profile.accuracy'] = profile.accuracy;
-
-        UserAcc.textContent = `Accuracy: ${profile.accuracy.toFixed(2)}%`;
     };
 
 
     if (cache['profile.playCount'] != profile.playCount || cache['profile.level'] != profile.level) {
         cache['profile.playCount'] = profile.playCount;
         cache['profile.level'] = profile.level;
-
-        UserPlayCountAndLevels.textContent = `Play Count: ${profile.playCount} (Lv${profile.level.toFixed(0)})`
     };
 
     //
-    if (cache['profile.matchmaking'] == null && cache['MatchmakingStats'] || !cache['MatchmakingStats']) return;
-
     if (cache['profile.matchmaking.rank'] != profile.matchmaking.rank) {
         cache['profile.matchmaking.rank'] = profile.matchmaking.rank;
-
-        UserRank.textContent = `#` + profile.matchmaking.rank || 0;
     };
 
     if (cache['profile.matchmaking.rating'] != profile.matchmaking.rating) {
         cache['profile.matchmaking.rating'] = profile.matchmaking.rating;
-
-        UserPP.textContent = `Rating: ` + profile.matchmaking.rating.toLocaleString();
     };
 
     if (cache['profile.matchmaking.wins'] != profile.matchmaking.wins) {
         cache['profile.matchmaking.wins'] = profile.matchmaking.wins;
-
-        UserAcc.textContent = `Wins: ` + profile.matchmaking.wins;
     };
 
     if (cache['profile.matchmakingplays'] != profile.matchmaking.plays) {
         cache['profile.matchmakingplays'] = profile.matchmaking.plays;
+    };
 
+    if (cache['profile.matchmaking'] != null && cache['MatchmakingStats']) {;
+        UserRank.textContent = `#` + profile.matchmaking.rank || 0;
+        UserPP.textContent = `Rating: ` + profile.matchmaking.rating.toLocaleString();
+        UserAcc.textContent = `Wins: ` + profile.matchmaking.wins;
         UserPlayCountAndLevels.textContent = `Plays: ` + profile.matchmaking.plays;
+    } else {
+        UserRank.textContent = "#" + profile.globalRank;
+        UserPP.textContent = `Performance: ${Math.round(profile.pp).toLocaleString()}pp`;
+        UserAcc.textContent = `Accuracy: ${profile.accuracy.toFixed(2)}%`;
+        UserPlayCountAndLevels.textContent = `Play Count: ${profile.playCount} (Lv${profile.level.toFixed(0)})`
     };
 
     } catch (error) {
