@@ -1,0 +1,218 @@
+[
+    {
+        "uniqueID": "color300g",
+        "type": "color",
+        "title": "MAX (300g) Color",
+        "description": "Used on Mania MAX (300g).",
+        "options": [],
+        "value": "#ffffff"
+    },
+    {
+        "uniqueID": "color300",
+        "type": "color",
+        "title": "Perfect (300) Color",
+        "description": "Used on Mania Perfect (300), osu! 300, and Taiko Great.",
+        "options": [],
+        "value": "#ffcc22"
+    },
+    {
+        "uniqueID": "color200",
+        "type": "color",
+        "title": "Great (200) Color",
+        "description": "Used on Mania Great (200), osu! 100, and Taiko Ok.",
+        "options": [],
+        "value": "#47e547"
+    },
+    {
+        "uniqueID": "color100",
+        "type": "color",
+        "title": "Good (100) Color",
+        "description": "Used on Mania Good (100) and osu! 50.",
+        "options": [],
+        "value": "#50b4ff"
+    },
+    {
+        "uniqueID": "color50",
+        "type": "color",
+        "title": "Bad (50) Color",
+        "description": "Used on Mania Bad (50).",
+        "options": [],
+        "value": "#888888"
+    },
+    {
+        "uniqueID": "color0",
+        "type": "color",
+        "title": "Miss (0) Color",
+        "description": "Used on Misses across all game modes.",
+        "options": [],
+        "value": "#ff4747"
+    },
+    {
+        "uniqueID": "useDynamicTickColor",
+        "type": "checkbox",
+        "title": "Use Dynamic Tick Color",
+        "description": "Colors ticks based on hit window. Uncheck to use Solid Tick Color.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "tickColor",
+        "type": "color",
+        "title": "Solid Tick Color",
+        "description": "Used if Dynamic Tick Color is disabled.",
+        "options": [],
+        "value": "#ffffff"
+    },
+    {
+        "uniqueID": "tickWidth",
+        "type": "number",
+        "title": "Tick Width (px)",
+        "description": "",
+        "options": [],
+        "value": 6
+    },
+    {
+        "uniqueID": "tickHeight",
+        "type": "number",
+        "title": "Tick Height (px)",
+        "description": "",
+        "options": [],
+        "value": 30
+    },
+    {
+        "uniqueID": "centerLineWidth",
+        "type": "number",
+        "title": "Center Line Width (px)",
+        "description": "",
+        "options": [],
+        "value": 6
+    },
+    {
+        "uniqueID": "centerLineHeight",
+        "type": "number",
+        "title": "Center Line Height (px)",
+        "description": "",
+        "options": [],
+        "value": 40
+    },
+    {
+        "uniqueID": "tickOffsetY",
+        "type": "number",
+        "title": "Tick Y-Offset (px)",
+        "description": "Moves ticks up (negative) or down (positive).",
+        "options": [],
+        "value": 0
+    },
+    {
+        "uniqueID": "tickDuration",
+        "type": "number",
+        "title": "Tick Hold Duration (ms)",
+        "description": "",
+        "options": [],
+        "value": 1000
+    },
+    {
+        "uniqueID": "fadeOutDuration",
+        "type": "number",
+        "title": "Tick Fade Duration (ms)",
+        "description": "",
+        "options": [],
+        "value": 1000
+    },
+    {
+        "uniqueID": "barHeight",
+        "type": "number",
+        "title": "Background Bar Height (px)",
+        "description": "",
+        "options": [],
+        "value": 20
+    },
+    {
+        "uniqueID": "showHitCounts",
+        "type": "checkbox",
+        "title": "Show Hit Counts",
+        "description": "Display the hit count numbers below the bar.",
+        "options": [],
+        "value": true
+    },
+    {
+        "uniqueID": "hitCountsFontSize",
+        "type": "number",
+        "title": "Hit Counts Font Size (px)",
+        "description": "",
+        "options": [],
+        "value": 40
+    },
+    {
+        "uniqueID": "hitCountsOffsetY",
+        "type": "number",
+        "title": "Hit Counts Y-Offset (px)",
+        "description": "Move the hit counts down (positive) or up (negative).",
+        "options": [],
+        "value": 0
+    },
+    {
+        "uniqueID": "hitCountsOnTop",
+        "type": "checkbox",
+        "title": "Hit Counts Position on Top",
+        "description": "Move hit counts above to top. Disable for bottom.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "hideArrow",
+        "type": "checkbox",
+        "title": "Hide Hit Error Arrow",
+        "description": "Hides the median hit error arrow.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "hideHitErrorBar",
+        "type": "checkbox",
+        "title": "Hide Hit Error Bar",
+        "description": "Hides the colored timing bar and hit ticks.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "arrowOnTop",
+        "type": "checkbox",
+        "title": "Arrow Position on Top",
+        "description": "Move arrow hit error to top. Disable for bottom.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "showBg",
+        "type": "checkbox",
+        "title": "Show Bar Background",
+        "description": "Draws a background box behind the hit error visualizer.",
+        "options": [],
+        "value": false
+    },
+    {
+        "uniqueID": "bgColor",
+        "type": "color",
+        "title": "Background Color",
+        "description": "",
+        "options": [],
+        "value": "#000000"
+    },
+    {
+        "uniqueID": "bgOpacity",
+        "type": "number",
+        "title": "Background Opacity (%)",
+        "description": "0 = Transparent, 100 = Solid Color",
+        "options": [],
+        "value": 50
+    },
+    {
+        "uniqueID": "bgPadding",
+        "type": "number",
+        "title": "Background Padding (px)",
+        "description": "Adds extra width/height so the background is larger than the ticks/bar.",
+        "options": [],
+        "value": 10
+    }
+]
