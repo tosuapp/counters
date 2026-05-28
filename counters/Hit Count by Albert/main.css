@@ -1,0 +1,109 @@
+body, html {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: var(--main-font, Arial, sans-serif);
+}
+
+#hitcount_box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 500ms ease-in-out;
+    opacity: 0;
+}
+
+#countBox {
+    display: grid;
+    grid-template-columns: var(--label-width, 130px) 10px var(--val-width, 90px);
+    grid-auto-flow: dense;
+    line-height: var(--line-height, 1.25); 
+    padding: 4px;
+}
+
+#countBox.swapped {
+    grid-template-columns: var(--val-width, 90px) 10px var(--label-width, 140px);
+}
+
+#countBox > div {
+    display: contents;
+}
+
+#countBox > div.hidden {
+    display: none !important;
+}
+
+.spacer {
+    display: block !important;
+    grid-column: 1 / -1;
+    height: 0.75em; 
+}
+
+.spacer.hidden {
+    display: none !important;
+}
+
+.row-label, .row-val {
+    font-size: var(--scaled-font-size, 20pt); 
+    white-space: nowrap;
+    color: inherit;
+    text-shadow: 1.5px 1.5px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.row-label {
+    grid-column: 1;
+    text-align: left;
+    justify-self: start;
+}
+
+.row-val {
+    grid-column: 3; 
+    text-align: right;
+    justify-self: end;
+    font-variant-numeric: tabular-nums; 
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Swapped State Modifiers */
+#countBox.swapped .row-label {
+    grid-column: 3;
+    text-align: right;
+    justify-self: end;
+}
+
+#countBox.swapped .row-val {
+    grid-column: 1;
+    text-align: left;
+    justify-self: start;
+}
+
+/* Specific Variable Map for Labels and Numbers */
+#pp .row-label { color: var(--color-pp-label); }
+#pp .row-val { color: var(--color-pp-val); }
+#ur .row-label { color: var(--color-ur-label); }
+#ur .row-val { color: var(--color-ur-val); }
+#ratio .row-label { color: var(--color-ratio-label); }
+#ratio .row-val { color: var(--color-ratio-val); }
+#maxCombo .row-label { color: var(--color-combo-label); }
+#maxCombo .row-val { color: var(--color-combo-val); }
+
+#h300g .row-label { color: var(--color-300g-label); }
+#h300g .row-val { color: var(--color-300g-val); }
+#h300 .row-label { color: var(--color-300-label); }
+#h300 .row-val { color: var(--color-300-val); }
+#h200 .row-label { color: var(--color-200-label); }
+#h200 .row-val { color: var(--color-200-val); }
+#h100 .row-label { color: var(--color-100-label); }
+#h100 .row-val { color: var(--color-100-val); }
+#h50 .row-label { color: var(--color-50-label); }
+#h50 .row-val { color: var(--color-50-val); }
+#miss .row-label { color: var(--color-miss-label); }
+#miss .row-val { color: var(--color-miss-val); }
+
+#earlyCount .row-label { color: var(--color-early-label); }
+#earlyCount .row-val { color: var(--color-early-val); }
+#lateCount .row-label { color: var(--color-late-label); }
+#lateCount .row-val { color: var(--color-late-val); }
