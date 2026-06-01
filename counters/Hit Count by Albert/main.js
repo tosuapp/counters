@@ -188,8 +188,8 @@ async function autoScaleFont() {
     
     measurer.style.fontFamily = document.documentElement.style.getPropertyValue('--main-font');
     
-    const targetLabelW = settings .labelColumnWidth || 140;
-    const targetValW = settings .valueColumnWidth || 90;
+    const targetLabelW = settings.labelColumnWidth || 140;
+    const targetValW = settings.valueColumnWidth || 90;
 
     measurer.innerText = "Max Combo";
     const actualLabelW = measurer.offsetWidth || targetLabelW;
@@ -229,7 +229,7 @@ let displayTally = {
     std: [ {e:0, l:0, t:0}, {e:0, l:0, t:0}, {e:0, l:0, t:0} ]
 };
 
-let settings  = {
+let settings = {
     labelColumnWidth: 130, valueColumnWidth: 90, lineHeight: 1.25,
     fontName: "Arial", useCustomFont: false, customFontName: "font.ttf",
     globalTextColor: "#ffffff", swapLabelValue: false,
@@ -249,7 +249,7 @@ let settings  = {
 wsManager.commands((data) => {
     try {
         if (data.command !== "getSettings") return;
-        Object.assign(settings , data.message);
+        Object.assign(settings, data.message);
         applySettingsToUI();
     } catch (e) {}
 });
@@ -258,17 +258,17 @@ wsManager.sendCommand("getSettings", window.COUNTER_PATH ? encodeURI(window.COUN
 
 function applySettingsToUI() {
     const root = document.documentElement;
-    const g = settings .globalTextColor || "#ffffff";
+    const g = settings.globalTextColor || "#ffffff";
     const mode = cache.mode || "osu";
 
-    root.style.setProperty('--label-width', `${settings .labelColumnWidth || 140}px`);
-    root.style.setProperty('--val-width', `${settings .valueColumnWidth || 90}px`);
-    root.style.setProperty('--line-height', settings .lineHeight || 1.25);
+    root.style.setProperty('--label-width', `${settings.labelColumnWidth || 140}px`);
+    root.style.setProperty('--val-width', `${settings.valueColumnWidth || 90}px`);
+    root.style.setProperty('--line-height', settings.lineHeight || 1.25);
 
     let fontStyle = document.getElementById("custom-font-style");
-    const systemFont = settings .fontName ? `"${settings .fontName}", sans-serif` : "Arial, sans-serif";
+    const systemFont = settings.fontName ? `"${settings.fontName}", sans-serif` : "Arial, sans-serif";
 
-    if (settings .useCustomFont && settings .customFontName) {
+    if (settings.useCustomFont && settings.customFontName) {
         if (!fontStyle) {
             fontStyle = document.createElement("style");
             fontStyle.id = "custom-font-style";
@@ -277,7 +277,7 @@ function applySettingsToUI() {
         fontStyle.innerHTML = `
             @font-face {
                 font-family: 'CustomOverlayFont';
-                src: url('./${settings .customFontName}');
+                src: url('./${settings.customFontName}');
             }
         `;
         root.style.setProperty('--main-font', `'CustomOverlayFont', ${systemFont}`);
@@ -286,20 +286,20 @@ function applySettingsToUI() {
         root.style.setProperty('--main-font', systemFont);
     }
 
-    toggleClass(document.getElementById("countBox"), settings .swapLabelValue, "swapped");
+    toggleClass(document.getElementById("countBox"), settings.swapLabelValue, "swapped");
     
-    toggleClass(elPp, settings .hidePP);
-    toggleClass(elUr, settings .hideUR);
-    toggleClass(elRatio, settings .hideRatio);
-    toggleClass(elMaxCombo, settings .hideMaxCombo);
+    toggleClass(elPp, settings.hidePP);
+    toggleClass(elUr, settings.hideUR);
+    toggleClass(elRatio, settings.hideRatio);
+    toggleClass(elMaxCombo, settings.hideMaxCombo);
 
-    if (settings .hideHitCounts) {
+    if (settings.hideHitCounts) {
         [el300g, el300, el200, el100, el50, elMiss, brHits].forEach(el => toggleClass(el, true));
     } else {
         toggleClass(elMiss, false); toggleClass(brHits, false);
     }
 
-    const hideEL = settings .hideEarlyLate;
+    const hideEL = settings.hideEarlyLate;
     [elEarly, elLate, brEarlyLate].forEach(el => toggleClass(el, hideEL));
 
     const applyStatColor = (labelProp, valProp, condition, lCol, vCol) => {
@@ -307,22 +307,22 @@ function applySettingsToUI() {
         root.style.setProperty(valProp, condition ? (vCol || g) : g);
     };
 
-    applyStatColor('--color-pp-label', '--color-pp-val', settings .useCustomPPColors, settings .colorPPLabel, settings .colorPPVal);
-    applyStatColor('--color-ur-label', '--color-ur-val', settings .useCustomURColors, settings .colorURLabel, settings .colorURVal);
-    applyStatColor('--color-ratio-label', '--color-ratio-val', settings .useCustomRatioColors, settings .colorRatioLabel, settings .colorRatioVal);
-    applyStatColor('--color-combo-label', '--color-combo-val', settings .useCustomComboColors, settings .colorComboLabel, settings .colorComboVal);
-    applyStatColor('--color-early-label', '--color-early-val', settings .useCustomEarlyLateColors, settings .colorEarlyLabel, settings .colorEarlyVal);
-    applyStatColor('--color-late-label', '--color-late-val', settings .useCustomEarlyLateColors, settings .colorLateLabel, settings .colorLateVal);
+    applyStatColor('--color-pp-label', '--color-pp-val', settings.useCustomPPColors, settings.colorPPLabel, settings.colorPPVal);
+    applyStatColor('--color-ur-label', '--color-ur-val', settings.useCustomURColors, settings.colorURLabel, settings.colorURVal);
+    applyStatColor('--color-ratio-label', '--color-ratio-val', settings.useCustomRatioColors, settings.colorRatioLabel, settings.colorRatioVal);
+    applyStatColor('--color-combo-label', '--color-combo-val', settings.useCustomComboColors, settings.colorComboLabel, settings.colorComboVal);
+    applyStatColor('--color-early-label', '--color-early-val', settings.useCustomEarlyLateColors, settings.colorEarlyLabel, settings.colorEarlyVal);
+    applyStatColor('--color-late-label', '--color-late-val', settings.useCustomEarlyLateColors, settings.colorLateLabel, settings.colorLateVal);
 
-    applyModeColors(mode, settings , g);
+    applyModeColors(mode, settings, g);
     
     autoScaleFont();
 }
 
 function resetCounters() {
-    if (!settings .hideUR) updateRow(elUr, string.global.ur, "0.00");
-    if (!settings .hideRatio) updateRow(elRatio, string.global.ratio, "0:1");
-    if (!settings .hideEarlyLate) { updateRow(elEarly, string.global.early, "0"); updateRow(elLate, string.global.late, "0"); }
+    if (!settings.hideUR) updateRow(elUr, string.global.ur, "0.00");
+    if (!settings.hideRatio) updateRow(elRatio, string.global.ratio, "0:1");
+    if (!settings.hideEarlyLate) { updateRow(elEarly, string.global.early, "0"); updateRow(elLate, string.global.late, "0"); }
     
     hitTally.mania.forEach(t => { t.e = 0; t.l = 0; }); hitTally.taiko.forEach(t => { t.e = 0; t.l = 0; }); hitTally.std.forEach(t => { t.e = 0; t.l = 0; });
     displayTally.mania.forEach(t => { t.e = 0; t.l = 0; t.t = 0; }); displayTally.taiko.forEach(t => { t.e = 0; t.l = 0; t.t = 0; }); displayTally.std.forEach(t => { t.e = 0; t.l = 0; t.t = 0; });
@@ -338,7 +338,7 @@ wsManager.api_v2((data) => {
         if (state !== "play") resetCounters();
     }
 
-    if (!settings .hidePP) {
+    if (!settings.hidePP) {
         const ppValue = (state === 'play' || state === 'resultScreen') ? (data.play?.pp?.current || 0) : (data.performance?.pp?.current || data.play?.pp?.current || 0);
         updateRow(elPp, string.global.pp, Math.round(ppValue) + 'pp');
     }
@@ -346,7 +346,7 @@ wsManager.api_v2((data) => {
     if (state === "play") {
         const mode = data.play?.mode?.name ?? cache.mode;
         
-        if (!settings .hideMaxCombo) updateRow(elMaxCombo, string.global.combo, data.play?.combo?.max || 0);
+        if (!settings.hideMaxCombo) updateRow(elMaxCombo, string.global.combo, data.play?.combo?.max || 0);
 
         let od = cache.od;
         if (data.beatmap?.stats?.od !== undefined) {
@@ -369,7 +369,7 @@ wsManager.api_v2((data) => {
         const modeLabels = string.modes[mode] || string.modes.osu;
         
         const updateHitRow = (el, key, val) => {
-            if (settings .hideHitCounts) { toggleClass(el, true); return; }
+            if (settings.hideHitCounts) { toggleClass(el, true); return; }
             if (modeLabels[key]) { toggleClass(el, false); updateRow(el, modeLabels[key], val); } 
             else { toggleClass(el, true); }
         };
@@ -380,11 +380,11 @@ wsManager.api_v2((data) => {
         updateHitRow(el100,  'h100',  hits[100] || 0);
         updateHitRow(el50,   'h50',   hits[50] || 0);
         
-        if (!settings .hideHitCounts) updateRow(elMiss, string.global.miss, hits[0] || 0);
-        if (!settings .hideRatio) updateRow(elRatio, string.global.ratio, getRatioText(mode, hits));
+        if (!settings.hideHitCounts) updateRow(elMiss, string.global.miss, hits[0] || 0);
+        if (!settings.hideRatio) updateRow(elRatio, string.global.ratio, getRatioText(mode, hits));
 
         const isCatch = (mode === "catch" || mode === "fruits");
-        const hideEL = isCatch || settings .hideEarlyLate;
+        const hideEL = isCatch || settings.hideEarlyLate;
         [elEarly, elLate, brEarlyLate].forEach(el => toggleClass(el, hideEL));
 
         const totalHits = (hits.geki || 0) + (hits[300] || 0) + (hits.katu || 0) + (hits[100] || 0) + (hits[50] || 0) + (hits[0] || 0);
@@ -404,7 +404,7 @@ wsManager.api_v2((data) => {
         }
     }
     cache.state = state;
-});
+}, ["state", { field: "play", keys: ["mode", "mods", "hits", "combo", "pp"] }, { field: "beatmap", keys: ["stats"] }, { field: "performance", keys: ["pp"] }]);
 
 wsManager.api_v2_precise((data) => {
     if (cache.state !== "play") return;
@@ -454,7 +454,7 @@ wsManager.api_v2_precise((data) => {
         });
     }
 
-    if (!settings .hideUR) {
+    if (!settings.hideUR) {
         if (hitErrors.length > 0) {
             let sum = 0, sumSq = 0;
             const len = hitErrors.length;
@@ -469,4 +469,4 @@ wsManager.api_v2_precise((data) => {
             updateRow(elUr, string.global.ur, "0.00");
         }
     }
-});
+}, ["hitErrors", "currentTime"]);
