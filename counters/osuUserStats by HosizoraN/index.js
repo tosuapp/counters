@@ -126,8 +126,8 @@ socket.api_v2(({ profile, play, beatmap, server }) => {
             cache['profile.matchmaking.wins'] = profile.matchmaking.wins;
         };
 
-        if (cache['profile.matchmakingplays'] != profile.matchmaking.plays) {
-            cache['profile.matchmakingplays'] = profile.matchmaking.plays;
+        if (cache['profile.matchmaking.plays'] != profile.matchmaking.plays) {
+            cache['profile.matchmaking.plays'] = profile.matchmaking.plays;
         };
     };
 
