@@ -1,11 +1,5 @@
 # PP Blossom
 
-![PP Blossom song select preview](preview/example-song-select.gif)
-
-![PP Blossom HDDTHR example](preview/example-hddthr.png)
-
-![PP Blossom HDHR example](preview/example-hdhr.png)
-
 ## Features
 
 - Fullscreen dashboard designed for song select on a second monitor.
