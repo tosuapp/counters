@@ -1,13 +1,5 @@
 # PP Blossom
 
-Fullscreen PP dashboard for song select.
-
-Created by rosekki.
-
-This overlay displays the selected beatmap's SS, 99%, 98%, 97%, 96%, and 95% PP values using the performance data already provided by tosu.
-
-## Preview
-
 ![PP Blossom song select preview](preview/example-song-select.gif)
 
 ![PP Blossom HDDTHR example](preview/example-hddthr.png)
@@ -27,7 +19,7 @@ This overlay is static HTML, CSS, and JavaScript. It uses the official quickstar
 
 ## Credits / Assets
 
-- Overlay source code: Copyright (c) 2026 rosekki, licensed under the MIT License. See `LICENSE`.
+- Overlay source code: Copyright (c) 2026 rosekki, licensed under the MIT License. See [LICENSE](LICENSE).
 - SVG interface icons: from [icons0](https://icons0.dev/), licensed under the MIT License.
 - osu! mod icons: from [peppy/osu-resources](https://github.com/peppy/osu-resources), licensed under CC BY-NC 4.0.
 - DM Sans font files: from [Google Fonts](https://fonts.google.com/specimen/DM+Sans), licensed under the SIL Open Font License 1.1.
