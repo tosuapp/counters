@@ -196,6 +196,19 @@
 <img src="/.github/images/grind-timer by kiwec.png" /> 
 
 
+## Hit Count by Albert
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/hit count by albert v1.0.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| Compatible with | Tosu |
+| Size |  240x400 |
+
+
+<img src="/.github/images/hit count by albert.png" /> <img src="/.github/images/hit count by albert 1.png" /> <img src="/.github/images/hit count by albert 2.png" /> 
+
+
 ## HitCounts by unknown
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/hitcounts by unknown v1.0.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
@@ -266,6 +279,20 @@
 
 
 <img src="/.github/images/ingame3 by dartandr.jpg" /> <img src="/.github/gifs/ingame3 by dartandr.gif" /> 
+
+
+## Judgement Visualizer by Albert
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/judgement visualizer by albert v1.0.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | Ingame Overlay, OBS Overlay |
+| Compatible with | Tosu |
+| Size |  1000x250 |
+
+
+<img src="/.github/gifs/judgement visualizer by albert.gif" /> 
 
 
 ## Kerli 1 by Dartandr
@@ -422,6 +449,20 @@
 
 
 <img src="/.github/images/minimallime by cyperdark.jpg" /> <img src="/.github/gifs/minimallime by cyperdark.gif" /> 
+
+
+## mitour by antoshika
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/mitour by antoshika v1.3.9.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://discord.com/3jBQs9buYe" target="_blank"><img height="35" src="https://img.shields.io/badge/discord-5865f2?style=for-the-badge&logo=discord&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | obs-overlay |
+| Compatible with | tosu |
+| Size |  1920x1080 |
+
+
+<img src="/.github/images/mitour by antoshika.png" /> 
 
 
 ## Modern by iSweat
