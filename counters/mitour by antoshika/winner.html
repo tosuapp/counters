@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link href="deps/fonts.css" rel="stylesheet">
+    <script src="js/socket.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="background-layer"></div>
+
+        <div id="winner-container" class="hidden">
+            <div class="left-panel">
+                <div class="avatar-ring">
+                    <div class="avatar-glow"></div>
+                    <div id="team-logo" class="team-logo"></div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+
+                <div class="winner-title">WINNER</div>
+
+                <div class="team-info-block">
+                    <div class="team-label" id="team-label">TEAM RED</div>
+                    <div class="team-name-box">
+                        <span id="team-name">TEAM NAME</span>
+                    </div>
+                </div>
+
+                <div class="players-grid" id="players-grid"></div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

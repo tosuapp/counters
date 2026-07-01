@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clipPath id="circleClip">
+            <circle cx="256" cy="256" r="240" />
+        </clipPath>
+        <linearGradient id="stalkGrad" x1="280" y1="380" x2="220" y2="220" gradientUnits="userSpaceOnUse">
+            <stop offset="0.1" stop-color="#FEFEE9"/>
+            <stop offset="0.6" stop-color="#CFE7A5"/>
+            <stop offset="1" stop-color="#96C95B"/>
+        </linearGradient>
+        <linearGradient id="leafGrad" x1="220" y1="250" x2="160" y2="140" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#96C95B"/>
+            <stop offset="1" stop-color="#4F8F27"/>
+        </linearGradient>
+    </defs>
+    <circle cx="256" cy="256" r="250" fill="white" />
+    <circle cx="256" cy="256" r="240" fill="#4B9EA2" />
+    <g clip-path="url(#circleClip)" fill="#3D8589" opacity="0.6">
+        <polygon points="256,50 100,400 412,400" />
+        <polygon points="120,150 -50,450 250,450" opacity="0.7"/>
+        <polygon points="390,150 200,450 550,450" opacity="0.7"/>
+        <polygon points="256,350 156,512 356,512" opacity="0.5"/>
+    </g>
+    <g stroke="#1A2E1A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M260,240 Q280,180 300,160 L285,210 Z" fill="#6BAF3F" />
+        <path d="M295,365 Q305,375 298,385 L275,405 Q265,412 258,402 L210,300 Q190,240 180,160 Q200,170 230,230 L255,280 Z" fill="url(#stalkGrad)" />
+        <path d="M210,300 Q190,240 180,160 Q200,170 230,230 L210,300 Z" fill="url(#leafGrad)" stroke="none"/>
+        <path d="M210,300 Q190,240 180,160 Q200,170 230,230" fill="none" />
+        <path d="M220,310 Q180,280 160,230 L205,280 Z" fill="#6BAF3F" />
+        <path d="M160,230 Q170,260 200,290 L220,310 Q185,290 160,230 Z" fill="#DCE775" />
+        <path d="M265,390 L225,305" stroke="white" stroke-width="3" opacity="0.4" fill="none" stroke-linecap="butt"/>
+    </g>
+</svg>
