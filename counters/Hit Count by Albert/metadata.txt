@@ -1,0 +1,7 @@
+ Usecase: Ingame Overlay, OBS Overlay
+Name: Hit Count
+Version: 1.0.0
+Author: Albert
+CompatibleWith: Tosu
+Resolution: 240x400
+authorLinks: https://github.com/AlberttFrgk/
