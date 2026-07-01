@@ -93,12 +93,6 @@ socket.api_v2(({ profile, play, beatmap, server }) => {
         UserCountryNameAndTimes.textContent = `${formattedTime} @ ${regionNames.of(profile.countryCode.name)}`;
     };
 
-    if (profile.globalRank <= 10 && (profile.globalRank !== 1 || profile.globalRank !== 0) && (cache['MatchmakingStats'] && cache['profile.matchmaking'] == null || !cache['MatchmakingStats'])) UserRank.style.color = `#ffff75`;
-    else if(profile.matchmaking.rank <= 10 && (profile.matchmaking.rank !== 1 || profile.matchmaking.rank !== 0) && (cache['MatchmakingStats'] && cache['profile.matchmaking'] != null || cache['MatchmakingStats'])) UserRank.style.color = `#ffff75`;
-    else if (profile.globalRank == 1 && (cache['MatchmakingStats'] && cache['profile.matchmaking'] == null || !cache['MatchmakingStats'])) UserRank.style.color = `#639aff`;
-    else if (profile.matchmaking.rank == 1 && (cache['MatchmakingStats'] && cache['profile.matchmaking'] != null || cache['MatchmakingStats'])) UserRank.style.color = `#639aff`;
-    else UserRank.style.color = `#fff`;
-
     //
     if (cache['profile.globalRank'] != profile.globalRank) {
         cache['profile.globalRank'] = profile.globalRank;
@@ -119,32 +113,40 @@ socket.api_v2(({ profile, play, beatmap, server }) => {
     };
 
     //
-    if (cache['profile.matchmaking.rank'] != profile.matchmaking.rank) {
-        cache['profile.matchmaking.rank'] = profile.matchmaking.rank;
+    if (cache['profile.matchmaking'] != null) {
+        if (cache['profile.matchmaking.rank'] != profile.matchmaking.rank) {
+            cache['profile.matchmaking.rank'] = profile.matchmaking.rank;
+        };
+
+        if (cache['profile.matchmaking.rating'] != profile.matchmaking.rating) {
+            cache['profile.matchmaking.rating'] = profile.matchmaking.rating;
+        };
+
+        if (cache['profile.matchmaking.wins'] != profile.matchmaking.wins) {
+            cache['profile.matchmaking.wins'] = profile.matchmaking.wins;
+        };
+
+        if (cache['profile.matchmaking.plays'] != profile.matchmaking.plays) {
+            cache['profile.matchmaking.plays'] = profile.matchmaking.plays;
+        };
     };
 
-    if (cache['profile.matchmaking.rating'] != profile.matchmaking.rating) {
-        cache['profile.matchmaking.rating'] = profile.matchmaking.rating;
-    };
-
-    if (cache['profile.matchmaking.wins'] != profile.matchmaking.wins) {
-        cache['profile.matchmaking.wins'] = profile.matchmaking.wins;
-    };
-
-    if (cache['profile.matchmakingplays'] != profile.matchmaking.plays) {
-        cache['profile.matchmakingplays'] = profile.matchmaking.plays;
-    };
+    if (profile.globalRank == 1 && (cache['MatchmakingStats'] && cache['profile.matchmaking'] == null || !cache['MatchmakingStats'])) UserRank.style.color = `#639aff`;
+    else if (profile.matchmaking?.rank == 1 && (cache['MatchmakingStats'] && cache['profile.matchmaking'] != null || cache['MatchmakingStats'])) UserRank.style.color = `#639aff`;
+    else if (profile.globalRank <= 10 && (profile.globalRank !== 1 || profile.globalRank !== 0) && (cache['MatchmakingStats'] && cache['profile.matchmaking'] == null || !cache['MatchmakingStats'])) UserRank.style.color = `#ffff75`;
+    else if (profile.matchmaking?.rank <= 10 && (profile.matchmaking?.rank !== 1 || profile.matchmaking?.rank !== 0) && (cache['MatchmakingStats'] && cache['profile.matchmaking'] != null || cache['MatchmakingStats'])) UserRank.style.color = `#ffff75`;
+    else UserRank.style.color = `#fff`;
 
     if (cache['profile.matchmaking'] != null && cache['MatchmakingStats']) {;
-        UserRank.textContent = `#` + profile.matchmaking.rank || 0;
-        UserPP.textContent = `Rating: ` + profile.matchmaking.rating.toLocaleString();
-        UserAcc.textContent = `Wins: ` + profile.matchmaking.wins;
-        UserPlayCountAndLevels.textContent = `Plays: ` + profile.matchmaking.plays;
+        UserRank.textContent = `#` + cache['profile.matchmaking.rank'];
+        UserPP.textContent = `Rating: ` + cache['profile.matchmaking.rating'].toLocaleString();
+        UserAcc.textContent = `Wins: ` + cache['profile.matchmaking.wins'];
+        UserPlayCountAndLevels.textContent = `Plays: ` + cache['profile.matchmakingplays'];
     } else {
-        UserRank.textContent = "#" + profile.globalRank;
-        UserPP.textContent = `Performance: ${Math.round(profile.pp).toLocaleString()}pp`;
-        UserAcc.textContent = `Accuracy: ${profile.accuracy.toFixed(2)}%`;
-        UserPlayCountAndLevels.textContent = `Play Count: ${profile.playCount} (Lv${profile.level.toFixed(0)})`
+        UserRank.textContent = "#" + cache['profile.globalRank'];
+        UserPP.textContent = `Performance: ${Math.round(cache['profile.pp']).toLocaleString()}pp`;
+        UserAcc.textContent = `Accuracy: ${cache['profile.accuracy'].toFixed(2)}%`;
+        UserPlayCountAndLevels.textContent = `Play Count: ${cache['profile.playCount']} (Lv${Math.round(cache['profile.level'])})`
     };
 
     } catch (error) {
