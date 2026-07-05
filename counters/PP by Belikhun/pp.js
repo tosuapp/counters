@@ -184,10 +184,10 @@ const PPPanel = {
 			}
 		}, { duration: 0.2 });
 
-		app.subscribe("currentTime", (value) => {
+		app.subscribe("beatmap.time.live", (value) => {
 			this.currentTime = value;
 			this.requestRender();
-		}, "precise");
+		});
 
 		app.subscribe("beatmap.time.firstObject", (value) => {
 			this.timeFrom = value;
