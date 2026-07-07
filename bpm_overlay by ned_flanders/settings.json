@@ -1,0 +1,106 @@
+[
+  {
+    "uniqueID": "averageNotes",
+    "type": "number",
+    "title": "Average Notes",
+    "description": "How many recent notes/keypresses are used for the rolling BPM average.",
+    "options": "",
+    "value": 5
+  },
+  {
+    "uniqueID": "timelineWindowSeconds",
+    "type": "number",
+    "title": "Timeline Window Seconds",
+    "description": "How many seconds of the map timeline are visible in the moving graph window.",
+    "options": "",
+    "value": 15
+  },
+  {
+    "uniqueID": "yAxisHeadroomPercent",
+    "type": "number",
+    "title": "Y-Axis Headroom Percent",
+    "description": "Extra space above the beatmap perfect BPM max. 0 means no extra space; 4 is the default; 50 is the maximum.",
+    "options": "",
+    "value": 4
+  },
+  {
+    "uniqueID": "yScaleExponent",
+    "type": "number",
+    "title": "Y-Axis Curve",
+    "description": "Controls non-linear y-axis scaling. 1 is linear; higher values give more visual space to high BPM.",
+    "options": "",
+    "value": 2
+  },
+  {
+    "uniqueID": "playerColor",
+    "type": "color",
+    "title": "Player Line Color",
+    "description": "Color of the live Player BPM graph line.",
+    "options": "",
+    "value": "#34d399"
+  },
+  {
+    "uniqueID": "perfectColor",
+    "type": "color",
+    "title": "Perfect Line Color",
+    "description": "Color of the calculated Perfect BPM graph line.",
+    "options": "",
+    "value": "#facc15"
+  },
+  {
+    "uniqueID": "progressColor",
+    "type": "color",
+    "title": "Progress Marker Color",
+    "description": "Color of the dotted current-time marker.",
+    "options": "",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "gridColor",
+    "type": "color",
+    "title": "Grid Color",
+    "description": "Color of the graph grid lines.",
+    "options": "",
+    "value": "#303641"
+  },
+  {
+    "uniqueID": "axisColor",
+    "type": "color",
+    "title": "Axis Color",
+    "description": "Color of the x and y axes.",
+    "options": "",
+    "value": "#6b7280"
+  },
+  {
+    "uniqueID": "labelColor",
+    "type": "color",
+    "title": "Label Color",
+    "description": "Color of graph labels and tick numbers.",
+    "options": "",
+    "value": "#cbd5e1"
+  },
+  {
+    "uniqueID": "panelColor",
+    "type": "color",
+    "title": "Panel Color",
+    "description": "Primary graph panel background color.",
+    "options": "",
+    "value": "#12161d"
+  },
+  {
+    "uniqueID": "backgroundColor",
+    "type": "color",
+    "title": "Background Color",
+    "description": "Secondary graph background color.",
+    "options": "",
+    "value": "#0a0c10"
+  },
+  {
+    "uniqueID": "textColor",
+    "type": "color",
+    "title": "Text Color",
+    "description": "Color of the title, timer, and legend text.",
+    "options": "",
+    "value": "#f4f7fb"
+  }
+]
