@@ -1,6 +1,0 @@
-Usecase: ingame, obs-overlay
-Name: BPM Graph Overlay
-Version: 1.000
-Author: ned_flanders
-CompatibleWith: gosu, tosu
-Resolution: 980x430

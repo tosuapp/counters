@@ -3,16 +3,75 @@ const IDLE_RESET_MS = 1000;
 const Y_AXIS_STEP = 50;
 const MIN_Y_MAX = 150;
 const TIMELINE_FUTURE_PADDING = 0.15;
+// Combined K1/K2 intervals count twice as many presses as the BPM convention osu! players expect.
 const OSU_BPM_DIVISOR = 4;
 const GAMEPLAY_STATES = new Set([2]);
 const RESULTS_STATES = new Set([7]);
 const GAMEPLAY_STATE_NAMES = new Set(['play']);
 const RESULTS_STATE_NAMES = new Set(['resultScreen']);
+// Keep websocket payloads small for tosu's contribution requirements and lower OBS/browser overhead.
+const V2_FILTERS = [
+  {
+    field: 'state',
+    keys: ['number', 'name'],
+  },
+  {
+    field: 'beatmap',
+    keys: [
+      'checksum',
+      'id',
+      'set',
+      'artist',
+      'title',
+      'version',
+      {
+        field: 'time',
+        keys: ['live', 'current', 'full', 'mp3Length', 'lastObject'],
+      },
+    ],
+  },
+  {
+    field: 'play',
+    keys: [
+      {
+        field: 'mods',
+        keys: ['rate'],
+      },
+    ],
+  },
+  {
+    field: 'folders',
+    keys: ['songs'],
+  },
+  {
+    field: 'files',
+    keys: ['beatmap'],
+  },
+  {
+    field: 'directPath',
+    keys: ['beatmapFile'],
+  },
+];
+const PRECISE_FILTERS = [
+  {
+    field: 'keys',
+    keys: [
+      {
+        field: 'k1',
+        keys: ['count'],
+      },
+      {
+        field: 'k2',
+        keys: ['count'],
+      },
+    ],
+  },
+];
 const config = {
-  averageNotes: 10,
-  timelineWindowSeconds: 30,
+  averageNotes: 5,
+  timelineWindowSeconds: 15,
   yAxisHeadroomPercent: 4,
-  yScaleExponent: 1.8,
+  yScaleExponent: 2,
   playerColor: '#34d399',
   perfectColor: '#facc15',
   progressColor: 'rgba(255, 255, 255, 0.42)',
@@ -40,7 +99,6 @@ const state = {
   playStateName: '',
   previousPlayState: 0,
   previousPlayStateName: '',
-  lastLiveTime: 0,
   backwardTimePackets: 0,
   player: createKeyState(),
   keyCounts: {
@@ -59,7 +117,6 @@ const state = {
 
 function createKeyState() {
   return {
-    count: 0,
     samples: [],
     points: [],
     previousClickTime: 0,
@@ -67,11 +124,12 @@ function createKeyState() {
   };
 }
 
-function connectSocket(path, onMessage, onOpen) {
+function connectSocket(path, onMessage, onOpen, filters = null) {
   const socket = new WebSocket(`ws://${HOST}${path}${getSocketLocationQuery(path)}`);
 
   socket.onopen = () => {
     console.log(`[bpm-overlay] connected ${path}`);
+    if (Array.isArray(filters)) socket.send(`applyFilters:${JSON.stringify(filters)}`);
     if (typeof onOpen === 'function') onOpen(socket);
   };
   socket.onmessage = (event) => {
@@ -83,7 +141,7 @@ function connectSocket(path, onMessage, onOpen) {
   };
   socket.onclose = () => {
     console.log(`[bpm-overlay] closed ${path}, reconnecting`);
-    setTimeout(() => connectSocket(path, onMessage, onOpen), 1000);
+    setTimeout(() => connectSocket(path, onMessage, onOpen, filters), 1000);
   };
   socket.onerror = (error) => console.log(`[bpm-overlay] socket error ${path}`, error);
 
@@ -177,8 +235,8 @@ function recalculateGraphsForAverageWindow() {
   valueEls.player.textContent = '0';
 }
 
-connectSocket('/websocket/v2', handleV2Data);
-connectSocket('/websocket/v2/precise', handlePreciseData);
+connectSocket('/websocket/v2', handleV2Data, null, V2_FILTERS);
+connectSocket('/websocket/v2/precise', handlePreciseData, null, PRECISE_FILTERS);
 connectCommands();
 
 async function handleV2Data(data) {
@@ -317,8 +375,6 @@ async function loadPerfectBpmPoints(filePath) {
 function parsePerfectBpmPoints(osuText) {
   const lines = osuText.split(/\r?\n/);
   const hitTimes = [];
-  const points = [];
-  const samples = [];
   let inHitObjects = false;
 
   for (const line of lines) {
@@ -373,6 +429,7 @@ function buildPerfectBpmPoints(hitTimes) {
 
     if (!Number.isFinite(osuBpm) || osuBpm <= 0 || osuBpm >= 1200) continue;
 
+    // Long breaks should start a fresh average, matching the live player idle reset.
     if (elapsedMs > idleThreshold) samples.length = 0;
 
     samples.push(osuBpm);
@@ -472,7 +529,6 @@ function setLiveTime(live) {
   }
 
   state.liveTime = nextTime;
-  state.lastLiveTime = nextTime;
 }
 
 function registerKeypresses(key, amount = 1) {
@@ -579,7 +635,6 @@ function drawAxes(padding, chartWidth, chartHeight, yMax) {
   ctx.fillText(formatTime(getViewEndTime()), padding.left + chartWidth, padding.top + chartHeight + 24);
   ctx.textAlign = 'left';
   ctx.fillText(formatTime(getViewStartTime()), padding.left, padding.top + chartHeight + 24);
-  // ctx.fillText(`${Math.round(yMax)} max`, padding.left + 8, padding.top + 15);
 }
 
 function drawProgressMarker(padding, chartWidth, chartHeight) {
@@ -725,6 +780,7 @@ function getYMax() {
 }
 
 function getDisplayPoints() {
+  // Results screen packets can arrive after gameplay stops, so keep the last gameplay graph available.
   if (!isGameplayState() && state.finishedGraph) return state.finishedGraph;
   if (!isGameplayState() && state.lastGraph) return state.lastGraph;
 
@@ -746,7 +802,6 @@ function resetPlayerLine() {
 }
 
 function resetKey(key) {
-  key.count = 0;
   key.samples = [];
   key.points = [];
   key.previousClickTime = 0;
