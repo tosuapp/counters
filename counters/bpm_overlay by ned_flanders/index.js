@@ -113,6 +113,16 @@ const state = {
   graphStartTime: 0,
   graphEndTime: 1,
   beatmapFilePath: '',
+  mapLineCache: {
+    points: null,
+    rate: 0,
+    line: [],
+  },
+  yMaxCache: {
+    mapLine: null,
+    headroomPercent: null,
+    value: MIN_Y_MAX,
+  },
 };
 
 function createKeyState() {
@@ -445,12 +455,17 @@ function buildPerfectBpmPoints(hitTimes) {
   return points;
 }
 
-function getMapBpmLine() {
-  const points = getDisplayPoints().map || state.mapBpmPoints;
+function getMapBpmLine(displayPoints = getDisplayPoints()) {
+  const points = displayPoints.map || state.mapBpmPoints;
+  if (state.mapLineCache.points === points && state.mapLineCache.rate === state.mapRate) {
+    return state.mapLineCache.line;
+  }
+
   const idleThreshold = IDLE_RESET_MS * state.mapRate;
   const line = [];
 
-  points.forEach((point, index) => {
+  for (let index = 0; index < points.length; index += 1) {
+    const point = points[index];
     const previousPoint = points[index - 1];
 
     if (previousPoint && point.time - previousPoint.time > idleThreshold) {
@@ -462,9 +477,13 @@ function getMapBpmLine() {
 
     line.push({
       time: point.time,
-      bpm: Math.round(point.bpm * state.mapRate),
-    });
-  });
+        bpm: Math.round(point.bpm * state.mapRate),
+      });
+  }
+
+  state.mapLineCache.points = points;
+  state.mapLineCache.rate = state.mapRate;
+  state.mapLineCache.line = line;
 
   return line;
 }
@@ -579,8 +598,9 @@ function drawGraph() {
   const padding = { left: 48, right: 16, top: 14, bottom: 34 };
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
-  const yMax = getYMax();
   const displayPoints = getDisplayPoints();
+  const mapLine = getMapBpmLine(displayPoints);
+  const yMax = getYMax(mapLine);
 
   ctx.clearRect(0, 0, width, height);
   ctx.font = '12px Arial, Helvetica, sans-serif';
@@ -588,7 +608,7 @@ function drawGraph() {
 
   drawGrid(padding, chartWidth, chartHeight, yMax);
   drawProgressMarker(padding, chartWidth, chartHeight);
-  drawLine(getMapBpmLine(), config.perfectColor, padding, chartWidth, chartHeight, yMax, 2);
+  drawLine(mapLine, config.perfectColor, padding, chartWidth, chartHeight, yMax, 2);
   drawLine(displayPoints.player, config.playerColor, padding, chartWidth, chartHeight, yMax);
   drawAxes(padding, chartWidth, chartHeight, yMax);
 
@@ -772,11 +792,27 @@ function getBpmY(bpm, yMax, padding, chartHeight, clampToChart = false) {
   return padding.top + chartHeight - chartHeight * progress;
 }
 
-function getYMax() {
-  const values = getMapBpmLine().map((point) => point.bpm);
-  const highest = Math.max(...values, 0);
+function getYMax(mapLine) {
+  if (
+    state.yMaxCache.mapLine === mapLine &&
+    state.yMaxCache.headroomPercent === config.yAxisHeadroomPercent
+  ) {
+    return state.yMaxCache.value;
+  }
+
+  let highest = 0;
+  for (const point of mapLine) {
+    if (point.bpm > highest) highest = point.bpm;
+  }
+
   const headroomMultiplier = 1 + Math.max(0, Math.min(50, Number(config.yAxisHeadroomPercent))) / 100;
-  return highest <= MIN_Y_MAX ? MIN_Y_MAX : highest * headroomMultiplier;
+  const value = highest <= MIN_Y_MAX ? MIN_Y_MAX : highest * headroomMultiplier;
+
+  state.yMaxCache.mapLine = mapLine;
+  state.yMaxCache.headroomPercent = config.yAxisHeadroomPercent;
+  state.yMaxCache.value = value;
+
+  return value;
 }
 
 function getDisplayPoints() {
