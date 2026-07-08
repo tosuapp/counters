@@ -24,10 +24,7 @@ const V2_FILTERS = [
       'artist',
       'title',
       'version',
-      {
-        field: 'time',
-        keys: ['live', 'current', 'full', 'mp3Length', 'lastObject'],
-      },
+      "time",
     ],
   },
   {
