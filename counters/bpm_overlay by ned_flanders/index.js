@@ -24,7 +24,7 @@ const V2_FILTERS = [
       'artist',
       'title',
       'version',
-      "time",
+      'time',
     ],
   },
   {
@@ -360,7 +360,7 @@ function updateBeatmapFilePath(data) {
 
 async function loadPerfectBpmPoints(filePath) {
   try {
-    const response = await fetch(`http://${HOST}/files/beatmap/${encodeURI(filePath)}`);
+    const response = await fetch(`http://${HOST}/files/beatmap/${encodePathSegments(filePath)}`);
     const osuText = await response.text();
     const perfectGraph = parsePerfectBpmPoints(osuText);
     state.mapBpmPoints = perfectGraph.points;
@@ -377,6 +377,10 @@ async function loadPerfectBpmPoints(filePath) {
     state.graphStartTime = 0;
     state.graphEndTime = state.fullTime;
   }
+}
+
+function encodePathSegments(path) {
+  return path.split('/').map((segment) => encodeURIComponent(segment)).join('/');
 }
 
 function parsePerfectBpmPoints(osuText) {
