@@ -11,10 +11,7 @@ const GAMEPLAY_STATE_NAME = 'play';
 const RESULTS_STATE_NAME = 'resultScreen';
 // Keep websocket payloads small for tosu's contribution requirements and lower OBS/browser overhead.
 const V2_FILTERS = [
-  {
-    field: 'state',
-    keys: ['number', 'name'],
-  },
+ "state",
   {
     field: 'beatmap',
     keys: [
