@@ -517,7 +517,7 @@ async function startTwitchClient(clientToken) {
     });
 
     cache['twitch-client'].on('join', (channel) => {
-        if (channel != `#${cache['twitch-channel']}`) return;
+        if (channel.toLowerCase() != `#${cache['twitch-channel']}`.toLowerCase()) return;
 
 
         authorization.innerHTML = 'Authorized';

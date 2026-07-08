@@ -1,1 +1,1 @@
-[{"uniqueID":"MatchmakingStats","type":"checkbox","title":"Matchmaking Stats","description":"Uses ranked plays stats in lazer instead of osu!stable stats (osu!Lazer only).","options":[],"value":false}]
+[{"uniqueID":"MatchmakingStats","type":"checkbox","title":"Matchmaking Stats","description":"Uses ranked plays stats in lazer instead of osu!stable stats (osu!Lazer only). Require refresh the overlay","options":[],"value":false}]

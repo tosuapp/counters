@@ -1,0 +1,7 @@
+Usecase: obs-overlay
+Name: mitour
+Author: antoshika
+Version: 1.3.9
+CompatibleWith: tosu
+Resolution: 1920x1080
+authorLinks:  https://osu.ppy.sh/users/18815482,https://discord.com/3jBQs9buYe
