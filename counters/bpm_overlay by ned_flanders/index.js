@@ -5,10 +5,10 @@ const MIN_Y_MAX = 150;
 const TIMELINE_FUTURE_PADDING = 0.15;
 // Combined K1/K2 intervals count twice as many presses as the BPM convention osu! players expect.
 const OSU_BPM_DIVISOR = 4;
-const GAMEPLAY_STATES = new Set([2]);
-const RESULTS_STATES = new Set([7]);
-const GAMEPLAY_STATE_NAMES = new Set(['play']);
-const RESULTS_STATE_NAMES = new Set(['resultScreen']);
+const GAMEPLAY_STATE = 2;
+const RESULTS_STATE = 7;
+const GAMEPLAY_STATE_NAME = 'play';
+const RESULTS_STATE_NAME = 'resultScreen';
 // Keep websocket payloads small for tosu's contribution requirements and lower OBS/browser overhead.
 const V2_FILTERS = [
   {
@@ -300,7 +300,7 @@ function setPlayState(nextState, nextStateName = '') {
 }
 
 function isGameplayState() {
-  return GAMEPLAY_STATES.has(state.playState) || GAMEPLAY_STATE_NAMES.has(state.playStateName);
+  return state.playState === GAMEPLAY_STATE || state.playStateName === GAMEPLAY_STATE_NAME;
 }
 
 function isResultsState() {
@@ -308,7 +308,7 @@ function isResultsState() {
 }
 
 function isStateResults(stateNumber, stateName) {
-  return RESULTS_STATES.has(stateNumber) || RESULTS_STATE_NAMES.has(stateName);
+  return stateNumber === RESULTS_STATE || stateName === RESULTS_STATE_NAME;
 }
 
 function captureFinishedGraph() {
