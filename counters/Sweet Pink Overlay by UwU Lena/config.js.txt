@@ -1,0 +1,4 @@
+const API_CREDENTIALS = {
+  clientId: "63066",
+  clientSecret: "Crsz8lbWS8sSGdfp0z3bue0JoHyUceQqb4gWbwK3"
+};

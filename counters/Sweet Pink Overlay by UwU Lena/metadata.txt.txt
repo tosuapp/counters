@@ -1,0 +1,4 @@
+Name: Sweet Pink Overlay
+Author: UwU Lena
+Description: A custom pink osu! HUD featuring a left-side top 50 leaderboard, strain graph, and clean modern layout.
+Version: 1.0.0

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>osu! HUD — Extended Left Leaderboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+  :root{
+    --bg-card: rgba(18, 16, 22, 0.90);
+    --bg-card-strong: rgba(14, 12, 18, 0.96);
+    --line: rgba(255,255,255,0.12);
+    --fg: #ffffff;
+    --dim: #b8a9c9;
+    --pink: #ff2a92;
+    --pink-soft: rgba(255, 42, 146, 0.25);
+    --blue: #22ccff;
+    --green: #2ecc71;
+    --purple: #9b59b6;
+    --red: #e74c3c;
+    --miss: #ff1f4b;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  html, body{
+    margin: 0; padding: 0;
+    width: 1920px; height: 1080px;
+    background: transparent;
+    font-family: 'Outfit', sans-serif;
+    color: var(--fg);
+    overflow: hidden;
+  }
+
+  .card{
+    position: absolute;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+  }
+
+  #topbar{
+    top: 24px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; align-items: center;
+    padding: 9px 22px; gap: 20px;
+    border-radius: 999px;
+  }
+
+  .player-id{ display: flex; align-items: center; gap: 11px; }
+  .avatar{ width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--pink); object-fit: cover; background: #222; }
+  .flag{ width: 18px; height: 12px; border-radius: 2px; object-fit: cover; }
+  .player-id .username{ font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .player-id .rank-line{ font-size: 9px; color: var(--dim); text-decoration: none; display: block; }
+  .player-id .rank-line b{ color: var(--pink); }
+
+  .divider{ width: 1px; height: 24px; background: var(--line); }
+
+  .map-meta{ display: flex; gap: 18px; align-items: center; }
+  .map-meta .m{ text-align: center; }
+  .map-meta .m .label{ font-size: 8px; letter-spacing: 1.2px; color: var(--dim); text-transform: uppercase; }
+  .map-meta .m .value{ font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; font-variant-numeric: tabular-nums; }
+  .sr-img-icon { width: 16px; height: 16px; object-fit: contain; vertical-align: middle; }
+  .map-meta .m.sr .value{ color: var(--pink); }
+  .map-meta .m.bpm .value{ color: var(--green); }
+  .map-meta .m.lb-pos .value{ color: var(--blue); }
+
+  .top-mods-container { display: flex; gap: 5px; align-items: center; }
+  .mod-hex{
+    width: 44px; height: 26px;
+    clip-path: polygon(18% 0%, 82% 0%, 100% 50%, 82% 100%, 18% 100%, 0% 50%);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .mod-hex img{ width: 60%; height: 60%; object-fit: contain; }
+  .mod-fallback { font-size: 9px; font-weight: 800; color: var(--pink); background: rgba(255,42,146,0.15); border-radius: 3px; padding: 0 3px; }
+
+  .top-score { display: flex; flex-direction: column; text-align: right; }
+  .top-score .label { font-size: 7px; letter-spacing: 1px; color: var(--dim); text-transform: uppercase; }
+  .top-score .value { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+  #straingraph{
+    top: 24px; left: 28px;
+    width: 320px; height: 86px;
+    padding: 8px 12px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .strain-top-row { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
+  #straingraph .label{ font-size: 7px; letter-spacing: 1px; color: var(--dim); text-transform: uppercase; }
+  .song-time{ font-size: 8px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  
+  .strain-canvas-wrap { position: relative; width: 100%; height: 36px; }
+  #straingraph canvas{ width: 100%; height: 100%; display: block; }
+
+  .song-info-sub { display: flex; justify-content: space-between; align-items: baseline; font-size: 9px; }
+  .song-title{ font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+  .song-artist{ color: var(--dim); margin-right: 5px; font-size: 8px; }
+  .progress-track{ width: 100%; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; margin-top: 3px; }
+  .progress-fill{ height: 100%; background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue)); width: 0%; transition: width .2s linear; }
+
+  #bottom-container {
+    position: absolute; bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .sub-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 16px; display: flex; flex-direction: column; }
+  .bc-combo { min-width: 95px; }
+  .bc-combo .label { font-size: 8px; color: var(--dim); text-transform: uppercase; }
+  .bc-combo .val { font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--green); }
+  .bc-combo .val.dropped { color: var(--miss); }
+  .bc-combo .val .unit { font-size: 10px; color: var(--dim); }
+
+  #ur-box { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 22px; min-width: 380px; display: flex; flex-direction: column; align-items: center; }
+  #ur-box .ur-header { display: flex; gap: 6px; align-items: baseline; margin-bottom: 4px; }
+  #ur-box .ur-header .label { font-size: 8px; color: var(--dim); text-transform: uppercase; }
+  #ur-box .ur-header .val { font-size: 13px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .ur-track{ position: relative; width: 100%; height: 9px; border-radius: 4px; background: linear-gradient(90deg, var(--red), var(--blue) 30%, var(--green) 50%, var(--blue) 70%, var(--red)); overflow: hidden; }
+  .ur-center{ position: absolute; left: 50%; top: -2px; bottom: -2px; width: 2px; background: #fff; z-index: 2; }
+  .ur-tick{ position: absolute; top: -2px; width: 2px; height: 13px; background: #fff; transform: translateX(-50%); z-index: 3; }
+
+  .bc-pp { min-width: 110px; text-align: right; }
+  .bc-pp .label { font-size: 8px; color: var(--dim); text-transform: uppercase; }
+  .bc-pp .val { font-size: 16px; font-weight: 800; color: var(--pink); font-variant-numeric: tabular-nums; }
+
+  #perfright{ right: 28px; bottom: 90px; padding: 12px 22px; display: flex; gap: 18px; align-items: center; }
+  .stat .label{ font-size: 9px; color: var(--dim); text-transform: uppercase; }
+  .stat .value{ font-size: 22px; font-weight: 800; color: var(--green); font-variant-numeric: tabular-nums; }
+  .grade-container{ width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; }
+  .grade-img, .grade-svg { width: 38px; height: 38px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4)); }
+  .hits-list{ display: flex; gap: 12px; border-left: 1px solid var(--line); padding-left: 14px; }
+  .hits-list .h{ text-align: center; }
+  .hits-list .h .label{ font-size: 8px; color: var(--dim); }
+  .hits-list .h .value{ font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .hits-list .h300 .value{ color: var(--blue); }
+  .hits-list .h100 .value{ color: var(--green); }
+  .hits-list .h50 .value{ color: var(--purple); }
+  .hits-list .h0 .value{ color: var(--miss); }
+
+  #keys{ top: 24px; right: 28px; padding: 7px; display: flex; gap: 6px; }
+  .key{ width: 36px; height: 45px; border-radius: 9px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .key.pressed{ background: var(--pink); color: #fff; border-color: var(--pink); }
+
+  #leaderboard{
+    top: 550px; left: 28px; width: 360px; height: 380px;
+    padding: 10px 14px; overflow: hidden; display: block; z-index: 5;
+  }
+  .lb-title{ font-size: 8px; letter-spacing: 1px; color: var(--dim); text-transform: uppercase; margin-bottom: 6px; display: flex; justify-content: space-between; }
+  .lb-scroll-container { height: 346px; overflow-y: auto; scroll-behavior: smooth; display: flex; flex-direction: column; justify-content: flex-start; }
+  .lb-scroll-container::-webkit-scrollbar { width: 3px; }
+  .lb-scroll-container::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 2px; }
+  
+  .lb-row{
+    display: flex; align-items: center; gap: 7px;
+    font-size: 10px; height: 30px; padding: 0 4px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    color: var(--dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .lb-row:first-of-type{ border-top: none; }
+  .lb-row.me{ color: var(--pink); font-weight: 700; background: rgba(255,42,146,0.18); border-radius: 6px; }
+  .lb-row .lb-avatar{ width: 16px; height: 16px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .lb-row .lb-avatar-fallback{ width: 16px; height: 16px; border-radius: 50%; background: var(--pink-soft); color: var(--pink); font-size: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lb-row .pos{ width: 22px; font-weight: 600; flex-shrink: 0; }
+  .lb-row .name{ width: 75px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 0; }
+  .lb-row .mod-icons { display: flex; gap: 1px; align-items: center; width: 95px; flex-shrink: 0; overflow: hidden; justify-content: flex-start; }
+  .lb-row .mod-icons .mod-hex { width: 24px; height: 16px; }
+  .lb-row .sc { font-variant-numeric: tabular-nums; width: 85px; text-align: right; flex-shrink: 0; font-size: 9px; opacity: 0.9; }
+</style>
+</head>
+<body>
+
+<div id="topbar" class="card">
+  <div class="player-id">
+    <img class="avatar" id="avatar" src="" alt="">
+    <div class="names">
+      <div class="username"><img class="flag" id="flag" src="" alt=""><span id="username">—</span></div>
+      <a class="rank-line" id="profileLink" href="https://ppy.sh" target="_blank">Global <b id="globalRank">#0</b> · <span id="globalPP">0</span>pp</a>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="map-meta">
+    <div class="m sr"><div class="value" id="srContainer"><img class="sr-img-icon" src="overall-difficulty.png" alt="SR"><span id="sr">0.00</span></div></div>
+    <div class="m bpm"><div class="label">BPM</div><div class="value" id="bpm">0</div></div>
+    <div class="m lb-pos"><div class="label">Rank</div><div class="value" id="lbPos">—</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="top-mods-container" id="topMods"></div>
+  <div class="divider"></div>
+  <div class="top-score"><span class="label">Score</span><span class="value" id="score">0</span></div>
+</div>
+
+<div id="straingraph" class="card">
+  <div class="strain-top-row">
+    <span class="label">Strain</span>
+    <div class="song-time"><span id="timeCurrent">00:00</span> / <span id="timeFull">00:00</span></div>
+  </div>
+  <div class="strain-canvas-wrap">
+    <canvas id="strainCanvas" width="296" height="36"></canvas>
+  </div>
+  <div class="song-info-sub">
+    <div><span class="song-artist" id="artist">—</span><span class="song-title" id="title">Waiting for beatmap…</span></div>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div id="bottom-container">
+  <div class="sub-card bc-combo"><div class="label">Combo</div><div class="val"><span id="combo">0</span><span class="unit">/</span><span id="comboMax" class="unit">0</span><span class="unit">x</span></div></div>
+  <div id="ur-box">
+    <div class="ur-header"><span class="label">UR</span><span class="val" id="ur">0.0</span></div>
+    <div class="ur-track" id="urTrack"><div class="ur-center"></div></div>
+  </div>
+  <div class="sub-card bc-pp"><div class="label">PP / FC</div><div class="val"><span id="pp2">0</span><span style="font-size:10px;color:var(--dim)">/</span><span id="ppFc">0</span><span class="unit">pp</span></div></div>
+</div>
+
+<div id="perfright" class="card">
+  <div class="stat acc"><div class="label">Accuracy</div><div class="value"><span id="acc">100.00</span>%</div></div>
+  <div class="grade-container" id="gradeContainer">
+    <img class="grade-img" id="gradeImg" src="" alt="" style="display:none;">
+    <svg class="grade-svg" id="gradeSvg" viewBox="0 0 38 38" width="38" height="38"></svg>
+  </div>
+  <div class="hits-list">
+    <div class="h h300"><div class="label">300</div><div class="value" id="h300">0</div></div>
+    <div class="h h100"><div class="label">100</div><div class="value" id="h100">0</div></div>
+    <div class="h h50"><div class="label">50</div><div class="value" id="h50">0</div></div>
+    <div class="h h0"><div class="label">Miss</div><div class="value" id="h0">0</div></div>
+  </div>
+</div>
+
+<div id="keys" class="card">
+  <div class="key" id="k1"><span id="k1bpm" style="font-size:6px"></span>K1<span id="k1c" style="font-size:8px">0</span></div>
+  <div class="key" id="k2"><span id="k2bpm" style="font-size:6px"></span>K2<span id="k2c" style="font-size:8px">0</span></div>
+  <div class="key" id="m1"><span id="m1bpm" style="font-size:6px"></span>M1<span id="m1c" style="font-size:8px">0</span></div>
+  <div class="key" id="m2"><span id="m2bpm" style="font-size:6px"></span>M2<span id="m2c" style="font-size:8px">0</span></div>
+</div>
+
+<div id="leaderboard" class="card">
+  <div class="lb-title"><span>Leaderboard (Top 50)</span><span id="lbPage">—</span></div>
+  <div class="lb-scroll-container" id="lbRows"></div>
+</div>
+
+<script src="config.js"></script>
+
+<script>
+(function() {
+  const WS_URL = "ws://127.0.0.1:24050/ws";
+  const TOSU_BASE = "http://127.0.0.1:24050";
+  const COUNTRY_CODE = "de";
+  const FLAG_URL = `https://flagcdn.com/w40/${COUNTRY_CODE.toLowerCase()}.png`;
+  const FALLBACK_USER_ID = 18849302;
+  const MODS_BASE_PATH = "Mods/";
+
+  const avatarEl = document.getElementById("avatar");
+  const flagEl = document.getElementById("flag");
+  if (avatarEl) avatarEl.src = `https://a.ppy.sh/${FALLBACK_USER_ID}`;
+  if (flagEl) flagEl.src = FLAG_URL;
+
+  let socket = null;
+  let reconnectTimer = null;
+  let lastCombo = 0;
+  const MAX_ERROR_MS = 100;
+  const seenErrorCount = { n: 0 };
+
+  const keyPressLog = { k1: [], k2: [], m1: [], m2: [] };
+  const lastKeyCount = { k1: 0, k2: 0, m1: 0, m2: 0 };
+  const BPM_WINDOW_MS = 1500;
+
+  let lastGradeCode = null;
+  let lastModsKey = null;
+  let lastLbKey = null;
+  let lastAvatarSrc = null;
+  let lastScrolledIndex = -1;
+  let apiLeaderboardCache = null;
+
+  const animValues = {
+    score: 0,
+    targetScore: 0,
+    combo: 0,
+    targetCombo: 0,
+    acc: 100.0,
+    targetAcc: 100.0
+  };
+
+  function lerp(start, end, amt) {
+    return (1 - amt) * start + amt * end;
+  }
+
+  const gradeSkinMap = { "SS": "X", "X": "X", "SSH": "XH", "XH": "XH", "S": "S", "SH": "SH", "A": "A", "B": "B", "C": "C", "D": "D" };
+
+  const modFileMap = {
+    EZ: "mod-easy", NF: "mod-no-fail", HT: "mod-half-time", DC: "mod-daycore",
+    HR: "mod-hard-rock", SD: "mod-sudden-death", PF: "mod-perfect",
+    DT: "mod-double-time", NC: "mod-nightcore", HD: "mod-hidden", FL: "mod-flashlight",
+    AC: "mod-accuracy-challenge", BL: "mod-blinds", MU: "mod-muted", NS: "mod-no-scope",
+    RX: "mod-relax", AP: "mod-autopilot", SO: "mod-spun-out", AT: "mod-autoplay", CN: "mod-cinema",
+    RD: "mod-random", MR: "mod-mirror", AL: "mod-alternate", SG: "mod-single-tap",
+    DA: "mod-difficulty-adjust", CL: "mod-classic", TP: "mod-target-practice",
+    WG: "mod-wiggle", SI: "mod-spin-in", GR: "mod-grow", DF: "mod-deflate",
+    WU: "mod-wind-up", WD: "mod-wind-down", TR: "mod-traceable", BR: "mod-barrel-roll",
+    AD: "mod-approach-different", TD: "mod-touch-device", V2: "mod-score-v2",
+    BU: "mod-bubbles", SY: "mod-synesthesia", DP: "mod-depth", CO: "mod-cover",
+    FI: "mod-fade-in", FR: "mod-freeze-frame", BM: "mod-bloom", AS: "mod-adaptive-speed",
+    CS: "mod-constant-speed", MG: "mod-magnetised", RP: "mod-repel", NR: "mod-no-release",
+    IN: "mod-invert", HO: "mod-hold-off", ST: "mod-strict-tracking", TF: "mod-transform",
+    SW: "mod-swap", NM: "mod-no-mod",
+    "1K": "mod-one-key", "2K": "mod-two-keys", "3K": "mod-three-keys", "4K": "mod-four-keys",
+    "5K": "mod-five-keys", "6K": "mod-six-keys", "7K": "mod-seven-keys", "8K": "mod-eight-keys",
+    "9K": "mod-nine-keys", "10K": "mod-ten-keys", DS: "mod-dual-stages"
+  };
+
+  const modCategory = {
+    EZ: "reduction", NF: "reduction", HT: "reduction", DC: "reduction",
+    HR: "increase", SD: "increase", PF: "increase", DT: "increase", NC: "increase",
+    HD: "increase", FL: "increase", AC: "increase", BL: "increase", MU: "increase", NS: "increase",
+    RX: "automation", AP: "automation", SO: "automation", AT: "automation", CN: "automation",
+    RD: "fun", MR: "fun", AL: "fun", SG: "fun", WG: "fun", SI: "fun", GR: "fun", DF: "fun",
+    WU: "fun", WD: "fun", TR: "fun", BR: "fun", BU: "fun", SY: "fun", DP: "fun", CO: "fun",
+    FI: "fun", FR: "fun", BM: "fun", MG: "fun", RP: "fun", SW: "fun",
+    DA: "conversion", CL: "conversion", TP: "conversion", AD: "conversion", TD: "conversion",
+    V2: "conversion", AS: "conversion", CS: "conversion", NR: "conversion", IN: "conversion",
+    HO: "conversion", ST: "conversion", TF: "conversion",
+    "1K": "conversion", "2K": "conversion", "5K": "conversion",
+    "6K": "conversion", "7K": "conversion", "8K": "conversion", "9K": "conversion", "10K": "conversion", DS: "conversion",
+    NM: "automation"
+  };
+
+  const categoryColors = { reduction: "#57e07f", increase: "#ff5c5c", automation: "#7f8bde", conversion: "#5fd3e8", fun: "#e08cff" };
+
+  function trackKeyBpm(keyName, count){
+    const now = performance.now();
+    const prev = lastKeyCount[keyName];
+    if (count > prev){
+      for (let i = 0; i < count - prev; i++) keyPressLog[keyName].push(now);
+    }
+    lastKeyCount[keyName] = count;
+    const log = keyPressLog[keyName].filter(t => now - t <= BPM_WINDOW_MS);
+    keyPressLog[keyName] = log;
+    if (log.length < 2) return 0;
+    const spanSec = (log[log.length - 1] - log[0]) / 1000;
+    if (spanSec <= 0) return 0;
+    return Math.round(((log.length - 1) / spanSec) * 60);
+  }
+
+  function fmt(n, digits = 0){
+    if (n === undefined || n === null || isNaN(n)) return "0";
+    return Number(n).toLocaleString("de-DE", { maximumFractionDigits: digits, minimumFractionDigits: digits });
+  }
+
+  function fmtTime(ms){
+    if (!ms || ms < 0) ms = 0;
+    const totalSec = Math.floor(ms / 1000);
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  function renderKey(id, countId, bpmId, keyData){
+    const el = document.getElementById(id);
+    const countEl = document.getElementById(countId);
+    const bpmEl = document.getElementById(bpmId);
+    if (!el || !keyData) return;
+    el.classList.toggle("pressed", !keyData.isPressed);
+    const count = keyData.count ?? 0;
+    if (countEl) countEl.textContent = fmt(count, 0);
+    const bpm = trackKeyBpm(id, count);
+    if (bpmEl) bpmEl.textContent = bpm > 0 ? bpm : "";
+  }
+
+  function renderHitErrors(hitErrorArray){
+    const track = document.getElementById("urTrack");
+    if (!track) return;
+    const arr = hitErrorArray || [];
+    const newTicks = arr.length - seenErrorCount.n;
+    if (newTicks > 0){
+      const recent = arr.slice(-newTicks);
+      recent.forEach(ms => {
+        const clamped = Math.max(-MAX_ERROR_MS, Math.min(MAX_ERROR_MS, ms));
+        const pct = 50 + (clamped / MAX_ERROR_MS) * 50;
+        const tick = document.createElement("div");
+        tick.className = "ur-tick";
+        tick.style.left = pct + "%";
+        track.appendChild(tick);
+        setTimeout(() => tick.remove(), 4000);
+      });
+    }
+    if (arr.length < seenErrorCount.n) seenErrorCount.n = 0;
+    seenErrorCount.n = arr.length;
+  }
+
+  function drawStrainGraph(strainsAll){
+    const canvas = document.getElementById("strainCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const series = strainsAll?.series;
+    if (!Array.isArray(series) || series.length === 0) return;
+
+    const aim = series.find(s => s.name === "aim")?.data;
+    const speed = series.find(s => s.name === "speed")?.data;
+
+    const plots = [
+      { data: aim, color: "rgba(255,42,146,0.98)" },
+      { data: speed, color: "rgba(34,204,255,0.95)" },
+    ].filter(p => Array.isArray(p.data) && p.data.length > 1);
+
+    if (plots.length === 0) return;
+
+    const allVals = plots.flatMap(p => p.data);
+    const max = Math.max(...allVals, 0.001);
+
+    plots.forEach(p => {
+      ctx.beginPath();
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 2;
+      p.data.forEach((v, i) => {
+        const x = (i / (p.data.length - 1)) * w;
+        const y = h - (v / max) * h * 0.85 - 2;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+    });
+  }
+
+  function getModHtml(modAcronym) {
+    if (!modAcronym) return "";
+    const cleanMod = String(modAcronym).trim().toUpperCase();
+    const fileName = modFileMap[cleanMod] || `mod-${cleanMod.toLowerCase()}`;
+    const imgUrl = `${MODS_BASE_PATH}${fileName}.png`;
+    const category = modCategory[cleanMod] || "automation";
+    const color = categoryColors[category] || "#7f8bde";
+    return `<div class="mod-hex" style="background:${color}" title="${cleanMod}">
+      <img src="${imgUrl}" alt="${cleanMod}" onerror="this.parentElement.outerHTML='<span class=\\'mod-fallback\\'>${cleanMod}</span>'">
+    </div>`;
+  }
+
+  function renderTopMods(gameplayMods, menuMods) {
+    const container = document.getElementById("topMods");
+    if (!container) return;
+    let rawMods = gameplayMods ?? menuMods;
+    let modArr = [];
+    if (typeof rawMods === 'string') {
+      modArr = rawMods.match(/.{1,2}/g) || [rawMods];
+    } else if (Array.isArray(rawMods)) {
+      modArr = rawMods.map(m => m.acronym ?? m.name ?? m?.str ?? m);
+    } else if (rawMods?.str) {
+      modArr = typeof rawMods.str === 'string' ? (rawMods.str.match(/.{1,2}/g) || [rawMods.str]) : rawMods.str;
+    } else if (rawMods?.name) {
+      modArr = [rawMods.name];
+    }
+    const key = Array.isArray(modArr) ? modArr.join(",") : String(modArr || "");
+    if (key === lastModsKey) return;
+    lastModsKey = key;
+    if (!rawMods || (Array.isArray(modArr) && modArr.length === 0)) {
+      container.innerHTML = "";
+      return;
+    }
+    container.innerHTML = Array.isArray(modArr) ? modArr.map(m => getModHtml(m)).join('') : getModHtml(modArr);
+  }
+
+  function renderGrade(gradeStr) {
+    const imgEl = document.getElementById("gradeImg");
+    const svgEl = document.getElementById("gradeSvg");
+    if (!imgEl || !svgEl) return;
+    const raw = gradeStr && typeof gradeStr === 'string' ? gradeStr.trim().toUpperCase() : "";
+    if (raw === lastGradeCode) return;
+    lastGradeCode = raw;
+
+    if (!raw) {
+      imgEl.style.display = "none";
+      svgEl.style.display = "block";
+      svgEl.innerHTML = "";
+      return;
+    }
+    const skinCode = gradeSkinMap[raw] || raw;
+    const skinUrl = `${TOSU_BASE}/files/skin/ranking-${skinCode}-small.png`;
+    imgEl.onerror = () => {
+      imgEl.style.display = "none";
+      svgEl.style.display = "block";
+      svgEl.innerHTML = `<circle cx="19" cy="19" r="16" fill="rgba(0,0,0,0.4)" stroke="#9b59b6" stroke-width="2"/><text x="19" y="24" fill="#9b59b6" font-size="15" font-weight="900" text-anchor="middle">${raw}</text>`;
+    };
+    imgEl.onload = () => { imgEl.style.display = "block"; svgEl.style.display = "none"; };
+    imgEl.src = skinUrl;
+  }
+
+  // --- INTELLIGENTER LEADERBOARD FALLBACK (MEMORY + API) ---
+  function renderLeaderboard(lb, beatmapId){
+    const rowsBox = document.getElementById("lbRows");
+    const pageIndicator = document.getElementById("lbPage");
+    if (!rowsBox) return;
+
+    // Primärquelle prüfen: Lokale tosu/gosumemory Slots
+    let activeSlots = lb?.slots;
+    let isFromApi = false;
+
+    if ((!activeSlots || activeSlots.length === 0) && apiLeaderboardCache && apiLeaderboardCache.beatmapId === beatmapId) {
+      activeSlots = apiLeaderboardCache.slots;
+      isFromApi = true;
+    }
+
+    if (!activeSlots || activeSlots.length === 0){
+      rowsBox.innerHTML = `<div style="text-align:center; color:var(--dim); padding:20px; font-size:10px;">Waiting for leaderboard data…</div>`;
+      if (pageIndicator) pageIndicator.textContent = "—";
+      
+      // Fallback-Trigger anfragen, falls ID da ist und Credentials bereitstehen
+      if (beatmapId && window.config?.API_CREDENTIALS && window.config.API_CREDENTIALS.clientId !== "NUMBER") {
+        fetchApiLeaderboard(beatmapId);
+      }
+      return;
+    }
+
+    const slots = activeSlots.slice(0, 50);
+    const key = slots.map(s => `${s.name}:${s.score}:${s.position}`).join("|");
+    if (key === lastLbKey) return;
+    lastLbKey = key;
+
+    const rows = [];
+    let myIndex = -1;
+
+    slots.forEach((s, i) => {
+      const usernameText = document.getElementById("username").textContent;
+      const isMe = (s.name && lb?.ourplayer && s.name === lb.ourplayer.name) || (s.isOurPlayer) || (s.name === usernameText);
+      if (isMe) myIndex = i;
+
+      let modsHtml = "";
+      let modsData = s.mods;
+      if (typeof modsData === 'string') {
+        const modArr = modsData.match(/.{1,2}/g) || [modsData];
+        modsHtml = `<div class="mod-icons">` + modArr.map(m => getModHtml(m)).join('') + `</div>`;
+      } else if (Array.isArray(modsData)) {
+        modsHtml = `<div class="mod-icons">` + modsData.map(m => getModHtml(m.acronym ?? m.name ?? m)).join('') + `</div>`;
+      } else if (modsData?.name) {
+        modsHtml = `<div class="mod-icons">${getModHtml(modsData.name)}</div>`;
+      } else {
+        modsHtml = `<div class="mod-icons"></div>`;
+      }
+      
+      const name = s.name ?? "—";
+      const avatar = (name && name !== "—") ? `<img class="lb-avatar" src="https://osu.ppy.sh/images/layout/avatar-guest.png" data-name="${name}" alt="" onload="this.src='https://s.ppy.sh/a/' + encodeURIComponent('${name}')">` : `<span class="lb-avatar-fallback">?</span>`;
+
+      rows.push(`<div class="lb-row ${isMe ? "me" : ""}" data-index="${i}" style="height:30px; box-sizing:border-box;">
+        ${avatar}
+        <span class="pos">#${s.position ?? i + 1}</span>
+        <span class="name">${name}</span>
+        ${modsHtml}
+        <span class="sc">${fmt(s.score, 0)}</span>
+      </div>`);
+    });
+    
+    rowsBox.innerHTML = rows.join("");
+
+    const rowHeight = 30;
+    if (myIndex !== -1) {
+      if (myIndex !== lastScrolledIndex) {
+        lastScrolledIndex = myIndex;
+        const scrollTop = myIndex * rowHeight - (rowsBox.clientHeight / 2) + (rowHeight / 2);
+        rowsBox.scrollTo({ top: Math.max(0, scrollTop), behavior: 'smooth' });
+      }
+      const startRank = Math.max(1, myIndex - 2 + 1);
+      const endRank = Math.min(slots.length, myIndex + 2 + 1);
+      if (pageIndicator) pageIndicator.textContent = `${startRank}-${endRank} ${isFromApi ? '(API)' : ''}`;
+    } else {
+      if (pageIndicator) pageIndicator.textContent = isFromApi ? 'Top 50 (API)' : '—';
+    }
+  }
+
+  // Sekundäre Abfrage über osu! API V2 als echter Fallback
+  async function fetchApiLeaderboard(beatmapId) {
+    try {
+      const creds = window.config?.API_CREDENTIALS;
+      if (!creds || creds.clientId === "NUMBER") return;
+      
+      const tokenRes = await fetch("https://osu.ppy.sh/oauth/token", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          client_id: creds.clientId,
+          client_secret: creds.clientSecret,
+          grant_type: "client_credentials",
+          scope: "public"
+        })
+      });
+      const tokenData = await tokenRes.json();
+      if (!tokenData.access_token) return;
+
+      const lbRes = await fetch(`https://osu.ppy.sh/api/v2/beatmaps/${beatmapId}/scores`, {
+        headers: { "Authorization": `Bearer ${tokenData.access_token}`, "Accept": "application/json" }
+      });
+      const lbJson = await lbRes.json();
+      if (lbJson.scores && Array.isArray(lbJson.scores)) {
+        const slots = lbJson.scores.map((sc, idx) => ({
+          position: idx + 1,
+          name: sc.user.username,
+          score: sc.total_score,
+          mods: sc.mods
+        }));
+        apiLeaderboardCache = { beatmapId: beatmapId, slots: slots };
+      }
+    } catch(err) {
+      // Fehler im API-Fallback stummschalten, falls Rate-Limit oder Offline
+    }
+  }
+
+  function applyData(data){
+    if (!data) return;
+    const gameplay = data.gameplay || {};
+    const menu = data.menu || {};
+    const profile = data.userProfile || data.tourney?.manager?.ipcState || {};
+
+    if (profile){
+      const pName = profile.name || profile.username || "—";
+      const pRank = profile.rank || profile.globalRank || 0;
+      const pPP = profile.performancePoints || profile.pp || 0;
+      const pId = profile.id || profile.user_id || FALLBACK_USER_ID;
+
+      document.getElementById("username").textContent = pName;
+      document.getElementById("globalRank").textContent = pRank ? `#${fmt(pRank, 0)}` : "#0";
+      document.getElementById("globalPP").textContent = fmt(pPP, 0);
+      document.getElementById("profileLink").href = `https://osu.ppy.sh/users/${pId}`;
+
+      const wantedAvatarSrc = pId ? `https://a.ppy.sh/${pId}` : "";
+      if (wantedAvatarSrc && wantedAvatarSrc !== lastAvatarSrc) {
+        lastAvatarSrc = wantedAvatarSrc;
+        avatarEl.src = wantedAvatarSrc;
+      }
+    }
+
+    const ourPos = gameplay.leaderboard?.ourplayer?.position;
+    document.getElementById("lbPos").textContent = ourPos ? `#${ourPos}` : "—";
+
+    animValues.targetScore = gameplay.score ?? 0;
+    animValues.score = lerp(animValues.score, animValues.targetScore, 0.2);
+    document.getElementById("score").textContent = fmt(Math.round(animValues.score), 0);
+
+    animValues.targetAcc = gameplay.accuracy ?? 100.0;
+    animValues.acc = lerp(animValues.acc, animValues.targetAcc, 0.2);
+    document.getElementById("acc").textContent = fmt(animValues.acc, 2);
+
+    const combo = gameplay.combo?.current ?? 0;
+    animValues.targetCombo = combo;
+    animValues.combo = lerp(animValues.combo, animValues.targetCombo, 0.25);
+    const comboEl = document.getElementById("combo");
+    comboEl.textContent = fmt(Math.round(animValues.combo), 0);
+    document.getElementById("comboMax").textContent = fmt(gameplay.combo?.max, 0);
+    comboEl.classList.toggle("dropped", combo === 0 && lastCombo > 0);
+    lastCombo = combo;
+
+    document.getElementById("pp2").textContent = fmt(gameplay.pp?.current, 0);
+    document.getElementById("ppFc").textContent = fmt(gameplay.pp?.fc, 0);
+
+    const hits = gameplay.hits || {};
+    document.getElementById("h300").textContent = fmt(hits["300"], 0);
+    document.getElementById("h100").textContent = fmt(hits["100"], 0);
+    document.getElementById("h50").textContent = fmt(hits["50"], 0);
+    document.getElementById("h0").textContent = fmt(hits["0"], 0);
+    document.getElementById("ur").textContent = fmt(hits.unstableRate, 1);
+    renderHitErrors(hits.hitErrorArray);
+
+    renderGrade(hits.grade?.current);
+    renderTopMods(gameplay.mods, menu.mods);
+
+    const ko = gameplay.keyOverlay || {};
+    renderKey("k1", "k1c", "k1bpm", ko.k1);
+    renderKey("k2", "k2c", "k2bpm", ko.k2);
+    renderKey("m1", "m1c", "m1bpm", ko.m1);
+    renderKey("m2", "m2c", "m2bpm", ko.m2);
+
+    const activeLb = (gameplay.leaderboard?.hasLeaderboard && gameplay.leaderboard) 
+                   ? gameplay.leaderboard 
+                   : (menu?.leaderboard?.hasLeaderboard && menu.leaderboard) 
+                   ? menu.leaderboard 
+                   : (data.tourney?.manager?.leaderboard && data.tourney.manager.leaderboard) 
+                   ? data.tourney.manager.leaderboard 
+                   : gameplay.leaderboard ?? menu?.leaderboard;
+                   
+    const currentId = menu?.bm?.id ?? menu?.bm?.metadata?.id;
+    renderLeaderboard(activeLb, currentId);
+
+    if (menu?.pp?.strainsAll) drawStrainGraph(menu.pp.strainsAll);
+
+    const bm = menu?.bm;
+    if (bm){
+      document.getElementById("artist").textContent = bm.metadata?.artist || "";
+      document.getElementById("title").textContent =
+        bm.metadata?.title ? `${bm.metadata.title} [${bm.metadata.difficulty || ""}]` : "—";
+
+      const srVal = bm.stats?.fullSR ?? bm.stats?.stars?.total ?? bm.stats?.SR ?? 0;
+      document.getElementById("sr").textContent = fmt(srVal, 2);
+
+      const bpmVal = bm.stats?.BPM?.common ?? bm.stats?.bpm ?? 0;
+      document.getElementById("bpm").textContent = fmt(bpmVal, 0);
+
+      const t = bm.time || {};
+      document.getElementById("timeCurrent").textContent = fmtTime(t.current);
+      document.getElementById("timeFull").textContent = fmtTime(t.full);
+      const pct = t.full ? Math.min(100, Math.max(0, (t.current / t.full) * 100)) : 0;
+      document.getElementById("progressFill").style.width = pct + "%";
+    }
+  }
+
+  function connect(){
+    socket = new WebSocket(WS_URL);
+    socket.onopen = () => {};
+    socket.onmessage = (event) => {
+      try { applyData(JSON.parse(event.data)); } catch(e) {}
+    };
+    socket.onclose = () => {
+      clearTimeout(reconnectTimer);
+      reconnectTimer = setTimeout(connect, 2000);
+    };
+    socket.onerror = () => socket.close();
+  }
+
+  connect();
+})();
+</script>
+
+</body>
+</html>
