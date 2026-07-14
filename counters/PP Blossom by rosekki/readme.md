@@ -1,3 +1,18 @@
+## PP Blossom by rosekki
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp blossom by rosekki v1.0.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/jossomori" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
+
+|||
+| ------------- | ------------- |
+| For | obs-overlay |
+| Compatible with | tosu |
+| Size |  1920x1080 |
+
+
+> Fullscreen PP dashboard for song select. Displays 100%, 99%, 98%, 97%, 96%, and 95% PP using tosu-provided values for the selected beatmap and mods.
+
+<img src="/.github/images/pp blossom by rosekki.png" /> <img src="/.github/gifs/pp blossom by rosekki.gif" />
+
 # PP Blossom
 
 ## Features
