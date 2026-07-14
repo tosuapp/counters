@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PP Blossom</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+  <div class="background" aria-hidden="true">
+    <div class="background-layer is-active" id="beatmap-background-a"></div>
+    <div class="background-layer" id="beatmap-background-b"></div>
+  </div>
+
+  <main class="dashboard" aria-label="PP Blossom">
+    <section class="panel beatmap-panel" aria-label="Beatmap information">
+      <span class="icon icon-now-playing music-icon" aria-hidden="true"></span>
+      <div class="beatmap-copy">
+        <div class="title-mask">
+          <h1 id="song-title" class="song-title">
+            <strong id="artist">Waiting</strong>
+            <span> - </span>
+            <span id="song-title-text">for beatmap</span>
+          </h1>
+        </div>
+        <p class="beatmap-details">
+          <span>Difficulty: <strong id="difficulty-version">--</strong></span>
+          <span>- Mapped by <strong id="mapper">--</strong></span>
+        </p>
+      </div>
+    </section>
+
+    <section class="panel stats-panel" aria-label="Beatmap statistics">
+      <div class="stat">
+        <span class="icon icon-star" aria-hidden="true"></span>
+        <span id="star-rating">--</span>
+      </div>
+      <div class="stat">
+        <span class="icon icon-bpm" aria-hidden="true"></span>
+        <span id="bpm">--</span>
+      </div>
+      <div class="stat">
+        <span class="icon icon-clock" aria-hidden="true"></span>
+        <span id="song-length">--</span>
+      </div>
+      <div class="stat">
+        <span class="icon icon-approach-rate" aria-hidden="true"></span>
+        <span id="approach-rate">--</span>
+      </div>
+      <div class="stat">
+        <span class="icon icon-accuracy" aria-hidden="true"></span>
+        <span id="overall-difficulty">--</span>
+      </div>
+      <div class="stat">
+        <span class="icon icon-health" aria-hidden="true"></span>
+        <span id="hp-drain">--</span>
+      </div>
+    </section>
+
+    <section id="mods-panel" class="panel mods-panel is-hidden" aria-label="Active mods">
+      <div id="mods-list" class="mods-list"></div>
+    </section>
+
+    <section class="panel pp-panel" aria-label="Performance points by accuracy">
+      <div class="pp-row">
+        <span class="pp-accuracy">100%</span>
+        <span class="icon icon-arrow pp-arrow" aria-hidden="true"></span>
+        <span><span id="pp-100" class="pp-value">--</span>pp</span>
+      </div>
+      <div class="pp-row">
+        <span class="pp-accuracy">99%</span>
+        <span class="icon icon-arrow pp-arrow" aria-hidden="true"></span>
+        <span><span id="pp-99" class="pp-value">--</span>pp</span>
+      </div>
+      <div class="pp-row">
+        <span class="pp-accuracy">98%</span>
+        <span class="icon icon-arrow pp-arrow" aria-hidden="true"></span>
+        <span><span id="pp-98" class="pp-value">--</span>pp</span>
+      </div>
+      <div class="pp-row">
+        <span class="pp-accuracy">97%</span>
+        <span class="icon icon-arrow pp-arrow" aria-hidden="true"></span>
+        <span><span id="pp-97" class="pp-value">--</span>pp</span>
+      </div>
+      <div class="pp-row">
+        <span class="pp-accuracy">96%</span>
+        <span class="icon icon-arrow pp-arrow" aria-hidden="true"></span>
+        <span><span id="pp-96" class="pp-value">--</span>pp</span>
+      </div>
+      <div class="pp-row">
+        <span class="pp-accuracy">95%</span>
+        <span class="icon icon-arrow pp-arrow" aria-hidden="true"></span>
+        <span><span id="pp-95" class="pp-value">--</span>pp</span>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>
