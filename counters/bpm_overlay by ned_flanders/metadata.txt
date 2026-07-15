@@ -1,0 +1,7 @@
+Usecase: ingame, obs-overlay
+Name: bpm_overlay
+Version: 1.000
+Author: ned_flanders
+CompatibleWith: tosu
+Resolution: 980x430
+authorLinks: https://github.com/AlbTobias, ned.flanders.744et@gmail.com
