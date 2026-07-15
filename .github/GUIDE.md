@@ -40,7 +40,7 @@ We recommend using the [quickstart](../quickstart/) directory as a template for 
 
 1. Locate your local `tosu` installation directory and navigate to its `./static` folder.
 2. Create a folder following our naming convention: `Your Overlay Name by Your Name` (as defined in [RULES.md](RULES.md#2-folder-naming--metadata-consistency)).
-3. Develop your overlay. If you choose to use a bundler or framework (such as React, Vue, Svelte, or Next.js), you must build and compile your project into static HTML, CSS, and JS.
+3. Develop your overlay. If you choose to use a bundler or framework (such as React, Vue, Svelte, or Next.js), you must build and compile your project into static HTML, CSS, and JS. Compiled code must remain non-obfuscated and non-minified (unless it is a popular, standard third-party library) to allow maintainers to review it.
 4. Integrate the WebSocket using the wrapper script [socket.js](../quickstart/js/socket.js) and make sure to apply [WebSocket filters](RULES.md#3-websocket-connection--performance-filters).
 
 > [!TIP]
