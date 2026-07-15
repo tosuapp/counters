@@ -9,15 +9,17 @@ Submissions that do not comply with these rules cannot be merged until they are 
 
 ## Table of Contents
 
-- [1. File Structure & Self-Containment](#1-file-structure--self-containment)
-- [2. Folder Naming & Metadata Consistency](#2-folder-naming--metadata-consistency)
-- [3. WebSocket Connection & Performance (Filters)](#3-websocket-connection--performance-filters)
-- [4. Redundancy and Asset Bloat](#4-redundancy-and-asset-bloat)
-- [5. Dependencies & Offline Support](#5-dependencies--offline-support)
-- [6. Code Quality & Readability](#6-code-quality--readability)
-- [7. Generative AI Policy](#7-generative-ai-policy)
-- [8. Pull Requests & Git History](#8-pull-requests--git-history)
-- [9. Licensing](#9-licensing)
+- [Overlay Submission Rules](#overlay-submission-rules)
+	- [Table of Contents](#table-of-contents)
+	- [1. File Structure \& Self-Containment](#1-file-structure--self-containment)
+	- [2. Folder Naming \& Metadata Consistency](#2-folder-naming--metadata-consistency)
+	- [3. WebSocket Connection \& Performance (Filters)](#3-websocket-connection--performance-filters)
+	- [4. Redundancy and Asset Bloat](#4-redundancy-and-asset-bloat)
+	- [5. Dependencies \& Offline Support](#5-dependencies--offline-support)
+	- [6. Code Quality \& Readability](#6-code-quality--readability)
+	- [7. Generative AI Policy](#7-generative-ai-policy)
+	- [8. Pull Requests \& Git History](#8-pull-requests--git-history)
+	- [9. Licensing](#9-licensing)
 
 &nbsp; <!-- This is a non-breaking space ASCII character. Used for additional vertical spacing. -->
 
