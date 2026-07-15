@@ -68,6 +68,20 @@
 <img src="/.github/images/beatosu by unknown.jpg" /> <img src="/.github/gifs/beatosu by unknown.gif" /> 
 
 
+## bpm_overlay by ned_flanders
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/bpm_overlay by ned_flanders v1.000.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/AlbTobias" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | ingame, obs-overlay |
+| Compatible with | tosu |
+| Size |  980x430 |
+
+
+<img src="/.github/images/bpm_overlay by ned_flanders.png" /> <img src="/.github/gifs/bpm_overlay by ned_flanders.gif" /> 
+
+
 ## BTMC Key Overlay by L1te
 
 <a href="https://osuck.link/redirect/https://files.osuck.link/tosu/btmc key overlay by l1te v2.1.1.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/L1teD" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
@@ -595,9 +609,25 @@
 <img src="/.github/images/paradox by mofuries.jpg" /> <img src="/.github/gifs/paradox by mofuries.gif" /> 
 
 
+## PP Blossom by rosekki
+
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp blossom by rosekki v1.0.0.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/jossomori" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+
+|||
+| ------------- | ------------- |
+| For | obs-overlay |
+| Compatible with | tosu |
+| Size |  1920x1080 |
+
+
+> Fullscreen PP dashboard for song select. Displays 100%, 99%, 98%, 97%, 96%, and 95% PP using tosu-provided values for the selected beatmap and mods.
+
+<img src="/.github/images/pp blossom by rosekki.png" /> <img src="/.github/gifs/pp blossom by rosekki.gif" /> 
+
+
 ## PP by Belikhun
 
-<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp by belikhun v1.1.2.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Belikhun" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
+<a href="https://osuck.link/redirect/https://files.osuck.link/tosu/pp by belikhun v1.1.3.zip" target="_blank"><img height="35" src="https://img.shields.io/badge/Download_PP_Counter-67A564?style=for-the-badge&logo=cloud&logoColor=white" /></a>  <a href="https://github.com/Belikhun" target="_blank"><img height="35" src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white" /></a>  
 
 |||
 | ------------- | ------------- |

@@ -1,0 +1,8 @@
+Usecase: obs-overlay
+Name: PP Blossom
+Version: 1.0.0
+Author: rosekki
+CompatibleWith: tosu
+Resolution: 1920x1080
+authorLinks: https://github.com/jossomori,https://osu.ppy.sh/users/16481699
+Notes: Fullscreen PP dashboard for song select. Displays 100%, 99%, 98%, 97%, 96%, and 95% PP using tosu-provided values for the selected beatmap and mods.
