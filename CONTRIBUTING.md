@@ -12,7 +12,7 @@ Before you begin, please review the developer workflow and technical rules.
 
 To get started, please refer to the following documents:
 
-* **[Developer Guide](GUIDE.md)**: A step-by-step tutorial on how to fork, clone, develop, test, and submit your overlay.
+* **[Developer Guide](.github/GUIDE.md)**: A step-by-step tutorial on how to fork, clone, develop, test, and submit your overlay.
 * **[Submission Rules](.github/RULES.md)**: Technical requirements and restrictions (WebSocket filters, file naming, offline/CDN policy, code quality, etc.) that your submission must follow.
 
 &nbsp; <!-- This is a non-breaking space ASCII character. Used for additional vertical spacing. -->

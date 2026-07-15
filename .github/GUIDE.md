@@ -1,6 +1,6 @@
 # Developer Guide: Getting Started
 
-This document is part of the [Contributing Guidelines](CONTRIBUTING.md).
+This document is part of the [Contributing Guidelines](../CONTRIBUTING.md).
 
 This guide walks you through setting up your environment, developing an overlay, testing it locally, and submitting a pull request.
 
@@ -36,12 +36,12 @@ This guide walks you through setting up your environment, developing an overlay,
 
 ## Step 2: Set Up & Development
 
-We recommend using the [quickstart](quickstart/) directory as a template for your project.
+We recommend using the [quickstart](../quickstart/) directory as a template for your project.
 
 1. Locate your local `tosu` installation directory and navigate to its `./static` folder.
-2. Create a folder following our naming convention: `Your Overlay Name by Your Name` (as defined in [.github/RULES.md](.github/RULES.md#2-folder-naming--metadata-consistency)).
+2. Create a folder following our naming convention: `Your Overlay Name by Your Name` (as defined in [RULES.md](RULES.md#2-folder-naming--metadata-consistency)).
 3. Develop your overlay. If you choose to use a bundler or framework (such as React, Vue, Svelte, or Next.js), you must build and compile your project into static HTML, CSS, and JS.
-4. Integrate the WebSocket using the wrapper script [socket.js](quickstart/js/socket.js) and make sure to apply [WebSocket filters](.github/RULES.md#3-websocket-connection--performance-filters).
+4. Integrate the WebSocket using the wrapper script [socket.js](../quickstart/js/socket.js) and make sure to apply [WebSocket filters](RULES.md#3-websocket-connection--performance-filters).
 
 > [!TIP]
 > While running tosu, you can visit http://127.0.0.1:24050/json/v2 to see what the websocket sends. This helps you understand exactly what data is available for your overlay.
@@ -64,7 +64,7 @@ We recommend using the [quickstart](quickstart/) directory as a template for you
 
 Once your overlay is working perfectly and complies with all rules:
 
-1. Copy your final overlay folder from your local `tosu` static directory into the [counters/](counters/) folder of your cloned repository.
+1. Copy your final overlay folder from your local `tosu` static directory into the [counters/](../counters/) folder of your cloned repository.
 2. Commit your changes with a clear commit description:
    ```bash
    git add .
