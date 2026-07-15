@@ -31,12 +31,17 @@ Overlays must be self-contained.
 Path traversal to files outside of your directory (such as using `../` to access other folders) is prohibited.
 Overlays must not store state, configuration, or data in external system directories (such as `APPDATA`) or attempt to write files to system paths.
 
-To ensure repository safety and security, overlays must only consist of standard web assets.
-Executable formats and document types that could contain hidden code are prohibited.
+To ensure repository safety and security, overlays must consist only of standard, pure web assets. Build-dependent frameworks (such as `Svelte`, `Vue`, `React`) or preprocessed stylesheet languages (such as `scss`, `sass`, `less`) are not allowed for future overlays.
 
-> [!WARNING]
-> Files with the following extensions are prohibited:
-> `.exe`, `.dll`, `.msi`, `.bat`, `.cmd`, `.ps1`, `.sh`, `.vbs`, `.pdf`, `.doc`, `.docx`, `.zip`, `.tar.gz`, and `.rar`.
+Submissions are restricted to the following allowed file extensions and formats (recommended options are highlighted in **bold**):
+
+* **standard for web**: **`.html`**, **`.js`**, **`.css`**
+* **images**: **`.png`**, **`.svg`**, **`.webp`**, `.jpg`, `.jpeg`, `.jfif`, `.gif`, `.apng`, `.ico`
+* **fonts**: **`.woff2`**, `.woff`, `.ttf`, `.otf`
+
+> [!CAUTION]
+> Executable formats, scripts, and archives (including `.exe`, `.dll`, `.msi`, `.bat`, `.cmd`, `.ps1`, `.sh`, `.vbs`, `.zip`, `.tar.gz`, `.rar`, etc.) are strictly prohibited.
+> Any Pull Request containing these files will be **automatically closed** to protect repository security.
 
 &nbsp; <!-- This is a non-breaking space ASCII character. Used for additional vertical spacing. -->
 
