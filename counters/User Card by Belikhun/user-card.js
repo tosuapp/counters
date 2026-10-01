@@ -560,7 +560,7 @@ const UserCardPanel = {
 							color: g.colour,
 							playmodes: g.playmodes
 						})),
-						expire: Date.now() + (4 * 60 * 60 * 1000),
+						expire: Date.now() + (5 * 60 * 1000),
 					};
 		
 					localStorage.setItem(`user-data-${userId}`, JSON.stringify(data));
@@ -607,13 +607,18 @@ const UserCardPanel = {
 	},
 
 	async tryFetch(url, {
-		retries = 3,
+		retries = 4,
 		delay = 1000,
 		timeout = 10000
 	} = {}) {
 		const proxies = [
-			"https://api.codetabs.com/v1/proxy/?quest=",
-			"https://api.allorigins.win/get?url="
+			// codetabs had ceased operations on june 30 2026 (https://github.com/jolav/codetabs)
+			// "https://api.codetabs.com/v1/proxy/?quest=",
+
+			"https://api.allorigins.win/get?url=",
+
+			// last resort
+			"https://proxy.belikhun.dev/"
 		];
 
 		for (let attempt = 1; attempt <= retries; attempt++) {
@@ -621,6 +626,10 @@ const UserCardPanel = {
 				const proxy = proxies[(attempt - 1) % proxies.length];
 				const proxiedUrl = proxy + encodeURIComponent(url);
 				const response = await fetch(proxiedUrl, { timeout }).then(res => res.json());
+
+				if (proxy.includes("allorigins"))
+					return JSON.parse(response.contents);
+
 				return response;
 			} catch (error) {
 				console.warn(`Fetch attempt ${attempt} failed:`, error);
