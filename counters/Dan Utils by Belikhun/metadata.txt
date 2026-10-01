@@ -1,0 +1,7 @@
+Usecase: ingame,obs-overlay
+Name: Dan Utils
+Version: 1.0.0
+Author: Belikhun
+CompatibleWith: tosu
+Resolution: 380x360
+authorLinks: https://github.com/Belikhun
