@@ -1,4 +1,3 @@
-/* pp counter - minimal card look with neon numbers and hit chips */
 :root {
   --font-size: 34px;
   --font-family: 'Segoe UI', 'Roboto', sans-serif;
@@ -15,16 +14,13 @@
   --hit50-ink: #0a0e16;
   --hit100-ink: #0a0e16;
   --hit300-ink: #0a0e16;
-  /* the soft drop shadow under every hit chip: the flash keyframes repeat it, so it lives here */
   --chip-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   --card-top: rgba(10, 14, 22, 0.86);
   --card-bottom: rgba(10, 14, 22, 0.7);
   --card-tint: rgba(255, 255, 255, 0.06);
-  /* the sheen fades to a transparent version of itself and never to transparent black: fading to
-     `rgba(0, 0, 0, 0)` leaves a faint dark ring around the card on some engines */
+  /* Fade to transparent white, not black: black leaves a dark ring on some engines. */
   --card-tint-off: rgba(255, 255, 255, 0);
   --card-border: rgba(255, 255, 255, 0.07);
-  /* only the highlight on the inside: no outer blur, so nothing bleeds past the rectangle */
   --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --card-radius: 14px;
   --card-pad-y: 14px;
@@ -51,10 +47,7 @@ body {
   font-family: var(--font-family);
 }
 
-/* the card: translucent panel with a soft sheen in the top-left corner.
-   It is a row so each column of content keeps its own width. The card is anchored to the side it
-   comes in from (the right by default, the left with `from-left`), so it stops against that edge and
-   its body only ever grows away from it: the edge it lands on never moves. */
+/* The card is anchored to its entry side, so it grows away from that edge. */
 #counter {
   position: absolute;
   top: 0;
@@ -69,14 +62,12 @@ body {
     radial-gradient(130% 150% at 0% 0%, var(--card-tint) 0%, var(--card-tint-off) 62%),
     linear-gradient(160deg, var(--card-top) 0%, var(--card-bottom) 100%);
   box-shadow: var(--card-shadow);
-  font-variant-numeric: tabular-nums;
-  /* only the movement is transitioned and there is no fade anywhere: the card is either on its spot
-     or parked completely outside the visible area (the hidden state below does the parking) */
+  font-variant-numeric: tabular-nums lining-nums;
+  /* Only the movement animates; the card is either in place or parked outside the viewport. */
   transition: transform var(--slide-duration) cubic-bezier(0.22, 0.9, 0.24, 1);
 }
 
-/* the column with the live pp over the hit chips. It keeps its own width, so the number does
-   not move when the card stretches, and it hugs the anchored edge (the right by default). */
+/* Keeps its own width so the pp does not move when the card stretches. */
 #inner {
   display: inline-flex;
   flex-direction: column;
@@ -90,8 +81,7 @@ body {
 }
 
 .row.main {
-  /* stretch over the column so the live pp can sit centred on the card: the chip row below is
-     normally what sets the width, so a longer value keeps its place instead of drifting away */
+  /* Stretch over the column so the pp stays centred when its value changes. */
   align-self: stretch;
   justify-content: center;
   font-size: var(--font-size);
@@ -121,20 +111,22 @@ body {
   font-weight: 700;
 }
 
-/* every hit is only its value, sitting on a softened rectangle in the hit colour */
 .hit {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* the width is whatever the value needs, never less than `4ch` - four digits of the chosen font,
-     and the digits are tabular, so each of them is exactly that wide - plus the padding. A count
-     going 999 -> 1000 cannot resize the chip, while a longer value still widens its own chip
-     instead of spilling out. */
+  /* Reserve four tabular digits so a count crossing 999 -> 1000 does not resize the chip. */
   min-width: calc(4ch + 0.96em);
   padding: 0.06em 0.42em;
   border-radius: 0.34em;
   line-height: 1.4;
   box-shadow: var(--chip-shadow);
+}
+
+/* index.js measures the font's ink box and stores the optical correction here */
+.hit .value {
+  position: relative;
+  top: var(--digit-ink-shift, 0em);
 }
 
 #hit300 {
@@ -154,8 +146,7 @@ body {
   color: var(--miss-ink);
 }
 
-/* the progress bar under the chips: the track is a faded line and the fill is a width in per cent,
-   so the rounded ends stay round and nothing ever stretches the shape */
+/* The fill is a percentage width, so its rounded ends stay round at any length. */
 .bar {
   align-self: stretch;
   height: calc(var(--font-size) * 0.085);
@@ -172,8 +163,7 @@ body {
   background: var(--bar-color);
 }
 
-/* the mirrored side: with `Slide in from the left` the card is anchored on the left instead, so the
-   content lines up on that edge. */
+/* Mirror the card and its content when it slides in from the left. */
 html.from-left #counter {
   right: auto;
   left: 0;
@@ -187,12 +177,7 @@ html.from-left .row.main {
   justify-content: center;
 }
 
-/* the whole card slides in and out as one piece and there is no opacity anywhere: while it is
-   hidden it waits a whole viewport away, on the side it comes in from, so it is never seen inside
-   the visible area and it has to travel in from the outside. On the way out it leaves completely
-   the same way. The side is the class on <html>, the travel always reaches past the edge of the
-   source whatever its width, and `boot` only exists to make the entrance play on the first frames
-   of the page too. */
+/* Park the card a full viewport outside its entry side, so it always travels in from off-screen. */
 html.boot #counter,
 html.idle #counter,
 html.hide-pause.paused #counter {
@@ -209,10 +194,6 @@ html.from-left.hide-pause.paused #counter {
   display: none;
 }
 
-/* ---------------------------------------------------------------------------------------------
-   reactive feedback: the pp flash is a colour inside the number, so the shape stays linear and
-   nothing bleeds outside the card
-   --------------------------------------------------------------------------------------------- */
 @keyframes ppDrop {
   0% {
     color: var(--alert-color);
@@ -222,9 +203,7 @@ html.from-left.hide-pause.paused #counter {
   }
 }
 
-/* the border carries one thing only, the FC state: the 300 colour while the run is clean and the
-   miss colour once it is not. No alert animates it any more: animating a colour that is also a
-   state made the red fade away and snap back on every miss instead of staying put. */
+/* The border shows FC state only: 300 colour while clean, miss colour once broken. */
 html.with-card.fc-alive #counter {
   border-color: var(--fc-ok);
 }
