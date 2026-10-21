@@ -1,0 +1,8 @@
+Usecase: ingame,obs-overlay
+Name: Cadence
+Version: 1.0.0
+Author: DavPointer
+CompatibleWith: tosu
+Resolution: 480x140
+authorLinks: https://github.com/DavPointer
+Notes: Minimal pp overlay with live pp, hit counts, a progress bar and an FC border.
