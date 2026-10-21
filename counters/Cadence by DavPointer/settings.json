@@ -1,0 +1,242 @@
+[
+  {
+    "uniqueID": "showLivePp",
+    "type": "checkbox",
+    "title": "Show live pp",
+    "description": "Show the live pp of the play, updating as the map goes.",
+    "value": true
+  },
+  {
+    "uniqueID": "showMiss",
+    "type": "checkbox",
+    "title": "Show misses",
+    "description": "Show the miss count.",
+    "value": true
+  },
+  {
+    "uniqueID": "show50",
+    "type": "checkbox",
+    "title": "Show 50s",
+    "description": "Show the 50s hit count.",
+    "value": true
+  },
+  {
+    "uniqueID": "showHits",
+    "type": "checkbox",
+    "title": "Show 100s",
+    "description": "Show the 100s hit count.",
+    "value": true
+  },
+  {
+    "uniqueID": "show300",
+    "type": "checkbox",
+    "title": "Show 300s",
+    "description": "Show the 300s hit count as well.",
+    "value": false
+  },
+  {
+    "uniqueID": "showProgress",
+    "type": "checkbox",
+    "title": "Show progress bar",
+    "description": "Draw a thin bar under the chips that fills up as the map goes on.",
+    "value": true
+  },
+  {
+    "uniqueID": "decimals",
+    "type": "options",
+    "title": "Decimals",
+    "options": ["0", "1", "2"],
+    "description": "Digits after the decimal point of the pp value: 0 shows whole numbers.",
+    "value": 0
+  },
+  {
+    "uniqueID": "fontName",
+    "type": "text",
+    "title": "Font family",
+    "description": "CSS font family of the counter; a system fallback is added after it.",
+    "value": "Segoe UI"
+  },
+  {
+    "uniqueID": "fontSize",
+    "type": "number",
+    "title": "Font size (px)",
+    "description": "Size of the pp number; the hit counts and the card paddings follow it.",
+    "value": 34
+  },
+  {
+    "uniqueID": "textColor",
+    "type": "color",
+    "title": "Text color",
+    "description": "Color of the pp number, and of every hit count when Colored hit counts is off.",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "labelColor",
+    "type": "color",
+    "title": "Unit color",
+    "description": "Color of the small unit next to the pp number.",
+    "value": "#b9b9b9"
+  },
+  {
+    "uniqueID": "useGlow",
+    "type": "checkbox",
+    "title": "Neon glow",
+    "description": "Soft glow around the pp number.",
+    "value": true
+  },
+  {
+    "uniqueID": "glowColor",
+    "type": "color",
+    "title": "Glow color",
+    "description": "Color of the glow around the pp number.",
+    "value": "#7ad7ff"
+  },
+  {
+    "uniqueID": "useHitColors",
+    "type": "checkbox",
+    "title": "Colored hit counts",
+    "description": "Give every hit count its own color. Off: they all share a neutral chip.",
+    "value": true
+  },
+  {
+    "uniqueID": "hit300Color",
+    "type": "color",
+    "title": "300s color",
+    "description": "Color of the 300s chip.",
+    "value": "#66d9ff"
+  },
+  {
+    "uniqueID": "hit100Color",
+    "type": "color",
+    "title": "100s color",
+    "description": "Color of the 100s chip.",
+    "value": "#7dffa8"
+  },
+  {
+    "uniqueID": "hit50Color",
+    "type": "color",
+    "title": "50s color",
+    "description": "Color of the 50s chip.",
+    "value": "#ffd166"
+  },
+  {
+    "uniqueID": "missColor",
+    "type": "color",
+    "title": "Miss color",
+    "description": "Color of the miss chip, and of the pp number while it flashes.",
+    "value": "#ff4d6d"
+  },
+  {
+    "uniqueID": "progressColor",
+    "type": "color",
+    "title": "Progress color",
+    "description": "Colour of the filled part of the progress bar.",
+    "value": "#7ad7ff"
+  },
+  {
+    "uniqueID": "progressTrack",
+    "type": "color",
+    "title": "Progress track",
+    "description": "Colour of the empty track the progress bar runs on.",
+    "value": "#ffffff"
+  },
+  {
+    "uniqueID": "useCard",
+    "type": "checkbox",
+    "title": "Card background",
+    "description": "Translucent rounded panel behind the numbers. Off: the numbers stand alone.",
+    "value": true
+  },
+  {
+    "uniqueID": "cardColor",
+    "type": "color",
+    "title": "Card color",
+    "description": "Tint of the card behind the numbers.",
+    "value": "#0a0e16"
+  },
+  {
+    "uniqueID": "cardOpacity",
+    "type": "number",
+    "title": "Card opacity (%)",
+    "description": "How solid the card is: 0 is invisible, 100 is opaque.",
+    "value": 72
+  },
+  {
+    "uniqueID": "cardRadius",
+    "type": "number",
+    "title": "Card radius (px)",
+    "description": "Roundness of the card corners.",
+    "value": 14
+  },
+  {
+    "uniqueID": "slideFromLeft",
+    "type": "checkbox",
+    "title": "Slide in from the left",
+    "description": "Off: the counter enters from the right and leaves the same way. On: it enters from the left.",
+    "value": false
+  },
+  {
+    "uniqueID": "slideDuration",
+    "type": "number",
+    "title": "Slide duration (ms)",
+    "description": "How long the entrance and the exit slide last; higher is slower.",
+    "value": 700
+  },
+  {
+    "uniqueID": "smoothPp",
+    "type": "checkbox",
+    "title": "Smooth live pp",
+    "description": "Glide the pp number to a new value instead of jumping straight to it.",
+    "value": true
+  },
+  {
+    "uniqueID": "ppSmoothMs",
+    "type": "number",
+    "title": "Smoothing (ms)",
+    "description": "How long the number takes to reach a new value: 0 snaps to it immediately, higher is slower.",
+    "value": 260
+  },
+  {
+    "uniqueID": "ppLossAlert",
+    "type": "checkbox",
+    "title": "Flash on pp loss",
+    "description": "Flash the pp number in the miss color for a moment when the live pp drops.",
+    "value": true
+  },
+  {
+    "uniqueID": "fcIndicator",
+    "type": "checkbox",
+    "title": "FC border",
+    "description": "Tint the card border in the 300 color while the run has no misses and no slider breaks, and in the miss color once it has either.",
+    "value": true
+  },
+  {
+    "uniqueID": "ingameOnly",
+    "type": "checkbox",
+    "title": "Show only while playing",
+    "description": "Off: the counter stays on screen everywhere. On: it only appears for a play, and on the results screen if that option is on.",
+    "value": true
+  },
+  {
+    "uniqueID": "hideInPause",
+    "type": "checkbox",
+    "title": "Hide while paused",
+    "description": "Take the counter off screen while the play is paused and bring it back on resume.",
+    "value": false
+  },
+  {
+    "uniqueID": "showOnResults",
+    "type": "checkbox",
+    "title": "Keep on results screen",
+    "description": "Keep the counter on screen after the map, with the final pp of the finished play.",
+    "value": false
+  },
+  {
+    "uniqueID": "scale",
+    "type": "options",
+    "title": "Scale",
+    "options": ["1", "1.25", "1.5", "1.75", "2"],
+    "description": "Multiplies every size at once (font, paddings, radius, chips): 1 is normal size, 2 is twice as big.",
+    "value": 1
+  }
+]

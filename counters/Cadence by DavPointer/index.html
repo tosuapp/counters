@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cadence</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div id="counter">
+      <div id="inner">
+        <div class="row main">
+          <span id="liveWrap" class="pp">
+            <span id="ppLive" class="value">0</span><span class="unit">pp</span>
+          </span>
+        </div>
+
+        <div id="subRow" class="row sub">
+          <span id="hit300" class="hit"><span id="v300" class="value">0</span></span>
+          <span id="hit100" class="hit"><span id="v100" class="value">0</span></span>
+          <span id="hit50" class="hit"><span id="v50" class="value">0</span></span>
+          <span id="hitMiss" class="hit"><span id="vMiss" class="value">0</span></span>
+        </div>
+
+        <div id="barRow" class="bar"><div id="barFill"></div></div>
+      </div>
+    </div>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

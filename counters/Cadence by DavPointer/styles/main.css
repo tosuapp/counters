@@ -1,0 +1,217 @@
+:root {
+  --font-size: 34px;
+  --font-family: 'Segoe UI', 'Roboto', sans-serif;
+  --text-color: #ffffff;
+  --label-color: #b9b9b9;
+  --glow-soft: rgba(0, 0, 0, 0);
+  --bar-color: #7ad7ff;
+  --bar-track: rgba(255, 255, 255, 0.16);
+  --miss-color: #ff4d6d;
+  --hit50-color: #ffd166;
+  --hit100-color: #7dffa8;
+  --hit300-color: #66d9ff;
+  --miss-ink: #0a0e16;
+  --hit50-ink: #0a0e16;
+  --hit100-ink: #0a0e16;
+  --hit300-ink: #0a0e16;
+  --chip-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --card-top: rgba(10, 14, 22, 0.86);
+  --card-bottom: rgba(10, 14, 22, 0.7);
+  --card-tint: rgba(255, 255, 255, 0.06);
+  /* Fade to transparent white, not black: black leaves a dark ring on some engines. */
+  --card-tint-off: rgba(255, 255, 255, 0);
+  --card-border: rgba(255, 255, 255, 0.07);
+  --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --card-radius: 14px;
+  --card-pad-y: 14px;
+  --card-pad-x: 19px;
+  --slide-duration: 700ms;
+  --alert-color: #ff4d6d;
+  --fc-ok: #7dffa8;
+  --fc-bad: #ff4d6d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+/* The card is anchored to its entry side, so it grows away from that edge. */
+#counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: baseline;
+  margin: 10px;
+  padding: var(--card-pad-y) var(--card-pad-x);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  background:
+    radial-gradient(130% 150% at 0% 0%, var(--card-tint) 0%, var(--card-tint-off) 62%),
+    linear-gradient(160deg, var(--card-top) 0%, var(--card-bottom) 100%);
+  box-shadow: var(--card-shadow);
+  font-variant-numeric: tabular-nums lining-nums;
+  /* Only the movement animates; the card is either in place or parked outside the viewport. */
+  transition: transform var(--slide-duration) cubic-bezier(0.22, 0.9, 0.24, 1);
+}
+
+/* Keeps its own width so the pp does not move when the card stretches. */
+#inner {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--font-size) * 0.16);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+}
+
+.row.main {
+  /* Stretch over the column so the pp stays centred when its value changes. */
+  align-self: stretch;
+  justify-content: center;
+  font-size: var(--font-size);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.pp {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.main > .pp > .value {
+  text-shadow: 0 0 18px var(--glow-soft), 0 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+.unit {
+  margin-left: 0.1em;
+  font-size: 0.52em;
+  font-weight: 500;
+  color: var(--label-color);
+}
+
+.row.sub {
+  gap: calc(var(--font-size) * 0.26);
+  font-size: calc(var(--font-size) * 0.52);
+  font-weight: 700;
+}
+
+.hit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Reserve four tabular digits so a count crossing 999 -> 1000 does not resize the chip. */
+  min-width: calc(4ch + 0.96em);
+  padding: 0.06em 0.42em;
+  border-radius: 0.34em;
+  line-height: 1.4;
+  box-shadow: var(--chip-shadow);
+}
+
+/* index.js measures the font's ink box and stores the optical correction here */
+.hit .value {
+  position: relative;
+  top: var(--digit-ink-shift, 0em);
+}
+
+#hit300 {
+  background: var(--hit300-color);
+  color: var(--hit300-ink);
+}
+#hit100 {
+  background: var(--hit100-color);
+  color: var(--hit100-ink);
+}
+#hit50 {
+  background: var(--hit50-color);
+  color: var(--hit50-ink);
+}
+#hitMiss {
+  background: var(--miss-color);
+  color: var(--miss-ink);
+}
+
+/* The fill is a percentage width, so its rounded ends stay round at any length. */
+.bar {
+  align-self: stretch;
+  height: calc(var(--font-size) * 0.085);
+  margin-top: calc(var(--font-size) * 0.16);
+  border-radius: 999px;
+  background: var(--bar-track);
+  overflow: hidden;
+}
+
+#barFill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--bar-color);
+}
+
+/* Mirror the card and its content when it slides in from the left. */
+html.from-left #counter {
+  right: auto;
+  left: 0;
+}
+
+html.from-left #inner {
+  align-items: flex-start;
+}
+
+html.from-left .row.main {
+  justify-content: center;
+}
+
+/* Park the card a full viewport outside its entry side, so it always travels in from off-screen. */
+html.boot #counter,
+html.idle #counter,
+html.hide-pause.paused #counter {
+  transform: translateX(calc(100% + 100vw));
+}
+
+html.from-left.boot #counter,
+html.from-left.idle #counter,
+html.from-left.hide-pause.paused #counter {
+  transform: translateX(calc(-100% - 100vw));
+}
+
+.off {
+  display: none;
+}
+
+@keyframes ppDrop {
+  0% {
+    color: var(--alert-color);
+  }
+  100% {
+    color: var(--text-color);
+  }
+}
+
+/* The border shows FC state only: 300 colour while clean, miss colour once broken. */
+html.with-card.fc-alive #counter {
+  border-color: var(--fc-ok);
+}
+
+html.with-card.fc-lost #counter {
+  border-color: var(--fc-bad);
+}
+
+html.alert-pp .main > .pp > .value {
+  animation: ppDrop 900ms ease-out;
+}
