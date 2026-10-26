@@ -1,0 +1,282 @@
+[
+  {
+    "uniqueID": "enabled",
+    "type": "checkbox",
+    "title": "启用快慢提示",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "followNotes",
+    "type": "checkbox",
+    "title": "跟随被击打的圆圈",
+    "value": true,
+    "description": "osu! 主模式逐圆圈显示；无法唯一对应时跳过。mania 独立显示在判定区域。",
+    "options": []
+  },
+  {
+    "uniqueID": "noteBadgeOnly",
+    "type": "checkbox",
+    "title": "圆圈旁只追加快慢文字",
+    "value": true,
+    "description": "沿用游戏原生的皮肤评分；关闭后另外绘制当前皮肤评分图片。",
+    "options": []
+  },
+  {
+    "uniqueID": "useSkin",
+    "type": "checkbox",
+    "title": "使用当前皮肤评分图片",
+    "value": true,
+    "description": "找不到图片时自动显示数字。",
+    "options": []
+  },
+  {
+    "uniqueID": "showGrade",
+    "type": "checkbox",
+    "title": "显示时机档位",
+    "value": true,
+    "description": "≈ 表示按时差推算；不是滑条或长按的最终评分。",
+    "options": []
+  },
+  {
+    "uniqueID": "showMs",
+    "type": "checkbox",
+    "title": "显示毫秒误差",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "tintSkin",
+    "type": "checkbox",
+    "title": "评分图片也染色",
+    "value": false,
+    "description": "关闭时保留皮肤原色，只给 F/S 和误差上色。",
+    "options": []
+  },
+  {
+    "uniqueID": "chineseLabels",
+    "type": "checkbox",
+    "title": "中文快慢提示",
+    "value": false,
+    "description": "开启使用“快 / 慢”，例如 200-快、100-慢；关闭使用 F/S 或下方自定义文字。",
+    "options": []
+  },
+  {
+    "uniqueID": "invertLabels",
+    "type": "checkbox",
+    "title": "反向快慢文字",
+    "value": false,
+    "description": "交换 F/S 或快/慢；真实误差方向和颜色不变。",
+    "options": []
+  },
+  {
+    "uniqueID": "swapColors",
+    "type": "checkbox",
+    "title": "交换快慢颜色",
+    "value": false,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "earlyText",
+    "type": "text",
+    "title": "打快时的自定义文字",
+    "value": "F",
+    "description": "关闭中文模式时使用。",
+    "options": []
+  },
+  {
+    "uniqueID": "lateText",
+    "type": "text",
+    "title": "打慢时的自定义文字",
+    "value": "S",
+    "description": "关闭中文模式时使用。",
+    "options": []
+  },
+  {
+    "uniqueID": "earlyColor",
+    "type": "color",
+    "title": "打快的颜色",
+    "value": "#58c9ff",
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "lateColor",
+    "type": "color",
+    "title": "打慢的颜色",
+    "value": "#ffb267",
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "deadZoneMs",
+    "type": "number",
+    "title": "不显示快慢的范围 ±ms",
+    "value": 1,
+    "description": "在此范围内不显示额外提示。",
+    "options": []
+  },
+  {
+    "uniqueID": "enableOsu",
+    "type": "checkbox",
+    "title": "启用 osu! 主模式",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "osu300",
+    "type": "checkbox",
+    "title": "300 时机档位",
+    "value": false,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "osu100",
+    "type": "checkbox",
+    "title": "100 时机档位",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "osu50",
+    "type": "checkbox",
+    "title": "50 时机档位",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "enableMania",
+    "type": "checkbox",
+    "title": "启用 osu!mania",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "mania300g",
+    "type": "checkbox",
+    "title": "彩 300 / MAX 时机档位",
+    "value": false,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "mania300",
+    "type": "checkbox",
+    "title": "300 时机档位",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "mania200",
+    "type": "checkbox",
+    "title": "200 时机档位",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "mania100",
+    "type": "checkbox",
+    "title": "100 时机档位",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "mania50",
+    "type": "checkbox",
+    "title": "50 时机档位",
+    "value": true,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "maniaOffsetX",
+    "type": "number",
+    "title": "快慢提示水平偏移 px",
+    "value": 0,
+    "description": "相对皮肤原生评分位置，按 1080p 尺度设置。mania 始终只刷新最新一次提示。",
+    "options": []
+  },
+  {
+    "uniqueID": "maniaOffsetY",
+    "type": "number",
+    "title": "快慢提示垂直偏移 px",
+    "value": -96,
+    "description": "默认显示在原生评分上方，避免重合；负数向上，正数向下。",
+    "options": []
+  },
+  {
+    "uniqueID": "showUnknown",
+    "type": "checkbox",
+    "title": "缺少窗口时只显示快慢文字",
+    "value": false,
+    "description": "仅显示方向与误差，不猜测评分；独立于上面的档位开关。",
+    "options": []
+  },
+  {
+    "uniqueID": "imageHeight",
+    "type": "number",
+    "title": "评分图片高度 px",
+    "value": 46,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "fontSize",
+    "type": "number",
+    "title": "文字大小 px",
+    "value": 36,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "holdMs",
+    "type": "number",
+    "title": "停留时间 ms",
+    "value": 500,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "fadeMs",
+    "type": "number",
+    "title": "淡出时间 ms",
+    "value": 160,
+    "description": "",
+    "options": []
+  },
+  {
+    "uniqueID": "maxVisible",
+    "type": "number",
+    "title": "同时显示条数（主模式）",
+    "value": 4,
+    "description": "mania 固定只显示最新一次，新判定立即替换旧提示。",
+    "options": []
+  },
+  {
+    "uniqueID": "offsetX",
+    "type": "number",
+    "title": "相对位置水平偏移 px",
+    "value": 0,
+    "description": "逐圆圈模式相对 note；固定模式相对画布中心。按 1080p 尺度设置。",
+    "options": []
+  },
+  {
+    "uniqueID": "offsetY",
+    "type": "number",
+    "title": "相对位置垂直偏移 px",
+    "value": 0,
+    "description": "",
+    "options": []
+  }
+]

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HitDelay · 设置与预览</title>
+    <link rel="stylesheet" href="configure.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a class="brand" href="configure.html"
+          ><span class="brand-mark">±</span
+          ><span>HitDelay<small>osu!stable 快慢反馈</small></span></a
+        ><span id="connection" class="connection">连接中</span>
+      </header>
+      <div class="layout">
+        <section class="preview-column">
+          <div class="intro">
+            <span class="eyebrow">命中之后，看清早晚</span>
+            <h1>保持你的皮肤。<br />加一点节奏反馈。</h1>
+            <p>可切换 F/S 与中文快/慢。颜色、反向文字和显示档位都由你决定。</p>
+          </div>
+          <div class="stage">
+            <div class="stage-grid"></div>
+            <span class="stage-caption" id="stage-caption"
+              >模拟预览 · 无需启动游戏</span
+            ><iframe
+              id="preview"
+              title="快慢提示预览"
+              src="index.html?demo=1&amp;relay=1"
+            ></iframe>
+          </div>
+          <div class="samples">
+            <span>试一下</span
+            ><button type="button" data-sample="early">100 · 打快</button
+            ><button type="button" data-sample="late">100 · 打慢</button
+            ><button type="button" data-sample="chord">mania · 最新判定</button>
+          </div>
+          <div class="mode-switch">
+            <button type="button" id="demo-mode" class="selected">
+              模拟预览</button
+            ><button type="button" id="live-mode">游戏实时预览</button>
+          </div>
+          <p class="note">
+            主模式在圆圈旁追加快慢文字；mania
+            在原生评分旁刷新最新一次提示。游戏内绘制区域需覆盖整个游戏窗口，缩放为
+            1。
+          </p>
+          <div class="detail">
+            <strong>关于评分开关</strong>
+            <p>
+              逐圆圈模式只在能唯一对应 note
+              时显示；滑条、转盘和无法确定的密集击打跳过。mania
+              在原生评分旁刷新最新一次提示时机档位。关闭“圆圈旁只追加快慢文字”可另外绘制
+              ≈100 等皮肤图片；Miss 不附加快慢。
+            </p>
+          </div>
+          <p id="live-status" class="live-status">尚未收到游戏数据</p>
+        </section>
+        <section class="settings-column">
+          <div class="settings-heading">
+            <h2>显示设置</h2>
+            <button type="button" id="reset">恢复默认</button>
+          </div>
+          <form id="settings-form"></form>
+          <div class="save-bar">
+            <span id="save-state">修改立即预览</span
+            ><button type="button" id="save">保存到 tosu</button>
+          </div>
+        </section>
+      </div>
+      <footer>HitDelay 0.3.0 <span>全局扩展 · 不修改谱面</span></footer>
+    </div>
+    <script type="module" src="configure.js"></script>
+  </body>
+</html>

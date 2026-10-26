@@ -1,0 +1,138 @@
+/* A different color scheme from tosu's host makes Chromium paint an opaque iframe canvas. */
+:root {
+  color-scheme: normal;
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+[hidden] {
+  display: none !important;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+body {
+  pointer-events: none;
+  user-select: none;
+}
+#hud {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+#hits {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+}
+.following #hits {
+  position: absolute;
+  inset: 0;
+  display: block;
+  max-width: none;
+}
+/* Mania presents judgments in one shared area, rather than at a note's column. */
+.mania #hits {
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  width: 280px;
+  height: 84px;
+  max-width: none;
+  display: grid;
+  place-items: center;
+  gap: 0;
+  transform-origin: center;
+}
+.note-anchor {
+  position: absolute;
+  width: max-content;
+  transform: translate(-50%, -50%) scale(var(--ui-scale, 1));
+  transform-origin: center;
+}
+.note-anchor.badge {
+  transform: translate(0, -50%) scale(var(--ui-scale, 1));
+  transform-origin: left center;
+}
+.demo-note {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  border: 2px solid #dbeaff9c;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: #35435436;
+}
+.hit {
+  color: var(--hit-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 2px 3px #000d);
+}
+.hit-line {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: var(--image-height, 46px);
+}
+.estimate {
+  font-size: 14px;
+  color: #dce8f4;
+  opacity: 0.8;
+}
+.grade {
+  color: #f9fcff;
+  font-size: var(--font-size, 36px);
+  font-weight: 800;
+  font-style: italic;
+  text-shadow: 0 0 7px #76e9ff88;
+}
+.skin-art {
+  height: var(--image-height, 46px);
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
+}
+.skin-mask {
+  display: none;
+  height: var(--image-height, 46px);
+  width: 100px;
+  max-width: 250px;
+  background: var(--hit-color);
+  mask: var(--asset) center / contain no-repeat;
+}
+.suffix {
+  font-size: var(--font-size, 36px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  -webkit-text-stroke: 1px #0007;
+  text-shadow: 0 0 9px color-mix(in srgb, var(--hit-color), transparent 60%);
+}
+.offset {
+  font:
+    600 12px/1.3 "Cascadia Mono",
+    Consolas,
+    monospace;
+  letter-spacing: 0.04em;
+  opacity: 0.9;
+  margin-top: 1px;
+}
+#demo-label {
+  position: absolute;
+  bottom: 6px;
+  width: 100%;
+  text-align: center;
+  color: #8d9aaa;
+  font-size: 11px;
+}

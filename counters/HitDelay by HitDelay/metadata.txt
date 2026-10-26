@@ -1,0 +1,7 @@
+Usecase: ingame
+Name: HitDelay
+Version: 0.3.0
+Author: HitDelay
+CompatibleWith: tosu
+Resolution: 1920x1080
+Notes: In-game early/late timing feedback for osu!stable standard and mania. Uses the official renderer; no private host patch. Keep the overlay canvas at the full game resolution, position 0,0 and scale 1.
